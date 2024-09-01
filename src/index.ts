@@ -1,14 +1,14 @@
 import { Application } from "@cmmv/core";
 import { ExpressAdapter, ExpressModule } from "@cmmv/http";
 import { ViewModule } from "@cmmv/view";
-import { ApplicationModule } from "./app.module";
+import { DocsModule } from "./docs.module";
 
 Application.create({
     httpAdapter: ExpressAdapter,
     wsAdapter: null,   
-    modules: [
+    modules: [ 
         ExpressModule,
         ViewModule,
-        ApplicationModule
+        DocsModule
     ]
 });
