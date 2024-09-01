@@ -1,22 +1,42 @@
 {
-  "name": "cmmv-docs",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andrehrferreira/docs.cmmv.io.git"
-  },
-  "keywords": [
-    "cmmv"
-  ],
-  "author": "Andre Ferreira",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/andrehrferreira/docs.cmmv.io/issues"
-  },
-  "homepage": "https://github.com/andrehrferreira/docs.cmmv.io#readme",
-  "description": ""
+	"name": "cmmv-docs",
+	"version": "1.0.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"dev": "NODE_ENV=dev nodemon",
+		"test": "mocha packages/**/*.spec.ts",
+		"start": "NODE_ENV=prod node dist/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/andrehrferreira/docs.cmmv.io.git"
+	},
+	"keywords": [
+		"cmmv"
+	],
+	"author": "Andre Ferreira",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/andrehrferreira/docs.cmmv.io/issues"
+	},
+	"homepage": "https://github.com/andrehrferreira/docs.cmmv.io#readme",
+	"description": "",
+	"dependencies": {
+		"@cmmv/core": "^0.2.7",
+		"@cmmv/http": "^0.2.7",
+		"@cmmv/view": "^0.2.7"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.3.19",
+		"@types/jest": "^29.5.12",
+		"@types/mocha": "^10.0.7",
+		"@types/node": "^22.5.1",
+		"chai": "^5.1.1",
+		"mocha": "^10.7.3",
+		"nodemon": "^3.1.4",
+		"ts-node": "^10.9.2",
+		"tsconfig-paths": "^4.2.0",
+		"typescript": "^5.5.4"
+	}
 }
