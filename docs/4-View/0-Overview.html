@@ -1,0 +1,75 @@
+<h1>View</h1><a id="view" title="View"></a>
+<p>The @cmmv/view module in CMMV is a custom view engine designed to optimize SEO and performance by incorporating server-side rendering (SSR) with seamless integration into modern frontend frameworks. Built on top of EJS (Embedded JavaScript), it serves as a middleware for Express and Fastify, processing views in real-time and injecting pre-loaded data into the HTML before it reaches the browser. This approach enables search engines to index content that has already been processed, while still offering flexibility to use popular frontend frameworks like Vue.js, React, or Angular for additional client-side interaction.</p>
+<p>Traditional client-side rendering (CSR) frameworks, such as Vue.js and React, generate content dynamically in the browser. While these frameworks provide rich interactivity, they can negatively impact SEO due to the delayed rendering of content—search engines may not fully index dynamic content that relies on JavaScript execution.</p>
+<p>By incorporating SSR through @cmmv/view, the critical content of your web application is rendered on the server, allowing it to be immediately visible to both users and search engines. This significantly enhances the SEO of your site because the content is presented in the initial HTML response, allowing for better crawlability and faster page loads.</p>
+<h2>Key Features of @cmmv/view</h2><a id="key-features-of-cmmvview" title="Key Features of @cmmv/view"></a>
+<ol>
+<li>
+<p><strong>Server-Side Rendering (SSR)</strong><br>
+The @cmmv/view module processes views and injects dynamic data server-side before the HTML is sent to the browser. This means that any service calls, database queries, or API requests required to generate content are completed on the server, so the user and search engines receive fully rendered HTML.</p>
+</li>
+<li>
+<p><strong>Optimized JavaScript Bundle</strong><br>
+In addition to rendering views, the @cmmv/view module creates an optimized JavaScript bundle that includes the core libraries required by the application, such as @cmmv/reactivity (a component that handles real-time updates via RPC). This bundle ensures that the frontend is prepared for fast and efficient interaction once it reaches the client.</p>
+</li>
+<li>
+<p><strong>Seamless Integration with JavaScript Frameworks</strong><br>
+While @cmmv/view focuses on SSR, it doesn’t prevent the use of modern frontend frameworks like Vue.js, React, or Angular. It provides a way to hydrate the server-rendered HTML with these frameworks, so developers can benefit from both SSR and client-side interactivity. In future versions, there will be streamlined support for these frameworks, allowing them to work effortlessly with the existing CMMV infrastructure.</p>
+</li>
+<li>
+<p><strong>Pre-Loaded Data for SEO</strong><br>
+One of the most significant SEO advantages of @cmmv/view is its ability to inject pre-loaded data directly into the HTML template. This data is often gathered from services such as APIs, databases, or repositories, making it available for search engine crawlers before any JavaScript needs to be executed. This feature ensures that essential content is available upfront, improving SEO rankings, as search engines can see the full context of the page without relying on client-side scripts.</p>
+</li>
+<li>
+<p><strong>Dynamic JavaScript Inclusion</strong><br>
+In addition to handling SSR, @cmmv/view dynamically includes any additional JavaScript files necessary for the page. Whether it’s a custom script or a framework like React, these files are bundled and served in a single request, reducing network overhead and speeding up initial load times.</p>
+</li>
+<li>
+<p><strong>Custom Directives for SSR</strong><br>
+The @cmmv/view module also supports custom directives that process HTML and data on the server-side. These directives handle pre-loading data, managing conditional content, looping over datasets, and handling i18n translations—all of which are rendered as static HTML, further improving SEO.</p>
+</li>
+</ol>
+<h2>SEO</h2><a id="seo" title="SEO"></a>
+<p><strong>Improved Crawlability</strong><br>
+When search engines crawl your site, they rely on HTML to extract key information for indexing. In a typical CSR application, much of the content is loaded asynchronously via JavaScript, which search engines may not execute fully, or at all. This results in poor visibility for crawlers, reducing the discoverability of critical content.</p>
+<p>With @cmmv/view, the content is already pre-rendered by the time it reaches the browser. The server completes the processing of all service requests, API calls, and dynamic data queries, delivering fully rendered HTML. As a result, search engines can immediately identify the core content of your pages, leading to higher rankings in search results.</p>
+<p><strong>Faster Page Load Times</strong><br>
+Since @cmmv/view processes data on the server and sends it along with the initial HTML, users experience faster page loads. The time spent rendering content in the browser is minimized, which not only improves the user experience but also enhances the page’s SEO performance.</p>
+<p>JavaScript Overhead Reduction<br>
+Client-side rendering frameworks often involve large JavaScript bundles and significant runtime execution. With @cmmv/view, much of the work is offloaded to the server, reducing the amount of JavaScript required to process the page on the client-side. This results in reduced network load, quicker time-to-interactive (TTI), and a smoother overall experience for the user.</p>
+<p><strong>Pre-Loaded Data for SEO and UX</strong><br>
+By pre-fetching data and injecting it into the HTML, @cmmv/view ensures that users and search engines see the most relevant content immediately. Whether it’s product information, blog content, or news articles, everything is available as soon as the page loads, improving both SEO and user engagement.</p>
+<h2>Exemple</h2><a id="exemple" title="Exemple"></a>
+<pre><code class="hljs language-html" lang="html">&lt;div class=&quot;product-page&quot; s:product=&quot;services.product.getProductById(productId)&quot; scope&gt;
+    &lt;h1&gt;{{ product.name }}&lt;/h1&gt;
+    &lt;p&gt;{{ product.description }}&lt;/p&gt;
+
+    &lt;div class=&quot;price&quot;&gt;{{ product.price | currency }}&lt;/div&gt;
+
+    &lt;div class=&quot;availability&quot;&gt;
+        {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+    &lt;/div&gt;
+
+    &lt;button class=&quot;add-to-cart&quot; @click=&quot;addToCart(product.id)&quot;&gt;Add to Cart&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script s-setup&gt;
+export default {
+    layout: &quot;default&quot;,
+    
+    data() {
+        return {
+            product: null
+        }
+    },
+    
+    methods: {
+        addToCart(productId) {
+            ...
+        }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+<p>By using @cmmv/view, developers can leverage the advantages of SSR to significantly boost their SEO performance and reduce load times. By pre-loading content, optimizing JavaScript bundles, and offering seamless integration with modern frontend frameworks, @cmmv/view provides a comprehensive solution for building scalable, SEO-friendly web applications.</p>
+<p>The ability to serve pre-rendered content, while maintaining the flexibility of client-side interactivity, ensures that CMMV applications can deliver the best of both worlds: high SEO performance and rich, responsive user experiences.</p>

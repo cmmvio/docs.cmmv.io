@@ -14,7 +14,7 @@ export class DocsService extends AbstractService {
             navbar: [],
             breadcrumb: [],
             anchors: [],
-            link: file.replace(cwd(), "")
+            link: file?.replace(cwd(), "")
         };
 
         const filesAndDirsIndex = await fg(path.resolve(process.cwd(), "./docs/*"), { 

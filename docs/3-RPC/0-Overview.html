@@ -1,0 +1,200 @@
+<h1>RPC</h1><a id="rpc" title="RPC"></a>
+<p>In modern web applications, reducing overhead and increasing efficiency in communication is essential. A common approach in traditional systems is the use of HTTP/JSON, but this method introduces significant inefficiencies:</p>
+<p>HTTP Overhead: HTTP headers in both requests and responses are often larger than the payload itself, especially for small data exchanges. This leads to unnecessary bandwidth consumption, particularly in real-time applications where the overhead is repeatedly incurred.</p>
+<p>JSON’s Inefficiencies: Although JSON is human-readable and widely used, it is verbose and lacks the performance needed for high-throughput systems. Parsing and serializing JSON adds extra computational overhead compared to binary formats, making it suboptimal for systems requiring quick response times and high concurrency.</p>
+<p>Why CMMV Uses RPC and WebSocket/Protobuf</p>
+<p>WebSocket provides persistent, full-duplex communication between the server and the client, reducing the need to repeatedly establish and tear down connections as seen in HTTP. This alone cuts down significant overhead by eliminating connection re-establishment, headers, and other metadata required by HTTP.</p>
+<p>However, CMMV doesn’t stop at WebSockets. It also leverages Protocol Buffers (Protobuf) for encoding data. Protobuf is a binary serialization format that significantly reduces the size of the messages exchanged, as it uses a compact binary representation, unlike the verbose text format of JSON. This leads to:</p>
+<ul>
+<li>
+<p><strong>Reduced Payload Sizes:</strong> Protobuf is much more efficient at encoding data, reducing both the size of requests and responses, resulting in faster data transfer.</p>
+</li>
+<li>
+<p><strong>Improved Speed:</strong> Binary formats like Protobuf are faster to serialize and deserialize compared to JSON. This improves both performance on the server side (processing multiple requests) and the client side (faster rendering or interaction).</p>
+</li>
+<li>
+<p><strong>Schema Enforcement:</strong> Unlike JSON, which is flexible but prone to errors, Protobuf enforces a structured schema. This ensures that the data being sent and received is well-defined and consistent, preventing mismatches and making it easier to maintain and extend over time.</p>
+</li>
+</ul>
+<p><strong>HTTP/JSON vs. WebSocket/Protobuf</strong></p>
+<ul>
+<li>
+<p><strong>Latency:</strong> WebSocket/Protobuf reduces latency in client-server interactions, enabling near real-time responses. It avoids the overhead of stateless HTTP and the verbosity of JSON.</p>
+</li>
+<li>
+<p><strong>Efficiency:</strong> WebSocket connections remain open, allowing for continuous data exchange without re-establishing connections for each transaction. Protobuf further enhances this by ensuring the data exchanged is minimal, leading to better bandwidth utilization.</p>
+</li>
+<li>
+<p><strong>Scalability:</strong> Systems using WebSocket/Protobuf scale more effectively because they reduce both network and computational overhead. This becomes critical in applications that need to handle many clients simultaneously, such as multiplayer games or real-time analytics platforms.</p>
+</li>
+</ul>
+<p>In scenarios where real-time communication, such as gaming, financial trading platforms, or IoT systems, is required, WebSocket/Protobuf excels over traditional HTTP/JSON due to its ability to handle many concurrent connections with lower latency and better data throughput.</p>
+<p>By choosing RPC via WebSocket/Protobuf as the default communication protocol, CMMV ensures that developers can build efficient, scalable applications without the burden of HTTP’s overhead or JSON’s inefficiency, leading to faster, more reliable systems.</p>
+<h1>Protobuf</h1><a id="protobuf" title="Protobuf"></a>
+<p>Protocol Buffers (Protobuf) is a language-neutral, platform-neutral binary serialization format developed by Google. In CMMV, Protobuf was selected as the communication layer due to its efficiency, structure, and performance benefits over alternatives like JSON or XML.</p>
+<ul>
+<li>
+<p><strong>Compact and Efficient:</strong> Protobuf encodes data in a binary format, significantly reducing the size of transmitted data compared to text formats like JSON. This leads to faster transmission, crucial for real-time applications like gaming or financial systems.</p>
+</li>
+<li>
+<p><strong>Speed:</strong> Binary serialization in Protobuf is far quicker than JSON serialization/deserialization, providing faster data processing and reducing computational load.</p>
+</li>
+<li>
+<p><strong>Schema Enforcement:</strong> Protobuf requires a predefined schema for data, ensuring that data structures are strictly typed and versioned. This avoids inconsistencies during client-server communication, improving reliability in distributed systems.</p>
+</li>
+<li>
+<p><strong>Language and Platform Agnostic:</strong> Protobuf supports multiple programming languages and platforms, allowing CMMV applications to remain flexible across different environments.</p>
+</li>
+<li>
+<p><strong>Efficient Overhead Management:</strong> Protobuf allows for more efficient use of bandwidth and lower CPU usage, making it ideal for systems requiring high throughput and low latency, like RPC-based communication in CMMV.</p>
+</li>
+</ul>
+<p>By using Protobuf, CMMV ensures optimal performance in data serialization, making communication efficient, scalable, and reliable across a range of applications.</p>
+<h2>Instalation</h2><a id="instalation" title="Instalation"></a>
+<p>To implement WebSocket communication using Protobuf in CMMV, follow these steps:</p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/protobuf @cmmv/ws 
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-bash" lang="bash">$ yarn add @cmmv/protobuf @cmmv/ws 
+</code></pre>
+<p>Application setup:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { Application } from &quot;@cmmv/core&quot;;
+import { ExpressAdapter, ExpressModule } from &quot;@cmmv/http&quot;;
+import { ProtobufModule } from &quot;@cmmv/protobuf&quot;;
+import { WSModule, WSAdapter } from &quot;@cmmv/ws&quot;;
+import { ViewModule } from &quot;@cmmv/view&quot;;
+
+Application.create({
+    httpAdapter: ExpressAdapter,    
+    wsAdapter: WSAdapter,
+    modules: [
+        ExpressModule,
+        ProtobufModule,
+        WSModule,
+        ViewModule
+    ],
+    contracts: [...],
+});
+</code></pre>
+<ul>
+<li><strong>WSAdapter:</strong> Handles WebSocket connections.</li>
+<li><strong>ProtobufModule:</strong> Defines message structures with Protocol Buffers for communication.</li>
+<li><strong>WSModule:</strong> Manages WebSocket connections, utilizing Protobuf messages for efficient data transmission.</li>
+</ul>
+<p>Settings <code>.cmmv.config.js</code></p>
+<pre><code class="hljs language-typescript" lang="typescript">module.exports = {
+    server: {
+        host: process.env.HOST || &quot;0.0.0.0&quot;,
+        port: process.env.PORT || 3000,
+        ...
+    },
+
+    rpc: {
+        enabled: true,
+        preLoadContracts: true
+    },
+
+    ...
+};
+</code></pre>
+<p>In CMMV, contracts are processed in .proto format and stored in the /src/proto directory along with TypeScript types. These contracts are loaded into the frontend using protobufjs in two ways:</p>
+<p><strong>Preloading Contracts:</strong> Setting preLoadContracts = true converts all contracts to JSON, which are then bundled with the application. This allows for efficient caching, especially through CDNs.</p>
+<p><strong>On-Demand Loading:</strong> Setting preLoadContracts = false loads .proto files as needed upon receiving the first message that requires the contract, caching them locally for future use. This approach is useful for applications with numerous contracts.</p>
+<h2>Integration</h2><a id="integration" title="Integration"></a>
+<p>The CMMV framework simplifies communication in the frontend by binding Protobuf methods directly to the view context. This allows developers to invoke RPC methods like AddTaskRequest and DeleteTaskRequest within their views seamlessly, as demonstrated in the example to-do list.</p>
+<pre><code class="hljs language-html" lang="html">&lt;div class=&quot;todo-box&quot; scope&gt;
+    &lt;h1 s-i18n=&quot;todo&quot;&gt;&lt;/h1&gt;
+
+    &lt;div 
+        c-show=&quot;todolist?.length &gt; 0&quot; 
+        s:todolist=&quot;services.task.getAll()&quot;
+    &gt;
+        &lt;div 
+            c-show=&quot;todolist&quot;
+            c-for=&quot;(item, key) in todolist&quot;
+            class=&quot;todo-item&quot;
+        &gt;
+            &lt;c class=&quot;todo-item-content&quot;&gt;
+                &lt;input 
+                    type=&quot;checkbox&quot; 
+                    c-model=&quot;item.checked&quot; 
+                    @change=&quot;UpdateTaskRequest(item)&quot;
+                &gt;&lt;/input&gt;
+
+                &lt;label :class=&quot;{'todo-item-checked': item.checked}&quot;&gt;{{ item.label }}&lt;/label&gt;
+            &lt;/c&gt;
+            
+            &lt;button 
+                class=&quot;todo-btn-remove&quot;
+                s-i18n=&quot;remove&quot; 
+                @click=&quot;DeleteTaskRequest(item.id)&quot;
+            &gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;todo-input-box&quot;&gt;
+        &lt;input c-model=&quot;label&quot; class=&quot;todo-input&quot;&gt;
+
+        &lt;button 
+            class=&quot;todo-btn-add&quot;
+            s-i18n=&quot;add&quot; 
+            @click=&quot;addTask&quot;
+        &gt;&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;pre&gt;{{ todolist }}&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;script s-setup&gt;
+export default {
+    layout: &quot;default&quot;,
+
+    head: {
+        meta: [
+            { name: &quot;description&quot;, content: &quot;CMMV Todolist sample&quot; },
+            { name: &quot;keywords&quot;, content: &quot;cmmv, contract model, websocket&quot; }
+        ],
+        link: [
+            { rel: &quot;stylesheet&quot;, href: &quot;/assets/styles/todo.css&quot; },
+            { rel: &quot;canonical&quot;, href: &quot;https://cmmv.io&quot; },
+        ]
+    },
+
+    data(){
+        return {
+            todolist: [],
+            label: &quot;&quot;
+        }
+    },
+
+    methods: {
+        addTask(){
+            this.AddTaskRequest({ label: this.label });
+            this.label = '';
+        },
+
+        DeleteTaskResponse(data){
+            if (data.success) {
+                const index = this.todolist.findIndex(item =&gt; item.id === data.id);
+
+                if (index !== -1) 
+                    this.todolist.splice(index, 1);
+            }
+        },
+
+        AddTaskResponse(data) { this.UpdateTaskResponse(data); },
+
+        UpdateTaskResponse(data) {
+            const index = this.todolist.findIndex(item =&gt; item.id === data.id);
+            
+            if (index !== -1) 
+                this.todolist[index] = { ...data.item, id: data.id };
+            else 
+                this.todolist.push({ ...data.item, id: data.id });
+        } 
+    }
+}
+&lt;/script&gt;
+</code></pre>
+<p>The integration of Protobuf with CMMV’s transpiler offers significant advantages over traditional methods like protoc. While protoc generates a large volume of boilerplate code, much of it may be unnecessary depending on the project’s scope. CMMV automatically integrates contracts with services like repositories, caches, and other modules, simplifying the development process. Instead of manually invoking generated code, CMMV injects Protobuf functions directly into the view layer, reducing overhead and avoiding redundant code generation, making it more efficient for modern web applications.</p>
+<p>This streamlined approach not only reduces complexity but also enhances performance by avoiding unnecessary intermediate files and services, focusing solely on the functional requirements.</p>

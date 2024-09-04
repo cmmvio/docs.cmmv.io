@@ -88,12 +88,12 @@ export class Scope extends Singleton {
 
 In my opinion, using the singleton pattern over NestJS-style dependency injection offers several advantages, particularly for larger applications with many controllers and providers.
 
-Performance: Singleton instances are created once and reused, reducing the overhead of instantiating services multiple times, which can slow down bootstrapping in NestJS as it resolves dependencies.
+**Performance:** Singleton instances are created once and reused, reducing the overhead of instantiating services multiple times, which can slow down bootstrapping in NestJS as it resolves dependencies.
 
-Simplified Design: Global services are readily accessible without requiring explicit injection, minimizing complexity in managing common services (like cache, queues, or databases) across modules.
+**Simplified Design:** Global services are readily accessible without requiring explicit injection, minimizing complexity in managing common services (like cache, queues, or databases) across modules.
 
-Avoid Circular Dependencies: Singletons naturally avoid circular dependency issues because they manage their lifecycle independently, whereas dependency injection systems might struggle when multiple services depend on each other.
+**Avoid Circular Dependencies:** Singletons naturally avoid circular dependency issues because they manage their lifecycle independently, whereas dependency injection systems might struggle when multiple services depend on each other.
 
-Scalability: As the application grows, using singleton registries streamlines service management. NestJS requires defining global providers or importing modules, which can complicate application scaling and make maintaining a long dependency chain more cumbersome.
+**Scalability:** As the application grows, using singleton registries streamlines service management. NestJS requires defining global providers or importing modules, which can complicate application scaling and make maintaining a long dependency chain more cumbersome.
 
 In summary, while both approaches have their pros and cons, the singleton model can offer more performance and simplicity, especially for larger, production-heavy applications.

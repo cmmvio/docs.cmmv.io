@@ -1,0 +1,66 @@
+<h1>HTTP Overview</h1><a id="http-overview" title="HTTP Overview"></a>
+<p>The CMMV framework comes with built-in support for both Express and Fastify as HTTP adapters. However, the system allows for custom HTTP adapters by implementing the AbstractHttpAdapter class. This makes it possible to integrate other web frameworks or HTTP libraries with the same consistency and features provided by the default adapters. Developers can extend and customize their server architecture based on their requirements while maintaining the structure and benefits of the CMMV ecosystem.</p>
+<p>The ExpressAdapter in CMMV provides an abstraction over the Express.js framework, enabling seamless integration with the CMMV ecosystem. This adapter includes features such as request compression, session management, custom headers, and middleware. Below are the key functionalities implemented:</p>
+<p>Key Features:</p>
+<ul>
+<li><strong>HTTP and HTTPS Support:</strong> The adapter can initialize servers using both HTTP and HTTPS based on configuration.</li>
+<li><strong>Middleware Management:</strong> Preconfigured middlewares such as compression, CORS, Helmet (security), and session handling are included.</li>
+<li><strong>Static File Serving:</strong> Automatically serves static files from the /public directory.</li>
+<li><strong>View Engine:</strong> Supports rendering HTML views using CMMVRenderer, a custom template engine with security options like CSP.</li>
+<li><strong>Controller Registration:</strong> Automatically registers controllers by scanning the ControllerRegistry and mapping HTTP methods (GET, POST, PUT, DELETE) to paths.</li>
+<li><strong>Session and Security Headers:</strong> Adds session management using express-session and security headers like Content Security Policy, XSS Protection, and HSTS.</li>
+<li><strong>Request Tracking:</strong> Each request is assigned a unique requestId for telemetry and monitoring.</li>
+<li><strong>Open Connection Tracking:</strong> Tracks and closes open connections when the server shuts down.</li>
+<li><strong>Error Handling:</strong> Captures and logs errors during request processing, providing detailed error messages.</li>
+</ul>
+<h2>Dependences</h2><a id="dependences" title="Dependences"></a>
+<p>The modules used for the Express adapter in your code include:</p>
+<ul>
+<li><strong>express:</strong> Core framework for handling HTTP requests.</li>
+<li><strong>body-parser:</strong> Middleware for parsing incoming request bodies.</li>
+<li><strong>compression:</strong> Middleware for compressing response bodies.</li>
+<li><strong>cors:</strong> Middleware to enable Cross-Origin Resource Sharing.</li>
+<li><strong>express-session:</strong> Middleware for managing sessions.</li>
+<li><strong>helmet:</strong> Middleware for securing Express apps by setting HTTP headers.</li>
+<li><strong>uuid:</strong> Utility for generating unique request IDs.</li>
+</ul>
+<h2>Initialization</h2><a id="initialization" title="Initialization"></a>
+<p>To use the ExpressAdapter:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { ExpressAdapter } from '@cmmv/http';
+import { Application } from '@cmmv/core';
+
+Application.create({
+    httpAdapter: ExpressAdapter,
+    modules: [YourModule]
+});
+</code></pre>
+<p>The adapter registers all controllers automatically from the ControllerRegistry. It matches the controller’s routes to the corresponding HTTP methods (GET, POST, etc.), and processes middleware defined at the controller level.</p>
+<h2>Fastify</h2><a id="fastify" title="Fastify"></a>
+<p>The Fastify Adapter in CMMV provides an alternative to the Express Adapter, allowing for lightweight, high-performance HTTP handling using Fastify’s framework. This adapter integrates key middleware like compression, CORS, helmet for security, and static file serving. It automatically registers controllers and manages the lifecycle of incoming requests. The Fastify Adapter follows the same structure as the Express Adapter, supporting session management and content rendering, while offering a faster, more optimized environment.</p>
+<p>Both Express and Fastify adapters are natively supported, and custom HTTP adapters can be created by extending the AbstractHttpAdapter.</p>
+<h2>Middlewares</h2><a id="middlewares" title="Middlewares"></a>
+<p>The httpMiddlewares configuration allows you to inject custom middleware into the HTTP adapter (such as Express or Fastify) during the application’s initialization. This provides additional flexibility by letting you apply any middleware functions to handle tasks like logging, request validation, or security checks.</p>
+<p>To use this feature, define an array of middleware functions in the httpMiddlewares property when creating the application.</p>
+<p>Here’s an example where we add the morgan logging middleware to an Express-based CMMV application:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { Application } from &quot;@cmmv/core&quot;;
+import { ExpressAdapter, ExpressModule } from &quot;@cmmv/http&quot;;
+import { ViewModule } from &quot;@cmmv/view&quot;;
+import morgan from &quot;morgan&quot;;
+
+Application.create({
+    httpAdapter: ExpressAdapter,
+    httpMiddlewares: [
+        morgan('dev'), 
+    ],
+    modules: [ 
+        ExpressModule,
+        ViewModule
+    ]
+});
+</code></pre>
+<p>In this example, the morgan middleware is used to log incoming HTTP requests in the ‘dev’ format. This middleware is passed into the httpMiddlewares configuration, which applies it automatically during the application’s initialization.</p>
+<ul>
+<li>The httpMiddlewares array can include any number of middlewares, and each will be applied in the order they are provided.</li>
+<li>Make sure to import any custom middleware before passing it into the configuration.</li>
+</ul>
+<p>This configuration helps expand the capabilities of your application by allowing you to use any custom or third-party middleware that your chosen HTTP adapter (like Express or Fastify) supports.</p>

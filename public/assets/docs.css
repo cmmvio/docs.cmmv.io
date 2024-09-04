@@ -4,10 +4,10 @@ html {
     text-size-adjust: 100%;
     background-color: var(--ifm-background-color);
     color: #ccd0d5;
-    text-rendering: optimizelegibility
+    text-rendering: optimizelegibility;
 }
 
-body{
+body {
     font-size: 16px !important;
     font-weight: 400;
     font-family: Source Sans Pro,Helvetica Neue,sans-serif;
@@ -16,20 +16,20 @@ body{
     color: #404040;
     margin: 0;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden!important
+    overflow-x: hidden !important;
 }
 
-body,ol ol,ol ul,ul ol,ul ul {
-    margin: 0
+body, ol ol, ol ul, ul ol, ul ul {
+    margin: 0;
 }
 
-pre,table {
-    overflow: auto
+pre, table {
+    overflow: auto;
 }
 
 iframe {
     border: 0;
-    color-scheme: auto
+    color-scheme: auto;
 }
 
 img {
@@ -63,7 +63,7 @@ img {
 
 h1, h2 {
     margin: 20px 0 !important;
-    font-size: 24px !important; 
+    font-size: 24px !important;
     font-weight: 700 !important;
     color: #edeef0;
 }
@@ -74,7 +74,7 @@ h2, h3 {
 }
 
 h3 {
-    font-size: 20px !important; 
+    font-size: 20px !important;
     font-weight: 200 !important;
 }
 
@@ -86,7 +86,7 @@ p {
     color: #ccd0d5;
 }
 
-.language-markup{
+.language-markup {
     padding: 20px 26px;
     margin: 20px 0;
     overflow: auto;
@@ -110,7 +110,24 @@ p {
     hyphens: none;
 }
 
-.anchor ul{
+.anchor ul:not(:first-child):not(:last-child) {
+    content: "";
+    left: 0;
+    width: 2px;
+    background: #efefef;
+    list-style-type: disc;
+    padding: 0;
+}
+
+.anchor ul:first-child {
+    background: none;
+}
+
+.anchor ul:last-child {
+    background: none;
+}
+
+.anchor ul {
     content: "";
     left: 0;
     width: 2px;
@@ -129,7 +146,7 @@ p {
     text-align: -webkit-match-parent;
 }
 
-.anchor li :before{
+.anchor li :before {
     border-radius: 50%;
     transform: translateY(-50%);
     content: "";
@@ -145,7 +162,7 @@ p {
 
 .anchor li a {
     display: block;
-    color: #404040;
+    color: #EFEFEF;
     text-decoration: none;
     margin-top: -20px;
     font-size: 12px !important;
@@ -173,35 +190,73 @@ p {
     font-weight: 600;
 }
 
-.hljs{
+.hljs {
     max-width: 689px;
     border-radius: 10px;
     margin-bottom: 30px;
 }
 
 .navbar {
-    
     border-width: 0 0 1px;
     padding: 0;
     z-index: 399;
 }
 
-.contents{
+.contents {
     max-width: 90rem;
     margin: auto;
 }
 
-.context-html li{
+.context-html li {
     display: list-item;
     list-style: disc;
     margin-bottom: 20px;
     margin-left: 20px;
 }
 
-@supports ((-webkit-backdrop-filter: var(--tw )) or (backdrop-filter:var(--tw ))) {
+code {
+    background-color: #43464c; 
+    color: #EFEFFF; 
+    padding: 2px 4px;
+    border-radius: 4px; 
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; 
+    font-size: 0.9em; 
+    word-break: break-word; 
+}
+
+pre code {
+    display: block;
+    max-height: 400px; 
+    padding: 10px;
+    background-color: #1d1d1d;
+    border: 1px solid #2e3035;
+    border-radius: 6px;
+    overflow-y: auto;
+    white-space: pre-wrap; 
+}
+
+pre code::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+pre code::-webkit-scrollbar-track {
+    background: #2e3035;
+}
+
+pre code::-webkit-scrollbar-thumb {
+    background: #4c4c4c;
+    border-radius: 4px;
+}
+
+pre code::-webkit-scrollbar-thumb:hover {
+    background: #6b6b6b;
+}
+
+@supports ((-webkit-backdrop-filter: var(--tw)) or (backdrop-filter: var(--tw))) {
     html:not(.plugin-redoc) .navbar:not(.navbar-sidebar--show) {
         -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
-        background-color: transparent
+        background-color: transparent;
     }
 }

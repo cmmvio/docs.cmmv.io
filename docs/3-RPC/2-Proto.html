@@ -1,0 +1,206 @@
+<h1>Proto</h1><a id="proto" title="Proto"></a>
+<p>The CMMV framework provides seamless integration between server-side contracts and frontend applications using Protobuf as the communication protocol. By defining contracts in a structured way, CMMV automatically generates Protobuf files and TypeScript types, allowing for a smooth and efficient integration of RPC-based communication.</p>
+<p>In this section, we’ll walk through how the contract definition in the backend is transformed into Protobuf schema, TypeScript types, and integrated into the frontend for real-time binary communication.</p>
+<p>In CMMV, contracts are defined using the @Contract and @ContractField decorators. Below is an example contract for managing tasks:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { AbstractContract, Contract, ContractField } from &quot;@cmmv/core&quot;;
+
+@Contract({
+    controllerName: &quot;Task&quot;,
+    protoPath: &quot;src/protos/task.proto&quot;,
+    protoPackage: &quot;task&quot;
+})
+export class TasksContract extends AbstractContract {
+    @ContractField({ 
+        protoType: 'string', 
+        unique: true 
+    })
+    label: string;
+
+    @ContractField({ 
+        protoType: 'bool', 
+        defaultValue: false 
+    })
+    checked: boolean;
+
+    @ContractField({ 
+        protoType: 'bool', 
+        defaultValue: false 
+    })
+    removed: boolean;
+}
+</code></pre>
+<ul>
+<li><strong>@Contract:</strong> Defines the metadata for the contract, including the name of the controller, the database type (mongodb), the path to the Protobuf file, and the Protobuf package name.</li>
+<li><strong>@ContractField:</strong> Defines individual fields of the contract, specifying their Protobuf type and any additional constraints (e.g., unique values, default values).</li>
+</ul>
+<h2>.proto</h2><a id="proto" title=".proto"></a>
+<p>Based on the contract above, CMMV will automatically generate the corresponding .proto file and associated TypeScript types. This generated Protobuf file allows for binary communication between the server and client.</p>
+<pre><code class="hljs language-protobuf" lang="protobuf">// src/protos/task.proto
+
+syntax = &quot;proto3&quot;;
+
+package task;
+
+message Task {
+  string label = 1;
+  bool checked = 2;
+  bool removed = 3;
+}
+
+message AddTaskRequest {
+  Task item = 1;
+}
+
+message AddTaskResponse {
+  Task item = 1;
+}
+
+message UpdateTaskRequest {
+  string id = 1;
+  Task item = 2;
+}
+
+message UpdateTaskResponse {
+  Task item = 1;
+}
+
+message DeleteTaskRequest {
+  string id = 1;
+}
+
+message DeleteTaskResponse {
+  bool success = 1;
+}
+
+message GetAllTaskRequest {}
+
+message GetAllTaskResponse {
+  repeated Task items = 1;
+}
+</code></pre>
+<h2>Types</h2><a id="types" title="Types"></a>
+<p>CMMV also generates TypeScript types for the Protobuf messages, ensuring strong typing across the entire application. These types are generated alongside the Protobuf files, and look like the following:</p>
+<pre><code class="hljs language-typescript" lang="typescript">// Types generated automatically by CMMV
+export namespace Task {
+  export type label = string;
+  export type checked = boolean;
+  export type removed = boolean;
+}
+export interface AddTaskRequest {
+  item: Task;
+}
+export interface AddTaskResponse {
+  item: Task;
+}
+export interface UpdateTaskRequest {
+  id: string;
+  item: Task;
+}
+export interface UpdateTaskResponse {
+  item: Task;
+}
+export interface DeleteTaskRequest {
+  id: string;
+}
+export interface DeleteTaskResponse {
+  success: boolean;
+}
+export interface GetAllTaskRequest {}
+export interface GetAllTaskResponse {
+  items: Task[];
+}
+</code></pre>
+<p>On the frontend, CMMV automatically integrates the Protobuf schema for seamless communication. With WebSocket support and binary communication through Protobuf, the frontend can make RPC (Remote Procedure Call) requests to the server using the defined contract methods.</p>
+<p>By using CMMV’s auto-generated functions, such as AddTaskRequest, UpdateTaskRequest, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.</p>
+<h2>Frontend</h2><a id="frontend" title="Frontend"></a>
+<p>On the frontend, CMMV automatically integrates the Protobuf schema for seamless communication. With WebSocket support and binary communication through Protobuf, the frontend can make RPC (Remote Procedure Call) requests to the server using the defined contract methods.</p>
+<p>By using CMMV’s auto-generated functions, such as AddTaskRequest, UpdateTaskRequest, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.</p>
+<pre><code class="hljs language-html" lang="html">&lt;div class=&quot;todo-box&quot; scope&gt;
+    &lt;h1 s-i18n=&quot;todo&quot;&gt;&lt;/h1&gt;
+
+    &lt;div 
+        c-show=&quot;todolist?.length &gt; 0&quot; 
+        s:todolist=&quot;services.task.getAll()&quot;
+    &gt;
+        &lt;div 
+            c-show=&quot;todolist&quot;
+            c-for=&quot;(item, key) in todolist&quot;
+            class=&quot;todo-item&quot;
+        &gt;
+            &lt;c class=&quot;todo-item-content&quot;&gt;
+                &lt;input 
+                    type=&quot;checkbox&quot; 
+                    c-model=&quot;item.checked&quot; 
+                    @change=&quot;UpdateTaskRequest(item)&quot;
+                &gt;&lt;/input&gt;
+
+                &lt;label :class=&quot;{'todo-item-checked': item.checked}&quot;&gt;{{ item.label }}&lt;/label&gt;
+            &lt;/c&gt;
+            
+            &lt;button 
+                class=&quot;todo-btn-remove&quot;
+                s-i18n=&quot;remove&quot; 
+                @click=&quot;DeleteTaskRequest(item.id)&quot;
+            &gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;todo-input-box&quot;&gt;
+        &lt;input c-model=&quot;label&quot; class=&quot;todo-input&quot;&gt;
+
+        &lt;button 
+            class=&quot;todo-btn-add&quot;
+            s-i18n=&quot;add&quot; 
+            @click=&quot;addTask&quot;
+        &gt;&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;pre&gt;{{ todolist }}&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;script s-setup&gt;
+export default {
+    layout: &quot;default&quot;,
+
+    data(){
+        return {
+            todolist: [],
+            label: &quot;&quot;
+        }
+    },
+
+    methods: {
+        addTask(){
+            this.AddTaskRequest({ label: this.label });
+            this.label = '';
+        },
+
+        DeleteTaskResponse(data){
+            if (data.success) {
+                const index = this.todolist.findIndex(item =&gt; item.id === data.id);
+
+                if (index !== -1) 
+                    this.todolist.splice(index, 1);
+            }
+        },
+
+        AddTaskResponse(data) { this.UpdateTaskResponse(data); },
+
+        UpdateTaskResponse(data) {
+            const index = this.todolist.findIndex(item =&gt; item.id === data.id);
+            
+            if (index !== -1) 
+                this.todolist[index] = { ...data.item, id: data.id };
+            else 
+                this.todolist.push({ ...data.item, id: data.id });
+        } 
+    }
+}
+&lt;/script&gt;
+</code></pre>
+<p>CMMV provides flexibility in loading the Protobuf contracts:</p>
+<ul>
+<li><strong>PreLoad Contracts:</strong> By default, all contracts are pre-processed, converted into JSON, and included in the main JavaScript bundle. This allows for faster execution at runtime since the contracts are already available, and the frontend can immediately start making RPC calls.</li>
+<li><strong>On-Demand Loading:</strong> In cases where there are many contracts, or if you want to optimize the initial page load, you can set preLoadContracts = false. This way, contracts are fetched on-demand when they are needed, caching them locally to avoid multiple network requests.</li>
+</ul>
+<p>By automatically generating Protobuf contracts, TypeScript types, and integrating them into the frontend, CMMV simplifies communication between the server and client. The use of WebSocket and Protobuf ensures fast, efficient, and type-safe communication, reducing the overhead associated with traditional HTTP/JSON-based systems.</p>

@@ -1,12 +1,25 @@
 module.exports = {
+    env: process.env.NODE_ENV,
+    
     server: {
         host: "0.0.0.0",
-        port: process.env.PORT || 3000
+        port: process.env.PORT || 3000,
+        sessionSecret: process.env.SESSION_SECRET || "secret",
+        sessionCookieName: process.env.SESSION_COOKIENAME || "cmmv-session"
     },
 
     i18n: {
         localeFiles: "./src/locale",
         default: "en"
+    },
+
+    rpc: {
+        enabled: false
+    },
+
+    view: {
+        extractInlineScript: true,
+        minifyHTML: true
     },
 
     head: {
@@ -41,7 +54,7 @@ module.exports = {
     headers: {
         "Content-Security-Policy": [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+            "script-src 'self' 'unsafe-eval'",
             "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
             "font-src 'self' https://cdnjs.cloudflare.com"
         ]

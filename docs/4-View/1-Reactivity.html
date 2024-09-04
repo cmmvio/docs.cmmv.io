@@ -1,0 +1,370 @@
+<h1>Reactivity</h1><a id="reactivity" title="Reactivity"></a>
+<p>The <code>@cmmv/reactivity</code> module was created based on the core ideas of <a href="https://github.com/vuejs/petite-vue" target="_blank" rel="nofollow">Petite Vue</a>, a simplified version of Vue.js. Petite Vue, developed by Evan You, the creator of Vue.js, offers a lightweight alternative to the full Vue framework, providing only the essential reactivity and templating features needed for smaller or simpler projects. Petite Vue is just 6KB in size and implements basic directives, making it an excellent foundation for building minimal reactive systems.</p>
+<p>Inspired by Petite Vue’s design philosophy, <code>@cmmv/reactivity</code> integrates this lightweight, reactive approach into the CMMV framework. By doing so, it offers developers the ability to use two-way data binding and efficient UI updates with minimal overhead. The core reactivity engine from Petite Vue has been adapted to fit seamlessly into the CMMV ecosystem, allowing for easy integration with server-side rendering, WebSockets, Protobuf, and other key modules of CMMV.</p>
+<p>With this combination, <code>@cmmv/reactivity</code> provides an optimal balance of simplicity and performance, making it ideal for building dynamic user interfaces while keeping the overall bundle size minimal. It is well-suited for developers who prefer a lightweight, Vue-inspired reactivity system without the complexity of a full-featured framework.</p>
+<p>For more information on Petite Vue, you can visit the official <a href="https://github.com/vuejs/petite-vue" target="_blank" rel="nofollow">Petite Vue repository</a>.</p>
+<h2>Limitations</h2><a id="limitations" title="Limitations"></a>
+<p>The primary goal of the CMMV framework is to build high-performance applications with a strong focus on speed, efficiency, and SEO optimization. To achieve this, we highly recommend using @cmmv/reactivity as the frontend framework rather than incorporating heavier frameworks like Vue, React, or Angular. @cmmv/reactivity is designed to handle most of the common challenges faced in web applications, providing essential reactivity features in a lightweight package that minimizes the impact on your application’s load times and performance.</p>
+<p>By choosing @cmmv/reactivity, you can ensure that your application remains fast and optimized for both users and search engines. Adding larger frameworks such as Vue, React, or Angular introduces additional layers of JavaScript that can increase the page’s initial load time, potentially harming your PageSpeed score and overall performance. This goes against the core principles of CMMV, which aims to reduce unnecessary overhead.</p>
+<p>If you find that certain critical features are missing from @cmmv/reactivity, we encourage you to submit a pull request to the repository. We’re open to suggestions and contributions that improve the framework while keeping it aligned with CMMV’s performance goals.</p>
+<p>In extreme cases where heavier frameworks like Vue, React, or Angular are necessary, we will eventually provide native support for their integration. However, we strongly advise against this approach due to the performance trade-offs. Any implementation of these frameworks will be at your own risk, and we will not offer official support for such setups—our focus will remain exclusively on optimizing @cmmv/reactivity for the best possible user experience and SEO results.</p>
+<h2>Installation</h2><a id="installation" title="Installation"></a>
+<p>To install the @cmmv/reactivity package, simply run the following command:</p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/reactivity
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-bash" lang="bash">$ yarn add @cmmv/reactivity
+</code></pre>
+<p>Alternatively, you can visit the <a href="https://github.com/andrehrferreira/cmmv-reactivity" target="_blank" rel="nofollow">GitHub repository</a> for more details.</p>
+<p>The <code>@cmmv/view</code> module already integrates reactivity natively, so it does not need to be installed separately.</p>
+<h2>Usage</h2><a id="usage" title="Usage"></a>
+<p>Below is the documentation for all directives supported by @cmmv/reactivity based on the samples provided in the CMMV Reactivity GitHub repository.</p>
+<h3>c-model</h3>
+<p>Binds the value of an input element to the application’s data and enables two-way data binding. This is useful for dynamically updating the UI as users input data.</p>
+<pre><code class="hljs language-html" lang="html">&lt;input c-model=&quot;username&quot;&gt;
+&lt;p&gt;Username: {{ username }}&lt;/p&gt;
+</code></pre>
+<p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/model.html" target="_blank" rel="nofollow">Sample</a> :</p>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+  import { createApp } from '../src'
+
+  createApp().mount('#app')
+&lt;/script&gt;
+
+&lt;div
+  id=&quot;app&quot;
+  scope=&quot;{
+    text: 'hello',
+    checked: true,
+    checkToggle: { a: 1 },
+    trueValue: { a: 1 },
+    falseValue: { a: 2 },
+    arr: ['one'],
+    radioSelected: 'two',
+    selected: 'two'
+  }&quot;
+&gt;
+  &lt;pre&gt;{{ $data }}&lt;/pre&gt;
+  &lt;h2&gt;Text Input&lt;/h2&gt;
+  {{ text }}
+  &lt;input v-model.trim=&quot;text&quot; /&gt;
+
+  &lt;h2&gt;TextArea&lt;/h2&gt;
+  {{ text }}
+  &lt;textarea v-model.trim=&quot;text&quot;&gt;&lt;/textarea&gt;
+
+  &lt;h2&gt;Checkbox&lt;/h2&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;checkbox&quot; v-model=&quot;checked&quot; /&gt;
+  &lt;label for=&quot;checkbox&quot;&gt;{{ checked }}&lt;/label&gt;
+
+  &lt;h2&gt;Checkbox w/ Array&lt;/h2&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot; v-model=&quot;arr&quot; value=&quot;one&quot; /&gt; one&lt;/label&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot; v-model=&quot;arr&quot; value=&quot;two&quot; /&gt; two&lt;/label&gt;
+  &lt;label
+    &gt;&lt;input type=&quot;checkbox&quot; v-model=&quot;arr&quot; :value=&quot;123&quot; /&gt; actual number&lt;/label
+  &gt;
+  &lt;div&gt;{{ arr }}&lt;/div&gt;
+
+  &lt;h2&gt;Checkbox w/ true-value / false-value&lt;/h2&gt;
+  &lt;input
+    type=&quot;checkbox&quot;
+    v-model=&quot;checkToggle&quot;
+    :true-value=&quot;trueValue&quot;
+    :false-value=&quot;falseValue&quot;
+  /&gt;
+  &lt;div&gt;{{ checkToggle }}&lt;/div&gt;
+
+  &lt;h2&gt;Radio&lt;/h2&gt;
+  &lt;label&gt;&lt;input type=&quot;radio&quot; v-model=&quot;radioSelected&quot; value=&quot;one&quot; /&gt; one&lt;/label&gt;
+  &lt;label&gt;&lt;input type=&quot;radio&quot; v-model=&quot;radioSelected&quot; value=&quot;two&quot; /&gt; two&lt;/label&gt;
+  &lt;label
+    &gt;&lt;input type=&quot;radio&quot; v-model=&quot;radioSelected&quot; value=&quot;three&quot; /&gt; three&lt;/label
+  &gt;
+  &lt;div&gt;{{ radioSelected }}&lt;/div&gt;
+
+  &lt;h2&gt;Select&lt;/h2&gt;
+  &lt;select v-model=&quot;selected&quot; @change=&quot;console.log(selected, $event.target.value)&quot;&gt;
+    &lt;option&gt;one&lt;/option&gt;
+    &lt;option&gt;two&lt;/option&gt;
+    &lt;option&gt;three&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;div&gt;{{ selected }}&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>In this example, the input’s value is bound to the username field in the data model. Changes in the input will be reflected in the username property.</p>
+<h3>c-show</h3>
+<p>Controls the visibility of elements based on a condition. If the condition evaluates to false, the element will be hidden.</p>
+<pre><code class="hljs language-html" lang="html">&lt;p c-show=&quot;isLoggedIn&quot;&gt;Welcome back, user!&lt;/p&gt;
+</code></pre>
+<h3>c-if</h3>
+<p>Conditionally renders an element only if the specified expression is true. Unlike c-show, this directive removes the element from the DOM if the condition is false.</p>
+<pre><code class="hljs language-html" lang="html">&lt;p c-if=&quot;showMessage&quot;&gt;This message is shown only if showMessage is true.&lt;/p&gt;
+</code></pre>
+<p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/if.html" target="_blank" rel="nofollow">Sample</a>:</p>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+  import { createApp } from '../src'
+  createApp().mount('#app')
+&lt;/script&gt;
+
+&lt;div id=&quot;app&quot; scope=&quot;{ open: true, elseOpen: true }&quot;&gt;
+  &lt;button @click=&quot;open = !open&quot;&gt;toggle&lt;/button&gt;
+  &lt;button @click=&quot;elseOpen = !elseOpen&quot;&gt;toggle else&lt;/button&gt;
+  &lt;div c-if=&quot;open&quot;&gt;ok&lt;/div&gt;
+  &lt;div c-else-if=&quot;elseOpen&quot;&gt;else if&lt;/div&gt;
+  &lt;template c-else&gt;else&lt;/template&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>c-for</h3>
+<p>Loops through an array or object and repeats the associated element for each item.</p>
+<pre><code class="hljs language-html" lang="html">&lt;ul&gt;
+  &lt;li c-for=&quot;item in items&quot;&gt;{{ item }}&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/for.html" target="_blank" rel="nofollow">Sample</a>:</p>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+    import { createApp } from '../src'
+  
+    let id = 4
+    createApp({
+      list: [
+        { id: 1, text: 'bar' },
+        { id: 2, text: 'boo' },
+        { id: 3, text: 'baz' },
+        { id: 4, text: 'bazz' }
+      ],
+      add() {
+        this.list.push({ id: ++id, text: 'new item' });
+      },
+      splice() {
+        this.list.splice(1, 0, { id: ++id, text: 'new item' })
+      }
+    }).mount('#app')
+&lt;/script&gt;
+  
+&lt;div id=&quot;app&quot; scope&gt;
+    &lt;button @click=&quot;add&quot;&gt;add&lt;/button&gt;
+    &lt;button @click=&quot;list.reverse()&quot;&gt;reverse&lt;/button&gt;
+    &lt;button @click=&quot;list.pop()&quot;&gt;pop&lt;/button&gt;
+    &lt;button @click=&quot;splice&quot;&gt;splice&lt;/button&gt;
+    &lt;ul&gt;
+      &lt;li c-for=&quot;({ id, text }, index) in list&quot; :key=&quot;id&quot;&gt;
+        &lt;div&gt;{{ index }} {{ { id, text } }}&lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  
+    &lt;ul&gt;
+      &lt;li c-for=&quot;item of list&quot; :key=&quot;item.id&quot;&gt;
+        &lt;input c-model=&quot;item.text&quot; /&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>c-on</h3>
+<p>Attaches an event listener to an element. Commonly used for handling click events, form submissions, or other user interactions.</p>
+<pre><code class="hljs language-html" lang="html">&lt;button c-on:click=&quot;incrementCounter&quot;&gt;Click me!&lt;/button&gt;
+&lt;button @click=&quot;incrementCounter&quot;&gt;Click me!&lt;/button&gt;
+</code></pre>
+<p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/on.html" target="_blank" rel="nofollow">Sample</a>:</p>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+  import { createApp } from '../src'
+  createApp().mount('#app')
+&lt;/script&gt;
+
+&lt;div id=&quot;app&quot;&gt;
+	&lt;input
+		type=&quot;text&quot;
+		@keyup.x=&quot;alert('yo')&quot;
+		placeholder=&quot;type x to test key modifier&quot;
+	/&gt;
+	&lt;form&gt;
+		&lt;button type=&quot;submit&quot; @click.prevent.stop&gt;submit (prevented)&lt;/button&gt;
+	&lt;/form&gt;
+	&lt;button @click.right=&quot;alert('clicked')&quot;&gt;right click&lt;/button&gt;
+	&lt;button @click.middle=&quot;alert('clicked')&quot;&gt;middle click&lt;/button&gt;
+	&lt;button @click.once=&quot;alert('clicked')&quot;&gt;click once&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>c-bind</h3>
+<p>Dynamically binds an attribute to an expression. This is often used to modify attributes like src, href, or class.</p>
+<pre><code class="hljs language-html" lang="html">&lt;img :src=&quot;imageSource&quot;&gt;
+</code></pre>
+<p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/bind.html" target="_blank" rel="nofollow">Sample</a>:</p>
+<pre><code class="hljs language-html" lang="html">&lt;style&gt;
+    #green {
+        color: green;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .orange {
+        color: orange;
+    }
+
+    .static {
+        font-weight: bold;
+    }
+&lt;/style&gt;
+  
+&lt;script type=&quot;module&quot;&gt;
+    import { createApp, reactive } from '../src'
+
+    const data = (window.data = reactive({
+        id: 'green',
+        classes: ['foo', { red: true }],
+        style: { color: 'blue' },
+        obj: { class: 'orange' }
+    }))
+
+    createApp(data).mount()
+&lt;/script&gt;
+  
+&lt;div scope&gt;
+    &lt;div :id=&quot;id&quot;&gt;simple binding - this should be green&lt;/div&gt;
+
+    &lt;div class=&quot;static&quot; :class=&quot;classes&quot;&gt;
+        class binding - this should be red and bold
+    &lt;/div&gt;
+
+    &lt;div style=&quot;font-weight: bold&quot; :style=&quot;style&quot;&gt;
+        style binding - this should be blue and bold
+    &lt;/div&gt;
+
+    &lt;div c-bind=&quot;obj&quot;&gt;object binding - this should be orange&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>c-text</h3>
+<p>Dynamically sets the text content of an element.</p>
+<pre><code class="hljs language-html" lang="html">&lt;div scope=&quot;{ count: 1 }&quot;&gt;
+	&lt;p c-text=&quot;count&quot;&gt;&lt;/p&gt;
+	&lt;button @click=&quot;count++&quot;&gt;increase&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>c-html</h3>
+<p>Inserts raw HTML content into an element.</p>
+<pre><code class="hljs language-html" lang="html">&lt;div c-html=&quot;htmlContent&quot;&gt;&lt;/div&gt;
+</code></pre>
+<h3>c-class</h3>
+<p>Dynamically binds one or more CSS classes to an element.</p>
+<pre><code class="hljs language-html" lang="html">&lt;div c-class=&quot;{ active: isActive, disabled: isDisabled }&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>In this example, if isActive is true, the active class is added, and if isDisabled is true, the disabled class is added.</p>
+<h3>c-once</h3>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+  import { createApp } from '../src'
+  createApp().mount()
+&lt;/script&gt;
+
+&lt;div scope=&quot;{ count: 5 }&quot;&gt;
+    {{ count }}
+    &lt;div c-once&gt;
+      &lt;h2&gt;Once&lt;/h2&gt;
+      {{ count }}
+      &lt;span c-text=&quot;count&quot;&gt;&lt;/span&gt;
+      &lt;span v-for=&quot;i in count&quot;&gt;{{ i }}&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;span c-text=&quot;count&quot;&gt;&lt;/span&gt;
+    &lt;button @click=&quot;count++&quot;&gt;++&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>ref</h3>
+<p>In the @cmmv/reactivity framework, the ref system allows you to easily reference DOM elements within the template and manipulate them in your JavaScript logic. This concept is crucial for managing DOM elements directly when reactive bindings alone are not enough. By associating a ref with an element, you can interact with the DOM directly from the reactive context of your application.</p>
+<p>Key Benefits of Using ref:<br>
+Direct DOM Access: It allows you to interact directly with DOM elements, which is sometimes necessary for operations that cannot be purely reactive.<br>
+Dynamic Ref Assignment: You can dynamically change the target element assigned to a ref at runtime.<br>
+Scoped Refs: The system supports nested scopes, meaning you can define refs within a specific context without affecting the global references.</p>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+  import { createApp, reactive } from '../src'
+  createApp().mount()
+&lt;/script&gt;
+
+&lt;div
+  id=&quot;root&quot;
+  ref=&quot;root&quot;
+  scope=&quot;{ dynamicRef: 'x', show: true }&quot;
+  c-effect=&quot;console.log({ x: $refs.x, y: $refs.y, input: $refs.input })&quot;
+&gt;
+	&lt;p&gt;Accessing root el: id is {{ $refs.root.id }}&lt;/p&gt;
+
+	&lt;input ref=&quot;input&quot; /&gt;
+
+	&lt;span v-show=&quot;show&quot; :ref=&quot;dynamicRef&quot;&gt;Span with dynamic ref&lt;/span&gt;
+
+	&lt;p&gt;dynamicRef is {{ dynamicRef }}&lt;/p&gt;
+
+	&lt;button @click=&quot;dynamicRef = dynamicRef === 'x' ? 'y' : 'x'&quot;&gt;
+		change dynamicRef
+	&lt;/button&gt;
+
+	&lt;button @click=&quot;show = !show&quot;&gt;toggle&lt;/button&gt;
+
+	&lt;div scope&gt;
+		&lt;p ref=&quot;x&quot;&gt;nested scope ref&lt;/p&gt;
+		&lt;button
+		@click=&quot;console.log({ x: $refs.x, y: $refs.y, input: $refs.input })&quot;
+		&gt;
+		log nested scope refs
+		&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li>
+<p><strong>Static Ref Assignment:</strong> The ref attribute binds an element to a key in the $refs object. In the example above, the element <code>input ref=&quot;input&quot;</code> is now accessible via $refs.input in your JavaScript code.</p>
+</li>
+<li>
+<p><strong>Accessing Ref Values:</strong> The c-effect directive is used to log the values of the refs whenever the component is re-rendered or when its state changes. For example, c-effect=“console.log({ x: $refs.x, y: $refs.y, input: $refs.input })” logs the current values of x, y, and input.</p>
+</li>
+<li>
+<p><strong>Dynamic Ref Assignment:</strong> You can dynamically change which element is referenced by using a reactive variable. For example, the <span> element uses :ref=“dynamicRef”, which means the ref value can change based on the value of dynamicRef. The button with the text “change dynamicRef” toggles the reference between x and y.</p>
+</li>
+<li>
+<p><strong>Scoped Refs:</strong> The <div scope> element defines a nested scope, which means the ref=“x” inside it refers to a local element. The $refs object will adjust to the scope context, providing an isolated reference within that scope.</p>
+</li>
+<li>
+<p><strong>Toggling Visibility:</strong> The c-show=“show” directive toggles the visibility of the <span>, but the ref still holds the reference to the element, even when it is hidden.</p>
+</li>
+</ul>
+<h2>Components</h2><a id="components" title="Components"></a>
+<p>The @cmmv/reactivity framework allows you to create lightweight and reactive components in your application without the overhead of traditional frameworks. The example provided demonstrates how you can define and use a simple component using createApp, reactive, and templates.</p>
+<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
+    import { createApp, reactive } from '../src'
+  
+    function MyComp() {
+      return {
+        $template: '#comp',
+        count: 0,
+        get plusOne() {
+          return this.count + 1
+        }
+      }
+    }
+  
+    createApp({ MyComp }).mount()
+&lt;/script&gt;
+
+&lt;template id=&quot;comp&quot;&gt;
+    {{ count }} {{ plusOne }}
+    &lt;button @click=&quot;count++&quot;&gt;++&lt;/button&gt;
+&lt;/template&gt;
+
+&lt;div scope=&quot;MyComp()&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p><strong>Component Setup:</strong></p>
+<ul>
+<li>The <code>MyComp</code> function returns the component’s data and computed properties.</li>
+<li>The <code>$template</code> points to the HTML template that will render this component.</li>
+</ul>
+<p><strong>Reactive Data:</strong></p>
+<ul>
+<li><code>count</code> is a reactive property. Changing its value updates the UI automatically.</li>
+<li><code>plusOne</code> is a computed property that reacts to count and displays count + 1.</li>
+</ul>
+<p><strong>Template:</strong></p>
+<ul>
+<li>The template uses <code>{{ count }}</code> and <code>{{ plusOne }}</code> to display the reactive data.</li>
+<li>Clicking the button increments count and updates the displayed value.</li>
+</ul>
+<p><strong>Mounting:</strong></p>
+<p>The <code>createApp</code> function registers the component and mounts it inside the <code>div scope=&quot;MyComp()&quot;</code> tag, which defines where the component will appear.</p>
