@@ -1,132 +1,125 @@
 # First steps
 
-In these articles you will be introduced to the fundamental concepts of UCS.js and its functioning understand that this tool is not a framework for casual use and many codes will seem confusing in comparison to others, however the way it was built was not to work at the level of code is visually through the editor, therefore what was once simple and trivial, through the UCS requires a series of compensations for the full functioning of the blueprints, and as the editor automatically generates controllers, managers and flow from metadata files , creating a code from scratch for the UCS plugin will not be a simple task as it would be to implement directly, but think that the application was not developed for programmers, but to provide a way for users without technical knowledge to create applications, websites, apps and system of fully visual and assisted by artificial intelligence.
+CMMV (Contract Model Model View) is a revolution in web application development, breaking paradigms and redefining how we create, maintain and scale digital projects. Inspired by best practices and innovative concepts, CMMV integrates the power of contracts to automatically generate robust and secure structures, eliminating the complexity of manual code and providing an unprecedented development experience.
 
-At the end of reading this documentation, it will be possible to understand the entire workflow of the blueprints, how to create new blueprints, interconnect transformers, controllers, with pre-existing blueprints, and even contribute to the project's public repositories, or create complete applications that can be sold on the marketplace or distributed free of charge to the community.
+Imagine a platform where the definition of contracts in TypeScript becomes the heart of your application, automatically generating APIs, controllers, ORM entities and even communication via binary RPC, all with optimized performance and seamless integration with the most modern technologies. With CMMV, you not only accelerate development, but also ensure the quality and consistency of your code, drastically reducing errors and rework.
 
-## Language
+In addition, CMMV offers a reactive and lightweight interface, based on Vue 3, but with the ability to support other frameworks such as React and Angular, always focusing on performance and SEO. With CMMV, the frontend is not just a presentation layer, but an integral and dynamic part of your application, synchronized in real time with the backend.
 
-The entire project was built using Typescript(https://www.typescriptlang.org/), using Node.js (https://nodejs.org/) as a platform so it is possible to create components and blueprints using Typescript and Javascript, the application editor was built using Vue 3 (https://vuejs.org/) and Typescript to maintain the maximum possible standardization between the parts of the application, Many concepts and part of the application's core code come from the Nestjs (https://nestjs.com/) framework, but not all packages were implemented, not even the implementation of the server and controller management, since the base principle of Nestjs has differences in applicability while Nestjs is a Typescript framework for developers who use SOLID, Angular and React concepts in order to provide a robust framework for scalability, testing and maintainability solutions, UCS.js is premised on implementing blueprint solutions used in game engines such as Unreal Engine to simplify development to non-technical users.
+Whether you are an experienced developer or a programming newbie, CMMV empowers everyone to build powerful, scalable, modern systems by eliminating technical barriers and allowing creativity and innovation to be at the center of your development journey. It is more than a framework; it is a new way of thinking and building the future of web applications.
 
 ## Prerequisites
 
-To run UCS.js it will be necessary to have `Node.js (version >= 16.14)` installed in your operating system.
+To run CMMV it will be necessary to have ``Node.js (version >= 18.0)`` installed in your operating system.
 
 ## Setup
 
-Currently UCS.js does not have any CI system, so to install the project you will need to download directly from the public repository on github.
+Currently CMMV does not have any CI system, so to install it in your project you just need to install the modules.
 
 ```bash
-$ git clone https://github.com/ucsjs/workspace
-$ cd workspace
-$ yarn || npm install
-$ yarn dev || npm run dev
+$ npm install @cmmv/core @cmmv/http @cmmv/view
 ```
 
-in the future, all packages of the complete project will be made available as modules in NPM that can be used separately, but at the moment, to gain access, it will be necessary to download all the complete repository.
+or 
+
+```bash
+$ yarn add @cmmv/core @cmmv/http @cmmv/view
+```
 
 ## Structure
 
-By default, the project uses the Express (https://expressjs.com) web server to control HTTP routes coupled to a Websocket (https://www.npmjs.com/package/ws), which can be coupled to terminal adapters using Node-Pty (https://www.npmjs.com/package/node-pty) and Visual Code Language Server (https://learn.microsoft.com/en-us/visualstudio/extensibility/language-server-protocol?view=vs-2022) for integration with Monaco (https://microsoft.github.io/monaco-editor/), all adapters are optional and configurable , the project brings controllers for managing blueprints through the editor, documentation, LLM integrations, file management, and data tokenization.
+CMMV is a project that draws inspiration from some of the best practices and technologies in modern development, bringing solid references to create a powerful and flexible framework. At the heart of CMMV are contracts, which follow a model similar to TypeORM and Protobuf, but go further, offering a full range of configurations that allow the automatic generation of the entire base structure of the application. These contracts are the fundamental piece of the project, as from them it is possible to create everything from database entities to APIs and controllers.
+
+Written in TypeScript, CMMV adopts a backend structure that resembles NestJS, but with adjustments that make dependency injection and module control more intuitive and adapted to modern development needs. The idea is to offer a modular system, where developers have full control over the application layers, allowing the architecture to adapt to the specific demands of each project.
+
+On the frontend, CMMV incorporates a basic data binding controller inspired by Vue 3, but simplified and extremely lightweight. This reactive layer can be easily replaced by any other framework, such as React, Angular or even Vue itself, ensuring that the application maintains flexibility and performance, without sacrificing simplicity.
+
+The project is strongly influenced by SOLID principles, applying well-defined concepts of responsibility, but without rigidly following all the rules. The goal is to keep the architecture clean and organized, but with the flexibility necessary to meet the practical realities of development. In addition, TDD (Test-Driven Development) concepts are applied to facilitate maintenance and ensure code quality, but the system is completely modular and optional, allowing each developer to choose what best suits their workflow.
+
+In short, CMMV is more than a collection of tools and frameworks; it is an integrated approach to development, where contracts are at the core of everything. With a solid foundation, CMMV gives developers the freedom to build modern and scalable applications, without compromising the simplicity and flexibility that are essential for continuous innovation.
 
 Every application flow starts in the `src/index.ts` file which is responsible for starting the HTTP server and its adapters.
 
 ```typescript
-import { Application, WsAdapter } from "@ucsjs/common";
-import { CacheModule, GlobalModules, GlobalRegistry } from "@ucsjs/core";
-import { GlobalProto } from "@ucsjs/protobuf";
-import { GlobalUIComponents } from "@ucsjs/uibuilder";
-import { EditorModule } from "@ucsjs/editor";
-import { WSInterceptor } from "./interceptors/ws.interceptor";
+import { Application } from "@cmmv/core";
+import { ExpressAdapter, ExpressModule } from "@cmmv/http";
+import { ProtobufModule } from "@cmmv/protobuf";
+import { WSModule, WSAdapter } from "@cmmv/ws";
+import { ViewModule } from "@cmmv/view";
+import { RepositoryModule, Repository } from "@cmmv/repository";
+import { ApplicationModule } from "./app.module";
 
-(async () => {
-    await Promise.all([
-        GlobalRegistry.load(),
-        GlobalProto.load(),
-        GlobalUIComponents.load()
-    ]);
-
-    GlobalModules.register(CacheModule, {
-        //store: ioRedisStore,
-        settings: {
-            ttl: 60
-        }
-    });
-
-    const app = await Application.create(async () => {
-        return await GlobalModules.dynamicModule({
-            controllers: ["./**/*.controller.ts"],
-            imports: [EditorModule]
-        });
-    });
-
-    app.useWebSocketAdapter(new WsAdapter(app), WSInterceptor.intercept);
-    app.listen(process.env.PORT || 3050);
-})();
+Application.create({
+    httpAdapter: ExpressAdapter,    
+    wsAdapter: WSAdapter,
+    modules: [
+        ExpressModule,
+        ProtobufModule,
+        WSModule,
+        ViewModule,
+        RepositoryModule
+    ],
+    services: [Repository],
+    contracts: [...]
+});
 ```
 
-It is possible to perform configurations through the .env file without having to change the application source code, even in the future we will provide other HTTP server modules.
-
-GlobalRegistry performs the loading of blueprint classes for dynamic instantiation in a static way, being accessible in any part of the code, it also has functions for creating a flow with multiple Blueprints and interconnections between them, transformer configurations and plugins.
+It is possible to perform configurations through the ```.cmmv.config.js``` file without having to change the application source code, even in the future we will provide other HTTP server modules.
 
 The default directories that come with the project are the following:
 ```
 .
+└── public/
+    ├── assets/
+    ├── templates/
+    └── views/
 └── src/
-    ├── blueprints/
+    ├── contracts/
     ├── controllers/
-    ├── interfaces/
-    ├── modules/
+    ├── entities/
+    ├── models/
     ├── services/
+    ├── app.module.ts
     └── index.ts
 ```
 
-I believe it is self-explanatory, but it is always good to reinforce, the blueprints directory is stored in `.blueprint.ts` files that contain blueprints created in visual mode and downloaded from the marketplace and can be organized by subdirectories, this directory is automatically loaded by `GlobalRegistry` when loading the application and can be dynamically updated by the editor.
+## Structure Explanation
 
-The controllers directory stores files with the `.controller.ts` extension and has route controllers for HTTP requests. For more information about controllers, access the menu on the side. Dto and interfaces stores files that contain data definitions either for creating subclasses or moving customized data as in the case of POST and PUT requests, or information trafficked through queue services, in the case of schemas for databases I recommend the creation of a separate directory.
+- **public/**: This directory contains all the static resources of the application, such as CSS, JavaScript and images. Within `public`, we have:
+- **assets/**: Stores static files such as styles, scripts, images and other resources needed for the user interface.
+- **templates/**: Contains HTML template files that can be used as base layouts for views.
+- **views/**: Contains the pages or UI components that will be rendered on the frontend.
 
-The module directory contains functionality organization classes, that is, it is possible to fragment the application into smaller parts that may or may not be loaded by the main application through the `main.module.ts` file. Finally, the services directory contains support classes for controllers and adapters containing the business logic of operation, normally they are self-instantiated injectable classes.
+- **src/**: The `src` directory is the core of the application, where the source code is organized in a modular way to facilitate development and maintenance. In it, we find:
+- **contracts/**: This is the most important directory, as it is where the application contracts are defined. When starting the application, the system checks the contracts present in this directory and, from them, automatically generates the controllers, entities, models and services. These contracts serve as the basis of the entire application structure.
 
-It is important to remember that the files in the /src directory will be built for the production application, so any code that is essential for the application to work must be inside this directory.
+- **controllers/**: After verifying the contracts, controllers are automatically generated in this directory. They are responsible for handling HTTP requests, processing data, and returning appropriate responses.
 
-### Static files
+- **entities/**: If the `repository` module is present, this directory will house the entities generated in TypeORM format, which represent the database tables and serve as object-relational mapping (ORM).
+
+- **models/**: Also generated from contracts, models are used to define the structure of the data that will be manipulated by the application, including data validation and transformation.
+
+- **services/**: Services encapsulate the business logic and are responsible for manipulating entities and interacting with other application modules. They are automatically generated based on the contracts and installed modules.
+
+- **app.module.ts**: This file is the root module of the application, configuring the main services and modules necessary for the application to function.
+
+- **index.ts**: The application entry point, where the server is initialized and configured to start receiving requests.
+
+## Automatic Integration and Modularity
+
+CMMV's greatest strength lies in its ability to **automatically generate** code based on contracts. When starting the application, the system checks the `contracts` directory and, depending on the installed modules, automatically generates the following parts:
+
+- **Controllers, Entities, Models and Services**: Based on the defined contracts, the controllers, entities, models and services required for the application are created. If the `repository` module is present, the entities and models will be generated in TypeORM format and the connection to the database will be configured according to the information in the `.cmmv.config.js` file.
+
+- **RPC support with Protobuf**: If the `protobuf` module is present, `.proto` contracts will be automatically generated for RPC (Remote Procedure Call) communication. This communication is done through a WebSocket adapter, integrating the HTTP and WebSocket server on the same port, facilitating real-time communication.
+
+- **HTTP Server Modularity**: Currently, the HTTP module supports Express and Fastify, allowing developers to choose the framework that best suits their needs. In the future, new modules may be added to provide additional support for other frameworks.
+
+This modular approach ensures that CMMV easily adapts to the needs of the project, maintaining flexibility and scalability without compromising simplicity. The **core** of the application resides in the contracts, allowing the entire system to be configured and expanded in an efficient and automated way.
+
+## Static files
 
 The recommendation regarding static files is to always use the CDN integration features available in the editor, as whenever the application is built all static files will be automatically uploaded and updated on the CDN, however if you want to maintain the availability of the files being served by the application, the system is configured to map a directory /public, if this directory exists in the export and deployment of the application, its files will be copied automatically, becoming available for public access without access control.
-
-## Editor
-
-The visual editor is written in Vue3 in Typescript complemented by plugins being stored all files in `/editor/src`, static CSS files, favicons, images and Javascript bundles in `/editor/assets`.
-
-```
-.
-└── src/
-    ├── components/
-    ├── interfaces/
-    ├── lib/
-    ├── stores/
-    ├── App.vue
-    └── main.ts
-```
-
-The main file of the module that will be loaded will be `/src/main.ts`, this file is responsible for starting the application, loading necessary plugins. The editor primarily makes HTTP requests to the server to manage files, blueprints, etc., but in specific cases such as Language Server, Hot reload, realtime execution of blueprints, event buffering, this communication takes place via Websocket.
-
-```typescript
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import PerfectScrollbar from 'vue3-perfect-scrollbar';
-import UUID from "vue3-uuid";
-import Draggable from "vue3-draggable";
-import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css'
-
-import App from './App.vue';
-
-const app = createApp(App);
-app.use(UUID);
-app.use(PerfectScrollbar);
-app.use(Draggable);
-app.use(createPinia());
-app.mount('#app');
-```
 
 ## Dev mode
 
@@ -136,19 +129,7 @@ To start the application in development mode you can use the following command.
 $ yarn dev || npm run dev
 ```
 
-In this way, the initial application watches in parallel with the nodemon that checks for changes in the files and automatically reloads in case of changes, the server that provides the API will be loaded following the pure Typescript settings, the editor will be compiled for Javascript with Webpack, generating a file bundle containing all the files necessary for the editor to work, finally Tailwindcss generates a bundle of Javscript and CSS for use by the editor.
-
-The generated files are stored in `/editor/assets`, and should not be changed since every time development mode is started or an application build is generated, these files will be regenerated.
-
-## Docs
-
-To generate the documentation I created a simple form of organization through directories and `.md` files that are processed through the command below.
-
-```bash
-$ yarn generate:docs
-```
-
-When executing this command, the html files are created based on the `.md` files and are managed by the `docs.controller.ts` controller for public access, in the production version the export of the documentation is optional, in addition it is possible to define automatic documentation of the classes using docoradores that will export the documentation through Swagger (https://www.npmjs.com/package/swagger), obviously only being useful in the case of public APIs that require documentation, to document the blueprints a consistent model has not yet been defined.
+In this way, the initial application watches in parallel with the nodemon that checks for changes in the files and automatically reloads in case of changes, the server that provides the API will be loaded following the pure Typescript settings, the editor will be compiled for Javascript.
 
 ## Linting and formatting
 
@@ -156,8 +137,8 @@ Like most public web applications that use Typescript, I use eslint and prettier
 
 ```bash
 # Lint with eslint
-$ yarn lint
+$ yarn lint || npm run lint
 
 # Format with prettier
-$ yarn format
+$ yarn format || npm run format
 ```

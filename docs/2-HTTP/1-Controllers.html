@@ -1,0 +1,162 @@
+<h1>Controllers</h1><a id="controllers" title="Controllers"></a>
+<p>The <code>@cmmv/http</code> module automatically generates REST controllers with standard CRUD operations based on defined contracts. However, you can create custom controllers using a syntax similar to NestJS, with decorators for defining routes and methods. Unlike NestJS, CMMV does not use complex dependency injection. Instead, services like databases, queues, and cache must be implemented as singletons.</p>
+<p>Here’s an example of a custom controller:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import * as fs from 'fs';
+import * as path from &quot;path&quot;;
+
+import { 
+    Controller, Get, Param, 
+    Response, ServiceRegistry 
+} from '@cmmv/http';
+
+import { DocsService } from './docs.service';
+
+@Controller(&quot;docs&quot;)
+export class DocsController {
+    constructor(private docsService: DocsService){}
+
+	@Get()
+	async index(@Response() res) {		
+		res.render(&quot;views/docs/index&quot;, {
+			docs: await this.docsService.getDocsStrutucture(),
+			services: ServiceRegistry.getServicesArr()
+		});
+	}
+
+	@Get(&quot;:item&quot;)
+	async getDoc(@Param(&quot;item&quot;) item: string, @Response() res) {
+		const file = path.resolve(&quot;./docs/&quot; + item + &quot;.html&quot;);
+		const data = await this.docsService.getDocsStrutucture(file);
+
+		res.render(&quot;views/docs/index&quot;, {
+			docs: data,
+			services: ServiceRegistry.getServicesArr()
+		});
+	}
+}
+</code></pre>
+<h2>@Controller(prefix: string)</h2><a id="controllerprefix-string" title="@Controller(prefix: string)"></a>
+<p>Defines the controller and the route prefix for all its methods. The prefix parameter is optional, but it defines a base URL for the controller’s routes.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Controller('tasks')
+export class TaskController { ... }
+</code></pre>
+<h2>@Request() / @Req()</h2><a id="request--req" title="@Request() / @Req()"></a>
+<p>Binds the entire request object to the method parameter.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async getRequestData(@Request() req: any): Promise&lt;any&gt; {
+    return req;
+}
+</code></pre>
+<h2>@Response() / @Res()</h2><a id="response--res" title="@Response() / @Res()"></a>
+<p>Binds the entire response object to the method parameter, useful for handling custom responses.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async customResponse(@Response() res: any): Promise&lt;void&gt; {
+    res.send('Custom Response');
+}
+</code></pre>
+<h2>@Next()</h2><a id="next" title="@Next()"></a>
+<p>Binds the next function in middleware to the method parameter, useful for middleware chaining.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async handleRequest(@Next() next: Function): Promise&lt;void&gt; {
+    next();
+}
+</code></pre>
+<h2>@Get(path?: string)</h2><a id="getpath-string" title="@Get(path?: string)"></a>
+<p>Maps an HTTP GET request to a specific method. The optional path argument can define the route, or it will default to the controller’s base route.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get(':id')
+getTaskById(@Param('id') id: string) {
+    return this.taskService.getById(id);
+}
+</code></pre>
+<h2>@Post(path?: string)</h2><a id="postpath-string" title="@Post(path?: string)"></a>
+<p>Handles HTTP POST requests. The @Body decorator can be used to access the request body and pass it to the method.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Post()
+addTask(@Body() task: any) {
+    return this.taskService.add(task);
+}
+</code></pre>
+<h2>@Put(path?: string)</h2><a id="putpath-string" title="@Put(path?: string)"></a>
+<p>Maps an HTTP PUT request to update existing resources. Like @Post, it can accept data through the request body.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Put(':id')
+updateTask(@Param('id') id: string, @Body() task: any) {
+    return this.taskService.update(id, task);
+}
+</code></pre>
+<h2>@Delete(path?: string)</h2><a id="deletepath-string" title="@Delete(path?: string)"></a>
+<p>Handles DELETE requests for removing resources by ID.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Delete(':id')
+deleteTask(@Param('id') id: string) {
+    return this.taskService.delete(id);
+}
+</code></pre>
+<h2>@Param(param: string)</h2><a id="paramparam-string" title="@Param(param: string)"></a>
+<p>Used to extract parameters from the route. In the example, @Param(‘id’) extracts the id from the request’s route.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get(':id')
+getTaskById(@Param('id') id: string) {
+    return this.taskService.getById(id);
+}
+</code></pre>
+<h2>@Body()</h2><a id="body" title="@Body()"></a>
+<p>This decorator extracts the request body and makes it available in the method. It’s commonly used with @Post and @Put for creating and updating data.</p>
+<h2>@Query()</h2><a id="query" title="@Query()"></a>
+<p>Extracts query parameters from the request.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+getTasks(@Query('status') status: string) {
+    return this.taskService.getByStatus(status);
+}
+</code></pre>
+<h2>@Queries()</h2><a id="queries" title="@Queries()"></a>
+<p>Binds all query parameters to the method parameter.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async getAll(@Queries() queries: any): Promise&lt;Task[]&gt; {
+    return this.taskService.getAll(queries);
+}
+</code></pre>
+<h2>@Header(headerName: string)</h2><a id="headerheadername-string" title="@Header(headerName: string)"></a>
+<p>Binds a specific header value to the method parameter.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async checkHeader(@Header('Authorization') auth: string): Promise&lt;boolean&gt; {
+    return this.authService.verifyToken(auth);
+}
+</code></pre>
+<h2>@Headers()</h2><a id="headers" title="@Headers()"></a>
+<p>Binds all headers to the method parameter.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async getHeaders(@Headers() headers: any): Promise&lt;any&gt; {
+    return headers;
+}
+</code></pre>
+<h2>@Session()</h2><a id="session" title="@Session()"></a>
+<p>Extracts session data and binds it to the method parameter.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async getSessionData(@Session() session: any): Promise&lt;any&gt; {
+    return session;
+}
+</code></pre>
+<h2>@Ip()</h2><a id="ip" title="@Ip()"></a>
+<p>Binds the client’s IP address to the method parameter.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async getClientIp(@Ip() ip: string): Promise&lt;string&gt; {
+    return ip;
+}
+</code></pre>
+<h2>@HostParam()</h2><a id="hostparam" title="@HostParam()"></a>
+<p>Extracts the host information from the request.</p>
+<pre><code class="hljs language-typescript" lang="typescript">@Get()
+async getHost(@HostParam() host: string): Promise&lt;string&gt; {
+    return host;
+}
+</code></pre>
+<h1>Getting up and running</h1><a id="getting-up-and-running" title="Getting up and running"></a>
+<p>To make the controller functional, it needs to be added to a module and called in the application. The process involves creating a module, registering the controller, and ensuring the module is used during application initialization.</p>
+<p>Here is an example of registering a controller inside a module:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { Module } from '@cmmv/core';
+import { TaskController } from './controllers/task.controller';
+    
+export let TaskModule = new Module({
+    controllers: [TaskController],
+    ...
+});
+</code></pre>
+<p>Once the module is created, you can import and load it into the main application configuration, ensuring the controller is properly initialized and accessible for handling requests.</p>
+<p>The module will automatically handle routing and the controller logic when linked to the application setup. This modular design enables the clean separation of concerns and simplifies adding and managing controllers in the CMMV framework.</p>

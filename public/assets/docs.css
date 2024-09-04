@@ -38,7 +38,7 @@ img {
 
 * {
     scrollbar-width: auto;
-    scrollbar-color: #171717 #000000;
+    scrollbar-color: #4c4c4c #2e3035;
     border-color: #2e3035;
 }
 
@@ -48,14 +48,13 @@ img {
 }
 
 *::-webkit-scrollbar-track, *::-webkit-scrollbar-corner {
-    background: #1E1E1E;
+    background: #2e3035;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #383838;
-    border-radius: 0px;
-    border: 3px solid #383838;
+    background-color: #4c4c4c;
     border-radius: 30px;
+    border: 3px solid #2e3035;
 }
 
 .content a {
@@ -64,16 +63,19 @@ img {
 
 h1, h2 {
     margin: 20px 0 !important;
-    margin-top: 40px !important;
     font-size: 24px !important; 
     font-weight: 700 !important;
+    color: #edeef0;
+}
+
+h2, h3 {
+    margin-top: 40px !important;
     color: #edeef0;
 }
 
 h3 {
     font-size: 20px !important; 
     font-weight: 200 !important;
-    color: #151515;
 }
 
 p {
@@ -172,13 +174,28 @@ p {
 }
 
 .hljs{
+    max-width: 689px;
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 
 .navbar {
+    
     border-width: 0 0 1px;
     padding: 0;
     z-index: 399;
+}
+
+.contents{
+    max-width: 90rem;
+    margin: auto;
+}
+
+.context-html li{
+    display: list-item;
+    list-style: disc;
+    margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 @supports ((-webkit-backdrop-filter: var(--tw )) or (backdrop-filter:var(--tw ))) {

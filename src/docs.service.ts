@@ -1,27 +1,28 @@
 import * as fs from "fs";
 import * as fg from "fast-glob";
 import * as path from "path";
+import { AbstractService, Service } from "@cmmv/http";
+import { cwd } from "process";
 
-export class DocsService {
-    constructor(){}
+@Service("docs")
+export class DocsService extends AbstractService {
+    public override name = "docs";
 
     async getDocsStrutucture(file = null){
         let strutucture = {
             index: "",
             navbar: [],
             breadcrumb: [],
-            anchors: []
+            anchors: [],
+            link: file.replace(cwd(), "")
         };
 
         const filesAndDirsIndex = await fg(path.resolve(process.cwd(), "./docs/*"), { 
             dot: false, 
             onlyFiles: false, 
-            ignore: [
-                "./docs/index.html"
-            ] 
+            ignore: [ "./docs/index.html" ] 
         });
         
-
         if(file){
             const pathDivider = (process.platform === "win32") ? "\\" : "/";
             const [root, content] = file.replace(path.join(process.cwd(), "/docs/"), "").split(pathDivider);
@@ -37,7 +38,9 @@ export class DocsService {
                 strutucture.breadcrumb[1] = strutucture.breadcrumb[1].split(".")[0];
         }
 
-        strutucture.index = fs.readFileSync(path.resolve("./docs/index.html"), "utf8") ;
+        strutucture.index = (file) ? 
+        fs.readFileSync(path.resolve(file), "utf8") : 
+        fs.readFileSync(path.resolve("./docs/index.html"), "utf8");
      
         for(let fileOrDir of filesAndDirsIndex){
             try{
@@ -53,7 +56,7 @@ export class DocsService {
                 if(name && !strutucture.navbar[index-1]){
                     strutucture.navbar[index-1] = {
                         filename: fileOrDir,
-                        uri: "/docs/" + encodeURIComponent(fileOrDir.replace(process.cwd(), "").replace("/docs/", "").replace(/\\/g, "/")),
+                        uri: "/docs/" + encodeURIComponent(fileOrDir.replace(process.cwd(), "").replace("/docs/", "").replace(/\\/g, "/").replace(".html","")),
                         isDir,
                         index: index,
                         name: name,
@@ -71,7 +74,7 @@ export class DocsService {
         
                             strutucture.navbar[index-1].children.push({
                                 filename: children,
-                                uri: "/docs/" + encodeURIComponent(children.replace(process.cwd(), "").replace("/docs/", "").replace(/\\/g, "/")),
+                                uri: "/docs/" + encodeURIComponent(children.replace(process.cwd(), "").replace("/docs/", "").replace(/\\/g, "/").replace(".html","")),
                                 name: nameChildren
                             });
                         }

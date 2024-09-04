@@ -30,20 +30,20 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@cmmv/core@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.10.tgz#b9c249143ebff904fbb2e08d0193b2118d83e94f"
-  integrity sha512-sPO6Dx85KQSmf3G/PVIIcO3LcVrxar64JK1eIjdPB/QtdomP0IEfhho1QE9V1mEp9wcP01xS2x+9iwTVbpR//w==
+"@cmmv/core@^0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.11.tgz#33831dd98a4e2c7b6c898700c94d53fb760867d5"
+  integrity sha512-Pf/RyvZ0IunGGRZJ4R37ixEljoMW3JGIEAFhw4JlkETe+Og4r7HzH1AjH9wK2w7IhhmNhB2AS/nd0xcADgXLXw==
   dependencies:
     fast-glob "^3.3.2"
     reflect-metadata "^0.2.2"
     rxjs "^7.8.1"
     uuid "^10.0.0"
 
-"@cmmv/http@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.10.tgz#d0df22d6384967f5aff33274cc476b4e601df325"
-  integrity sha512-2m2G/UTMvOhOqOIGYtazf0CDuRQ4bylMhFpI8YWCe00uJqVtSUrYOcWtY3q4m258yNktgB3tWVtUIYE4nZ+R/g==
+"@cmmv/http@^0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.11.tgz#d3e480a83e5ae142a664a59da28e4a6586c3c6d2"
+  integrity sha512-PkvZqQiGb9bShNGtfd7Ynha23RaAAOj4dD0dzmwOdcvDu2c5bAAy6ZJ9CF6jYFA4gTz5NPSm1A4sfVM/HPXtVg==
   dependencies:
     "@fastify/compress" "^7.0.3"
     "@fastify/cors" "^9.0.1"
@@ -60,17 +60,17 @@
     helmet "^7.1.0"
     multer "^1.4.5-lts.1"
 
-"@cmmv/reactivity@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@cmmv/reactivity/-/reactivity-0.0.2.tgz#9a12059f3b4bac4dc2954b2eeda61cd0cbf3c71f"
-  integrity sha512-xrhRWzBghloj6+dSzb5wUO4oph//yELUaH2kUID+MSmnL//KytcZXOCLNj102omN7TDXJATXvvaodRPlE70FwQ==
+"@cmmv/reactivity@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@cmmv/reactivity/-/reactivity-0.0.5.tgz#42671ad94c3dd04f53a3ce791f57062c9a33518a"
+  integrity sha512-/t3wLFWGQl56bTOylvf7ybenYVHKGfKohUGE/C/wv4jvgP3AIQUkJEnezSw0QHcq7sL3NQY6P5hc30Wofu6f6Q==
 
-"@cmmv/view@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.10.tgz#a6a4a480a851b68d4b63c6444f83e876725c67a9"
-  integrity sha512-L7OXk+gzJh/kUrkVbMsqW8TOVW/DXC5TMzzsdJm5DRhQ7SjGMc3sZeew88NJdm/gEWnAS8DI6dmFGJYd7IlECw==
+"@cmmv/view@^0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.11.tgz#649704d2e66b84635a99d521a3bb89be8a297b02"
+  integrity sha512-+GP7pjYkh2vJnsR+cmyS918en+CiZ0dM8War8F03/eQFzcT5biT32r9daD0pNfTAuaUHEdH49K8YRJudjkfL3A==
   dependencies:
-    "@cmmv/reactivity" "^0.0.2"
+    "@cmmv/reactivity" "^0.0.5"
     fast-glob "^3.3.2"
     uglify-js "^3.19.2"
 

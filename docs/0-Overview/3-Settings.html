@@ -1,0 +1,81 @@
+<h1>Settings</h1><a id="settings" title="Settings"></a>
+<p>The system configuration for a CMMV project is managed through a <code>.cmmv.config.js</code> file in the root directory. This file defines various settings, such as:</p>
+<ul>
+<li><strong>Server Settings:</strong> Configures the host and port for the application.</li>
+<li><strong>I18n:</strong> Manages internationalization with locale files and default languages.</li>
+<li><strong>Repository:</strong> Defines the database type (e.g., SQLite) and connection details.</li>
+<li><strong>Head Configuration:</strong> Sets HTML attributes, meta tags, and links for the application’s frontend.</li>
+<li><strong>Headers:</strong> Security policies like Content-Security-Policy.</li>
+<li><strong>Scripts:</strong> Specifies JavaScript files to load.</li>
+</ul>
+<p>Modules can extend this configuration based on the application’s requirements.</p>
+<pre><code class="hljs language-typescript" lang="typescript">module.exports = {
+    server: {
+        host: &quot;0.0.0.0&quot;,
+        port: process.env.PORT || 3000
+    },
+
+    i18n: {
+        localeFiles: &quot;./src/locale&quot;,
+        default: &quot;en&quot;
+    },
+
+    head: {
+        title: &quot;Documentation | CMMV - A minimalistic Node.js framework&quot;,
+        htmlAttrs: {
+            lang: &quot;pt-br&quot;
+        },
+        meta: [
+            { charset: 'utf-8' },
+            { &quot;http-equiv&quot;: &quot;content-type&quot;, content: &quot;text/html; charset=UTF-8&quot; },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            { name: &quot;robots&quot;, content: &quot;noodp&quot; }
+        ],
+        link: [
+            { rel: 'icon', href: '/assets/favicon/favicon.ico' },
+            { rel: &quot;dns-prefetch&quot;, href: &quot;https://docs.cmmv.io&quot; },
+            { rel: &quot;preconnect&quot;, href: &quot;https://docs.cmmv.io&quot; },    
+            { rel: &quot;stylesheet&quot;, href: &quot;/assets/docs.css&quot; }            
+        ]
+    },
+
+    headers: {
+        &quot;Content-Security-Policy&quot;: [
+            &quot;default-src 'self'&quot;,
+            &quot;script-src 'self' 'unsafe-eval' 'unsafe-inline'&quot;,
+            &quot;style-src 'self' 'unsafe-inline'&quot;,
+            &quot;font-src 'self'&quot;
+        ]
+    },
+
+    scripts: [
+        { type: &quot;text/javascript&quot;, src: '/assets/bundle.min.js'},
+    ]
+};
+</code></pre>
+<p>The default HTTP renderer in CMMV natively supports internationalization, SEO configuration, and security-focused custom headers. These features allow developers to manage localized content, improve search engine optimization, and apply security policies like Content-Security-Policy directly in the configuration. Additional settings for templates and views can also be added later, providing flexibility for customizing pages. More detailed instructions can be found in the “View” documentation, which explains how to implement these configurations within the template system.</p>
+<h2>API</h2><a id="api" title="API"></a>
+<p>The system configurations in a CMMV-based application can be accessed programmatically through the Config class from the <code>@cmmv/core</code> module. This allows developers to dynamically retrieve, modify, or delete configuration values throughout the application. For example, the server’s host and port settings, database configurations, or internationalization options can be accessed and altered by calling methods like Config.get(), Config.set(), and Config.has(). These features enable a flexible and centralized approach to managing system settings.</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { Config } from &quot;@cmmv/core&quot;;
+
+//Get
+const serverPort = Config.get&lt;number&gt;('server.port');
+console.log(`Server running on port: ${serverPort}`);
+
+//Set
+Config.set('server.host', '127.0.0.1');
+
+//Delete
+Config.delete('repository.logging');
+
+//Get All
+const allConfig = Config.getAll();
+console.log(allConfig);
+
+//Assign
+Config.assign({
+    server: { port: 4000 },
+    repository: { type: 'sqlite' }
+});
+</code></pre>
+<p>Each module in the CMMV system has its own set of configurations that can be added to the central configuration file (.cmmv.config.js). This allows developers to customize the behavior and features of the modules they are using. Because different modules may require specific settings, it’s essential to review each module’s documentation carefully to understand the available configuration options and how they integrate with the core system. This ensures optimal setup and use of advanced functionalities such as RPC, authentication, caching, and more.</p>

@@ -1,4 +1,11 @@
 {
     "index.html": "/mnt/f/Node/cmmv-docs/docs/index.html",
+    "http-controllers.html": "/mnt/f/Node/cmmv-docs/docs/2-HTTP/1-Controllers.html",
+    "http-overview.html": "/mnt/f/Node/cmmv-docs/docs/2-HTTP/0-Overview.html",
+    "overview-transpiles.html": "/mnt/f/Node/cmmv-docs/docs/0-Overview/6-Transpiles.html",
+    "overview-singleton.html": "/mnt/f/Node/cmmv-docs/docs/0-Overview/5-Singleton.html",
+    "overview-modules.html": "/mnt/f/Node/cmmv-docs/docs/0-Overview/4-Modules.html",
+    "overview-settings.html": "/mnt/f/Node/cmmv-docs/docs/0-Overview/3-Settings.html",
+    "overview-contracts.html": "/mnt/f/Node/cmmv-docs/docs/0-Overview/2-Contracts.html",
     "overview-first-steps.html": "/mnt/f/Node/cmmv-docs/docs/0-Overview/1-First Steps.html"
 }

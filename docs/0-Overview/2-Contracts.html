@@ -1,0 +1,213 @@
+<h1>Contracts</h1><a id="contracts" title="Contracts"></a>
+<p>CMMV’s contract system allows defining structured models that are used to auto-generate APIs, RPCs, and WebSocket routes. Contracts are defined using decorators applied to classes and their fields.</p>
+<p>Contracts are defined using the <code>@Contract</code> and <code>@ContractField</code> decorators. These decorators specify the contract name, file path for protocol buffers, and the type of the contract fields.</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { AbstractContract, Contract, ContractField } from &quot;@cmmv/core&quot;;
+
+@Contract({
+    controllerName: &quot;Task&quot;,
+    protoPath: &quot;src/protos/task.proto&quot;,
+    protoPackage: &quot;task&quot;
+})
+export class TasksContract extends AbstractContract {
+    @ContractField({ 
+        protoType: 'string', 
+        unique: true 
+    })
+    label: string;
+
+    @ContractField({ 
+        protoType: 'bool', 
+        defaultValue: false 
+    })
+    checked: boolean;
+
+    @ContractField({ 
+        protoType: 'bool', 
+        defaultValue: false 
+    })
+    removed: boolean;
+}
+</code></pre>
+<h2><code>@Contract</code></h2><a id="contract" title="@Contract"></a>
+<p>Defines a contract class with the following options:</p>
+<ul>
+<li><strong>controllerName</strong>: Specifies the contract name.</li>
+<li><strong>controllerCustomPath</strong>: defines a custom path for the Rest controller.</li>
+<li><strong>protoPath</strong>: Specifies the path to the protocol buffer file.</li>
+<li><strong>protoPackage</strong>: defines the namespace of the contract generated in the protocol buffer.</li>
+<li><strong>directMessage</strong>: defines whether RPC calls are direct or whether a crud structure should be created.</li>
+<li><strong>generateController</strong>: defines whether or not transpilers should automatically generate drivers for this contract.</li>
+<li><strong>generateController</strong>: defines access to data that requires authentication.</li>
+</ul>
+<h2><code>@ContractField</code></h2><a id="contractfield" title="@ContractField"></a>
+<p>Defines a contract field with options such as:</p>
+<ul>
+<li><strong>protoType</strong>: Field type (<code>string</code>, <code>number</code>, etc.).</li>
+<li><strong>protoRepeated</strong>: defines whether the field is a list.</li>
+<li><strong>defaultValue</strong>: sets a default value when creating the record.</li>
+<li><strong>unique</strong>: Ensures uniqueness.</li>
+<li><strong>index</strong>: defines that the field in question is an index.</li>
+</ul>
+<h2>Supported Field Types</h2><a id="supported-field-types" title="Supported Field Types"></a>
+<p>CMMV supports a variety of field types:</p>
+<ul>
+<li><strong>Basic Types</strong>: <code>string</code>, <code>boolean</code>, <code>int</code>, <code>float</code>, <code>double</code>, <code>bytes</code>, <code>uuid</code></li>
+<li><strong>Numeric Types</strong>: <code>int32</code>, <code>int64</code>, <code>uint32</code>, <code>uint64</code>, <code>sint32</code>, <code>sint64</code>, <code>fixed32</code>, <code>fixed64</code>, <code>sfixed32</code>, <code>sfixed64</code></li>
+<li><strong>Advanced Types</strong>: <code>json</code>, <code>jsonb</code>, <code>simpleArray</code>, <code>simpleJson</code>, <code>any</code></li>
+<li><strong>Date and Time Types</strong>: <code>date</code>, <code>time</code>, <code>timestamp</code></li>
+</ul>
+<p>When the application starts, the system automatically generates controllers, services, and generic entities based on the contract definitions. This process simplifies development by ensuring that common components like CRUD operations are pre-built and ready to use. Each entity and service is created dynamically to match the contract specifications, allowing the developer to focus on custom logic without having to manually define the basic structures. This auto-generation enhances efficiency and consistency throughout the application.</p>
+<h2>HTTP Module</h2><a id="http-module" title="HTTP Module"></a>
+<p>To start a basic REST application using the @cmmv/http and @cmmv/view modules, follow these steps:</p>
+<pre><code class="hljs">npm install @cmmv/http @cmmv/view
+</code></pre>
+<p>Set up the application:</p>
+<pre><code class="hljs language-typescript" lang="typescript">import { Application } from &quot;@cmmv/core&quot;;
+import { ExpressAdapter, ExpressModule } from &quot;@cmmv/http&quot;;
+import { ViewModule } from &quot;@cmmv/view&quot;;
+
+Application.create({
+    httpAdapter: ExpressAdapter,
+    modules: [ 
+        ExpressModule,
+        ViewModule
+    ]
+});
+</code></pre>
+<p>To correctly implement a basic CMMV application using either the Express or Fastify adapters, you can use the following structure in your src/index.ts file. The system supports both Express and Fastify for handling HTTP requests, and the correct adapter is selected in the configuration.</p>
+<p>By default, when you start the application, it will be hosted at <a href="http://localhost:3000" target="_blank" rel="nofollow">http://localhost:3000</a>. This can be easily modified by configuring the port and bind address in the application’s configuration file. The configuration settings allow you to change the host, port, and other related properties for the HTTP server. These options will be covered in more detail later when we show the configuration file setup, providing flexibility to adjust your server’s runtime environment.</p>
+<h3>Model</h3>
+<p>The system will automatically generate the model for your entity in the following format:</p>
+<pre><code class="hljs language-typescript" lang="typescript">// Generated automatically by CMMV
+
+export interface Task {
+    id?: any;
+    label: string;
+    checked: boolean;
+    removed: boolean;
+}
+</code></pre>
+<p>This Task interface defines the structure of the model, including optional and required fields. The id is optional, and fields such as label, checked, and removed are mandatory with defined types. You can further customize or extend this model based on your application’s needs.</p>
+<p>This base interface, such as the Task interface, will be utilized by other modules, including the repository module, to define entities in the database. By sharing the same interface structure across modules, it ensures consistency and type safety throughout the application. For example, the repository module will use this Task interface to map and handle database operations, making it easier to maintain and scale your application while ensuring that the data model aligns across different layers of the system.</p>
+<h3>Controller</h3>
+<p>The example contract provided above will automatically generate a controller at the path /src/controllers/task.controller.ts. This controller will be structured as follows:</p>
+<pre><code class="hljs language-typescript" lang="typescript">// Generated automatically by CMMV
+    
+import { Telemetry } from &quot;@cmmv/core&quot;;  
+import { Controller, Get, Post, Put, Delete, Queries, Param, Body, Request } from '@cmmv/http';
+import { TaskService } from '../services/task.service';
+import { Task } from '../models/task.model';
+
+@Controller('task')
+export class TaskController {
+    constructor(private readonly taskservice: TaskService) {}
+
+    @Get()
+    async getAll(@Queries() queries: any, @Request() req): Promise&lt;Task[]&gt; {
+        Telemetry.start('TaskController::GetAll', req.requestId);
+        let result = await this.taskservice.getAll(queries, req);
+        Telemetry.end('TaskController::GetAll', req.requestId);
+        return result;
+    }
+
+    @Get(':id')
+    async getById(@Param('id') id: string, @Request() req): Promise&lt;Task&gt; {
+        Telemetry.start('TaskController::GetById', req.requestId);
+        let result = await this.taskservice.getById(id, req);
+        Telemetry.end('TaskController::GetById', req.requestId);
+        return result;
+    }
+
+    @Post()
+    async add(@Body() item: Task, @Request() req): Promise&lt;Task&gt; {
+        Telemetry.start('TaskController::Add', req.requestId);
+        let result = await this.taskservice.add(item, req);
+        Telemetry.end('TaskController::Add', req.requestId);
+        return result;
+    }
+
+    @Put(':id')
+    async update(@Param('id') id: string, @Body() item: Task, @Request() req): Promise&lt;Task&gt; {
+        Telemetry.start('TaskController::Update', req.requestId);
+        let result = await this.taskservice.update(id, item, req);
+        Telemetry.end('TaskController::Update', req.requestId);
+        return result;
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id: string, @Request() req): Promise&lt;{ success: boolean, affected: number }&gt; {
+        Telemetry.start('TaskController::Delete', req.requestId);
+        let result = await this.taskservice.delete(id, req);
+        Telemetry.end('TaskController::Delete', req.requestId);
+        return result;
+    }
+}
+</code></pre>
+<p>You can create your own custom controllers by simply informing the application of their existence during the creation process or by including them via modules. This allows for greater flexibility and customization in your application’s architecture. When you define custom controllers, you can register them within the application module during the application setup phase, ensuring that they integrate smoothly with the core framework, such as HTTP routing or WebSocket handling, while adhering to your project’s specific requirements.</p>
+<h3>Services</h3>
+<p>Just like the controller, the service layer is also automatically generated by the system. In the absence of persistence modules such as the repository, a placeholder service is created, which temporarily stores records in memory while the application is online. This allows basic operations like adding, updating, and deleting data without a persistent store. Once a repository module is introduced, it overrides the default service, enabling direct interaction with a database, allowing data to be saved, queried, and managed efficiently from persistent storage.</p>
+<p>Here is an example of a service created using the repository module. This service interacts directly with the database using the repository pattern:</p>
+<pre><code class="hljs language-typescript" lang="typescript">// Generated automatically by CMMV
+    
+import { Telemetry } from &quot;@cmmv/core&quot;;
+import { AbstractService, Service } from '@cmmv/http';
+import { Repository } from '@cmmv/repository';
+import { TaskEntity } from '../entities/task.entity';
+
+@Service(&quot;task&quot;)
+export class TaskService extends AbstractService {
+    public override name = &quot;task&quot;;
+
+    async getAll(queries?: any, req?: any): Promise&lt;TaskEntity[]&gt; {
+        const instance = Repository.getInstance();
+        const repository = instance.dataSource.getRepository(TaskEntity);
+        Telemetry.start('TaskService::GetAll', req?.requestId);
+        let result = await repository.find();
+        Telemetry.end('TaskService::GetAll', req?.requestId);
+        return result;
+    }
+
+    async getById(id: string, req?: any): Promise&lt;TaskEntity&gt; {
+        const instance = Repository.getInstance();
+        const repository = instance.dataSource.getRepository(TaskEntity);
+        Telemetry.start('TaskService::GetById', req?.requestId);
+        const item = await repository.findOneBy({ id });
+        Telemetry.end('TaskService::GetById', req?.requestId);
+
+        if (!item) 
+            throw new Error('Item not found');
+        
+        return item;
+    }
+
+    async add(item: Partial&lt;TaskEntity&gt;, req?: any): Promise&lt;TaskEntity&gt; {
+        const instance = Repository.getInstance();
+        const repository = instance.dataSource.getRepository(TaskEntity);
+        Telemetry.start('TaskService::Add', req?.requestId);
+        const result = await repository.save(item);
+        Telemetry.end('TaskService::Add', req?.requestId);
+        return result;
+    }
+
+    async update(id: string, item: Partial&lt;TaskEntity&gt;, req?: any): Promise&lt;TaskEntity&gt; {
+        const instance = Repository.getInstance();
+        const repository = instance.dataSource.getRepository(TaskEntity);
+        Telemetry.start('TaskService::Update', req?.requestId);
+        await repository.update(id, item);
+        let result = await repository.findOneBy({ id });
+        Telemetry.end('TaskService::Update', req?.requestId);
+        return result;
+    }
+
+    async delete(id: string, req?: any): Promise&lt;{ success: boolean, affected: number }&gt; {
+        const instance = Repository.getInstance();
+        const repository = instance.dataSource.getRepository(TaskEntity);
+        Telemetry.start('TaskService::Delete', req?.requestId);
+        const result = await repository.delete(id);
+        Telemetry.end('TaskService::Delete', req?.requestId);
+        return { success: result.affected &gt; 0, affected: result.affected };
+    }
+}
+</code></pre>
+<h2>More</h2><a id="more" title="More"></a>
+<p>The installation of additional modules, such as RPC, caching, and authentication, will extend the functionality of your application. Each module introduces new capabilities, like enabling remote procedure calls, enhancing security through authentication, or improving performance with caching. For more details, specific documentation for each module is available in the sidebar, where you’ll find comprehensive guides on how to integrate and implement these modules effectively within your application.</p>

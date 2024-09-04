@@ -21,11 +21,11 @@ module.exports = {
             { name: "robots", content: "noodp" }
         ],
         link: [
-            { rel: 'icon', href: 'assets/favicon/favicon.ico' },
-            { rel: 'apple-touch-icon', sizes: '180x180', href: 'assets/favicon/apple-touch-icon.png' },
-            { rel: 'icon', type: 'image/png', sizes: '32x32', href: 'assets/favicon/favicon-32x32.png' },
-            { rel: 'icon', type: 'image/png', sizes: '16x16', href: 'assets/favicon/favicon-16x16.png' },
-            { rel: 'manifest', href: 'assets/favicon/site.webmanifest' },
+            { rel: 'icon', href: '/assets/favicon/favicon.ico' },
+            { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/favicon/apple-touch-icon.png' },
+            { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/assets/favicon/favicon-32x32.png' },
+            { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/favicon/favicon-16x16.png' },
+            { rel: 'manifest', href: '/assets/favicon/site.webmanifest' },
             { rel: "dns-prefetch", href: "https://.docs.cmmv.io" },
             { rel: "preconnect", href: "https://.docs.cmmv.io" },     
             { rel: "preconnect", href: "https://cdnjs.cloudflare.com", crossorigin: "" },
@@ -48,7 +48,6 @@ module.exports = {
     },
 
     scripts: [
-        { type: "text/javascript", src: 'https://code.jquery.com/jquery-3.6.1.min.js'},
-        { type: "text/javascript", src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js' }
+        { type: "text/javascript", src: '/assets/bundle.min.js'},
     ]
 };

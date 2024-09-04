@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from "path";
 
-import { Controller, Get, Param, Response, Request } from '@cmmv/http';
+import { Controller, Get, Param, Response, ServiceRegistry } from '@cmmv/http';
 import { DocsService } from './docs.service';
 
 @Controller("docs")
@@ -10,20 +10,20 @@ export class DocsController {
 
 	@Get()
 	async index(@Response() res) {		
-		return res.render("views/docs.html", {
-			nonce: res.locals.nonce,
-			...await this.docsService.getDocsStrutucture()
+		return res.render("views/docs/index", {
+			docs: await this.docsService.getDocsStrutucture(),
+			services: ServiceRegistry.getServicesArr()
 		});
 	}
 
-	@Get("json")
-	async indexJson(@Request() req, @Response() res) {
-		return await this.docsService.getDocsStrutucture();
-	}
-
-	@Get("/:item")
+	@Get(":item")
 	async getDoc(@Param("item") item: string, @Response() res) {
-		const file = path.resolve("./docs/" + item);
-		return await this.docsService.getDocsStrutucture(file);
+		const file = path.resolve("./docs/" + item + ".html");
+		const data = await this.docsService.getDocsStrutucture(file);
+
+		return res.render("views/docs/index", {
+			docs: data,
+			services: ServiceRegistry.getServicesArr()
+		});
 	}
 }
