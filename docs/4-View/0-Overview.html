@@ -40,36 +40,36 @@ Client-side rendering frameworks often involve large JavaScript bundles and sign
 <p><strong>Pre-Loaded Data for SEO and UX</strong><br>
 By pre-fetching data and injecting it into the HTML, @cmmv/view ensures that users and search engines see the most relevant content immediately. Whether it’s product information, blog content, or news articles, everything is available as soon as the page loads, improving both SEO and user engagement.</p>
 <h2>Exemple</h2><a id="exemple" title="Exemple"></a>
-<pre><code class="hljs language-html" lang="html">&lt;div class=&quot;product-page&quot; s:product=&quot;services.product.getProductById(productId)&quot; scope&gt;
-    &lt;h1&gt;{{ product.name }}&lt;/h1&gt;
-    &lt;p&gt;{{ product.description }}&lt;/p&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;product-page&quot;</span> <span class="hljs-attr">s:product</span>=<span class="hljs-string">&quot;services.product.getProductById(productId)&quot;</span> <span class="hljs-attr">scope</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{ product.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ product.description }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
-    &lt;div class=&quot;price&quot;&gt;{{ product.price | currency }}&lt;/div&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;price&quot;</span>&gt;</span>{{ product.price | currency }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-    &lt;div class=&quot;availability&quot;&gt;
-        {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
-    &lt;/div&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;availability&quot;</span>&gt;</span>
+        {{ product.inStock ? &#x27;In Stock&#x27; : &#x27;Out of Stock&#x27; }}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-    &lt;button class=&quot;add-to-cart&quot; @click=&quot;addToCart(product.id)&quot;&gt;Add to Cart&lt;/button&gt;
-&lt;/div&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;add-to-cart&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;addToCart(product.id)&quot;</span>&gt;</span>Add to Cart<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-&lt;script s-setup&gt;
-export default {
-    layout: &quot;default&quot;,
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>,
     
-    data() {
-        return {
-            product: null
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">product</span>: <span class="hljs-literal">null</span>
         }
     },
     
-    methods: {
-        addToCart(productId) {
+    <span class="hljs-attr">methods</span>: {
+        <span class="hljs-title function_">addToCart</span>(<span class="hljs-params">productId</span>) {
             ...
         }
     }
 }
-&lt;/script&gt;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <p>By using @cmmv/view, developers can leverage the advantages of SSR to significantly boost their SEO performance and reduce load times. By pre-loading content, optimizing JavaScript bundles, and offering seamless integration with modern frontend frameworks, @cmmv/view provides a comprehensive solution for building scalable, SEO-friendly web applications.</p>
 <p>The ability to serve pre-rendered content, while maintaining the flexibility of client-side interactivity, ensures that CMMV applications can deliver the best of both worlds: high SEO performance and rich, responsive user experiences.</p>

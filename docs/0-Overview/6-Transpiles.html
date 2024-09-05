@@ -1,307 +1,307 @@
 <h1>Transpiles</h1><a id="transpiles" title="Transpiles"></a>
 <p>In CMMV, transpilers are used to generate necessary files based on contracts and module requirements. These classes create code or configuration files that are required for the proper functioning of modules such as HTTP, Protobuf, and Repository. Whenever a module requires specific artifacts (like controllers or entities), a transpiler processes the contracts and automatically generates the required files. This modular approach makes the system adaptable, as each module can define its own set of transpilers to handle file generation as needed.</p>
 <p>Here’s an example of a Protobuf transpiler implementation:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import * as fs from 'fs';
-import * as path from 'path';
-import * as protobufjs from 'protobufjs';
-import * as UglifyJS from 'uglify-js';
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> protobufjs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;protobufjs&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">UglifyJS</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;uglify-js&#x27;</span>;
 
-import { ProtoRegistry } from './protobuf-registry.utils';
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtoRegistry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./protobuf-registry.utils&#x27;</span>;
 
-import { ITranspile, Logger, Scope } from &quot;@cmmv/core&quot;;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ITranspile</span>, <span class="hljs-title class_">Logger</span>, <span class="hljs-title class_">Scope</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 
-export class ProtobufTranspile implements ITranspile {
-    private logger: Logger = new Logger('ProtobufTranspile');
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProtobufTranspile</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ITranspile</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">logger</span>: <span class="hljs-title class_">Logger</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;ProtobufTranspile&#x27;</span>);
 
-    run(): void {
-        const contracts = Scope.getArray&lt;any&gt;(&quot;__contracts&quot;);
+    <span class="hljs-title function_">run</span>(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> contracts = <span class="hljs-title class_">Scope</span>.<span class="hljs-property">getArray</span>&lt;<span class="hljs-built_in">any</span>&gt;(<span class="hljs-string">&quot;__contracts&quot;</span>);
 
-        const contractsJson: { [key: string]: any } = {};
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">contractsJson</span>: { [<span class="hljs-attr">key</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span> } = {};
 
-        contracts?.forEach((contract: any) =&gt; {
-            const outputPath = path.resolve(contract.protoPath);
-            const outputPathJson = outputPath.replace('.proto', '.json');
-            const outputPathTs = outputPath.replace('.proto', '.d.ts');
-            const outputDir = path.dirname(outputPath);    
+        contracts?.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">contract</span>: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> outputPath = path.<span class="hljs-title function_">resolve</span>(contract.<span class="hljs-property">protoPath</span>);
+            <span class="hljs-keyword">const</span> outputPathJson = outputPath.<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;.proto&#x27;</span>, <span class="hljs-string">&#x27;.json&#x27;</span>);
+            <span class="hljs-keyword">const</span> outputPathTs = outputPath.<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;.proto&#x27;</span>, <span class="hljs-string">&#x27;.d.ts&#x27;</span>);
+            <span class="hljs-keyword">const</span> outputDir = path.<span class="hljs-title function_">dirname</span>(outputPath);    
                                
-            if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
-                this.logger.log(`Created directory ${outputDir}`);
+            <span class="hljs-keyword">if</span> (!fs.<span class="hljs-title function_">existsSync</span>(outputDir)) {
+                fs.<span class="hljs-title function_">mkdirSync</span>(outputDir, { <span class="hljs-attr">recursive</span>: <span class="hljs-literal">true</span> });
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">logger</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Created directory <span class="hljs-subst">${outputDir}</span>`</span>);
             }
 
-            const root = new protobufjs.Root();
-            const protoNamespace = root.define(contract.controllerName);
+            <span class="hljs-keyword">const</span> root = <span class="hljs-keyword">new</span> protobufjs.<span class="hljs-title class_">Root</span>();
+            <span class="hljs-keyword">const</span> protoNamespace = root.<span class="hljs-title function_">define</span>(contract.<span class="hljs-property">controllerName</span>);
 
-            const itemMessage = new protobufjs.Type(contract.controllerName)
-                .add(new protobufjs.Field(&quot;id&quot;, 1, &quot;int32&quot;));
+            <span class="hljs-keyword">const</span> itemMessage = <span class="hljs-keyword">new</span> protobufjs.<span class="hljs-title class_">Type</span>(contract.<span class="hljs-property">controllerName</span>)
+                .<span class="hljs-title function_">add</span>(<span class="hljs-keyword">new</span> protobufjs.<span class="hljs-title class_">Field</span>(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&quot;int32&quot;</span>));
 
-            contract.fields.forEach((field: any, index: number) =&gt; {
-                const protoType = this.mapToProtoType(field.protoType);
-                itemMessage.add(new protobufjs.Field(field.propertyKey, index + 2, protoType));
+            contract.<span class="hljs-property">fields</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">field</span>: <span class="hljs-built_in">any</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> protoType = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mapToProtoType</span>(field.<span class="hljs-property">protoType</span>);
+                itemMessage.<span class="hljs-title function_">add</span>(<span class="hljs-keyword">new</span> protobufjs.<span class="hljs-title class_">Field</span>(field.<span class="hljs-property">propertyKey</span>, index + <span class="hljs-number">2</span>, protoType));
             });
 
-            protoNamespace.add(itemMessage);
+            protoNamespace.<span class="hljs-title function_">add</span>(itemMessage);
 
-            if (!contract.directMessage) {
-                const listMessage = new protobufjs.Type(`${contract.controllerName}List`)
-                    .add(new protobufjs.Field(&quot;items&quot;, 1, `${contract.controllerName}`, &quot;repeated&quot;));
+            <span class="hljs-keyword">if</span> (!contract.<span class="hljs-property">directMessage</span>) {
+                <span class="hljs-keyword">const</span> listMessage = <span class="hljs-keyword">new</span> protobufjs.<span class="hljs-title class_">Type</span>(<span class="hljs-string">`<span class="hljs-subst">${contract.controllerName}</span>List`</span>)
+                    .<span class="hljs-title function_">add</span>(<span class="hljs-keyword">new</span> protobufjs.<span class="hljs-title class_">Field</span>(<span class="hljs-string">&quot;items&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">`<span class="hljs-subst">${contract.controllerName}</span>`</span>, <span class="hljs-string">&quot;repeated&quot;</span>));
 
-                protoNamespace.add(listMessage);
+                protoNamespace.<span class="hljs-title function_">add</span>(listMessage);
             }
 
-            const protoContent = this.generateProtoContent(contract);
-            fs.writeFileSync(outputPath, protoContent, 'utf8');
+            <span class="hljs-keyword">const</span> protoContent = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">generateProtoContent</span>(contract);
+            fs.<span class="hljs-title function_">writeFileSync</span>(outputPath, protoContent, <span class="hljs-string">&#x27;utf8&#x27;</span>);
 
-            const tsContent = this.generateTypes(contract);
-            fs.writeFileSync(outputPathTs, tsContent, 'utf8');
+            <span class="hljs-keyword">const</span> tsContent = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">generateTypes</span>(contract);
+            fs.<span class="hljs-title function_">writeFileSync</span>(outputPathTs, tsContent, <span class="hljs-string">&#x27;utf8&#x27;</span>);
 
-            const contractJSON = root.toJSON();
-            contractsJson[contract.controllerName] = contractJSON;
-            fs.writeFileSync(outputPathJson, JSON.stringify(contractJSON), 'utf8');
+            <span class="hljs-keyword">const</span> contractJSON = root.<span class="hljs-title function_">toJSON</span>();
+            contractsJson[contract.<span class="hljs-property">controllerName</span>] = contractJSON;
+            fs.<span class="hljs-title function_">writeFileSync</span>(outputPathJson, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(contractJSON), <span class="hljs-string">&#x27;utf8&#x27;</span>);
         });
 
-        this.generateContractsJs(contractsJson);
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">generateContractsJs</span>(contractsJson);
     }
 
-    private generateProtoContent(contract: any): string {
-        const packageName = contract.protoPackage || null;
-        const lines: string[] = [];
-        let includesGoogleAny = false;
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">generateProtoContent</span>(<span class="hljs-attr">contract</span>: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> packageName = contract.<span class="hljs-property">protoPackage</span> || <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">lines</span>: <span class="hljs-built_in">string</span>[] = [];
+        <span class="hljs-keyword">let</span> includesGoogleAny = <span class="hljs-literal">false</span>;
     
-        contract.fields.forEach((field: any) =&gt; {
-            if (field.protoType === 'any') 
-                includesGoogleAny = true;        
+        contract.<span class="hljs-property">fields</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">field</span>: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (field.<span class="hljs-property">protoType</span> === <span class="hljs-string">&#x27;any&#x27;</span>) 
+                includesGoogleAny = <span class="hljs-literal">true</span>;        
         });
     
-        lines.push('// Generated automatically by CMMV');
-        lines.push(`syntax = &quot;proto3&quot;;`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;// Generated automatically by CMMV&#x27;</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`syntax = &quot;proto3&quot;;`</span>);
     
-        if (packageName)
-            lines.push(`package ${packageName};`);
+        <span class="hljs-keyword">if</span> (packageName)
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`package <span class="hljs-subst">${packageName}</span>;`</span>);
     
-        if (includesGoogleAny) 
-            lines.push('import &quot;google/protobuf/any.proto&quot;;');
+        <span class="hljs-keyword">if</span> (includesGoogleAny) 
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;import &quot;google/protobuf/any.proto&quot;;&#x27;</span>);
             
-        lines.push('');
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
     
-        lines.push(`message ${contract.controllerName} {`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message <span class="hljs-subst">${contract.controllerName}</span> {`</span>);
     
-        contract.fields.forEach((field: any, index: number) =&gt; {
-            const protoType = this.mapToProtoType(field.protoType);
-            const repeatedPrefix = field.protoRepeated ? 'repeated ' : '';
-            lines.push(`  ${repeatedPrefix}${protoType} ${field.propertyKey} = ${index + 1};`);
+        contract.<span class="hljs-property">fields</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">field</span>: <span class="hljs-built_in">any</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> protoType = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mapToProtoType</span>(field.<span class="hljs-property">protoType</span>);
+            <span class="hljs-keyword">const</span> repeatedPrefix = field.<span class="hljs-property">protoRepeated</span> ? <span class="hljs-string">&#x27;repeated &#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>;
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  <span class="hljs-subst">${repeatedPrefix}</span><span class="hljs-subst">${protoType}</span> <span class="hljs-subst">${field.propertyKey}</span> = <span class="hljs-subst">${index + <span class="hljs-number">1</span>}</span>;`</span>);
         });
     
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
     
-        if (!contract.directMessage) {
-            lines.push('');
-            lines.push(`message ${contract.controllerName}List {`);
-            lines.push(`  repeated ${contract.controllerName} items = 1;`);
-            lines.push(`}`);
+        <span class="hljs-keyword">if</span> (!contract.<span class="hljs-property">directMessage</span>) {
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message <span class="hljs-subst">${contract.controllerName}</span>List {`</span>);
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  repeated <span class="hljs-subst">${contract.controllerName}</span> items = 1;`</span>);
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
         }
     
-        lines.push('');
-        lines.push(`message Add${contract.controllerName}Request {`);
-        lines.push(`  ${contract.controllerName} item = 1;`);
-        lines.push(`}`);
-        lines.push(`message Add${contract.controllerName}Response {`);
-        lines.push(`  string id = 1;`); 
-        lines.push(`  ${contract.controllerName} item = 2;`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message Add<span class="hljs-subst">${contract.controllerName}</span>Request {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  <span class="hljs-subst">${contract.controllerName}</span> item = 1;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message Add<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  string id = 1;`</span>); 
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  <span class="hljs-subst">${contract.controllerName}</span> item = 2;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
         
-        lines.push('');
-        lines.push(`message Update${contract.controllerName}Request {`);
-        lines.push(`  string id = 1;`); 
-        lines.push(`  ${contract.controllerName} item = 2;`);
-        lines.push(`}`);
-        lines.push(`message Update${contract.controllerName}Response {`);
-        lines.push(`  string id = 1;`); 
-        lines.push(`  ${contract.controllerName} item = 2;`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message Update<span class="hljs-subst">${contract.controllerName}</span>Request {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  string id = 1;`</span>); 
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  <span class="hljs-subst">${contract.controllerName}</span> item = 2;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message Update<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  string id = 1;`</span>); 
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  <span class="hljs-subst">${contract.controllerName}</span> item = 2;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
     
-        lines.push('');
-        lines.push(`message Delete${contract.controllerName}Request {`);
-        lines.push(`  string id = 1;`);
-        lines.push(`}`);
-        lines.push(`message Delete${contract.controllerName}Response {`);
-        lines.push(`  bool success = 1;`);
-        lines.push(`  string id = 2;`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message Delete<span class="hljs-subst">${contract.controllerName}</span>Request {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  string id = 1;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message Delete<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  bool success = 1;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  string id = 2;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
     
-        lines.push('');
-        lines.push(`message GetAll${contract.controllerName}Request {}`);
-        lines.push(`message GetAll${contract.controllerName}Response {`);
-        lines.push(`  ${contract.controllerName}List items = 1;`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message GetAll<span class="hljs-subst">${contract.controllerName}</span>Request {}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`message GetAll<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  <span class="hljs-subst">${contract.controllerName}</span>List items = 1;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
     
-        lines.push('');
-        lines.push(`service ${contract.controllerName}Service {`);
-        lines.push(`  rpc Add${contract.controllerName} (Add${contract.controllerName}Request) returns (Add${contract.controllerName}Response);`);
-        lines.push(`  rpc Update${contract.controllerName} (Update${contract.controllerName}Request) returns (Update${contract.controllerName}Response);`);
-        lines.push(`  rpc Delete${contract.controllerName} (Delete${contract.controllerName}Request) returns (Delete${contract.controllerName}Response);`);
-        lines.push(`  rpc GetAll${contract.controllerName} (GetAll${contract.controllerName}Request) returns (GetAll${contract.controllerName}Response);`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`service <span class="hljs-subst">${contract.controllerName}</span>Service {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  rpc Add<span class="hljs-subst">${contract.controllerName}</span> (Add<span class="hljs-subst">${contract.controllerName}</span>Request) returns (Add<span class="hljs-subst">${contract.controllerName}</span>Response);`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  rpc Update<span class="hljs-subst">${contract.controllerName}</span> (Update<span class="hljs-subst">${contract.controllerName}</span>Request) returns (Update<span class="hljs-subst">${contract.controllerName}</span>Response);`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  rpc Delete<span class="hljs-subst">${contract.controllerName}</span> (Delete<span class="hljs-subst">${contract.controllerName}</span>Request) returns (Delete<span class="hljs-subst">${contract.controllerName}</span>Response);`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  rpc GetAll<span class="hljs-subst">${contract.controllerName}</span> (GetAll<span class="hljs-subst">${contract.controllerName}</span>Request) returns (GetAll<span class="hljs-subst">${contract.controllerName}</span>Response);`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
     
-        return lines.join('\n');
+        <span class="hljs-keyword">return</span> lines.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
     }
 
-    private generateTypes(contract: any): string {
-        const lines: string[] = [];
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">generateTypes</span>(<span class="hljs-attr">contract</span>: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">lines</span>: <span class="hljs-built_in">string</span>[] = [];
     
-        lines.push(`// Types generated automatically by CMMV`);
-        lines.push(`export namespace ${contract.controllerName} {`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`// Types generated automatically by CMMV`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export namespace <span class="hljs-subst">${contract.controllerName}</span> {`</span>);
     
-        contract.fields.forEach((field: any) =&gt; {
-            const tsType = this.mapToTsType(field.protoType);
-            lines.push(`  export type ${field.propertyKey} = ${tsType};`);
+        contract.<span class="hljs-property">fields</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">field</span>: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> tsType = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mapToTsType</span>(field.<span class="hljs-property">protoType</span>);
+            lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  export type <span class="hljs-subst">${field.propertyKey}</span> = <span class="hljs-subst">${tsType}</span>;`</span>);
         });
     
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
         
-        lines.push(`export interface Add${contract.controllerName}Request {`);
-        lines.push(`  item: ${contract.controllerName};`);
-        lines.push(`}`);
-        lines.push(`export interface Add${contract.controllerName}Response {`);
-        lines.push(`  item: ${contract.controllerName};`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface Add<span class="hljs-subst">${contract.controllerName}</span>Request {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  item: <span class="hljs-subst">${contract.controllerName}</span>;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface Add<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  item: <span class="hljs-subst">${contract.controllerName}</span>;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
         
-        lines.push(`export interface Update${contract.controllerName}Request {`);
-        lines.push(`  id: string;`);
-        lines.push(`  item: ${contract.controllerName};`);
-        lines.push(`}`);
-        lines.push(`export interface Update${contract.controllerName}Response {`);
-        lines.push(`  item: ${contract.controllerName};`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface Update<span class="hljs-subst">${contract.controllerName}</span>Request {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  id: string;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  item: <span class="hljs-subst">${contract.controllerName}</span>;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface Update<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  item: <span class="hljs-subst">${contract.controllerName}</span>;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
         
-        lines.push(`export interface Delete${contract.controllerName}Request {`);
-        lines.push(`  id: string;`);
-        lines.push(`}`);
-        lines.push(`export interface Delete${contract.controllerName}Response {`);
-        lines.push(`  success: boolean;`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface Delete<span class="hljs-subst">${contract.controllerName}</span>Request {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  id: string;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface Delete<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  success: boolean;`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
         
-        lines.push(`export interface GetAll${contract.controllerName}Request {}`);
-        lines.push(`export interface GetAll${contract.controllerName}Response {`);
-        lines.push(`  items: ${contract.controllerName}[];`);
-        lines.push(`}`);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface GetAll<span class="hljs-subst">${contract.controllerName}</span>Request {}`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`export interface GetAll<span class="hljs-subst">${contract.controllerName}</span>Response {`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`  items: <span class="hljs-subst">${contract.controllerName}</span>[];`</span>);
+        lines.<span class="hljs-title function_">push</span>(<span class="hljs-string">`}`</span>);
     
-        return lines.join('\n');
+        <span class="hljs-keyword">return</span> lines.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
     }
 
-    private async generateContractsJs(contractsJson: { [key: string]: any }): Promise&lt;void&gt; {
-        const outputFile = path.resolve('public/core/contracts.min.js');
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">generateContractsJs</span>(<span class="hljs-attr">contractsJson</span>: { [<span class="hljs-attr">key</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span> }): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> outputFile = path.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;public/core/contracts.min.js&#x27;</span>);
     
-        await ProtoRegistry.load();
-        const contracts = ProtoRegistry.retrieveAll();
-        let contractsJSON = {};
-        let index = {};
-        let pointer = 0;
+        <span class="hljs-keyword">await</span> <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">load</span>();
+        <span class="hljs-keyword">const</span> contracts = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveAll</span>();
+        <span class="hljs-keyword">let</span> contractsJSON = {};
+        <span class="hljs-keyword">let</span> index = {};
+        <span class="hljs-keyword">let</span> pointer = <span class="hljs-number">0</span>;
 
-        for(let key in contracts){
-            const contract = ProtoRegistry.retrieve(key);
-            contractsJSON[key] = contract.toJSON();
-            let types = {};
-            let pointerTypes = 0;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> contracts){
+            <span class="hljs-keyword">const</span> contract = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieve</span>(key);
+            contractsJSON[key] = contract.<span class="hljs-title function_">toJSON</span>();
+            <span class="hljs-keyword">let</span> types = {};
+            <span class="hljs-keyword">let</span> pointerTypes = <span class="hljs-number">0</span>;
 
-            for(let namespace of contract.nestedArray){
-                for(let type in namespace.toJSON().nested){
-                    types[type] = pointerTypes;   
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">of</span> contract.<span class="hljs-property">nestedArray</span>){
+                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> <span class="hljs-keyword">type</span> <span class="hljs-keyword">in</span> namespace.<span class="hljs-title function_">toJSON</span>().<span class="hljs-property">nested</span>){
+                    types[<span class="hljs-keyword">type</span>] = pointerTypes;   
                     pointerTypes++;
                 }                                 
             }
             
-            index[key] = { index: pointer, types };
+            index[key] = { <span class="hljs-attr">index</span>: pointer, types };
             pointer++;
         }
 
-        const data = {
+        <span class="hljs-keyword">const</span> data = {
             index,
-            contracts: contractsJSON
+            <span class="hljs-attr">contracts</span>: contractsJSON
         };
     
-        let jsContent = '// Generated automatically by CMMV\n';
-        jsContent += '(function(global) {\n';
-        jsContent += '  try {\n';
-        jsContent += '    global.cmmv.addContracts(' + JSON.stringify(data) + ');\n';
-        jsContent += '  } catch (e) {\n';
-        jsContent += '    console.error(&quot;Error loading contracts:&quot;, e);\n';
-        jsContent += '  }\n';
-        jsContent += '})(typeof window !== &quot;undefined&quot; ? window : global);\n';
+        <span class="hljs-keyword">let</span> jsContent = <span class="hljs-string">&#x27;// Generated automatically by CMMV\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;(function(global) {\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;  try {\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;    global.cmmv.addContracts(&#x27;</span> + <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data) + <span class="hljs-string">&#x27;);\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;  } catch (e) {\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;    console.error(&quot;Error loading contracts:&quot;, e);\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;  }\n&#x27;</span>;
+        jsContent += <span class="hljs-string">&#x27;})(typeof window !== &quot;undefined&quot; ? window : global);\n&#x27;</span>;
     
-        const minifiedJsContent = UglifyJS.minify(jsContent).code;
+        <span class="hljs-keyword">const</span> minifiedJsContent = <span class="hljs-title class_">UglifyJS</span>.<span class="hljs-title function_">minify</span>(jsContent).<span class="hljs-property">code</span>;
     
-        fs.writeFileSync(outputFile, minifiedJsContent, 'utf8');
+        fs.<span class="hljs-title function_">writeFileSync</span>(outputFile, minifiedJsContent, <span class="hljs-string">&#x27;utf8&#x27;</span>);
     }  
     
-    private mapToProtoType(type: string): string {
-        const typeMapping: { [key: string]: string } = {
-            string: 'string',
-            boolean: 'bool',
-            bool: 'bool',
-            int: 'int32',
-            int32: 'int32',
-            int64: 'int64',
-            float: 'float',
-            double: 'double',
-            bytes: 'bytes',
-            date: 'string',          
-            timestamp: 'string',     
-            text: 'string',          
-            json: 'string',          
-            jsonb: 'string',         
-            uuid: 'string',          
-            time: 'string',          
-            simpleArray: 'string',   
-            simpleJson: 'string',    
-            bigint: 'int64',
-            uint32: 'uint32',
-            uint64: 'uint64',
-            sint32: 'sint32',
-            sint64: 'sint64',
-            fixed32: 'fixed32',
-            fixed64: 'fixed64',
-            sfixed32: 'sfixed32',
-            sfixed64: 'sfixed64',
-            any: 'google.protobuf.Any'
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">mapToProtoType</span>(<span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">typeMapping</span>: { [<span class="hljs-attr">key</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> } = {
+            <span class="hljs-attr">string</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">boolean</span>: <span class="hljs-string">&#x27;bool&#x27;</span>,
+            <span class="hljs-attr">bool</span>: <span class="hljs-string">&#x27;bool&#x27;</span>,
+            <span class="hljs-attr">int</span>: <span class="hljs-string">&#x27;int32&#x27;</span>,
+            <span class="hljs-attr">int32</span>: <span class="hljs-string">&#x27;int32&#x27;</span>,
+            <span class="hljs-attr">int64</span>: <span class="hljs-string">&#x27;int64&#x27;</span>,
+            <span class="hljs-attr">float</span>: <span class="hljs-string">&#x27;float&#x27;</span>,
+            <span class="hljs-attr">double</span>: <span class="hljs-string">&#x27;double&#x27;</span>,
+            <span class="hljs-attr">bytes</span>: <span class="hljs-string">&#x27;bytes&#x27;</span>,
+            <span class="hljs-attr">date</span>: <span class="hljs-string">&#x27;string&#x27;</span>,          
+            <span class="hljs-attr">timestamp</span>: <span class="hljs-string">&#x27;string&#x27;</span>,     
+            <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;string&#x27;</span>,          
+            <span class="hljs-attr">json</span>: <span class="hljs-string">&#x27;string&#x27;</span>,          
+            <span class="hljs-attr">jsonb</span>: <span class="hljs-string">&#x27;string&#x27;</span>,         
+            <span class="hljs-attr">uuid</span>: <span class="hljs-string">&#x27;string&#x27;</span>,          
+            <span class="hljs-attr">time</span>: <span class="hljs-string">&#x27;string&#x27;</span>,          
+            <span class="hljs-attr">simpleArray</span>: <span class="hljs-string">&#x27;string&#x27;</span>,   
+            <span class="hljs-attr">simpleJson</span>: <span class="hljs-string">&#x27;string&#x27;</span>,    
+            <span class="hljs-attr">bigint</span>: <span class="hljs-string">&#x27;int64&#x27;</span>,
+            <span class="hljs-attr">uint32</span>: <span class="hljs-string">&#x27;uint32&#x27;</span>,
+            <span class="hljs-attr">uint64</span>: <span class="hljs-string">&#x27;uint64&#x27;</span>,
+            <span class="hljs-attr">sint32</span>: <span class="hljs-string">&#x27;sint32&#x27;</span>,
+            <span class="hljs-attr">sint64</span>: <span class="hljs-string">&#x27;sint64&#x27;</span>,
+            <span class="hljs-attr">fixed32</span>: <span class="hljs-string">&#x27;fixed32&#x27;</span>,
+            <span class="hljs-attr">fixed64</span>: <span class="hljs-string">&#x27;fixed64&#x27;</span>,
+            <span class="hljs-attr">sfixed32</span>: <span class="hljs-string">&#x27;sfixed32&#x27;</span>,
+            <span class="hljs-attr">sfixed64</span>: <span class="hljs-string">&#x27;sfixed64&#x27;</span>,
+            <span class="hljs-attr">any</span>: <span class="hljs-string">&#x27;google.protobuf.Any&#x27;</span>
         };
     
-        return typeMapping[type] || 'string';
+        <span class="hljs-keyword">return</span> typeMapping[<span class="hljs-keyword">type</span>] || <span class="hljs-string">&#x27;string&#x27;</span>;
     }  
     
-    private mapToTsType(protoType: string): string {
-        const typeMapping: { [key: string]: string } = {
-            string: 'string',
-            boolean: 'boolean',
-            bool: 'boolean',
-            int: 'number',
-            int32: 'number',
-            int64: 'number',
-            float: 'number',
-            double: 'number',
-            bytes: 'Uint8Array',
-            date: 'string',
-            timestamp: 'string',
-            text: 'string',
-            json: 'any',
-            jsonb: 'any',
-            uuid: 'string',
-            time: 'string',
-            simpleArray: 'string[]',
-            simpleJson: 'any',
-            bigint: 'bigint',
-            uint32: 'number',
-            uint64: 'number',
-            sint32: 'number',
-            sint64: 'number',
-            fixed32: 'number',
-            fixed64: 'number',
-            sfixed32: 'number',
-            sfixed64: 'number',
-            any: 'any'
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">mapToTsType</span>(<span class="hljs-attr">protoType</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">typeMapping</span>: { [<span class="hljs-attr">key</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> } = {
+            <span class="hljs-attr">string</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">boolean</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>,
+            <span class="hljs-attr">bool</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>,
+            <span class="hljs-attr">int</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">int32</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">int64</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">float</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">double</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">bytes</span>: <span class="hljs-string">&#x27;Uint8Array&#x27;</span>,
+            <span class="hljs-attr">date</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">timestamp</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">json</span>: <span class="hljs-string">&#x27;any&#x27;</span>,
+            <span class="hljs-attr">jsonb</span>: <span class="hljs-string">&#x27;any&#x27;</span>,
+            <span class="hljs-attr">uuid</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">time</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">simpleArray</span>: <span class="hljs-string">&#x27;string[]&#x27;</span>,
+            <span class="hljs-attr">simpleJson</span>: <span class="hljs-string">&#x27;any&#x27;</span>,
+            <span class="hljs-attr">bigint</span>: <span class="hljs-string">&#x27;bigint&#x27;</span>,
+            <span class="hljs-attr">uint32</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">uint64</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">sint32</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">sint64</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">fixed32</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">fixed64</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">sfixed32</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">sfixed64</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">any</span>: <span class="hljs-string">&#x27;any&#x27;</span>
         };
     
-        return typeMapping[protoType] || 'any';
+        <span class="hljs-keyword">return</span> typeMapping[protoType] || <span class="hljs-string">&#x27;any&#x27;</span>;
     }
 }
 </code></pre>

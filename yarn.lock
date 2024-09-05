@@ -25,10 +25,10 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@cmmv/core@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.14.tgz#0ed5f2d870b5b4958ef5d63650ea7cac17f497dd"
-  integrity sha512-CrhwclwkjG9JTNZNQ0jOf2CFJY4ZCkGmG2C/fWpYn3uFUfcbvYV8HRY2SO2VUnpPabDtA6t9rS8duBobomvFgQ==
+"@cmmv/core@^0.2.21":
+  version "0.2.21"
+  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.21.tgz#c039b541833961d913ca5e8049db7870b01c9547"
+  integrity sha512-LW3+0mqqoTmFCBtYaWY6VY68/PqXGb9NtChBXJzRI9fe8LWIcYcRyniBdNgnyv7i84X11O1QKa2hwxL+WX7lVw==
   dependencies:
     fast-glob "^3.3.2"
     reflect-metadata "^0.2.2"
@@ -36,10 +36,10 @@
     uglify-js "^3.19.3"
     uuid "^10.0.0"
 
-"@cmmv/http@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.14.tgz#a43fff3e2120a090cba79a8f661f8ef309276dd7"
-  integrity sha512-znYHPDifTa8u7wqoZQdhrO5lcCMHAgqIWS9JxjVWg0T6xhrJsxevWSWSp0gtUgwv5MawZF3kellnSrruoJHPSg==
+"@cmmv/http@^0.2.21":
+  version "0.2.21"
+  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.21.tgz#9a9193842f4de95b612f8885da829aa2e7f0e12b"
+  integrity sha512-OQlyU+hMdVnG6mgK6FYKvqzo836Md+2JVUu4GoL0DFWaP6lMTidrPlMISzjfbzkPOIRWJU+fuWQj0PLPk+qJGg==
   dependencies:
     "@fastify/compress" "^7.0.3"
     "@fastify/cors" "^9.0.1"
@@ -58,17 +58,19 @@
     helmet "^7.1.0"
     multer "^1.4.5-lts.1"
 
-"@cmmv/reactivity@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@cmmv/reactivity/-/reactivity-0.0.5.tgz#42671ad94c3dd04f53a3ce791f57062c9a33518a"
-  integrity sha512-/t3wLFWGQl56bTOylvf7ybenYVHKGfKohUGE/C/wv4jvgP3AIQUkJEnezSw0QHcq7sL3NQY6P5hc30Wofu6f6Q==
-
-"@cmmv/view@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.14.tgz#8d8b0a96298dd079e2108c01cfc44f141b2560df"
-  integrity sha512-25muqrxwf5xZRa2crXzLV2YZrby2MF0vV7OHCFd9cqedz3LfG3e5uAFJYtAf7VyH3FKaywu5ICKc9uQXHw04bA==
+"@cmmv/reactivity@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@cmmv/reactivity/-/reactivity-0.0.9.tgz#be7ff2aa525ba0ec7574cb624da28d42bf34e364"
+  integrity sha512-LaK/kDpGSqB/cMeDgfzdSUnEx6x8U+GLWPOqtBv/I+AU7k+/tTr4REaWpci+elvg79n5q2vRYv8lBBsWz5gfww==
   dependencies:
-    "@cmmv/reactivity" "^0.0.5"
+    "@vue/reactivity" "^3.5.1"
+
+"@cmmv/view@^0.2.21":
+  version "0.2.21"
+  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.21.tgz#544184c4b01edefb1473cdf5441424306fa99829"
+  integrity sha512-1hm6EXl/kYOiBoBm6huO97DUpQODnL5PIsGu3ROSNWMcjoUB8W8iJDuZSgT5n+cPUpg3N9yvq8/7sbd4FSy9fg==
+  dependencies:
+    "@cmmv/reactivity" "^0.0.9"
     fast-glob "^3.3.2"
     html-minifier "^4.0.0"
     uglify-js "^3.19.2"
@@ -371,6 +373,18 @@
   integrity sha512-WpxBCKWPLr4xSsHgz511rFJAM+wS28w2zEO1QDNY5zM/S8ok70NNfztH0xwhqKyaK0OHCbN98LDAZuy1ctxDkA==
   dependencies:
     "@types/yargs-parser" "*"
+
+"@vue/reactivity@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.5.1.tgz#e4a57a038e3caaa9669de529533fcb16288a1736"
+  integrity sha512-aFE1nMDfbG7V+U5vdOk/NXxH/WX78XuAfX59vWmCM7Ao4lieoc83RkzOAWun61sQXlzNZ4IgROovFBHg+Iz1+Q==
+  dependencies:
+    "@vue/shared" "3.5.1"
+
+"@vue/shared@3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.5.1.tgz#f9418dae5ac194a4f19023d812978c21a15412a1"
+  integrity sha512-NdcTRoO4KuW2RSFgpE2c+E/R/ZHaRzWPxAGxhmxZaaqLh6nYCXx7lc9a88ioqOCxCaV2SFJmujkxbUScW7dNsQ==
 
 abort-controller@^3.0.0:
   version "3.0.0"

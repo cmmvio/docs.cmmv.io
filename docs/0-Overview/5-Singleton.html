@@ -1,84 +1,84 @@
 <h1>Singleton</h1><a id="singleton" title="Singleton"></a>
 <p>In CMMV, dependency injection was replaced with singleton registries to simplify global services management. In typical dependency injection, you must declare all necessary providers for each module. However, in real-world applications, many modules share common services like cache, queues, or databases. Using singletons allows these services to be instantiated once and accessed globally throughout the application. This reduces complexity, prevents circular dependencies, and ensures a single instance manages its state. Here’s an example of a globally scoped singleton class implementation:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { Singleton } from &quot;@cmmv/core&quot;;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Singleton</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 
-export class Scope extends Singleton {
-    private data: Map&lt;string, any&gt; = new Map();
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Scope</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Singleton</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">data</span>: <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
 
-    public static set(name: string, data: any): boolean {
-        const scope = Scope.getInstance();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">set</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
 
-        if (!scope.data.has(name)) {
-            scope.data.set(name, data);
-            return true;
+        <span class="hljs-keyword">if</span> (!scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">has</span>(name)) {
+            scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">set</span>(name, data);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
         }
 
-        return false;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     }
 
-    public static has(name: string): boolean {
-        const scope = Scope.getInstance();
-        return scope.data.has(name);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">has</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">return</span> scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">has</span>(name);
     }
 
-    public static get&lt;T = any&gt;(name: string): T | null {
-        const scope = Scope.getInstance();
-        return scope.data.has(name) ? (scope.data.get(name) as T) : null;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> get&lt;T = <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): T | <span class="hljs-literal">null</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">return</span> scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">has</span>(name) ? (scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">get</span>(name) <span class="hljs-keyword">as</span> T) : <span class="hljs-literal">null</span>;
     }
 
-    public static clear(name: string): void {
-        const scope = Scope.getInstance();
-        scope.data.delete(name);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">clear</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">delete</span>(name);
     }
 
-    public static addToArray&lt;T = any&gt;(name: string, value: T): boolean {
-        const scope = Scope.getInstance();
-        const array = scope.data.get(name) || [];
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> addToArray&lt;T = <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: T): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> array = scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">get</span>(name) || [];
         
-        if (Array.isArray(array)) {
-            array.push(value);
-            scope.data.set(name, array);
-            return true;
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(array)) {
+            array.<span class="hljs-title function_">push</span>(value);
+            scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">set</span>(name, array);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
         }
 
-        return false;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     }
 
-    public static removeFromArray&lt;T = any&gt;(name: string, value: T): boolean {
-        const scope = Scope.getInstance();
-        const array = scope.data.get(name);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> removeFromArray&lt;T = <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: T): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> array = scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">get</span>(name);
         
-        if (Array.isArray(array)) {
-            const index = array.indexOf(value);
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(array)) {
+            <span class="hljs-keyword">const</span> index = array.<span class="hljs-title function_">indexOf</span>(value);
 
-            if (index &gt; -1) {
-                array.splice(index, 1);
-                scope.data.set(name, array);
-                return true;
+            <span class="hljs-keyword">if</span> (index &gt; -<span class="hljs-number">1</span>) {
+                array.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>);
+                scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">set</span>(name, array);
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
             }
         }
 
-        return false;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     }
 
-    public static getArray&lt;T = any&gt;(name: string): T[] | null {
-        const scope = Scope.getInstance();
-        const array = scope.data.get(name);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> getArray&lt;T = <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): T[] | <span class="hljs-literal">null</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> array = scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">get</span>(name);
 
-        if (Array.isArray(array)) 
-            return array as T[];
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(array)) 
+            <span class="hljs-keyword">return</span> array <span class="hljs-keyword">as</span> T[];
         
-        return null;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
     }
 
-    public static getArrayFromIndex&lt;T = any&gt;(name: string, index: number): T | null {
-        const scope = Scope.getInstance();
-        const array = scope.data.get(name);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> getArrayFromIndex&lt;T = <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): T | <span class="hljs-literal">null</span> {
+        <span class="hljs-keyword">const</span> scope = <span class="hljs-title class_">Scope</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> array = scope.<span class="hljs-property">data</span>.<span class="hljs-title function_">get</span>(name);
 
-        if (Array.isArray(array) &amp;&amp; array.length &gt;= index) 
-            return array[index] as T;
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(array) &amp;&amp; array.<span class="hljs-property">length</span> &gt;= index) 
+            <span class="hljs-keyword">return</span> array[index] <span class="hljs-keyword">as</span> T;
         
-        return null;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
     }
 }
 </code></pre>

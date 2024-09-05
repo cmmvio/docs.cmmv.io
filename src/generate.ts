@@ -17,14 +17,18 @@ class GenerateDocs {
                 if (lang && hljs.getLanguage(lang)) {
                     try {
                         return (
-                        '<pre><code class="hljs language-'+lang+'" lang="'+lang+'">' +
-                        markdown.utils.escapeHtml(str) + 
-                        "</code></pre>"
+                            '<pre><code class="hljs language-' + lang + '" lang="' + lang + '">' +
+                            hljs.highlight(str, { language: lang }).value + // Aplicando o highlight aqui
+                            '</code></pre>'
                         );
-                    } catch (__) {}
+                    } catch (__) {
+                        // Caso de erro, continue o processamento sem highlight
+                    }
                 }
 
-                return (`<pre><code class="hljs">${markdown.utils.escapeHtml(str)}</code></pre>`);
+                return (
+                    `<pre><code class="hljs">${markdown.utils.escapeHtml(str)}</code></pre>`
+                );
             }
         });
     

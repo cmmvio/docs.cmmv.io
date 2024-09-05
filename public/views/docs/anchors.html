@@ -1,12 +1,15 @@
 <nav 
     aria-label="Anchors" 
-    class="fixed z-20 ml-20 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 px-10 overflow-y-auto hidden xl:block anchor"
+    class="fixed z-20 ml-40 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 px-10 overflow-y-auto hidden xl:block anchor"
     c-cloak
-    c-show="docs"
+    c-show="docs.anchors.length >= 4"  
+    id="anchors"
 >
-    <ul role="list" id="anchors" c-for="(item) in docs.anchors">
-        <li>
-            <a :href="`#${item.id}`" class="text-sm font-medium text-gray-500 hover:text-gray-700">{{ item.label }}</a>
-        </li>
-    </ul>
+    <div style="margin-left: 40px;">
+        <ul role="list" c-for="(item) in docs.anchors">
+            <li>
+                <a :href="`#${item.id}`" class="text-sm font-medium text-gray-500 hover:text-gray-700">{{ item.label }}</a>
+            </li>
+        </ul>
+    </div>
 </nav>

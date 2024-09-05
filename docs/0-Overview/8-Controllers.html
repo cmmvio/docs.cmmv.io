@@ -1,160 +1,160 @@
 <h1>Controllers</h1><a id="controllers" title="Controllers"></a>
 <p>The <code>@cmmv/http</code> module automatically generates REST controllers with standard CRUD operations based on defined contracts. However, you can create custom controllers using a syntax similar to NestJS, with decorators for defining routes and methods. Unlike NestJS, CMMV does not use complex dependency injection. Instead, services like databases, queues, and cache must be implemented as singletons.</p>
 <p>Here’s an example of a custom controller:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import * as fs from 'fs';
-import * as path from &quot;path&quot;;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
 
-import { 
-    Controller, Get, Param, 
-    Response, ServiceRegistry 
-} from '@cmmv/http';
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Param</span>, 
+    <span class="hljs-title class_">Response</span>, <span class="hljs-title class_">ServiceRegistry</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
 
-import { DocsService } from './docs.service';
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DocsService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./docs.service&#x27;</span>;
 
-@Controller(&quot;docs&quot;)
-export class DocsController {
-    constructor(private docsService: DocsService){}
+<span class="hljs-meta">@Controller</span>(<span class="hljs-string">&quot;docs&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DocsController</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-attr">docsService</span>: <span class="hljs-title class_">DocsService</span></span>){}
 
-	@Get()
-	async index(@Response() res) {		
-		res.render(&quot;views/docs/index&quot;, {
-			docs: await this.docsService.getDocsStrutucture(),
-			services: ServiceRegistry.getServicesArr()
+	<span class="hljs-meta">@Get</span>()
+	<span class="hljs-keyword">async</span> <span class="hljs-title function_">index</span>(<span class="hljs-params"><span class="hljs-meta">@Response</span>() res</span>) {		
+		res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;views/docs/index&quot;</span>, {
+			<span class="hljs-attr">docs</span>: <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">docsService</span>.<span class="hljs-title function_">getDocsStrutucture</span>(),
+			<span class="hljs-attr">services</span>: <span class="hljs-title class_">ServiceRegistry</span>.<span class="hljs-title function_">getServicesArr</span>()
 		});
 	}
 
-	@Get(&quot;:item&quot;)
-	async getDoc(@Param(&quot;item&quot;) item: string, @Response() res) {
-		const file = path.resolve(&quot;./docs/&quot; + item + &quot;.html&quot;);
-		const data = await this.docsService.getDocsStrutucture(file);
+	<span class="hljs-meta">@Get</span>(<span class="hljs-string">&quot;:item&quot;</span>)
+	<span class="hljs-keyword">async</span> <span class="hljs-title function_">getDoc</span>(<span class="hljs-params"><span class="hljs-meta">@Param</span>(<span class="hljs-string">&quot;item&quot;</span>) <span class="hljs-attr">item</span>: <span class="hljs-built_in">string</span>, <span class="hljs-meta">@Response</span>() res</span>) {
+		<span class="hljs-keyword">const</span> file = path.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;./docs/&quot;</span> + item + <span class="hljs-string">&quot;.html&quot;</span>);
+		<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">docsService</span>.<span class="hljs-title function_">getDocsStrutucture</span>(file);
 
-		res.render(&quot;views/docs/index&quot;, {
-			docs: data,
-			services: ServiceRegistry.getServicesArr()
+		res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;views/docs/index&quot;</span>, {
+			<span class="hljs-attr">docs</span>: data,
+			<span class="hljs-attr">services</span>: <span class="hljs-title class_">ServiceRegistry</span>.<span class="hljs-title function_">getServicesArr</span>()
 		});
 	}
 }
 </code></pre>
 <h2>@Controller(prefix: string)</h2><a id="controllerprefix-string" title="@Controller(prefix: string)"></a>
 <p>Defines the controller and the route prefix for all its methods. The prefix parameter is optional, but it defines a base URL for the controller’s routes.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Controller('tasks')
-export class TaskController { ... }
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;tasks&#x27;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskController</span> { ... }
 </code></pre>
 <h2>@Request() / @Req()</h2><a id="request--req" title="@Request() / @Req()"></a>
 <p>Binds the entire request object to the method parameter.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async getRequestData(@Request() req: any): Promise&lt;any&gt; {
-    return req;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getRequestData</span>(<span class="hljs-meta">@Request</span>() <span class="hljs-attr">req</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+    <span class="hljs-keyword">return</span> req;
 }
 </code></pre>
 <h2>@Response() / @Res()</h2><a id="response--res" title="@Response() / @Res()"></a>
 <p>Binds the entire response object to the method parameter, useful for handling custom responses.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async customResponse(@Response() res: any): Promise&lt;void&gt; {
-    res.send('Custom Response');
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">customResponse</span>(<span class="hljs-meta">@Response</span>() <span class="hljs-attr">res</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Custom Response&#x27;</span>);
 }
 </code></pre>
 <h2>@Next()</h2><a id="next" title="@Next()"></a>
 <p>Binds the next function in middleware to the method parameter, useful for middleware chaining.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async handleRequest(@Next() next: Function): Promise&lt;void&gt; {
-    next();
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">handleRequest</span>(<span class="hljs-meta">@Next</span>() <span class="hljs-attr">next</span>: <span class="hljs-title class_">Function</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-title function_">next</span>();
 }
 </code></pre>
 <h2>@Get(path?: string)</h2><a id="getpath-string" title="@Get(path?: string)"></a>
 <p>Maps an HTTP GET request to a specific method. The optional path argument can define the route, or it will default to the controller’s base route.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get(':id')
-getTaskById(@Param('id') id: string) {
-    return this.taskService.getById(id);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+<span class="hljs-title function_">getTaskById</span>(<span class="hljs-params"><span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">getById</span>(id);
 }
 </code></pre>
 <h2>@Post(path?: string)</h2><a id="postpath-string" title="@Post(path?: string)"></a>
 <p>Handles HTTP POST requests. The @Body decorator can be used to access the request body and pass it to the method.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Post()
-addTask(@Body() task: any) {
-    return this.taskService.add(task);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Post</span>()
+<span class="hljs-title function_">addTask</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() <span class="hljs-attr">task</span>: <span class="hljs-built_in">any</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">add</span>(task);
 }
 </code></pre>
 <h2>@Put(path?: string)</h2><a id="putpath-string" title="@Put(path?: string)"></a>
 <p>Maps an HTTP PUT request to update existing resources. Like @Post, it can accept data through the request body.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Put(':id')
-updateTask(@Param('id') id: string, @Body() task: any) {
-    return this.taskService.update(id, task);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Put</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+<span class="hljs-title function_">updateTask</span>(<span class="hljs-params"><span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-meta">@Body</span>() <span class="hljs-attr">task</span>: <span class="hljs-built_in">any</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">update</span>(id, task);
 }
 </code></pre>
 <h2>@Delete(path?: string)</h2><a id="deletepath-string" title="@Delete(path?: string)"></a>
 <p>Handles DELETE requests for removing resources by ID.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Delete(':id')
-deleteTask(@Param('id') id: string) {
-    return this.taskService.delete(id);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Delete</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+<span class="hljs-title function_">deleteTask</span>(<span class="hljs-params"><span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">delete</span>(id);
 }
 </code></pre>
 <h2>@Param(param: string)</h2><a id="paramparam-string" title="@Param(param: string)"></a>
 <p>Used to extract parameters from the route. In the example, @Param(‘id’) extracts the id from the request’s route.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get(':id')
-getTaskById(@Param('id') id: string) {
-    return this.taskService.getById(id);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+<span class="hljs-title function_">getTaskById</span>(<span class="hljs-params"><span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">getById</span>(id);
 }
 </code></pre>
 <h2>@Body()</h2><a id="body" title="@Body()"></a>
 <p>This decorator extracts the request body and makes it available in the method. It’s commonly used with @Post and @Put for creating and updating data.</p>
 <h2>@Query()</h2><a id="query" title="@Query()"></a>
 <p>Extracts query parameters from the request.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-getTasks(@Query('status') status: string) {
-    return this.taskService.getByStatus(status);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-title function_">getTasks</span>(<span class="hljs-params"><span class="hljs-meta">@Query</span>(<span class="hljs-string">&#x27;status&#x27;</span>) <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">getByStatus</span>(status);
 }
 </code></pre>
 <h2>@Queries()</h2><a id="queries" title="@Queries()"></a>
 <p>Binds all query parameters to the method parameter.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async getAll(@Queries() queries: any): Promise&lt;Task[]&gt; {
-    return this.taskService.getAll(queries);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-meta">@Queries</span>() <span class="hljs-attr">queries</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Task</span>[]&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">getAll</span>(queries);
 }
 </code></pre>
 <h2>@Header(headerName: string)</h2><a id="headerheadername-string" title="@Header(headerName: string)"></a>
 <p>Binds a specific header value to the method parameter.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async checkHeader(@Header('Authorization') auth: string): Promise&lt;boolean&gt; {
-    return this.authService.verifyToken(auth);
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">checkHeader</span>(<span class="hljs-meta">@Header</span>(<span class="hljs-string">&#x27;Authorization&#x27;</span>) <span class="hljs-attr">auth</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">authService</span>.<span class="hljs-title function_">verifyToken</span>(auth);
 }
 </code></pre>
 <h2>@Headers()</h2><a id="headers" title="@Headers()"></a>
 <p>Binds all headers to the method parameter.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async getHeaders(@Headers() headers: any): Promise&lt;any&gt; {
-    return headers;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getHeaders</span>(<span class="hljs-meta">@Headers</span>() <span class="hljs-attr">headers</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+    <span class="hljs-keyword">return</span> headers;
 }
 </code></pre>
 <h2>@Session()</h2><a id="session" title="@Session()"></a>
 <p>Extracts session data and binds it to the method parameter.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async getSessionData(@Session() session: any): Promise&lt;any&gt; {
-    return session;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getSessionData</span>(<span class="hljs-meta">@Session</span>() <span class="hljs-attr">session</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+    <span class="hljs-keyword">return</span> session;
 }
 </code></pre>
 <h2>@Ip()</h2><a id="ip" title="@Ip()"></a>
 <p>Binds the client’s IP address to the method parameter.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async getClientIp(@Ip() ip: string): Promise&lt;string&gt; {
-    return ip;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getClientIp</span>(<span class="hljs-meta">@Ip</span>() <span class="hljs-attr">ip</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+    <span class="hljs-keyword">return</span> ip;
 }
 </code></pre>
 <h2>@HostParam()</h2><a id="hostparam" title="@HostParam()"></a>
 <p>Extracts the host information from the request.</p>
-<pre><code class="hljs language-typescript" lang="typescript">@Get()
-async getHost(@HostParam() host: string): Promise&lt;string&gt; {
-    return host;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Get</span>()
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getHost</span>(<span class="hljs-meta">@HostParam</span>() <span class="hljs-attr">host</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+    <span class="hljs-keyword">return</span> host;
 }
 </code></pre>
 <h1>Getting up and running</h1><a id="getting-up-and-running" title="Getting up and running"></a>
 <p>To make the controller functional, it needs to be added to a module and called in the application. The process involves creating a module, registering the controller, and ensuring the module is used during application initialization.</p>
 <p>Here is an example of registering a controller inside a module:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { Module } from '@cmmv/core';
-import { TaskController } from './controllers/task.controller';
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Module</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskController</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./controllers/task.controller&#x27;</span>;
     
-export let TaskModule = new Module({
-    controllers: [TaskController],
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> <span class="hljs-title class_">TaskModule</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Module</span>({
+    <span class="hljs-attr">controllers</span>: [<span class="hljs-title class_">TaskController</span>],
     ...
 });
 </code></pre>

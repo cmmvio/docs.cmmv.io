@@ -1,27 +1,28 @@
 <ul class="p-4 select-none" c-cloak c-show="docs">
     <li c-for="(item, key) in docs.navbar">
         <div 
-            class="flex hover:text-blue-700 itemRoot text-white" 
-            opened="false" 
-            :id="item.name.replace(/\s/,'_')" 
-            onclick="toggle(item.name.replace(/\s/, `_`))"
             c-show="item"
+            class="flex hover:text-blue-700 itemRoot text-white" 
+            :id="item?.name.replace(/\s/,'_')" 
+            :data-opened="false" 
+            @click.stop="navbar[item?.name.replace(/\s/, `_`)] = toggle(navbar[item?.name.replace(/\s/, `_`)], item.name?.replace(/\s/, `_`))"
         >
-            <div class="flex flex-1 font-bold text-md cursor-pointer">
-                <a :href="item.uri" c-if="item && item.isDir" class="text-white">{{ item.name }}</a>
-                <span c-else class="text-white" c-else-if="item">{{ item.name }}</span>
+            <div class="flex flex-1 font-bold text-md cursor-pointer navbar-item">
+                <h3 c-if="item && item?.isDir" class="text-white">{{ item?.name }}</h3>
+                <span c-else class="text-white">{{ item?.name }}</span>
             </div>
 
-            <div class="justify-between cursor-pointer" c-if="item.isDir">
-                <i class="fa-solid fa-angle-down" :id="`${item.name.replace(/\s/, `_`)}_open`"></i>
-                <i class="fa-solid fa-angle-up" style="display: none;" :id="`${item.name.replace(/\s/, `_`)}_close`"></i>
+            <div class="justify-between cursor-pointer" c-if="item?.isDir">
+                <i class="fa-solid fa-angle-down" c-show="!navbar[item?.name.replace(/\s/, `_`)]"></i>
+                <i class="fa-solid fa-angle-up" c-show="navbar[item?.name.replace(/\s/, `_`)]"></i>
             </div>
         </div>
 
         <ul 
             c-if="item && item.children && item.children.length > 0"
-            :id="`${item.name.replace(/\s/, `_`)}_contents`" 
-            class="p-4 py-1 text-md"
+            :id="`${item?.name.replace(/\s/, `_`)}_contents`" 
+            class="p-4 py-1 text-md mb-4"
+            :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : 'display: none;'"
         >
             <li c-for="(child) in item.children">
                 <div class="hover:text-gray-800 text-white text-base p-1" style="font-size: 12px">
@@ -31,67 +32,3 @@
         </ul>
     </li>
 </ul>
-
-<script s-attr="nonce">
-function toggle(id) {
-    const rootElement = document.getElementById(id);
-    const isOpened = rootElement.getAttribute('opened') === 'true';
-    rootElement.setAttribute('opened', !isOpened);
-
-    const contentElement = document.getElementById(`${id}_contents`);
-    const openIcon = document.getElementById(`${id}_open`);
-    const closeIcon = document.getElementById(`${id}_close`);
-
-    if (!isOpened) {
-        contentElement.style.display = 'block';
-        openIcon.style.display = 'none';
-        closeIcon.style.display = 'block';
-    } else {
-        contentElement.style.display = 'none';
-        openIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
-    }
-
-    saveState();
-}
-
-function saveState() {
-    const state = {};
-    const items = document.querySelectorAll('.itemRoot');
-
-    items.forEach(item => {
-        const id = item.getAttribute('id');
-        state[id] = item.getAttribute('opened');
-    });
-
-    localStorage.setItem('navbar', JSON.stringify(state));
-}
-
-function loadState() {
-    const state = JSON.parse(localStorage.getItem('navbar'));
-
-    if (state) {
-        for (const key in state) {
-            const rootElement = document.getElementById(key);
-            const contentElement = document.getElementById(`${key}_contents`);
-            const openIcon = document.getElementById(`${key}_open`);
-            const closeIcon = document.getElementById(`${key}_close`);
-
-            const isOpened = state[key] === 'true';
-            rootElement.setAttribute('opened', isOpened);
-
-            if (isOpened) {
-                contentElement.style.display = 'block';
-                openIcon.style.display = 'none';
-                closeIcon.style.display = 'block';
-            } else {
-                contentElement.style.display = 'none';
-                openIcon.style.display = 'block';
-                closeIcon.style.display = 'none';
-            }
-        }
-    }
-}
-
-loadState();
-</script>

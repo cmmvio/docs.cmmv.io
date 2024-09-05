@@ -21,252 +21,252 @@
 <p>Below is the documentation for all directives supported by @cmmv/reactivity based on the samples provided in the CMMV Reactivity GitHub repository.</p>
 <h3>c-model</h3>
 <p>Binds the value of an input element to the application’s data and enables two-way data binding. This is useful for dynamically updating the UI as users input data.</p>
-<pre><code class="hljs language-html" lang="html">&lt;input c-model=&quot;username&quot;&gt;
-&lt;p&gt;Username: {{ username }}&lt;/p&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Username: {{ username }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
 <p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/model.html" target="_blank" rel="nofollow">Sample</a> :</p>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-  import { createApp } from '../src'
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
 
-  createApp().mount('#app')
-&lt;/script&gt;
+  <span class="hljs-title function_">createApp</span>().<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;div
-  id=&quot;app&quot;
-  scope=&quot;{
-    text: 'hello',
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>
+  <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;{
+    text: &#x27;hello&#x27;,
     checked: true,
     checkToggle: { a: 1 },
     trueValue: { a: 1 },
     falseValue: { a: 2 },
-    arr: ['one'],
-    radioSelected: 'two',
-    selected: 'two'
-  }&quot;
-&gt;
-  &lt;pre&gt;{{ $data }}&lt;/pre&gt;
-  &lt;h2&gt;Text Input&lt;/h2&gt;
+    arr: [&#x27;one&#x27;],
+    radioSelected: &#x27;two&#x27;,
+    selected: &#x27;two&#x27;
+  }&quot;</span>
+&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{{ $data }}<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Text Input<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
   {{ text }}
-  &lt;input v-model.trim=&quot;text&quot; /&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model.trim</span>=<span class="hljs-string">&quot;text&quot;</span> /&gt;</span>
 
-  &lt;h2&gt;TextArea&lt;/h2&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>TextArea<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
   {{ text }}
-  &lt;textarea v-model.trim=&quot;text&quot;&gt;&lt;/textarea&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">v-model.trim</span>=<span class="hljs-string">&quot;text&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
 
-  &lt;h2&gt;Checkbox&lt;/h2&gt;
-  &lt;input type=&quot;checkbox&quot; id=&quot;checkbox&quot; v-model=&quot;checked&quot; /&gt;
-  &lt;label for=&quot;checkbox&quot;&gt;{{ checked }}&lt;/label&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Checkbox<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;checked&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;checkbox&quot;</span>&gt;</span>{{ checked }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 
-  &lt;h2&gt;Checkbox w/ Array&lt;/h2&gt;
-  &lt;label&gt;&lt;input type=&quot;checkbox&quot; v-model=&quot;arr&quot; value=&quot;one&quot; /&gt; one&lt;/label&gt;
-  &lt;label&gt;&lt;input type=&quot;checkbox&quot; v-model=&quot;arr&quot; value=&quot;two&quot; /&gt; two&lt;/label&gt;
-  &lt;label
-    &gt;&lt;input type=&quot;checkbox&quot; v-model=&quot;arr&quot; :value=&quot;123&quot; /&gt; actual number&lt;/label
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Checkbox w/ Array<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;arr&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;one&quot;</span> /&gt;</span> one<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;arr&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;two&quot;</span> /&gt;</span> two<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>
+    &gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;arr&quot;</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">&quot;123&quot;</span> /&gt;</span> actual number&lt;/label
   &gt;
-  &lt;div&gt;{{ arr }}&lt;/div&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{ arr }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-  &lt;h2&gt;Checkbox w/ true-value / false-value&lt;/h2&gt;
-  &lt;input
-    type=&quot;checkbox&quot;
-    v-model=&quot;checkToggle&quot;
-    :true-value=&quot;trueValue&quot;
-    :false-value=&quot;falseValue&quot;
-  /&gt;
-  &lt;div&gt;{{ checkToggle }}&lt;/div&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Checkbox w/ true-value / false-value<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+    <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span>
+    <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;checkToggle&quot;</span>
+    <span class="hljs-attr">:true-value</span>=<span class="hljs-string">&quot;trueValue&quot;</span>
+    <span class="hljs-attr">:false-value</span>=<span class="hljs-string">&quot;falseValue&quot;</span>
+  /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{ checkToggle }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-  &lt;h2&gt;Radio&lt;/h2&gt;
-  &lt;label&gt;&lt;input type=&quot;radio&quot; v-model=&quot;radioSelected&quot; value=&quot;one&quot; /&gt; one&lt;/label&gt;
-  &lt;label&gt;&lt;input type=&quot;radio&quot; v-model=&quot;radioSelected&quot; value=&quot;two&quot; /&gt; two&lt;/label&gt;
-  &lt;label
-    &gt;&lt;input type=&quot;radio&quot; v-model=&quot;radioSelected&quot; value=&quot;three&quot; /&gt; three&lt;/label
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Radio<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;radioSelected&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;one&quot;</span> /&gt;</span> one<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;radioSelected&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;two&quot;</span> /&gt;</span> two<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>
+    &gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;radioSelected&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;three&quot;</span> /&gt;</span> three&lt;/label
   &gt;
-  &lt;div&gt;{{ radioSelected }}&lt;/div&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{ radioSelected }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-  &lt;h2&gt;Select&lt;/h2&gt;
-  &lt;select v-model=&quot;selected&quot; @change=&quot;console.log(selected, $event.target.value)&quot;&gt;
-    &lt;option&gt;one&lt;/option&gt;
-    &lt;option&gt;two&lt;/option&gt;
-    &lt;option&gt;three&lt;/option&gt;
-  &lt;/select&gt;
-  &lt;div&gt;{{ selected }}&lt;/div&gt;
-&lt;/div&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Select<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;console.log(selected, $event.target.value)&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>one<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>two<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>three<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{ selected }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>In this example, the input’s value is bound to the username field in the data model. Changes in the input will be reflected in the username property.</p>
 <h3>c-show</h3>
 <p>Controls the visibility of elements based on a condition. If the condition evaluates to false, the element will be hidden.</p>
-<pre><code class="hljs language-html" lang="html">&lt;p c-show=&quot;isLoggedIn&quot;&gt;Welcome back, user!&lt;/p&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;isLoggedIn&quot;</span>&gt;</span>Welcome back, user!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
 <h3>c-if</h3>
 <p>Conditionally renders an element only if the specified expression is true. Unlike c-show, this directive removes the element from the DOM if the condition is false.</p>
-<pre><code class="hljs language-html" lang="html">&lt;p c-if=&quot;showMessage&quot;&gt;This message is shown only if showMessage is true.&lt;/p&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;showMessage&quot;</span>&gt;</span>This message is shown only if showMessage is true.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
 <p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/if.html" target="_blank" rel="nofollow">Sample</a>:</p>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-  import { createApp } from '../src'
-  createApp().mount('#app')
-&lt;/script&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
+  <span class="hljs-title function_">createApp</span>().<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;div id=&quot;app&quot; scope=&quot;{ open: true, elseOpen: true }&quot;&gt;
-  &lt;button @click=&quot;open = !open&quot;&gt;toggle&lt;/button&gt;
-  &lt;button @click=&quot;elseOpen = !elseOpen&quot;&gt;toggle else&lt;/button&gt;
-  &lt;div c-if=&quot;open&quot;&gt;ok&lt;/div&gt;
-  &lt;div c-else-if=&quot;elseOpen&quot;&gt;else if&lt;/div&gt;
-  &lt;template c-else&gt;else&lt;/template&gt;
-&lt;/div&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;{ open: true, elseOpen: true }&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;open = !open&quot;</span>&gt;</span>toggle<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;elseOpen = !elseOpen&quot;</span>&gt;</span>toggle else<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;open&quot;</span>&gt;</span>ok<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-else-if</span>=<span class="hljs-string">&quot;elseOpen&quot;</span>&gt;</span>else if<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">c-else</span>&gt;</span>else<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>c-for</h3>
 <p>Loops through an array or object and repeats the associated element for each item.</p>
-<pre><code class="hljs language-html" lang="html">&lt;ul&gt;
-  &lt;li c-for=&quot;item in items&quot;&gt;{{ item }}&lt;/li&gt;
-&lt;/ul&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;item in items&quot;</span>&gt;</span>{{ item }}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
 <p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/for.html" target="_blank" rel="nofollow">Sample</a>:</p>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-    import { createApp } from '../src'
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
   
-    let id = 4
-    createApp({
-      list: [
-        { id: 1, text: 'bar' },
-        { id: 2, text: 'boo' },
-        { id: 3, text: 'baz' },
-        { id: 4, text: 'bazz' }
+    <span class="hljs-keyword">let</span> id = <span class="hljs-number">4</span>
+    <span class="hljs-title function_">createApp</span>({
+      <span class="hljs-attr">list</span>: [
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;bar&#x27;</span> },
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;boo&#x27;</span> },
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;baz&#x27;</span> },
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;bazz&#x27;</span> }
       ],
-      add() {
-        this.list.push({ id: ++id, text: 'new item' });
+      <span class="hljs-title function_">add</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">list</span>.<span class="hljs-title function_">push</span>({ <span class="hljs-attr">id</span>: ++id, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;new item&#x27;</span> });
       },
-      splice() {
-        this.list.splice(1, 0, { id: ++id, text: 'new item' })
+      <span class="hljs-title function_">splice</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">list</span>.<span class="hljs-title function_">splice</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, { <span class="hljs-attr">id</span>: ++id, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;new item&#x27;</span> })
       }
-    }).mount('#app')
-&lt;/script&gt;
+    }).<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   
-&lt;div id=&quot;app&quot; scope&gt;
-    &lt;button @click=&quot;add&quot;&gt;add&lt;/button&gt;
-    &lt;button @click=&quot;list.reverse()&quot;&gt;reverse&lt;/button&gt;
-    &lt;button @click=&quot;list.pop()&quot;&gt;pop&lt;/button&gt;
-    &lt;button @click=&quot;splice&quot;&gt;splice&lt;/button&gt;
-    &lt;ul&gt;
-      &lt;li c-for=&quot;({ id, text }, index) in list&quot; :key=&quot;id&quot;&gt;
-        &lt;div&gt;{{ index }} {{ { id, text } }}&lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">scope</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;list.reverse()&quot;</span>&gt;</span>reverse<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;list.pop()&quot;</span>&gt;</span>pop<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;splice&quot;</span>&gt;</span>splice<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;({ id, text }, index) in list&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;id&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{ index }} {{ { id, text } }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
   
-    &lt;ul&gt;
-      &lt;li c-for=&quot;item of list&quot; :key=&quot;item.id&quot;&gt;
-        &lt;input c-model=&quot;item.text&quot; /&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/div&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;item of list&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;item.text&quot;</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>c-on</h3>
 <p>Attaches an event listener to an element. Commonly used for handling click events, form submissions, or other user interactions.</p>
-<pre><code class="hljs language-html" lang="html">&lt;button c-on:click=&quot;incrementCounter&quot;&gt;Click me!&lt;/button&gt;
-&lt;button @click=&quot;incrementCounter&quot;&gt;Click me!&lt;/button&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">c-on:click</span>=<span class="hljs-string">&quot;incrementCounter&quot;</span>&gt;</span>Click me!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;incrementCounter&quot;</span>&gt;</span>Click me!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
 <p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/on.html" target="_blank" rel="nofollow">Sample</a>:</p>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-  import { createApp } from '../src'
-  createApp().mount('#app')
-&lt;/script&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
+  <span class="hljs-title function_">createApp</span>().<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;div id=&quot;app&quot;&gt;
-	&lt;input
-		type=&quot;text&quot;
-		@keyup.x=&quot;alert('yo')&quot;
-		placeholder=&quot;type x to test key modifier&quot;
-	/&gt;
-	&lt;form&gt;
-		&lt;button type=&quot;submit&quot; @click.prevent.stop&gt;submit (prevented)&lt;/button&gt;
-	&lt;/form&gt;
-	&lt;button @click.right=&quot;alert('clicked')&quot;&gt;right click&lt;/button&gt;
-	&lt;button @click.middle=&quot;alert('clicked')&quot;&gt;middle click&lt;/button&gt;
-	&lt;button @click.once=&quot;alert('clicked')&quot;&gt;click once&lt;/button&gt;
-&lt;/div&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+		<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>
+		@<span class="hljs-attr">keyup.x</span>=<span class="hljs-string">&quot;alert(&#x27;yo&#x27;)&quot;</span>
+		<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;type x to test key modifier&quot;</span>
+	/&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> @<span class="hljs-attr">click.prevent.stop</span>&gt;</span>submit (prevented)<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.right</span>=<span class="hljs-string">&quot;alert(&#x27;clicked&#x27;)&quot;</span>&gt;</span>right click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.middle</span>=<span class="hljs-string">&quot;alert(&#x27;clicked&#x27;)&quot;</span>&gt;</span>middle click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.once</span>=<span class="hljs-string">&quot;alert(&#x27;clicked&#x27;)&quot;</span>&gt;</span>click once<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>c-bind</h3>
 <p>Dynamically binds an attribute to an expression. This is often used to modify attributes like src, href, or class.</p>
-<pre><code class="hljs language-html" lang="html">&lt;img :src=&quot;imageSource&quot;&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;imageSource&quot;</span>&gt;</span>
 </code></pre>
 <p><a href="https://github.com/andrehrferreira/cmmv-reactivity/blob/main/samples/bind.html" target="_blank" rel="nofollow">Sample</a>:</p>
-<pre><code class="hljs language-html" lang="html">&lt;style&gt;
-    #green {
-        color: green;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-id">#green</span> {
+        <span class="hljs-attribute">color</span>: green;
     }
 
-    .red {
-        color: red;
+    <span class="hljs-selector-class">.red</span> {
+        <span class="hljs-attribute">color</span>: red;
     }
 
-    .orange {
-        color: orange;
+    <span class="hljs-selector-class">.orange</span> {
+        <span class="hljs-attribute">color</span>: orange;
     }
 
-    .static {
-        font-weight: bold;
+    <span class="hljs-selector-class">.static</span> {
+        <span class="hljs-attribute">font-weight</span>: bold;
     }
-&lt;/style&gt;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
   
-&lt;script type=&quot;module&quot;&gt;
-    import { createApp, reactive } from '../src'
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">import</span> { createApp, reactive } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
 
-    const data = (window.data = reactive({
-        id: 'green',
-        classes: ['foo', { red: true }],
-        style: { color: 'blue' },
-        obj: { class: 'orange' }
+    <span class="hljs-keyword">const</span> data = (<span class="hljs-variable language_">window</span>.<span class="hljs-property">data</span> = <span class="hljs-title function_">reactive</span>({
+        <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;green&#x27;</span>,
+        <span class="hljs-attr">classes</span>: [<span class="hljs-string">&#x27;foo&#x27;</span>, { <span class="hljs-attr">red</span>: <span class="hljs-literal">true</span> }],
+        <span class="hljs-attr">style</span>: { <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;blue&#x27;</span> },
+        <span class="hljs-attr">obj</span>: { <span class="hljs-attr">class</span>: <span class="hljs-string">&#x27;orange&#x27;</span> }
     }))
 
-    createApp(data).mount()
-&lt;/script&gt;
+    <span class="hljs-title function_">createApp</span>(data).<span class="hljs-title function_">mount</span>()
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   
-&lt;div scope&gt;
-    &lt;div :id=&quot;id&quot;&gt;simple binding - this should be green&lt;/div&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">scope</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:id</span>=<span class="hljs-string">&quot;id&quot;</span>&gt;</span>simple binding - this should be green<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-    &lt;div class=&quot;static&quot; :class=&quot;classes&quot;&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;static&quot;</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;classes&quot;</span>&gt;</span>
         class binding - this should be red and bold
-    &lt;/div&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-    &lt;div style=&quot;font-weight: bold&quot; :style=&quot;style&quot;&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-weight: bold&quot;</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">&quot;style&quot;</span>&gt;</span>
         style binding - this should be blue and bold
-    &lt;/div&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-    &lt;div c-bind=&quot;obj&quot;&gt;object binding - this should be orange&lt;/div&gt;
-&lt;/div&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-bind</span>=<span class="hljs-string">&quot;obj&quot;</span>&gt;</span>object binding - this should be orange<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>c-text</h3>
 <p>Dynamically sets the text content of an element.</p>
-<pre><code class="hljs language-html" lang="html">&lt;div scope=&quot;{ count: 1 }&quot;&gt;
-	&lt;p c-text=&quot;count&quot;&gt;&lt;/p&gt;
-	&lt;button @click=&quot;count++&quot;&gt;increase&lt;/button&gt;
-&lt;/div&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;{ count: 1 }&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">c-text</span>=<span class="hljs-string">&quot;count&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;count++&quot;</span>&gt;</span>increase<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>c-html</h3>
 <p>Inserts raw HTML content into an element.</p>
-<pre><code class="hljs language-html" lang="html">&lt;div c-html=&quot;htmlContent&quot;&gt;&lt;/div&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-html</span>=<span class="hljs-string">&quot;htmlContent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>c-class</h3>
 <p>Dynamically binds one or more CSS classes to an element.</p>
-<pre><code class="hljs language-html" lang="html">&lt;div c-class=&quot;{ active: isActive, disabled: isDisabled }&quot;&gt;&lt;/div&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-class</span>=<span class="hljs-string">&quot;{ active: isActive, disabled: isDisabled }&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>In this example, if isActive is true, the active class is added, and if isDisabled is true, the disabled class is added.</p>
 <h3>c-once</h3>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-  import { createApp } from '../src'
-  createApp().mount()
-&lt;/script&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
+  <span class="hljs-title function_">createApp</span>().<span class="hljs-title function_">mount</span>()
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;div scope=&quot;{ count: 5 }&quot;&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;{ count: 5 }&quot;</span>&gt;</span>
     {{ count }}
-    &lt;div c-once&gt;
-      &lt;h2&gt;Once&lt;/h2&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-once</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Once<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
       {{ count }}
-      &lt;span c-text=&quot;count&quot;&gt;&lt;/span&gt;
-      &lt;span v-for=&quot;i in count&quot;&gt;{{ i }}&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;span c-text=&quot;count&quot;&gt;&lt;/span&gt;
-    &lt;button @click=&quot;count++&quot;&gt;++&lt;/button&gt;
-&lt;/div&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">c-text</span>=<span class="hljs-string">&quot;count&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;i in count&quot;</span>&gt;</span>{{ i }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">c-text</span>=<span class="hljs-string">&quot;count&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;count++&quot;</span>&gt;</span>++<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h3>ref</h3>
 <p>In the @cmmv/reactivity framework, the ref system allows you to easily reference DOM elements within the template and manipulate them in your JavaScript logic. This concept is crucial for managing DOM elements directly when reactive bindings alone are not enough. By associating a ref with an element, you can interact with the DOM directly from the reactive context of your application.</p>
@@ -274,40 +274,40 @@
 Direct DOM Access: It allows you to interact directly with DOM elements, which is sometimes necessary for operations that cannot be purely reactive.<br>
 Dynamic Ref Assignment: You can dynamically change the target element assigned to a ref at runtime.<br>
 Scoped Refs: The system supports nested scopes, meaning you can define refs within a specific context without affecting the global references.</p>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-  import { createApp, reactive } from '../src'
-  createApp().mount()
-&lt;/script&gt;
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { createApp, reactive } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
+  <span class="hljs-title function_">createApp</span>().<span class="hljs-title function_">mount</span>()
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;div
-  id=&quot;root&quot;
-  ref=&quot;root&quot;
-  scope=&quot;{ dynamicRef: 'x', show: true }&quot;
-  c-effect=&quot;console.log({ x: $refs.x, y: $refs.y, input: $refs.input })&quot;
-&gt;
-	&lt;p&gt;Accessing root el: id is {{ $refs.root.id }}&lt;/p&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>
+  <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;root&quot;</span>
+  <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;{ dynamicRef: &#x27;x&#x27;, show: true }&quot;</span>
+  <span class="hljs-attr">c-effect</span>=<span class="hljs-string">&quot;console.log({ x: $refs.x, y: $refs.y, input: $refs.input })&quot;</span>
+&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Accessing root el: id is {{ $refs.root.id }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
-	&lt;input ref=&quot;input&quot; /&gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;input&quot;</span> /&gt;</span>
 
-	&lt;span v-show=&quot;show&quot; :ref=&quot;dynamicRef&quot;&gt;Span with dynamic ref&lt;/span&gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">&quot;show&quot;</span> <span class="hljs-attr">:ref</span>=<span class="hljs-string">&quot;dynamicRef&quot;</span>&gt;</span>Span with dynamic ref<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 
-	&lt;p&gt;dynamicRef is {{ dynamicRef }}&lt;/p&gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>dynamicRef is {{ dynamicRef }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
-	&lt;button @click=&quot;dynamicRef = dynamicRef === 'x' ? 'y' : 'x'&quot;&gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;dynamicRef = dynamicRef === &#x27;x&#x27; ? &#x27;y&#x27; : &#x27;x&#x27;&quot;</span>&gt;</span>
 		change dynamicRef
-	&lt;/button&gt;
+	<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
-	&lt;button @click=&quot;show = !show&quot;&gt;toggle&lt;/button&gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;show = !show&quot;</span>&gt;</span>toggle<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
-	&lt;div scope&gt;
-		&lt;p ref=&quot;x&quot;&gt;nested scope ref&lt;/p&gt;
-		&lt;button
-		@click=&quot;console.log({ x: $refs.x, y: $refs.y, input: $refs.input })&quot;
-		&gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">scope</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;x&quot;</span>&gt;</span>nested scope ref<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+		@<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;console.log({ x: $refs.x, y: $refs.y, input: $refs.input })&quot;</span>
+		&gt;</span>
 		log nested scope refs
-		&lt;/button&gt;
-	&lt;/div&gt;
-&lt;/div&gt;
+		<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <ul>
 <li>
@@ -328,28 +328,28 @@ Scoped Refs: The system supports nested scopes, meaning you can define refs with
 </ul>
 <h2>Components</h2><a id="components" title="Components"></a>
 <p>The @cmmv/reactivity framework allows you to create lightweight and reactive components in your application without the overhead of traditional frameworks. The example provided demonstrates how you can define and use a simple component using createApp, reactive, and templates.</p>
-<pre><code class="hljs language-html" lang="html">&lt;script type=&quot;module&quot;&gt;
-    import { createApp, reactive } from '../src'
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">import</span> { createApp, reactive } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
   
-    function MyComp() {
-      return {
-        $template: '#comp',
-        count: 0,
-        get plusOne() {
-          return this.count + 1
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComp</span>(<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">$template</span>: <span class="hljs-string">&#x27;#comp&#x27;</span>,
+        <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-keyword">get</span> <span class="hljs-title function_">plusOne</span>() {
+          <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> + <span class="hljs-number">1</span>
         }
       }
     }
   
-    createApp({ MyComp }).mount()
-&lt;/script&gt;
+    <span class="hljs-title function_">createApp</span>({ <span class="hljs-title class_">MyComp</span> }).<span class="hljs-title function_">mount</span>()
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;template id=&quot;comp&quot;&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;comp&quot;</span>&gt;</span>
     {{ count }} {{ plusOne }}
-    &lt;button @click=&quot;count++&quot;&gt;++&lt;/button&gt;
-&lt;/template&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;count++&quot;</span>&gt;</span>++<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 
-&lt;div scope=&quot;MyComp()&quot;&gt;&lt;/div&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;MyComp()&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p><strong>Component Setup:</strong></p>
 <ul>

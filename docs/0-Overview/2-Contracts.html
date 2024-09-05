@@ -1,31 +1,31 @@
 <h1>Contracts</h1><a id="contracts" title="Contracts"></a>
 <p>CMMV’s contract system allows defining structured models that are used to auto-generate APIs, RPCs, and WebSocket routes. Contracts are defined using decorators applied to classes and their fields.</p>
 <p>Contracts are defined using the <code>@Contract</code> and <code>@ContractField</code> decorators. These decorators specify the contract name, file path for protocol buffers, and the type of the contract fields.</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { AbstractContract, Contract, ContractField } from &quot;@cmmv/core&quot;;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 
-@Contract({
-    controllerName: &quot;Task&quot;,
-    protoPath: &quot;src/protos/task.proto&quot;,
-    protoPackage: &quot;task&quot;
+<span class="hljs-meta">@Contract</span>({
+    <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&quot;Task&quot;</span>,
+    <span class="hljs-attr">protoPath</span>: <span class="hljs-string">&quot;src/protos/task.proto&quot;</span>,
+    <span class="hljs-attr">protoPackage</span>: <span class="hljs-string">&quot;task&quot;</span>
 })
-export class TasksContract extends AbstractContract {
-    @ContractField({ 
-        protoType: 'string', 
-        unique: true 
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TasksContract</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractContract</span> {
+    <span class="hljs-meta">@ContractField</span>({ 
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>, 
+        <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span> 
     })
-    label: string;
+    <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;
 
-    @ContractField({ 
-        protoType: 'bool', 
-        defaultValue: false 
+    <span class="hljs-meta">@ContractField</span>({ 
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bool&#x27;</span>, 
+        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">false</span> 
     })
-    checked: boolean;
+    <span class="hljs-attr">checked</span>: <span class="hljs-built_in">boolean</span>;
 
-    @ContractField({ 
-        protoType: 'bool', 
-        defaultValue: false 
+    <span class="hljs-meta">@ContractField</span>({ 
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bool&#x27;</span>, 
+        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">false</span> 
     })
-    removed: boolean;
+    <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
 <h2><code>@Contract</code></h2><a id="contract" title="@Contract"></a>
@@ -62,15 +62,15 @@ export class TasksContract extends AbstractContract {
 <pre><code class="hljs">npm install @cmmv/http @cmmv/view
 </code></pre>
 <p>Set up the application:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { Application } from &quot;@cmmv/core&quot;;
-import { ExpressAdapter, ExpressModule } from &quot;@cmmv/http&quot;;
-import { ViewModule } from &quot;@cmmv/view&quot;;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/view&quot;</span>;
 
-Application.create({
-    httpAdapter: ExpressAdapter,
-    modules: [ 
-        ExpressModule,
-        ViewModule
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,
+    <span class="hljs-attr">modules</span>: [ 
+        <span class="hljs-title class_">ExpressModule</span>,
+        <span class="hljs-title class_">ViewModule</span>
     ]
 });
 </code></pre>
@@ -78,68 +78,68 @@ Application.create({
 <p>By default, when you start the application, it will be hosted at <a href="http://localhost:3000" target="_blank" rel="nofollow">http://localhost:3000</a>. This can be easily modified by configuring the port and bind address in the application’s configuration file. The configuration settings allow you to change the host, port, and other related properties for the HTTP server. These options will be covered in more detail later when we show the configuration file setup, providing flexibility to adjust your server’s runtime environment.</p>
 <h3>Model</h3>
 <p>The system will automatically generate the model for your entity in the following format:</p>
-<pre><code class="hljs language-typescript" lang="typescript">// Generated automatically by CMMV
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
 
-export interface Task {
-    id?: any;
-    label: string;
-    checked: boolean;
-    removed: boolean;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Task</span> {
+    id?: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">checked</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
 <p>This Task interface defines the structure of the model, including optional and required fields. The id is optional, and fields such as label, checked, and removed are mandatory with defined types. You can further customize or extend this model based on your application’s needs.</p>
 <p>This base interface, such as the Task interface, will be utilized by other modules, including the repository module, to define entities in the database. By sharing the same interface structure across modules, it ensures consistency and type safety throughout the application. For example, the repository module will use this Task interface to map and handle database operations, making it easier to maintain and scale your application while ensuring that the data model aligns across different layers of the system.</p>
 <h3>Controller</h3>
 <p>The example contract provided above will automatically generate a controller at the path /src/controllers/task.controller.ts. This controller will be structured as follows:</p>
-<pre><code class="hljs language-typescript" lang="typescript">// Generated automatically by CMMV
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
     
-import { Telemetry } from &quot;@cmmv/core&quot;;  
-import { Controller, Get, Post, Put, Delete, Queries, Param, Body, Request } from '@cmmv/http';
-import { TaskService } from '../services/task.service';
-import { Task } from '../models/task.model';
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Telemetry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;  
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Post</span>, <span class="hljs-title class_">Put</span>, <span class="hljs-title class_">Delete</span>, <span class="hljs-title class_">Queries</span>, <span class="hljs-title class_">Param</span>, <span class="hljs-title class_">Body</span>, <span class="hljs-title class_">Request</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/task.service&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../models/task.model&#x27;</span>;
 
-@Controller('task')
-export class TaskController {
-    constructor(private readonly taskservice: TaskService) {}
+<span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;task&#x27;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskController</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">taskservice</span>: <span class="hljs-title class_">TaskService</span></span>) {}
 
-    @Get()
-    async getAll(@Queries() queries: any, @Request() req): Promise&lt;Task[]&gt; {
-        Telemetry.start('TaskController::GetAll', req.requestId);
-        let result = await this.taskservice.getAll(queries, req);
-        Telemetry.end('TaskController::GetAll', req.requestId);
-        return result;
+    <span class="hljs-meta">@Get</span>()
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-meta">@Queries</span>() <span class="hljs-attr">queries</span>: <span class="hljs-built_in">any</span>, <span class="hljs-meta">@Request</span>() req): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Task</span>[]&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskController::GetAll&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">getAll</span>(queries, req);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskController::GetAll&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    @Get(':id')
-    async getById(@Param('id') id: string, @Request() req): Promise&lt;Task&gt; {
-        Telemetry.start('TaskController::GetById', req.requestId);
-        let result = await this.taskservice.getById(id, req);
-        Telemetry.end('TaskController::GetById', req.requestId);
-        return result;
+    <span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getById</span>(<span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-meta">@Request</span>() req): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Task</span>&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskController::GetById&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">getById</span>(id, req);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskController::GetById&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    @Post()
-    async add(@Body() item: Task, @Request() req): Promise&lt;Task&gt; {
-        Telemetry.start('TaskController::Add', req.requestId);
-        let result = await this.taskservice.add(item, req);
-        Telemetry.end('TaskController::Add', req.requestId);
-        return result;
+    <span class="hljs-meta">@Post</span>()
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-meta">@Body</span>() <span class="hljs-attr">item</span>: <span class="hljs-title class_">Task</span>, <span class="hljs-meta">@Request</span>() req): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Task</span>&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskController::Add&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">add</span>(item, req);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskController::Add&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    @Put(':id')
-    async update(@Param('id') id: string, @Body() item: Task, @Request() req): Promise&lt;Task&gt; {
-        Telemetry.start('TaskController::Update', req.requestId);
-        let result = await this.taskservice.update(id, item, req);
-        Telemetry.end('TaskController::Update', req.requestId);
-        return result;
+    <span class="hljs-meta">@Put</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">update</span>(<span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-meta">@Body</span>() <span class="hljs-attr">item</span>: <span class="hljs-title class_">Task</span>, <span class="hljs-meta">@Request</span>() req): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Task</span>&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskController::Update&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">update</span>(id, item, req);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskController::Update&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    @Delete(':id')
-    async delete(@Param('id') id: string, @Request() req): Promise&lt;{ success: boolean, affected: number }&gt; {
-        Telemetry.start('TaskController::Delete', req.requestId);
-        let result = await this.taskservice.delete(id, req);
-        Telemetry.end('TaskController::Delete', req.requestId);
-        return result;
+    <span class="hljs-meta">@Delete</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>) <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-meta">@Request</span>() req): <span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">affected</span>: <span class="hljs-built_in">number</span> }&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskController::Delete&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">delete</span>(id, req);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskController::Delete&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 }
 </code></pre>
@@ -147,65 +147,65 @@ export class TaskController {
 <h3>Services</h3>
 <p>Just like the controller, the service layer is also automatically generated by the system. In the absence of persistence modules such as the repository, a placeholder service is created, which temporarily stores records in memory while the application is online. This allows basic operations like adding, updating, and deleting data without a persistent store. Once a repository module is introduced, it overrides the default service, enabling direct interaction with a database, allowing data to be saved, queried, and managed efficiently from persistent storage.</p>
 <p>Here is an example of a service created using the repository module. This service interacts directly with the database using the repository pattern:</p>
-<pre><code class="hljs language-typescript" lang="typescript">// Generated automatically by CMMV
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
     
-import { Telemetry } from &quot;@cmmv/core&quot;;
-import { AbstractService, Service } from '@cmmv/http';
-import { Repository } from '@cmmv/repository';
-import { TaskEntity } from '../entities/task.entity';
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Telemetry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractService</span>, <span class="hljs-title class_">Service</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Repository</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/repository&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskEntity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../entities/task.entity&#x27;</span>;
 
-@Service(&quot;task&quot;)
-export class TaskService extends AbstractService {
-    public override name = &quot;task&quot;;
+<span class="hljs-meta">@Service</span>(<span class="hljs-string">&quot;task&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractService</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> name = <span class="hljs-string">&quot;task&quot;</span>;
 
-    async getAll(queries?: any, req?: any): Promise&lt;TaskEntity[]&gt; {
-        const instance = Repository.getInstance();
-        const repository = instance.dataSource.getRepository(TaskEntity);
-        Telemetry.start('TaskService::GetAll', req?.requestId);
-        let result = await repository.find();
-        Telemetry.end('TaskService::GetAll', req?.requestId);
-        return result;
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(queries?: <span class="hljs-built_in">any</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>[]&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">find</span>();
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    async getById(id: string, req?: any): Promise&lt;TaskEntity&gt; {
-        const instance = Repository.getInstance();
-        const repository = instance.dataSource.getRepository(TaskEntity);
-        Telemetry.start('TaskService::GetById', req?.requestId);
-        const item = await repository.findOneBy({ id });
-        Telemetry.end('TaskService::GetById', req?.requestId);
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getById</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetById&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> item = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">findOneBy</span>({ id });
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::GetById&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
 
-        if (!item) 
-            throw new Error('Item not found');
+        <span class="hljs-keyword">if</span> (!item) 
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Item not found&#x27;</span>);
         
-        return item;
+        <span class="hljs-keyword">return</span> item;
     }
 
-    async add(item: Partial&lt;TaskEntity&gt;, req?: any): Promise&lt;TaskEntity&gt; {
-        const instance = Repository.getInstance();
-        const repository = instance.dataSource.getRepository(TaskEntity);
-        Telemetry.start('TaskService::Add', req?.requestId);
-        const result = await repository.save(item);
-        Telemetry.end('TaskService::Add', req?.requestId);
-        return result;
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-attr">item</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Add&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">save</span>(item);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Add&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    async update(id: string, item: Partial&lt;TaskEntity&gt;, req?: any): Promise&lt;TaskEntity&gt; {
-        const instance = Repository.getInstance();
-        const repository = instance.dataSource.getRepository(TaskEntity);
-        Telemetry.start('TaskService::Update', req?.requestId);
-        await repository.update(id, item);
-        let result = await repository.findOneBy({ id });
-        Telemetry.end('TaskService::Update', req?.requestId);
-        return result;
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">update</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">item</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Update&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">update</span>(id, item);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">findOneBy</span>({ id });
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Update&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
     }
 
-    async delete(id: string, req?: any): Promise&lt;{ success: boolean, affected: number }&gt; {
-        const instance = Repository.getInstance();
-        const repository = instance.dataSource.getRepository(TaskEntity);
-        Telemetry.start('TaskService::Delete', req?.requestId);
-        const result = await repository.delete(id);
-        Telemetry.end('TaskService::Delete', req?.requestId);
-        return { success: result.affected &gt; 0, affected: result.affected };
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">affected</span>: <span class="hljs-built_in">number</span> }&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Delete&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">delete</span>(id);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Delete&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: result.<span class="hljs-property">affected</span> &gt; <span class="hljs-number">0</span>, <span class="hljs-attr">affected</span>: result.<span class="hljs-property">affected</span> };
     }
 }
 </code></pre>

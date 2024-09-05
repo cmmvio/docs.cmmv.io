@@ -31,20 +31,27 @@ module.exports = {
             { charset: 'utf-8' },
             { "http-equiv": "content-type", content: "text/html; charset=UTF-8" },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { name: "robots", content: "noodp" }
+            { name: "robots", content: "index,follow" },
+            { name: "twitter:card", content: "summary_large_image" },
+            { name: "twitter:site", content: "@cmmvjs" },
+            { property: "og:title", content: "CMMV - Minimalistic Node.js Server Framework" },
+            { property: "og:description", content: "CMMV (Contract Model Model View) is a revolution in web application development" },
+            { property: "og:url", content: "https://cmmv.io/" },
+            { property: "og:type", content: "website" },
+            { property: "og:image", content: "" },
+            { property: "og:image:alt", content: "altText of the image" },
+            { property: "og:site_name", content: "CMMV" },
+            { name: "ahrefs-site-verification", content: "" },
         ],
         link: [
             { rel: 'icon', href: '/assets/favicon/favicon.ico' },
-            { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/favicon/apple-touch-icon.png' },
-            { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/assets/favicon/favicon-32x32.png' },
-            { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/favicon/favicon-16x16.png' },
-            { rel: 'manifest', href: '/assets/favicon/site.webmanifest' },
+            { rel: 'shortcut', href: '/assets/favicon/favicon-32x32.png' },
+            { rel: 'apple-touch-icon', href: '/assets/favicon/favicon-32x32.png' },
             { rel: "dns-prefetch", href: "https://.docs.cmmv.io" },
             { rel: "preconnect", href: "https://.docs.cmmv.io" },     
             { rel: "preconnect", href: "https://cdnjs.cloudflare.com", crossorigin: "" },
             { rel: "preconnect", href: "https://cdn.tailwindcss.com", crossorigin: "" },
-            { rel: "preconnect", href: "https://code.jquery.com", crossorigin: "" },       
-            { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css" },       
+            { rel: "preconnect", href: "https://code.jquery.com", crossorigin: "" },              
             { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" },
             { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
             { rel: "stylesheet", href: "/assets/docs.css" }            
@@ -61,6 +68,6 @@ module.exports = {
     },
 
     scripts: [
-        { type: "text/javascript", src: '/assets/bundle.min.js'},
+        { type: "text/javascript", src: "/assets/bundle.min.js", defer: "defer" },
     ]
 };

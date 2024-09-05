@@ -2,44 +2,44 @@
 <p>This report demonstrates a simple benchmark test for making 1000 HTTP requests to a server, including the size of the request and response headers, and estimates for the average time it takes to process each request. The data payload being tested is a simple JSON object { “Hello”: “World” }, and the following headers are used for the request and response.</p>
 <p>Request and Response Headers:</p>
 <p>Response Headers:</p>
-<pre><code class="hljs language-yaml" lang="yaml">HTTP/1.1 200 OK
-Access-Control-Allow-Origin: *
-Cross-Origin-Opener-Policy: same-origin
-Cross-Origin-Resource-Policy: same-origin
-Origin-Agent-Cluster: ?1
-Referrer-Policy: no-referrer
-Strict-Transport-Security: max-age=15552000; includeSubDomains
-X-Content-Type-Options: nosniff
-X-DNS-Prefetch-Control: off
-X-Download-Options: noopen
-X-Frame-Options: SAMEORIGIN
-X-Permitted-Cross-Domain-Policies: none
-X-XSS-Protection: 0
-Content-Security-Policy: default-src 'self' 'nonce-f0954b9e'; script-src 'self' 'unsafe-eval' 'unsafe-inline' 'nonce-f0954b9e'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com 'nonce-f0954b9e'; font-src 'self' https://cdnjs.cloudflare.com 'nonce-f0954b9e'
-Content-Type: text/html; charset=utf-8
-ETag: W/&quot;5d67-lioHfOkcIYpcQS7nNQKGH5y6XRk&quot;
-Vary: Accept-Encoding
-Content-Encoding: gzip
-Date: Wed, 04 Sep 2024 12:41:13 GMT
-Connection: keep-alive
-Keep-Alive: timeout=5
-Transfer-Encoding: chunked
+<pre><code class="hljs language-yaml" lang="yaml"><span class="hljs-string">HTTP/1.1</span> <span class="hljs-number">200</span> <span class="hljs-string">OK</span>
+<span class="hljs-attr">Access-Control-Allow-Origin:</span> <span class="hljs-string">*</span>
+<span class="hljs-attr">Cross-Origin-Opener-Policy:</span> <span class="hljs-string">same-origin</span>
+<span class="hljs-attr">Cross-Origin-Resource-Policy:</span> <span class="hljs-string">same-origin</span>
+<span class="hljs-attr">Origin-Agent-Cluster:</span> <span class="hljs-string">?1</span>
+<span class="hljs-attr">Referrer-Policy:</span> <span class="hljs-literal">no</span><span class="hljs-string">-referrer</span>
+<span class="hljs-attr">Strict-Transport-Security:</span> <span class="hljs-string">max-age=15552000;</span> <span class="hljs-string">includeSubDomains</span>
+<span class="hljs-attr">X-Content-Type-Options:</span> <span class="hljs-string">nosniff</span>
+<span class="hljs-attr">X-DNS-Prefetch-Control:</span> <span class="hljs-string">off</span>
+<span class="hljs-attr">X-Download-Options:</span> <span class="hljs-string">noopen</span>
+<span class="hljs-attr">X-Frame-Options:</span> <span class="hljs-string">SAMEORIGIN</span>
+<span class="hljs-attr">X-Permitted-Cross-Domain-Policies:</span> <span class="hljs-string">none</span>
+<span class="hljs-attr">X-XSS-Protection:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">Content-Security-Policy:</span> <span class="hljs-string">default-src</span> <span class="hljs-string">&#x27;self&#x27;</span> <span class="hljs-string">&#x27;nonce-f0954b9e&#x27;</span><span class="hljs-string">;</span> <span class="hljs-string">script-src</span> <span class="hljs-string">&#x27;self&#x27;</span> <span class="hljs-string">&#x27;unsafe-eval&#x27;</span> <span class="hljs-string">&#x27;unsafe-inline&#x27;</span> <span class="hljs-string">&#x27;nonce-f0954b9e&#x27;</span><span class="hljs-string">;</span> <span class="hljs-string">style-src</span> <span class="hljs-string">&#x27;self&#x27;</span> <span class="hljs-string">&#x27;unsafe-inline&#x27;</span> <span class="hljs-string">https://cdnjs.cloudflare.com</span> <span class="hljs-string">&#x27;nonce-f0954b9e&#x27;</span><span class="hljs-string">;</span> <span class="hljs-string">font-src</span> <span class="hljs-string">&#x27;self&#x27;</span> <span class="hljs-string">https://cdnjs.cloudflare.com</span> <span class="hljs-string">&#x27;nonce-f0954b9e&#x27;</span>
+<span class="hljs-attr">Content-Type:</span> <span class="hljs-string">text/html;</span> <span class="hljs-string">charset=utf-8</span>
+<span class="hljs-attr">ETag:</span> <span class="hljs-string">W/&quot;5d67-lioHfOkcIYpcQS7nNQKGH5y6XRk&quot;</span>
+<span class="hljs-attr">Vary:</span> <span class="hljs-string">Accept-Encoding</span>
+<span class="hljs-attr">Content-Encoding:</span> <span class="hljs-string">gzip</span>
+<span class="hljs-attr">Date:</span> <span class="hljs-string">Wed,</span> <span class="hljs-number">04</span> <span class="hljs-string">Sep</span> <span class="hljs-number">2024 12:41:13 </span><span class="hljs-string">GMT</span>
+<span class="hljs-attr">Connection:</span> <span class="hljs-string">keep-alive</span>
+<span class="hljs-attr">Keep-Alive:</span> <span class="hljs-string">timeout=5</span>
+<span class="hljs-attr">Transfer-Encoding:</span> <span class="hljs-string">chunked</span>
 </code></pre>
 <p>Request Headers:</p>
-<pre><code class="hljs language-yaml" lang="yaml">GET /docs/3-RPC%2F0-Overview HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6
-Cache-Control: max-age=0
-Connection: keep-alive
-Host: localhost:3000
-If-None-Match: W/&quot;5cee-HeytSiLTPcs5WSj3kRViDNpXpt0&quot;
-Sec-Fetch-Dest: document
-Sec-Fetch-Mode: navigate
-Sec-Fetch-Site: same-origin
-Sec-Fetch-User: ?1
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari
+<pre><code class="hljs language-yaml" lang="yaml"><span class="hljs-string">GET</span> <span class="hljs-string">/docs/3-RPC%2F0-Overview</span> <span class="hljs-string">HTTP/1.1</span>
+<span class="hljs-attr">Accept:</span> <span class="hljs-string">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
+<span class="hljs-attr">Accept-Encoding:</span> <span class="hljs-string">gzip,</span> <span class="hljs-string">deflate,</span> <span class="hljs-string">br,</span> <span class="hljs-string">zstd</span>
+<span class="hljs-attr">Accept-Language:</span> <span class="hljs-string">pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6</span>
+<span class="hljs-attr">Cache-Control:</span> <span class="hljs-string">max-age=0</span>
+<span class="hljs-attr">Connection:</span> <span class="hljs-string">keep-alive</span>
+<span class="hljs-attr">Host:</span> <span class="hljs-string">localhost:3000</span>
+<span class="hljs-attr">If-None-Match:</span> <span class="hljs-string">W/&quot;5cee-HeytSiLTPcs5WSj3kRViDNpXpt0&quot;</span>
+<span class="hljs-attr">Sec-Fetch-Dest:</span> <span class="hljs-string">document</span>
+<span class="hljs-attr">Sec-Fetch-Mode:</span> <span class="hljs-string">navigate</span>
+<span class="hljs-attr">Sec-Fetch-Site:</span> <span class="hljs-string">same-origin</span>
+<span class="hljs-attr">Sec-Fetch-User:</span> <span class="hljs-string">?1</span>
+<span class="hljs-attr">Upgrade-Insecure-Requests:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">User-Agent:</span> <span class="hljs-string">Mozilla/5.0</span> <span class="hljs-string">(Windows</span> <span class="hljs-string">NT</span> <span class="hljs-number">10.0</span><span class="hljs-string">;</span> <span class="hljs-string">Win64;</span> <span class="hljs-string">x64)</span> <span class="hljs-string">AppleWebKit/537.36</span> <span class="hljs-string">(KHTML,</span> <span class="hljs-string">like</span> <span class="hljs-string">Gecko)</span> <span class="hljs-string">Chrome/128.0.0.0</span> <span class="hljs-string">Safari</span>
 </code></pre>
 <p>For the benchmark test, we analyzed the total size and time for processing 1000 HTTP requests. Here is the detailed breakdown:</p>
 <p>Header Sizes:</p>

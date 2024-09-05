@@ -1,4 +1,4 @@
-<div id="app" s:docs="docs">
+<div id="app" s:docs="docs" c-cloak>
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
         <div class="max-w-8xl mx-auto flex container">
             <div class="w-60">
@@ -7,15 +7,15 @@
                 </a>
             </div>
 
-            <div class="justify-between text-center w-full">
-                <div class="w-80 m-auto relative">
-                    <div class="absolute text-white z-40 top-5 left-12">
+            <div class="justify-between w-full text">
+                <div class="relative text-right mt-3 hover:cursor-pointer group bg-neutral-800 float-right rounded-lg border border-black">
+                    <div class="absolute text-white z-40 top-2 left-18" style="left: 12px; color: #ccd0d5;">
                         <i class="fa-solid fa-search"></i>
                     </div>
                     <div>
                         <input 
                         type="text" 
-                            class="p-1.5 pl-10 mt-3 bg-neutral-700 rounded-lg text-white border border-black" 
+                            class="p-1.5 pl-10 text-white bg-transparent" 
                             placeholder="Search" 
                         />
                     </div>
@@ -35,65 +35,82 @@
     </nav>
 
     <div class="max-w-8xl mx-auto flex container">
-        <div class="w-60 bg-neutral-500 fixed top-16 mt-20 z-40" style="height: calc(100% - 64px)" c-cloak>
+        <div class="w-60 fixed top-16 mt-20 z-40" style="height: calc(100% - 64px); background-color: #2e3035;" c-cloak>
             <!-- include('public/views/docs/navbar') -->
         </div>
 
         <div class="mt-20 ml-64 text-justify relative">
-            <div class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
-                <!-- include('public/views/breadcrumb'); -->
+            <div 
+                class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
+                :class="{'w-full': docs.anchors.length < 4}"
+            >
+                <!-- include('public/views/docs/breadcrumb'); -->
                 <!-- include('public/views/docs/anchors'); -->
 
                 <div class="max-w-screen-lg relative text-white mb-20 context-html">
                     <div c-html="docs.index">{ docs.index }</div>
 
                     <div class="absolute top-0 right-0">
-                        <a :href="`https://github.com/andrehrferreira/docs.cmmv.io/tree/main${docs.link.replace('.html', '.md')}?plain=1`" target="_blank" title="Suggest change">
+                        <a 
+                            :href="`https://github.com/andrehrferreira/docs.cmmv.io/tree/main${docs.link?.replace('.html', '.md')}?plain=1`" 
+                            target="_blank" 
+                            title="Suggest change"
+                        >
                             <i class="fa-solid fa-pen-to-square fa-lg"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- include('public/views/footer'); -->
+            <!-- include('public/views/docs/footer'); -->
         </div>
     </div>
 </div>
 
 <script s-attr="nonce">
-    hljs.highlightAll();
-
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const href = this.getAttribute('href');
-            document.querySelectorAll('.current').forEach(el => el.classList.remove('current'));
-            this.parentElement.classList.add('current');
-
-            window.scrollTo({
-                top: document.querySelector(href).offsetTop,
-                behavior: 'smooth'
-            });
-
-            window.location.hash = href;
-        });
-    });
-
-    window.addEventListener('scroll', function () {
+    function updateCurrent(){
         const scrollPosition = window.scrollY;
+
         document.querySelectorAll('.current').forEach(el => el.classList.remove('current'));
 
         let repoint = false;
-        document.querySelectorAll('#anchors > li').forEach(item => {
+        document.querySelectorAll('#anchors li').forEach((item, index) => {
             const target = document.querySelector(item.querySelector('a').getAttribute('href'));
-            if (target.offsetTop >= scrollPosition && !repoint) {
+            
+            if (target?.offsetTop >= scrollPosition && !repoint) {
+                repoint = true;
+                item.classList.add('current');
+            }
+            else if(!target) {
                 repoint = true;
                 item.classList.add('current');
             }
         });
-    });
+    }
 
-    document.querySelectorAll("#anchors > li")[0]?.classList.add("current");
+    window.addEventListener('scroll', updateCurrent);
+
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('a[href^="#"]').forEach((link, index) => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const href = this.getAttribute('href');
+                
+                document.querySelectorAll('.current').forEach(el => el.classList.remove('current'));
+                
+                this.parentElement.classList.add('current');
+                
+                window.scrollTo({
+                    top: document.querySelector(href).offsetTop,
+                    behavior: 'smooth'
+                });
+
+                window.location.hash = href;
+            });
+        });
+
+        updateCurrent();
+    });
 </script>
 
 <script s-setup>
@@ -101,13 +118,36 @@ export default {
     layout: "default",
 
     data(){
-        return {
-            navbar: []
-        }
+        return { navbar: [] }
     },
 
-    mounted(){
+    created(){
+        console.log("aki")
+    },
 
+    async mounted() {
+        this.loadState();
+    },
+
+    methods: {
+        loadState(){
+            this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
+            return this.navbar;
+        },
+
+        saveState(state) {
+            localStorage.setItem('navbarState', JSON.stringify(state));
+        },
+
+        toggle(isOpened, itemName) {
+            isOpened = !isOpened;
+
+            const currentState = this.loadState();
+            currentState[itemName] = isOpened;
+            this.saveState(currentState);
+
+            return isOpened;
+        }
     }
 }
 </script>

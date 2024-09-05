@@ -105,7 +105,7 @@ The default directories that come with the project are the following:
 
 - **index.ts**: The application entry point, where the server is initialized and configured to start receiving requests.
 
-## Automatic Integration and Modularity
+## Automatic Generate
 
 CMMV's greatest strength lies in its ability to **automatically generate** code based on contracts. When starting the application, the system checks the `contracts` directory and, depending on the installed modules, automatically generates the following parts:
 

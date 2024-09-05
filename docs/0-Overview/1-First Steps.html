@@ -19,26 +19,26 @@
 <p>The project is strongly influenced by SOLID principles, applying well-defined concepts of responsibility, but without rigidly following all the rules. The goal is to keep the architecture clean and organized, but with the flexibility necessary to meet the practical realities of development. In addition, TDD (Test-Driven Development) concepts are applied to facilitate maintenance and ensure code quality, but the system is completely modular and optional, allowing each developer to choose what best suits their workflow.</p>
 <p>In short, CMMV is more than a collection of tools and frameworks; it is an integrated approach to development, where contracts are at the core of everything. With a solid foundation, CMMV gives developers the freedom to build modern and scalable applications, without compromising the simplicity and flexibility that are essential for continuous innovation.</p>
 <p>Every application flow starts in the <code>src/index.ts</code> file which is responsible for starting the HTTP server and its adapters.</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { Application } from &quot;@cmmv/core&quot;;
-import { ExpressAdapter, ExpressModule } from &quot;@cmmv/http&quot;;
-import { ProtobufModule } from &quot;@cmmv/protobuf&quot;;
-import { WSModule, WSAdapter } from &quot;@cmmv/ws&quot;;
-import { ViewModule } from &quot;@cmmv/view&quot;;
-import { RepositoryModule, Repository } from &quot;@cmmv/repository&quot;;
-import { ApplicationModule } from &quot;./app.module&quot;;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/protobuf&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/view&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">RepositoryModule</span>, <span class="hljs-title class_">Repository</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/repository&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ApplicationModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./app.module&quot;</span>;
 
-Application.create({
-    httpAdapter: ExpressAdapter,    
-    wsAdapter: WSAdapter,
-    modules: [
-        ExpressModule,
-        ProtobufModule,
-        WSModule,
-        ViewModule,
-        RepositoryModule
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,    
+    <span class="hljs-attr">wsAdapter</span>: <span class="hljs-title class_">WSAdapter</span>,
+    <span class="hljs-attr">modules</span>: [
+        <span class="hljs-title class_">ExpressModule</span>,
+        <span class="hljs-title class_">ProtobufModule</span>,
+        <span class="hljs-title class_">WSModule</span>,
+        <span class="hljs-title class_">ViewModule</span>,
+        <span class="hljs-title class_">RepositoryModule</span>
     ],
-    services: [Repository],
-    contracts: [...]
+    <span class="hljs-attr">services</span>: [<span class="hljs-title class_">Repository</span>],
+    <span class="hljs-attr">contracts</span>: [...]
 });
 </code></pre>
 <p>It is possible to perform configurations through the <code>.cmmv.config.js</code> file without having to change the application source code, even in the future we will provide other HTTP server modules.</p>
@@ -96,7 +96,7 @@ Application.create({
 <p><strong>index.ts</strong>: The application entry point, where the server is initialized and configured to start receiving requests.</p>
 </li>
 </ul>
-<h2>Automatic Integration and Modularity</h2><a id="automatic-integration-and-modularity" title="Automatic Integration and Modularity"></a>
+<h2>Automatic Generate</h2><a id="automatic-generate" title="Automatic Generate"></a>
 <p>CMMV’s greatest strength lies in its ability to <strong>automatically generate</strong> code based on contracts. When starting the application, the system checks the <code>contracts</code> directory and, depending on the installed modules, automatically generates the following parts:</p>
 <ul>
 <li>
@@ -119,9 +119,9 @@ Application.create({
 <p>In this way, the initial application watches in parallel with the nodemon that checks for changes in the files and automatically reloads in case of changes, the server that provides the API will be loaded following the pure Typescript settings, the editor will be compiled for Javascript.</p>
 <h2>Linting and formatting</h2><a id="linting-and-formatting" title="Linting and formatting"></a>
 <p>Like most public web applications that use Typescript, I use eslint and prettier to format and organize the code, making it possible to perform checks and corrections using the commands below</p>
-<pre><code class="hljs language-bash" lang="bash"># Lint with eslint
+<pre><code class="hljs language-bash" lang="bash"><span class="hljs-comment"># Lint with eslint</span>
 $ yarn lint || npm run lint
 
-# Format with prettier
+<span class="hljs-comment"># Format with prettier</span>
 $ yarn format || npm run format
 </code></pre>

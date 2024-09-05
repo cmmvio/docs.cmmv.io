@@ -26,12 +26,12 @@
 </ul>
 <h2>Initialization</h2><a id="initialization" title="Initialization"></a>
 <p>To use the ExpressAdapter:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { ExpressAdapter } from '@cmmv/http';
-import { Application } from '@cmmv/core';
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
-Application.create({
-    httpAdapter: ExpressAdapter,
-    modules: [YourModule]
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,
+    <span class="hljs-attr">modules</span>: [<span class="hljs-title class_">YourModule</span>]
 });
 </code></pre>
 <p>The adapter registers all controllers automatically from the ControllerRegistry. It matches the controller’s routes to the corresponding HTTP methods (GET, POST, etc.), and processes middleware defined at the controller level.</p>
@@ -42,19 +42,19 @@ Application.create({
 <p>The httpMiddlewares configuration allows you to inject custom middleware into the HTTP adapter (such as Express or Fastify) during the application’s initialization. This provides additional flexibility by letting you apply any middleware functions to handle tasks like logging, request validation, or security checks.</p>
 <p>To use this feature, define an array of middleware functions in the httpMiddlewares property when creating the application.</p>
 <p>Here’s an example where we add the morgan logging middleware to an Express-based CMMV application:</p>
-<pre><code class="hljs language-typescript" lang="typescript">import { Application } from &quot;@cmmv/core&quot;;
-import { ExpressAdapter, ExpressModule } from &quot;@cmmv/http&quot;;
-import { ViewModule } from &quot;@cmmv/view&quot;;
-import morgan from &quot;morgan&quot;;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/view&quot;</span>;
+<span class="hljs-keyword">import</span> morgan <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;morgan&quot;</span>;
 
-Application.create({
-    httpAdapter: ExpressAdapter,
-    httpMiddlewares: [
-        morgan('dev'), 
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,
+    <span class="hljs-attr">httpMiddlewares</span>: [
+        <span class="hljs-title function_">morgan</span>(<span class="hljs-string">&#x27;dev&#x27;</span>), 
     ],
-    modules: [ 
-        ExpressModule,
-        ViewModule
+    <span class="hljs-attr">modules</span>: [ 
+        <span class="hljs-title class_">ExpressModule</span>,
+        <span class="hljs-title class_">ViewModule</span>
     ]
 });
 </code></pre>

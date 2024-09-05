@@ -25,9 +25,9 @@
 	"homepage": "https://github.com/andrehrferreira/docs.cmmv.io#readme",
 	"description": "",
 	"dependencies": {
-		"@cmmv/core": "^0.2.14",
-		"@cmmv/http": "^0.2.14",
-		"@cmmv/view": "^0.2.14",
+		"@cmmv/core": "^0.2.21",
+		"@cmmv/http": "^0.2.21",
+		"@cmmv/view": "^0.2.21",
 		"dotenv": "^16.4.5",
 		"glob": "^11.0.0",
 		"highlight.js": "^11.10.0",
