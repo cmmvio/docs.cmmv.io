@@ -10,7 +10,7 @@ html {
 body {
     font-size: 16px !important;
     font-weight: 400;
-    font-family: Source Sans Pro,Helvetica Neue,sans-serif;
+    font-family: Source Sans Pro, Helvetica Neue, sans-serif;
     background-color: #2e3035;
     font-display: swap;
     color: #404040;
@@ -225,6 +225,15 @@ p {
     list-style: disc;
     margin-bottom: 20px;
     margin-left: 20px;
+}
+
+.context-html a {
+    color: #6495ED;
+    text-decoration: underline;
+}
+
+.context-html a:hover {
+    color: #4263a1;
 }
 
 code {

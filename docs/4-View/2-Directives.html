@@ -1,0 +1,590 @@
+<h1>Directives</h1><a id="directives" title="Directives"></a>
+<p>Preloading data that will be sent directly in HTML is a crucial factor for SEO (Search Engine Optimization). When a search engine analyzes a page, it searches for content that is already rendered in HTML. By ensuring that the essential data of the page is already loaded in HTML, rendering time is reduced and the content is immediately accessible for indexing, improving visibility in search results.</p>
+<p>CMMV (Contract-Model-Model-View) was designed with this need in mind, optimizing content delivery in a way that prioritizes SEO. The system emulates the traditional MVC (Model-View-Controller) model, widely used by well-known frameworks such as Ruby on Rails, Laravel, or Spring. This is done through SSR (Server-Side Rendering) directives, which allow data to be processed on the server and inserted directly into HTML, without the need for another application or overloading the frontend with complex frameworks.</p>
+<p>By using SSR directives such as <code>s-data</code>, CMMV ensures that dynamic data is sent in the HTML itself, without relying on AJAX calls or asynchronous loading via JavaScript, which can delay the display of critical content and negatively impact page performance. This makes content instantly available to search engines, improving load time (TTFB) and maximizing the chances of good indexing.</p>
+<p>This model not only ensures faster loading, but also improves the end-user experience. The user receives a complete page almost instantly, without the need to wait for additional loading or content updates. By centralizing data processing in the backend, CMMV reduces complexity and frontend overhead, eliminating the need for additional configuration or running multiple applications to render and serve dynamic content.</p>
+<p>In short, CMMV is a modern solution that reuses the best of the traditional MVC model, adapting it to the current scenario of SEO and performance optimization, with a focus on simplicity and efficiency.</p>
+<h2>s-data</h2><a id="s-data" title="s-data"></a>
+<p>The <code>s-data</code> directive allows you to directly render server-side data into your HTML templates. This is particularly useful for embedding server-side variables in your HTML without needing additional frontend frameworks or JavaScript.</p>
+<p>How it Works<br>
+You declare a variable in the server-side controller and pass it to the view. The <code>s-data</code> directive is responsible for injecting this variable directly into the corresponding HTML element during server-side rendering (SSR). This ensures that the content is pre-rendered, optimizing the page for performance and SEO.</p>
+<p>View (HTML Template)</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-data</span>=<span class="hljs-string">&quot;datetime&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>In this example, the <code>s-data</code> directive is used on a <code>&lt;div&gt;</code> element to render the <code>datetime</code> variable, which will be provided by the server.</p>
+<p>Controller</p>
+<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;template&quot;</span>, { <span class="hljs-attr">datetime</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>() });
+</code></pre>
+<p>In the controller, you pass the datetime variable (the current timestamp) as part of the data rendered into the template.</p>
+<p>Result (Rendered HTML)</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>1725568913552<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<h2>s-attr</h2><a id="s-attr" title="s-attr"></a>
+<p>The <code>s-attr</code> directive in CMMV allows you to dynamically assign attributes to HTML elements from server-rendered data, similar to how the <code>s-data</code> directive works. However, instead of filling in the content of a tag, it adds or updates an attribute of the element. This is particularly useful for adding security attributes like <code>nonce</code> in <code>&lt;script&gt;</code> or <code>&lt;link&gt;</code> tags, often required by strict Content Security Policies (CSP).</p>
+<p>View (HTML Template)</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-attr</span>=<span class="hljs-string">&quot;ref&quot;</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>Controller</p>
+<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;template&quot;</span>, { <span class="hljs-attr">ref</span>: <span class="hljs-string">&quot;ABC&quot;</span> });
+</code></pre>
+<p>Result (Rendered HTML)</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;ABC&quot;</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>In this case, the <code>s-attr=&quot;ref&quot;</code> directive tells the server to create a ref attribute on the <code>&lt;div&gt;</code> element with the value “ABC”, which is passed from the server-side controller.</p>
+<h2>s-i18n</h2><a id="s-i18n" title="s-i18n"></a>
+<p>The <code>s-i18n</code> directive is the native internationalization module of the CMMV system. It allows developers to manage and display multilingual content by utilizing locale files. These locale files are stored in the <code>/src/locale</code> directory and should be in JSON format.</p>
+<p>CMMV provides the ability to define a default language, and it allows for dynamic language switching based on the user session. This is ideal for websites and applications that need to cater to multiple languages.</p>
+<p>The locale files contain key-value pairs, where the key represents the string identifier and the value is the localized string. For example:</p>
+<p><code>/src/locale/en.json</code></p>
+<pre><code class="hljs language-json" lang="json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;welcome&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Welcome to CMMV&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;CMMV makes development faster and easier.&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>/src/locale/pt-br.json</code></p>
+<pre><code class="hljs language-json" lang="json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;welcome&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Bem-vindo ao CMMV&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;O CMMV torna o desenvolvimento mais rápido e fácil.&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>You can use the <code>s-i18n</code> directive in your view templates to render localized strings based on the current language.</p>
+<p>View (HTML Template)</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;welcome&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;description&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+<p>Result (For English Locale)</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome to CMMV<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>CMMV makes development faster and easier.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+<p><strong>Configuration</strong></p>
+<p>In the <code>.cmmv.config.js</code> file, you can configure the i18n settings to define the locale file path and the default language for your application:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-attr">i18n</span>: {
+        <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&quot;./src/locale&quot;</span>,  <span class="hljs-comment">// Path to the locale files</span>
+        <span class="hljs-attr">default</span>: <span class="hljs-string">&quot;en&quot;</span>  <span class="hljs-comment">// Default language</span>
+    },
+    <span class="hljs-comment">// Other configurations...</span>
+}
+</code></pre>
+<h2>s-if</h2><a id="s-if" title="s-if"></a>
+<p>The <code>s-if</code> directive is used to conditionally render a block of content based on the evaluation of an expression. If the provided expression evaluates to true, the content within the <code>s-if</code> directive will be rendered. Otherwise, the content will not be displayed.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">s-if</span> <span class="hljs-attr">exp</span>=<span class="hljs-string">&quot;todolist.length &gt; 0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Total Record Loaded SSR: {{ todolist.length }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">s-else</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>No records were loaded via SSR<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">s-else</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">s-if</span>&gt;</span> 
+</code></pre>
+<ul>
+<li><code>exp:</code> The boolean expression to evaluate. The expression can use variables and logical operators to determine if the block should be displayed.</li>
+</ul>
+<p>While the <code>s-if</code> directive provides a powerful way to conditionally render content, it should be used with caution due to its potential impact on client-side updates. The content inside an s-if block is removed from the DOM if the expression evaluates to false, and this removal is not automatically updated or re-rendered on the client side after the initial server-side rendering (SSR).</p>
+<p><strong>Recommendations:</strong></p>
+<ul>
+<li>
+<p><strong>Use Case:</strong> It is recommended to use s-if primarily for scenarios where server-side conditions determine the content that should be included in the initial HTML. For instance, you might use <code>s-if</code> to load and display data that is available at the time of server rendering, such as user authentication data or initial configuration settings.</p>
+</li>
+<li>
+<p><strong>Avoid Frequent Client-Side Updates:</strong> Since <code>s-if</code> removes the content from the DOM based on the initial evaluation, it is not suitable for dynamic client-side content that might change frequently or be updated after the initial load. For content that may need to be dynamically updated based on client-side interactions or data changes, consider using other methods such as client-side rendering techniques or reactive frameworks.</p>
+</li>
+</ul>
+<p>By adhering to these recommendations, you can ensure that your use of the <code>s-if</code> directive enhances both the performance and maintainability of your application without unintended side effects.</p>
+<h2>s-for</h2><a id="s-for" title="s-for"></a>
+<p>The <code>s-for</code> directive is designed to handle server-side rendering (SSR) of lists and ensure that dynamic data is pre-rendered for improved SEO. This directive, used in conjunction with the <code>c-for</code> directive, allows you to define how data should be rendered on the server and how it should be updated on the client side. It supports pre-rendering content that will be displayed immediately to users and search engines, while also allowing for client-side updates.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">s-for</span>
+    <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;condition&quot;</span>
+    <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in collection&quot;</span>
+    <span class="hljs-attr">render-tag</span>=<span class="hljs-string">&quot;tag-name&quot;</span>
+&gt;</span>
+    <span class="hljs-comment">&lt;!-- Content to render --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">s-for</span>&gt;</span>
+</code></pre>
+<p><strong>How It Works</strong></p>
+<ul>
+<li>The <code>s-for</code> directive pre-renders the list items on the server based on the data provided. This includes evaluating expressions and injecting static content directly into the HTML.</li>
+<li>The directive ensures that content defined within the <code>s-for</code> block, including variables rendered using <code>{{}}</code>, <code>c-text</code>, <code>c-html</code>, and <code>:</code>, is pre-rendered.</li>
+<li>On the client side, the <code>c-for</code> directive will take over and handle dynamic updates. This allows the list to be reactive and updated as needed.</li>
+</ul>
+<p><strong>Input Template:</strong></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">s-for</span> 
+    <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;todolist&quot;</span>
+    <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in todolist&quot;</span>
+    <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item&quot;</span>
+    <span class="hljs-attr">render-tag</span>=<span class="hljs-string">&quot;div&quot;</span>
+&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-content&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+            <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> 
+            <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;item.checked&quot;</span> 
+            @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;UpdateTaskRequest(item)&quot;</span>
+        &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">input</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> 
+            <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;{&#x27;todo-item-checked&#x27;: item.checked}&quot;</span>
+        &gt;</span>{{ item.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
+        <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-btn-remove&quot;</span>
+        <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;remove&quot;</span> 
+        @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;DeleteTaskRequest(item.id)&quot;</span>
+    &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">s-for</span>&gt;</span> 
+</code></pre>
+<p><strong>Final Rendered Output:</strong></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;!loaded &amp;&amp; !todolist&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;todolist&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-content&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+                <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> 
+                <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;item.checked&quot;</span> 
+                @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;UpdateTaskRequest(1)&quot;</span>
+            &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-checked&quot;</span>&gt;</span>Task 1<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
+            <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-btn-remove&quot;</span> 
+            @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;DeleteTaskRequest(1)&quot;</span>
+        &gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-else</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
+        <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;todolist&quot;</span> 
+        <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in todolist&quot;</span> 
+        <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item&quot;</span>
+    &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-content&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+                <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> 
+                <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;item.checked&quot;</span> 
+                @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;UpdateTaskRequest(item)&quot;</span>
+            &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">label</span> 
+                <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;{&#x27;todo-item-checked&#x27;: item.checked}&quot;</span>
+            &gt;</span>{{ item.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
+            <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-btn-remove&quot;</span> 
+            @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;DeleteTaskRequest(item.id)&quot;</span>
+        &gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<ul>
+<li><strong>Pre-Rendering:</strong> The <code>s-for</code> directive is crucial for SEO as it pre-renders list items with actual data, making the content immediately available for indexing by search engines.</li>
+<li><strong>Client-Side Update:</strong> On the client side, the <code>c-for</code> directive ensures that the content is reactive and can be updated dynamically.</li>
+<li><strong>Use with Caution:</strong> As <code>s-for</code> performs server-side rendering, ensure that the list and its contents are suitable for static pre-rendering. Avoid using it for highly dynamic data that changes frequently on the client side.<br>
+By combining <code>s-for</code> with <code>c-for</code>, you can leverage server-side rendering for SEO benefits while maintaining dynamic client-side updates.</li>
+</ul>
+<h2>Include</h2><a id="include" title="Include"></a>
+<p>The <code>include</code> directive allows the insertion of components or templates from other files into the main layout. This feature is useful for building modular pages, enabling the division of the layout into small, reusable blocks, which optimizes both loading performance and code maintenance.</p>
+<h3>How It Works</h3>
+<p>The <code>include</code> directive is responsible for preloading components on the server side before sending the page to the client. These components are treated as templates, and their inclusion can occur in a cascading manner, meaning that a template can include other templates. However, this behavior is influenced by the caching strategy, ensuring optimal performance by preventing repeated loading of already processed components.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Include the navbar --&gt;</span>
+    <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Include the footer --&gt;</span>
+    <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/footer&#x27;) --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>When using the <code>include</code> directive, it’s important to consider how data or behavior for each template will be managed. The directive is designed to pre-process components on the server side, so any setup logic needs to be carefully planned. The recommended approach is to execute the setup logic in the main template and avoid cascading setups in included templates. This prevents unnecessary multiple setup executions that could negatively impact performance.</p>
+<p>To optimize template injection and improve performance, the include directive uses a caching strategy. This means that after the initial loading of a template, its content is cached, and subsequent inclusions will use the already-loaded template. However, if the content needs to be dynamically updated, it’s recommended that the setup be managed in the main template rather than relying on individual setups in each included template. This ensures that changes are centralized and easily managed.</p>
+<p><strong>Complete Example</strong></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Welcome to our site!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/footer&#x27;) --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">navbarState</span>: {},
+            <span class="hljs-attr">contentData</span>: {}
+        };
+    },
+    <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadState</span>();
+    },
+    <span class="hljs-attr">methods</span>: {
+        <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbarState</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">contentData</span> = { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Dynamically loaded content.&#x27;</span> };
+        }
+    }
+};
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2>Call Services</h2><a id="call-services" title="Call Services"></a>
+<p>In this implementation, you have a combination of server-side directives for data preloading and the use of the <code>include</code> directive to incorporate reusable components, such as the navbar and other layout elements, into the page. While this pattern works efficiently, it currently lacks support for component-specific setups as seen in frameworks like Nuxt.js. Let’s break down how this approach works and the potential for future enhancements.</p>
+<p><strong>Server-Side Directive (s:docs)</strong></p>
+<p>In the main HTML file (index.hhtml), you are using a directive (s:docs=“docs”) to bind server-preloaded data (in this case, docs) to the client-side rendering. This allows the initial data, such as the navigation structure (docs.navbar), to be fetched server-side and passed to the client before the page is rendered.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
+</code></pre>
+<p>The <code>docs</code> object is populated on the server, likely from a backend data source or file, and it is injected into the template. This enables the use of this data immediately upon loading without additional client-side API calls, improving the initial loading performance.</p>
+<p><strong>Using the include Directive for Templates</strong><br>
+You are including reusable components, such as the navbar, breadcrumbs, and footer, with the <code>include</code> directive. These templates are preloaded on the server, enhancing modularity and maintainability:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+<span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/breadcrumb&#x27;); --&gt;</span>
+<span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/footer&#x27;); --&gt;</span>
+</code></pre>
+<p>By loading these components server-side, you avoid multiple HTTP requests to fetch the template separately and enable the server to handle the logic related to content inclusion. However, as you noted, this approach currently processes only the main setup logic, and any additional setup logic within included templates (like navbar.html) is not supported.</p>
+<h3>Client-Side State Updates</h3>
+<p>Once the data and templates are preloaded on the server, the client-side JavaScript is responsible for handling state updates. For example, in your main component, you load the saved state of the navbar from localStorage and provide methods to toggle the state:</p>
+<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">navbar</span>: [] }
+    },
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadState</span>();
+    },
+
+    <span class="hljs-attr">methods</span>: {
+        <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span>;
+        },
+
+        <span class="hljs-title function_">saveState</span>(<span class="hljs-params">state</span>) {
+            <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(state));
+        },
+
+        <span class="hljs-title function_">toggle</span>(<span class="hljs-params">isOpened, itemName</span>) {
+            isOpened = !isOpened;
+            <span class="hljs-keyword">const</span> currentState = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadState</span>();
+            currentState[itemName] = isOpened;
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">saveState</span>(currentState);
+            <span class="hljs-keyword">return</span> isOpened;
+        }
+    }
+};
+</code></pre>
+<p>This ensures that interactions on the page, such as expanding or collapsing navbar sections, persist between sessions, as the state is stored in localStorage and reloaded when the page is mounted.</p>
+<h3>The Limitation</h3>
+<p>As noted in the provided comment, there is no current support for individual setup logic within included templates (like <code>navbar.html</code>). This differs from frameworks like Nuxt.js, where each component can have its own setup function. In your current implementation, adding a <code>script setup</code> block inside an included template would cause issues, as only the setup logic from the main template (<code>index.html</code>) is processed.</p>
+<p>For example, adding a <code>setup</code> block in the <code>navbar.html</code> would not work as expected:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- navbar.html --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">isOpened</span>: <span class="hljs-literal">false</span> };
+    },
+    <span class="hljs-attr">methods</span>: {
+        <span class="hljs-title function_">toggleNavbar</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">isOpened</span> = !<span class="hljs-variable language_">this</span>.<span class="hljs-property">isOpened</span>;
+        }
+    }
+};
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>This would break the application because only the first setup is processed, and additional setups are ignored.</p>
+<h3>Future Enhancements</h3>
+<p>The idea of allowing component-specific setups, similar to Nuxt.js, is a potential enhancement that could improve the flexibility of the system. However, this needs to be handled carefully to avoid performance issues like infinite loading loops. When each component has its own setup logic, the application might end up in a continuous loop of re-rendering if not properly managed.</p>
+<p>To safely implement component-specific setup:</p>
+<ul>
+<li><strong>Careful Dependency Management:</strong> Ensure that each component’s setup logic is independent and doesn’t trigger unnecessary re-renders of the parent component.</li>
+<li><strong>Lazy Loading:</strong> Consider lazy loading for templates or components that don’t need to be preloaded on the server, reducing the initial load and avoiding potential issues with large applications.</li>
+<li><strong>Optimized State Sharing:</strong> Provide mechanisms to share state across components without requiring full re-execution of setup logic when components are dynamically included.</li>
+</ul>
+<p>Here’s how individual setups could work in the future, following a model like Nuxt.js:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- index.html --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- navbar.html --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">isOpened</span>: <span class="hljs-literal">false</span> };
+    },
+    <span class="hljs-attr">methods</span>: {
+        <span class="hljs-title function_">toggleNavbar</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">isOpened</span> = !<span class="hljs-variable language_">this</span>.<span class="hljs-property">isOpened</span>;
+        }
+    }
+};
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;toggleNavbar&quot;</span>&gt;</span>Menu Item<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+<p>In this future scenario, each component or template could handle its own state and methods without conflicting with the main template setup.</p>
+<h2>Full implementation</h2><a id="full-implementation" title="Full implementation"></a>
+<p>Below is an example of implementation of practically all the directives that were used to create the system in this documentation.</p>
+<p><code>/public/templates/default.html</code></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">headers</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">scope</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">scripts</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p><code>/public/views/docs/index.html</code></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;max-w-8xl mx-auto flex container&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;w-60&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;UCS.js&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/logo-min-invert.png&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mt-6 ml-4&quot;</span> /&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;justify-between w-full text&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;relative text-right mt-3 hover:cursor-pointer group bg-neutral-800 float-right rounded-lg border border-black&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;absolute text-white z-40 top-2 left-18&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;left: 12px; color: #ccd0d5;&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa-solid fa-search&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+                        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> 
+                            <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-1.5 pl-10 text-white bg-transparent&quot;</span> 
+                            <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Search&quot;</span> 
+                        /&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;justify-between align-middle text-center mr-2 text-white flex&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://github.com/andrehrferreira/cmmv&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Github&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-2xl p-2 mt-2 hover:text-neutral-300&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa-brands fa-github&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+                <span class="hljs-comment">&lt;!--&lt;a href=&quot;https://discord.gg/XtUH9sJP&quot; title=&quot;Discord&quot; target=&quot;_blank&quot; class=&quot;text-2xl p-2 mt-2 hover:text-neutral-300&quot;&gt;
+                    &lt;i class=&quot;fa-brands fa-discord&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;--&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;max-w-8xl mx-auto flex container&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
+            <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;w-60 fixed mt-20 z-40 overflow-auto&quot;</span> 
+            <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: calc(100% - 84px); background-color: #2e3035&quot;</span> 
+            <span class="hljs-attr">c-cloak</span>
+        &gt;</span>
+            <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mt-20 ml-64 text-justify relative&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
+                <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16&quot;</span>
+                <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;{&#x27;w-full&#x27;: docs.anchors.length &lt; 4}&quot;</span>
+            &gt;</span>
+                <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/breadcrumb&#x27;); --&gt;</span>
+                <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/anchors&#x27;); --&gt;</span>
+
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;max-w-screen-lg relative text-white mb-20 context-html&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-html</span>=<span class="hljs-string">&quot;docs.index&quot;</span>&gt;</span>{ docs.index }<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;absolute top-0 right-0&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> 
+                            <span class="hljs-attr">:href</span>=<span class="hljs-string">&quot;`https://github.com/andrehrferreira/docs.cmmv.io/tree/main${docs.link?.replace(&#x27;.html&#x27;, &#x27;.md&#x27;)}?plain=1`&quot;</span> 
+                            <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span> 
+                            <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Suggest change&quot;</span>
+                        &gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa-solid fa-pen-to-square fa-lg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/footer&#x27;); --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-attr</span>=<span class="hljs-string">&quot;nonce&quot;</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">updateCurrent</span>(<span class="hljs-params"></span>){
+        <span class="hljs-keyword">const</span> scrollPosition = <span class="hljs-variable language_">window</span>.<span class="hljs-property">scrollY</span>;
+
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;.current&#x27;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;current&#x27;</span>));
+
+        <span class="hljs-keyword">let</span> repoint = <span class="hljs-literal">false</span>;
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;#anchors li&#x27;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> target = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(item.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&#x27;href&#x27;</span>));
+            
+            <span class="hljs-keyword">if</span> (target?.<span class="hljs-property">offsetTop</span> &gt;= scrollPosition &amp;&amp; !repoint) {
+                repoint = <span class="hljs-literal">true</span>;
+                item.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;current&#x27;</span>);
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!target) {
+                repoint = <span class="hljs-literal">true</span>;
+                item.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;current&#x27;</span>);
+            }
+        });
+    }
+
+    <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;scroll&#x27;</span>, updateCurrent);
+
+    <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;DOMContentLoaded&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;a[href^=&quot;#&quot;]&#x27;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">link, index</span>) =&gt;</span> {
+            link.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) {
+                event.<span class="hljs-title function_">preventDefault</span>();
+                <span class="hljs-keyword">const</span> href = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&#x27;href&#x27;</span>);
+                
+                <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;.current&#x27;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;current&#x27;</span>));
+                
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">parentElement</span>.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;current&#x27;</span>);
+                
+                <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">scrollTo</span>({
+                    <span class="hljs-attr">top</span>: <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(href).<span class="hljs-property">offsetTop</span>,
+                    <span class="hljs-attr">behavior</span>: <span class="hljs-string">&#x27;smooth&#x27;</span>
+                });
+
+                <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">hash</span> = href;
+            });
+        });
+
+        <span class="hljs-title function_">updateCurrent</span>();
+    });
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>,
+
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>){
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">navbar</span>: [] }
+    },
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadState</span>();
+    },
+
+    <span class="hljs-attr">methods</span>: {
+        <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>){
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span>;
+        },
+
+        <span class="hljs-title function_">saveState</span>(<span class="hljs-params">state</span>) {
+            <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(state));
+        },
+
+        <span class="hljs-title function_">toggle</span>(<span class="hljs-params">isOpened, itemName</span>) {
+            isOpened = !isOpened;
+
+            <span class="hljs-keyword">const</span> currentState = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadState</span>();
+            currentState[itemName] = isOpened;
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">saveState</span>(currentState);
+
+            <span class="hljs-keyword">return</span> isOpened;
+        }
+    }
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p><code>/public/views/docs/navbar.html</code></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 select-none top-16&quot;</span> <span class="hljs-attr">c-cloak</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;docs&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in docs.navbar&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
+            <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;item&quot;</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;flex hover:text-blue-700 itemRoot text-white&quot;</span> 
+            <span class="hljs-attr">:id</span>=<span class="hljs-string">&quot;item?.name.replace(/\s/,&#x27;_&#x27;)&quot;</span> 
+            <span class="hljs-attr">:data-opened</span>=<span class="hljs-string">&quot;false&quot;</span> 
+            @<span class="hljs-attr">click.stop</span>=<span class="hljs-string">&quot;navbar[item?.name.replace(/\s/, `_`)] = toggle(navbar[item?.name.replace(/\s/, `_`)], item.name?.replace(/\s/, `_`))&quot;</span>
+        &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;flex flex-1 font-bold text-md cursor-pointer navbar-item&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item &amp;&amp; item?.isDir&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-white&quot;</span>&gt;</span>{{ item?.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">c-else</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-white&quot;</span>&gt;</span>{{ item?.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;justify-between cursor-pointer&quot;</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item?.isDir&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa-solid fa-angle-down&quot;</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;!navbar[item?.name.replace(/\s/, `_`)]&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa-solid fa-angle-up&quot;</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;navbar[item?.name.replace(/\s/, `_`)]&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> 
+            <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item &amp;&amp; item.children &amp;&amp; item.children.length &gt; 0&quot;</span>
+            <span class="hljs-attr">:id</span>=<span class="hljs-string">&quot;`${item?.name.replace(/\s/, `_`)}_contents`&quot;</span> 
+            <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 py-1 text-md mb-4&quot;</span>
+            <span class="hljs-attr">:style</span>=<span class="hljs-string">&quot;(navbar[item?.name.replace(/\s/, `_`)]) ? &#x27;&#x27; : &#x27;display: none;&#x27;&quot;</span>
+        &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(child) in item.children&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hover:text-gray-800 text-white text-base p-1&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-size: 12px&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">&quot;child.uri&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-base&quot;</span>&gt;</span>{{ child.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+<p><code>/src/docs.controller.ts</code></p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Param</span>, 
+    <span class="hljs-title class_">Response</span>, <span class="hljs-title class_">ServiceRegistry</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DocsService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./docs.service&#x27;</span>;
+
+<span class="hljs-keyword">const</span> index = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../docs/index.json&quot;</span>);
+
+<span class="hljs-meta">@Controller</span>(<span class="hljs-string">&quot;docs&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DocsController</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-attr">docsService</span>: <span class="hljs-title class_">DocsService</span></span>){}
+
+	<span class="hljs-meta">@Get</span>()
+	<span class="hljs-keyword">async</span> <span class="hljs-title function_">indexHandler</span>(<span class="hljs-params"><span class="hljs-meta">@Response</span>() res</span>) {		
+		<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;views/docs/index&quot;</span>, {
+			<span class="hljs-attr">docs</span>: <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">docsService</span>.<span class="hljs-title function_">getDocsStrutucture</span>(),
+			<span class="hljs-attr">services</span>: <span class="hljs-title class_">ServiceRegistry</span>.<span class="hljs-title function_">getServicesArr</span>()
+		});
+	}
+
+	<span class="hljs-meta">@Get</span>(<span class="hljs-string">&quot;:item&quot;</span>)
+	<span class="hljs-keyword">async</span> <span class="hljs-title function_">getDocHandler</span>(<span class="hljs-params">
+        <span class="hljs-meta">@Param</span>(<span class="hljs-string">&quot;item&quot;</span>) <span class="hljs-attr">item</span>: <span class="hljs-built_in">string</span>, 
+        <span class="hljs-meta">@Response</span>() res
+    </span>) {
+		<span class="hljs-keyword">if</span>(index[item])
+			<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getDoc</span>(index[item], res)
+		<span class="hljs-keyword">else</span>
+			res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">end</span>();
+	}
+
+	<span class="hljs-meta">@Get</span>(<span class="hljs-string">&quot;:dir/:item&quot;</span>)
+	<span class="hljs-keyword">async</span> <span class="hljs-title function_">getDocSubdirHandler</span>(<span class="hljs-params">
+        <span class="hljs-meta">@Param</span>(<span class="hljs-string">&quot;dir&quot;</span>) <span class="hljs-attr">dir</span>: <span class="hljs-built_in">string</span>, 
+        <span class="hljs-meta">@Param</span>(<span class="hljs-string">&quot;item&quot;</span>) <span class="hljs-attr">item</span>: <span class="hljs-built_in">string</span>, 
+        <span class="hljs-meta">@Response</span>() res
+    </span>) {
+		<span class="hljs-keyword">const</span> fullPath = <span class="hljs-string">`<span class="hljs-subst">${dir}</span>/<span class="hljs-subst">${item}</span>`</span>;
+
+		<span class="hljs-keyword">if</span>(index[fullPath])
+			<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getDoc</span>(index[fullPath], res)
+		<span class="hljs-keyword">else</span>
+			res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">end</span>();
+	}
+
+	<span class="hljs-keyword">async</span> <span class="hljs-title function_">getDoc</span>(<span class="hljs-params"><span class="hljs-attr">docFilename</span>: <span class="hljs-built_in">string</span>, <span class="hljs-meta">@Response</span>() res</span>) {
+		<span class="hljs-keyword">const</span> file = path.<span class="hljs-title function_">resolve</span>(docFilename);
+		<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">docsService</span>.<span class="hljs-title function_">getDocsStrutucture</span>(file);
+
+		<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;views/docs/index&quot;</span>, {
+			<span class="hljs-attr">docs</span>: data,
+			<span class="hljs-attr">services</span>: <span class="hljs-title class_">ServiceRegistry</span>.<span class="hljs-title function_">getServicesArr</span>()
+		});
+	}
+}
+</code></pre>
+<p>To have full access to the code, access <a href="https://github.com/andrehrferreira/docs.cmmv.io" target="_blank" rel="nofollow">Github</a></p>

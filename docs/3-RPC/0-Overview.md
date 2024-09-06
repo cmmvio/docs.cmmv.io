@@ -127,15 +127,17 @@ The CMMV framework simplifies communication in the frontend by binding Protobuf 
             c-for="(item, key) in todolist"
             class="todo-item"
         >
-            <c class="todo-item-content">
+            <div class="todo-item-content">
                 <input 
                     type="checkbox" 
                     c-model="item.checked" 
                     @change="UpdateTaskRequest(item)"
                 ></input>
 
-                <label :class="{'todo-item-checked': item.checked}">{{ item.label }}</label>
-            </c>
+                <label 
+                    :class="{'todo-item-checked': item.checked}"
+                >{{ item.label }}</label>
+            </div>
             
             <button 
                 class="todo-btn-remove"
@@ -188,7 +190,9 @@ export default {
 
         DeleteTaskResponse(data){
             if (data.success) {
-                const index = this.todolist.findIndex(item => item.id === data.id);
+                const index = this.todolist.findIndex(
+                    item => item.id === data.id
+                );
 
                 if (index !== -1) 
                     this.todolist.splice(index, 1);
@@ -198,7 +202,9 @@ export default {
         AddTaskResponse(data) { this.UpdateTaskResponse(data); },
 
         UpdateTaskResponse(data) {
-            const index = this.todolist.findIndex(item => item.id === data.id);
+            const index = this.todolist.findIndex(
+                item => item.id === data.id
+            );
             
             if (index !== -1) 
                 this.todolist[index] = { ...data.item, id: data.id };

@@ -1,0 +1,152 @@
+<h2>Repository</h2><a id="repository" title="Repository"></a>
+<p>The <code>@cmmv/repository</code> module is designed to work alongside the <code>@cmmv/core</code> framework and is built using <a href="https://typeorm.io/" target="_blank" rel="nofollow">TypeORM</a>. This module automatically generates entities based on defined contracts and extends the service layer for handling CRUD operations with the configured database. Below, we provide detailed information on installation, usage, and features of this module.</p>
+<p><strong>Installation</strong></p>
+<p>To use the <code>@cmmv/repository</code> module in your project, you can install it via npm:</p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/repository
+</code></pre>
+<h2>Purpose</h2><a id="purpose" title="Purpose"></a>
+<p>The <code>@cmmv/repository</code> module simplifies the process of integrating database entities and services for CRUD operations by leveraging contracts defined using <code>@cmmv/core</code>. It automatically transpiles contracts into TypeORM entities and provides a standardized way to manage interactions with the database.</p>
+<ul>
+<li><strong>Automatic Entity Generation:</strong> Based on the contracts defined in your project, the module transpiles the contract definitions into TypeORM entities.</li>
+<li><strong>CRUD Service:</strong> The module generates CRUD operations for the entities without needing to manually implement services, allowing easy data management.</li>
+<li><strong>TypeORM Integration:</strong> Full integration with TypeORM, making it easier to work with a variety of databases, such as PostgreSQL, MySQL, SQLite, etc.</li>
+<li><strong>Contract-Based:</strong> Using contracts defined with <code>@cmmv/core</code>, the module automatically generates both the database schema and the CRUD service layer.</li>
+</ul>
+<p><code>/src/contract/task.contract.ts</code></p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+
+<span class="hljs-meta">@Contract</span>({
+    <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
+    <span class="hljs-attr">protoPath</span>: <span class="hljs-string">&#x27;src/protos/task.proto&#x27;</span>,
+    <span class="hljs-attr">protoPackage</span>: <span class="hljs-string">&#x27;task&#x27;</span>,
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TasksContract</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractContract</span> {
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+        <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+    })
+    <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bool&#x27;</span>,
+        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">false</span>,
+    })
+    <span class="hljs-attr">checked</span>: <span class="hljs-built_in">boolean</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bool&#x27;</span>,
+        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">false</span>,
+    })
+    <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
+}
+</code></pre>
+<p>This contract defines the fields and structure for the Task entity, which will be transpiled into a database entity by the <code>@cmmv/repository</code> module.</p>
+<p>Once the contract is defined, the <code>@cmmv/repository</code> module transpiles the contract into a TypeORM entity. Below is an example of an automatically generated entity (<code>task.entity.ts</code>):</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Entity</span>, <span class="hljs-title class_">PrimaryGeneratedColumn</span>, <span class="hljs-title class_">Column</span>, <span class="hljs-title class_">Index</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;typeorm&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../models/task.model&#x27;</span>;
+
+<span class="hljs-meta">@Entity</span>(<span class="hljs-string">&#x27;task&#x27;</span>)
+<span class="hljs-meta">@Index</span>(<span class="hljs-string">&quot;idx_task_label&quot;</span>, [<span class="hljs-string">&quot;label&quot;</span>], { <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span> })
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskEntity</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Task</span> {
+    <span class="hljs-meta">@PrimaryGeneratedColumn</span>(<span class="hljs-string">&#x27;uuid&#x27;</span>)
+    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@Column</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;varchar&#x27;</span> })
+    <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@Column</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>, <span class="hljs-attr">default</span>: <span class="hljs-literal">false</span> })
+    <span class="hljs-attr">checked</span>: <span class="hljs-built_in">boolean</span>;
+
+    <span class="hljs-meta">@Column</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>, <span class="hljs-attr">default</span>: <span class="hljs-literal">false</span> })
+    <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
+}
+</code></pre>
+<p>The <code>@cmmv/repository</code> module also generates a CRUD service that automatically handles interactions with the database. This service will use the entity generated from the contract to provide standard CRUD methods (create, read, update, delete).</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+    
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Telemetry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractService</span>, <span class="hljs-title class_">Service</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Repository</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/repository&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskEntity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../entities/task.entity&#x27;</span>;
+
+<span class="hljs-meta">@Service</span>(<span class="hljs-string">&quot;task&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractService</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> name = <span class="hljs-string">&quot;task&quot;</span>;
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(queries?: <span class="hljs-built_in">any</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>[]&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">find</span>();
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
+    }
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getById</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetById&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> item = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">findOneBy</span>({ id });
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::GetById&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+
+        <span class="hljs-keyword">if</span> (!item) 
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Item not found&#x27;</span>);
+        
+        <span class="hljs-keyword">return</span> item;
+    }
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-attr">item</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Add&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">save</span>(item);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Add&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
+    }
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">update</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">item</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Update&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">update</span>(id, item);
+        <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">findOneBy</span>({ id });
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Update&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> result;
+    }
+
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">affected</span>: <span class="hljs-built_in">number</span> }&gt; {
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
+        <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Delete&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> repository.<span class="hljs-title function_">delete</span>(id);
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Delete&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: result.<span class="hljs-property">affected</span> &gt; <span class="hljs-number">0</span>, <span class="hljs-attr">affected</span>: result.<span class="hljs-property">affected</span> };
+    }
+}
+</code></pre>
+<p>The <code>@cmmv/repository</code> module significantly simplifies database interaction by automatically generating the necessary entities and services based on predefined contracts. With built-in TypeORM integration, this module streamlines CRUD operations, enabling faster development and easier database management.</p>
+<h3>Settings</h3>
+<p>To ensure that the <code>@cmmv/repository</code> module works correctly with your project, you need to define the database configurations in a <code>.cmmv.config.js</code> file. This file serves as the central configuration for your project, including the repository settings for database interaction.</p>
+<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-comment">// Other project configurations...</span>
+
+    <span class="hljs-attr">repository</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;sqlite&quot;</span>, <span class="hljs-comment">// The database type (e.g., &quot;postgres&quot;, &quot;mysql&quot;, &quot;sqlite&quot;)</span>
+        <span class="hljs-attr">database</span>: <span class="hljs-string">&quot;./database.sqlite&quot;</span>, <span class="hljs-comment">// The path to your SQLite database (or connection URL for other databases)</span>
+        <span class="hljs-attr">synchronize</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Automatically synchronize the database schema with your entities</span>
+        <span class="hljs-attr">logging</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Enable or disable query logging</span>
+    },
+};
+</code></pre>
+<p>In this example, the module is configured to use SQLite as the database with automatic synchronization enabled. This means that any changes in your entities will automatically be reflected in the database schema without requiring migrations.</p>
+<p>For a more detailed list of all available configurations, please visit the <a href="https://typeorm.io/data-source" target="_blank" rel="nofollow">TypeORM Data Source Options documentation</a>. There, you will find additional options such as:</p>
+<ul>
+<li><strong>entities:</strong> An array of paths or classes to specify which entities TypeORM should manage.</li>
+<li><strong>migrations:</strong> A path to your migration files.</li>
+<li><strong>cache:</strong> Enable caching of queries.</li>
+<li><strong>username and password:</strong> Credentials for connecting to the database (for database types that require authentication).</li>
+<li><strong>host and port:</strong> For specifying the host and port for databases like PostgreSQL, MySQL, etc.</li>
+</ul>
+<p>To properly configure the <code>@cmmv/repository</code> module, you need to specify your database connection settings in the <code>.cmmv.config.js</code> file. The example provided shows a typical setup using SQLite, but you can adjust the configuration for other databases like PostgreSQL or MySQL. For further details on possible configurations, refer to the <a href="https://typeorm.io" target="_blank" rel="nofollow">TypeORM documentation</a>.</p>

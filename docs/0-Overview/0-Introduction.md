@@ -2,7 +2,7 @@
 
 CMMV (Contract-Model-Model-View) is a minimalistic framework designed to streamline the development of scalable and modular applications using TypeScript. By combining the power of contracts with a modular architecture, CMMV allows developers to define their entire application structure, from ORM entities to REST controllers and WebSocket endpoints, in a clear and maintainable way.
 
-The project is divided into two main components:
+The project is divided into three main components:
 
 1. **Core System**: The heart of CMMV, written in TypeScript and running on Node.js, is responsible for managing contracts, generating code, integrating with databases, and handling server-side operations. This component handles everything from parsing and code generation to integration with external services like cloud servers and databases.
 
@@ -34,3 +34,14 @@ After considering these factors, I created CMMV (Contract-Model-Model-View). My 
 
 André Ferreira (CEO)
 
+## Read before use
+
+The CMMV framework is released under the MIT license, allowing anyone to use and modify it freely. However, it’s important to note that the primary purpose of this project is to meet my personal needs for a specific project I am working on. It was not designed to be a general-purpose framework for the broader developer community or to cater to the needs of the majority of developers. As a result, some modules or features that you might require may not have native implementations or official support in CMMV.
+
+If you find the need to use services such as Memcache, Kafka, or any other service that isn’t natively supported by CMMV, you will need to create a communication interface for these services. The project is flexible enough to allow such integrations, but keep in mind that the design is tailored to my specific requirements.
+
+If you like the project and develop solutions for other services, I encourage you to release your solution on NPM, update the documentation, and submit a pull request. However, any addition of new modules to the core of the project must be discussed with the moderators to ensure that the implementation aligns with the overall goals of the project. If not, your pull request will be denied.
+
+I’m not here to engage in debates over architectural choices or personal preferences. For example, if you prefer React syntax over Vue, you are free to fork the project and modify it to fit your preferred stack or technology. However, do not expect CMMV to be changed to suit your individual needs. The project is focused on solving my specific workflow and use cases.
+
+While CMMV provides flexibility for customization, any changes that affect the core of the project will be carefully reviewed. The main guiding principle is that this project is built to meet my own needs, not yours.

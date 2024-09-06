@@ -25,10 +25,10 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@cmmv/core@^0.2.21":
-  version "0.2.21"
-  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.21.tgz#c039b541833961d913ca5e8049db7870b01c9547"
-  integrity sha512-LW3+0mqqoTmFCBtYaWY6VY68/PqXGb9NtChBXJzRI9fe8LWIcYcRyniBdNgnyv7i84X11O1QKa2hwxL+WX7lVw==
+"@cmmv/core@^0.2.22":
+  version "0.2.22"
+  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.22.tgz#9df3c86ebe7a0a115b451494e36c9edda637c455"
+  integrity sha512-HQDu2eWZ9E+haqAmU1S8W1I4xD9XvWnUF3Xz8SSOHhqTCmoIe8KuGjOlGZoRihE7ZkRn0HrUsm4deEaYaQvmzw==
   dependencies:
     fast-glob "^3.3.2"
     reflect-metadata "^0.2.2"
@@ -36,10 +36,10 @@
     uglify-js "^3.19.3"
     uuid "^10.0.0"
 
-"@cmmv/http@^0.2.21":
-  version "0.2.21"
-  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.21.tgz#9a9193842f4de95b612f8885da829aa2e7f0e12b"
-  integrity sha512-OQlyU+hMdVnG6mgK6FYKvqzo836Md+2JVUu4GoL0DFWaP6lMTidrPlMISzjfbzkPOIRWJU+fuWQj0PLPk+qJGg==
+"@cmmv/http@^0.2.22":
+  version "0.2.22"
+  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.22.tgz#491a8e39b6098218dd6ccb6fd95b7f42d88ed0b0"
+  integrity sha512-tW5zcP1vCQJQVOzMUIDmyTaisHnPKwHnIF729zcNKVzbsiAsLtD16c+0WhcV//vrAPkr0mXzTxilgQyp8HD1ww==
   dependencies:
     "@fastify/compress" "^7.0.3"
     "@fastify/cors" "^9.0.1"
@@ -65,10 +65,10 @@
   dependencies:
     "@vue/reactivity" "^3.5.1"
 
-"@cmmv/view@^0.2.21":
-  version "0.2.21"
-  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.21.tgz#544184c4b01edefb1473cdf5441424306fa99829"
-  integrity sha512-1hm6EXl/kYOiBoBm6huO97DUpQODnL5PIsGu3ROSNWMcjoUB8W8iJDuZSgT5n+cPUpg3N9yvq8/7sbd4FSy9fg==
+"@cmmv/view@^0.2.22":
+  version "0.2.22"
+  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.22.tgz#0453bf4d4d5c2860f15032fef2b50372f8aaf823"
+  integrity sha512-Up3RJgF0yViS2apMtPMLcKeIvLmaDNa8JAfll/29JtQzwOX8YHcDTwh08f0NrcCCr+NwLs+md1XNGaVyVAGEOw==
   dependencies:
     "@cmmv/reactivity" "^0.0.9"
     fast-glob "^3.3.2"

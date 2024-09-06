@@ -56,7 +56,7 @@ export class DocsService extends AbstractService {
                 if(name && !strutucture.navbar[index-1]){
                     strutucture.navbar[index-1] = {
                         filename: fileOrDir,
-                        uri: "/docs/" + encodeURIComponent(fileOrDir.replace(process.cwd(), "").replace("/docs/", "").replace(/\\/g, "/").replace(".html","")),
+                        uri: "/docs/" + this.convertLinkToCleanURL(fileOrDir),
                         isDir,
                         index: index,
                         name: name,
@@ -74,7 +74,7 @@ export class DocsService extends AbstractService {
         
                             strutucture.navbar[index-1].children.push({
                                 filename: children,
-                                uri: "/docs/" + encodeURIComponent(children.replace(process.cwd(), "").replace("/docs/", "").replace(/\\/g, "/").replace(".html","")),
+                                uri: "/docs/" + this.convertLinkToCleanURL(children),
                                 name: nameChildren
                             });
                         }
@@ -107,4 +107,28 @@ export class DocsService extends AbstractService {
         return (value) ? this.uppercaseFirstLetter(value === null || value === void 0 ? void 0 : value.replace(/([A-Z])/g, " $1")) : '';
     }
    
+    convertLinkToCleanURL(link: string): string {
+        const decodedLink = decodeURIComponent(
+            link
+            .replace(process.cwd(), "")
+            .replace("/docs/", "")
+            .replace(/\\/g, "/")
+            .replace(".html","")
+        );  
+
+        const pathParts = decodedLink.split('/');  
+    
+        const cleanPathParts = pathParts.map(part => {
+            const cleanPart = part
+                .replace(/\d+\s*-\s*/g, '')  
+                .replace(/\s+/g, '-')      
+                .replace(/[^\w\-]+/g, '')    
+                .toLowerCase();           
+    
+            return cleanPart;
+        });
+    
+        const cleanURL = cleanPathParts.filter(Boolean).join('/');  
+        return cleanURL;
+    }
 }

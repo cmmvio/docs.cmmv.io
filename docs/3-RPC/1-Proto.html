@@ -2,7 +2,10 @@
 <p>The CMMV framework provides seamless integration between server-side contracts and frontend applications using Protobuf as the communication protocol. By defining contracts in a structured way, CMMV automatically generates Protobuf files and TypeScript types, allowing for a smooth and efficient integration of RPC-based communication.</p>
 <p>In this section, we’ll walk through how the contract definition in the backend is transformed into Protobuf schema, TypeScript types, and integrated into the frontend for real-time binary communication.</p>
 <p>In CMMV, contracts are defined using the @Contract and @ContractField decorators. Below is an example contract for managing tasks:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { 
+	<span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, 
+	<span class="hljs-title class_">ContractField</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 
 <span class="hljs-meta">@Contract</span>({
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&quot;Task&quot;</span>,
@@ -35,7 +38,7 @@
 </ul>
 <h2>.proto</h2><a id="proto" title=".proto"></a>
 <p>Based on the contract above, CMMV will automatically generate the corresponding .proto file and associated TypeScript types. This generated Protobuf file allows for binary communication between the server and client.</p>
-<pre><code class="hljs language-protobuf" lang="protobuf"><span class="hljs-comment">// src/protos/task.proto</span>
+<pre><code class="hljs language-protobuf" lang="protobuf"><span class="hljs-comment">// Proto generated automatically by CMMV</span>
 
 syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
 
@@ -81,30 +84,38 @@ syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
 <h2>Types</h2><a id="types" title="Types"></a>
 <p>CMMV also generates TypeScript types for the Protobuf messages, ensuring strong typing across the entire application. These types are generated alongside the Protobuf files, and look like the following:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Types generated automatically by CMMV</span>
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">Task</span> {
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> label = <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> checked = <span class="hljs-built_in">boolean</span>;
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> removed = <span class="hljs-built_in">boolean</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">AddTaskRequest</span> {
   <span class="hljs-attr">item</span>: <span class="hljs-title class_">Task</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">AddTaskResponse</span> {
   <span class="hljs-attr">item</span>: <span class="hljs-title class_">Task</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UpdateTaskRequest</span> {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
   <span class="hljs-attr">item</span>: <span class="hljs-title class_">Task</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UpdateTaskResponse</span> {
   <span class="hljs-attr">item</span>: <span class="hljs-title class_">Task</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">DeleteTaskRequest</span> {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">DeleteTaskResponse</span> {
   <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>;
 }
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">GetAllTaskRequest</span> {}
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">GetAllTaskResponse</span> {
   <span class="hljs-attr">items</span>: <span class="hljs-title class_">Task</span>[];
@@ -127,15 +138,17 @@ syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
             <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in todolist&quot;</span>
             <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item&quot;</span>
         &gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">c</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-content&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-content&quot;</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
                     <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> 
                     <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;item.checked&quot;</span> 
                     @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;UpdateTaskRequest(item)&quot;</span>
                 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">input</span>&gt;</span>
 
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;{&#x27;todo-item-checked&#x27;: item.checked}&quot;</span>&gt;</span>{{ item.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">c</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> 
+                  <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;{&#x27;todo-item-checked&#x27;: item.checked }&quot;</span>
+                &gt;</span>{{ item.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
             
             <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
                 <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-btn-remove&quot;</span>
@@ -177,7 +190,9 @@ syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
 
         <span class="hljs-title class_">DeleteTaskResponse</span>(data){
             <span class="hljs-keyword">if</span> (data.<span class="hljs-property">success</span>) {
-                <span class="hljs-keyword">const</span> index = <span class="hljs-variable language_">this</span>.<span class="hljs-property">todolist</span>.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-property">id</span> === data.<span class="hljs-property">id</span>);
+                <span class="hljs-keyword">const</span> index = <span class="hljs-variable language_">this</span>.<span class="hljs-property">todolist</span>.<span class="hljs-title function_">findIndex</span>(
+                  <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-property">id</span> === data.<span class="hljs-property">id</span>
+                );
 
                 <span class="hljs-keyword">if</span> (index !== -<span class="hljs-number">1</span>) 
                     <span class="hljs-variable language_">this</span>.<span class="hljs-property">todolist</span>.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>);

@@ -7,7 +7,10 @@ In this section, we'll walk through how the contract definition in the backend i
 In CMMV, contracts are defined using the @Contract and @ContractField decorators. Below is an example contract for managing tasks:
 
 ```typescript
-import { AbstractContract, Contract, ContractField } from "@cmmv/core";
+import { 
+	AbstractContract, Contract, 
+	ContractField 
+} from "@cmmv/core";
 
 @Contract({
     controllerName: "Task",
@@ -43,7 +46,7 @@ export class TasksContract extends AbstractContract {
 Based on the contract above, CMMV will automatically generate the corresponding .proto file and associated TypeScript types. This generated Protobuf file allows for binary communication between the server and client.
 
 ```protobuf
-// src/protos/task.proto
+// Proto generated automatically by CMMV
 
 syntax = "proto3";
 
@@ -93,30 +96,38 @@ CMMV also generates TypeScript types for the Protobuf messages, ensuring strong 
 
 ```typescript
 // Types generated automatically by CMMV
+
 export namespace Task {
   export type label = string;
   export type checked = boolean;
   export type removed = boolean;
 }
+
 export interface AddTaskRequest {
   item: Task;
 }
+
 export interface AddTaskResponse {
   item: Task;
 }
+
 export interface UpdateTaskRequest {
   id: string;
   item: Task;
 }
+
 export interface UpdateTaskResponse {
   item: Task;
 }
+
 export interface DeleteTaskRequest {
   id: string;
 }
+
 export interface DeleteTaskResponse {
   success: boolean;
 }
+
 export interface GetAllTaskRequest {}
 export interface GetAllTaskResponse {
   items: Task[];
@@ -146,15 +157,17 @@ By using CMMV's auto-generated functions, such as AddTaskRequest, UpdateTaskRequ
             c-for="(item, key) in todolist"
             class="todo-item"
         >
-            <c class="todo-item-content">
+            <div class="todo-item-content">
                 <input 
                     type="checkbox" 
                     c-model="item.checked" 
                     @change="UpdateTaskRequest(item)"
                 ></input>
 
-                <label :class="{'todo-item-checked': item.checked}">{{ item.label }}</label>
-            </c>
+                <label 
+                  :class="{'todo-item-checked': item.checked }"
+                >{{ item.label }}</label>
+            </div>
             
             <button 
                 class="todo-btn-remove"
@@ -196,7 +209,9 @@ export default {
 
         DeleteTaskResponse(data){
             if (data.success) {
-                const index = this.todolist.findIndex(item => item.id === data.id);
+                const index = this.todolist.findIndex(
+                  item => item.id === data.id
+                );
 
                 if (index !== -1) 
                     this.todolist.splice(index, 1);

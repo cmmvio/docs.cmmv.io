@@ -18,12 +18,10 @@ class GenerateDocs {
                     try {
                         return (
                             '<pre><code class="hljs language-' + lang + '" lang="' + lang + '">' +
-                            hljs.highlight(str, { language: lang }).value + // Aplicando o highlight aqui
+                            hljs.highlight(str, { language: lang }).value + 
                             '</code></pre>'
                         );
-                    } catch (__) {
-                        // Caso de erro, continue o processamento sem highlight
-                    }
+                    } catch (__) {}
                 }
 
                 return (
@@ -60,19 +58,21 @@ class GenerateDocs {
     }
 
     convertLinkToCleanURL(link: string): string {
-        const decodedLink = decodeURIComponent(link);
-        const pathParts = decodedLink.split('/');
+        const decodedLink = decodeURIComponent(link);  
+        const pathParts = decodedLink.split('/');  
     
         const cleanPathParts = pathParts.map(part => {
-            const cleanPart = part
-            .replace(/\d+\s*-\s*/g, '')
-            .replace(/\s+/g, '-')
-            .toLowerCase();
-
+            const cleanPart = part            
+                .replace(".html","")
+                .replace(/\d+\s*-\s*/g, '')  
+                .replace(/\s+/g, '-')      
+                .replace(/[^\w\-]+/g, '')    
+                .toLowerCase();           
+    
             return cleanPart;
         });
     
-        const cleanURL = cleanPathParts.join('-');
+        const cleanURL = cleanPathParts.filter(Boolean).join('/');  
         return cleanURL;
     }
 

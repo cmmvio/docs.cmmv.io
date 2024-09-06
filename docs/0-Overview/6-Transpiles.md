@@ -1,8 +1,26 @@
 # Transpiles
 
-In CMMV, transpilers are used to generate necessary files based on contracts and module requirements. These classes create code or configuration files that are required for the proper functioning of modules such as HTTP, Protobuf, and Repository. Whenever a module requires specific artifacts (like controllers or entities), a transpiler processes the contracts and automatically generates the required files. This modular approach makes the system adaptable, as each module can define its own set of transpilers to handle file generation as needed.
+In the CMMV framework, transpilers are essential tools used to generate necessary files based on contracts and module requirements. These classes automatically create code or configuration files that are vital for the proper functioning of modules such as HTTP, Protobuf, and Repository.
 
-Here's an example of a Protobuf transpiler implementation:
+Whenever a module requires specific artifacts, like controllers, entities, or Protobuf definitions, a transpiler processes the contracts and generates the required files. This approach ensures modularity and adaptability, as each module can define its own set of transpilers to handle file generation as needed.
+
+## Key Features of Transpilers
+
+* **Automatic Code Generation:** Transpilers generate files automatically based on contracts, reducing manual work and ensuring consistency between your application and the database, API interfaces, or other modules.
+* **Modular:** Each module (e.g., HTTP, Protobuf, Repository) has its own transpiler, ensuring a clean separation of concerns.
+* **Customizable:** New transpilers can be added for other custom modules, making the system extensible.
+* **Contract-Based:** Transpilers rely on contracts to define what code needs to be generated. Contracts are the central mechanism for defining the structure, behavior, and data types for entities and services.
+
+## Native Transpilers
+
+* **Protobuf Transpiler:** Generates .proto files based on contracts to enable RPC communication.
+* **Repository Transpiler:** Creates database entities based on TypeORM, implementing CRUD functionality based on contracts.
+* **HTTP Transpiler:** Generates controllers and routes for RESTful APIs based on the contract definitions.
+* **Websocket Transpiler:** Generates Websocket communication gateways for RPC based on contract definitions.
+
+## Example
+
+Below is an implementation of the ProtobufTranspile class, which generates ``.proto`` files from contracts to facilitate communication using Protobuf.
 
 ```typescript
 import * as fs from 'fs';
@@ -311,3 +329,35 @@ export class ProtobufTranspile implements ITranspile {
 ```
 
 In the example above, the Protobuf transpiler takes contract definitions and generates .proto files to be used for RPC communication with the protobufjs library. These .proto files define message structures for binary data exchanges. Additionally, TypeScript types are generated based on these contracts to ensure type safety. Finally, the contracts are converted into JSON format and attached to the frontend framework, which will handle the sending and receiving of binary data in the Protobuf format, enabling efficient data communication between frontend and backend.
+
+## Call a Transpiler
+
+In CMMV, transpilers are modular, which allows them to be dynamically added to modules and invoked during the application processing. A transpiler's role is to automatically generate necessary files (such as entities, services, and Protobuf definitions) based on the contracts defined in your application.
+
+``/packages/protobuf/src/protobuf.module.ts``
+```typescript
+import { Module } from "@cmmv/core";
+import { ProtobufTranspile } from "./protobuf.transpiler";
+
+export let ProtobufModule = new Module({
+    transpilers: [ProtobufTranspile] // Register the transpiler here
+});
+```
+
+In this case, ProtobufModule registers the ProtobufTranspile transpiler. The transpilers property in the Module configuration allows you to list all the transpilers that should be executed when the module is processed.
+
+When the application is started, the transpiler will be invoked automatically as part of the module processing. Each module's transpilers will run based on the contracts defined in the system, and they will generate the required files accordingly.
+
+```typescript
+import { Application } from "@cmmv/core";
+import { ProtobufModule } from "@cmmv/protobuf";
+
+new Application({
+    ...
+    modules: [ProtobufModule], 
+});
+```
+
+When the application starts, it will look for all modules, identify the transpilers within those modules, and run them in sequence. In this case, the ProtobufTranspile will process any contracts registered in the system and generate the corresponding Protobuf files.
+
+This modular design makes it easy to extend the system by adding new transpilers for various tasks, such as generating database entities, Protobuf definitions, or other required files based on the contracts defined in your application.

@@ -1,15 +1,15 @@
 <h1>Reactivity</h1><a id="reactivity" title="Reactivity"></a>
-<p>The <code>@cmmv/reactivity</code> module was created based on the core ideas of <a href="https://github.com/vuejs/petite-vue" target="_blank" rel="nofollow">Petite Vue</a>, a simplified version of Vue.js. Petite Vue, developed by Evan You, the creator of Vue.js, offers a lightweight alternative to the full Vue framework, providing only the essential reactivity and templating features needed for smaller or simpler projects. Petite Vue is just 6KB in size and implements basic directives, making it an excellent foundation for building minimal reactive systems.</p>
+<p>The <code>@cmmv/reactivity</code> module was created based on the core ideas of <a href="https://github.com/vuejs/petite-vue" target="_blank" rel="nofollow">Petite Vue</a>, a simplified version of Vue.js. Petite Vue, developed by Evan You, the creator of Vue.js, offers a lightweight alternative to the full Vue framework, providing only the essential reactivity and templating features needed for smaller or simpler projects. Petite Vue is just <code>6KB</code> in size and implements basic directives, making it an excellent foundation for building minimal reactive systems.</p>
 <p>Inspired by Petite Vue’s design philosophy, <code>@cmmv/reactivity</code> integrates this lightweight, reactive approach into the CMMV framework. By doing so, it offers developers the ability to use two-way data binding and efficient UI updates with minimal overhead. The core reactivity engine from Petite Vue has been adapted to fit seamlessly into the CMMV ecosystem, allowing for easy integration with server-side rendering, WebSockets, Protobuf, and other key modules of CMMV.</p>
 <p>With this combination, <code>@cmmv/reactivity</code> provides an optimal balance of simplicity and performance, making it ideal for building dynamic user interfaces while keeping the overall bundle size minimal. It is well-suited for developers who prefer a lightweight, Vue-inspired reactivity system without the complexity of a full-featured framework.</p>
 <p>For more information on Petite Vue, you can visit the official <a href="https://github.com/vuejs/petite-vue" target="_blank" rel="nofollow">Petite Vue repository</a>.</p>
 <h2>Limitations</h2><a id="limitations" title="Limitations"></a>
-<p>The primary goal of the CMMV framework is to build high-performance applications with a strong focus on speed, efficiency, and SEO optimization. To achieve this, we highly recommend using @cmmv/reactivity as the frontend framework rather than incorporating heavier frameworks like Vue, React, or Angular. @cmmv/reactivity is designed to handle most of the common challenges faced in web applications, providing essential reactivity features in a lightweight package that minimizes the impact on your application’s load times and performance.</p>
-<p>By choosing @cmmv/reactivity, you can ensure that your application remains fast and optimized for both users and search engines. Adding larger frameworks such as Vue, React, or Angular introduces additional layers of JavaScript that can increase the page’s initial load time, potentially harming your PageSpeed score and overall performance. This goes against the core principles of CMMV, which aims to reduce unnecessary overhead.</p>
-<p>If you find that certain critical features are missing from @cmmv/reactivity, we encourage you to submit a pull request to the repository. We’re open to suggestions and contributions that improve the framework while keeping it aligned with CMMV’s performance goals.</p>
-<p>In extreme cases where heavier frameworks like Vue, React, or Angular are necessary, we will eventually provide native support for their integration. However, we strongly advise against this approach due to the performance trade-offs. Any implementation of these frameworks will be at your own risk, and we will not offer official support for such setups—our focus will remain exclusively on optimizing @cmmv/reactivity for the best possible user experience and SEO results.</p>
+<p>The primary goal of the CMMV framework is to build high-performance applications with a strong focus on speed, efficiency, and SEO optimization. To achieve this, we highly recommend using <code>@cmmv/reactivity</code> as the frontend framework rather than incorporating heavier frameworks like Vue, React, or Angular. @cmmv/reactivity is designed to handle most of the common challenges faced in web applications, providing essential reactivity features in a lightweight package that minimizes the impact on your application’s load times and performance.</p>
+<p>By choosing <code>@cmmv/reactivity</code>, you can ensure that your application remains fast and optimized for both users and search engines. Adding larger frameworks such as Vue, React, or Angular introduces additional layers of JavaScript that can increase the page’s initial load time, potentially harming your PageSpeed score and overall performance. This goes against the core principles of CMMV, which aims to reduce unnecessary overhead.</p>
+<p>If you find that certain critical features are missing from <code>@cmmv/reactivity</code>, we encourage you to submit a pull request to the repository. We’re open to suggestions and contributions that improve the framework while keeping it aligned with CMMV’s performance goals.</p>
+<p>In extreme cases where heavier frameworks like Vue, React, or Angular are necessary, we will eventually provide native support for their integration. However, we strongly advise against this approach due to the performance trade-offs. Any implementation of these frameworks will be at your own risk, and we will not offer official support for such setups—our focus will remain exclusively on optimizing <code>@cmmv/reactivity</code> for the best possible user experience and SEO results.</p>
 <h2>Installation</h2><a id="installation" title="Installation"></a>
-<p>To install the @cmmv/reactivity package, simply run the following command:</p>
+<p>To install the <code>@cmmv/reactivity</code> package, simply run the following command:</p>
 <pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/reactivity
 </code></pre>
 <p>or</p>
@@ -18,8 +18,8 @@
 <p>Alternatively, you can visit the <a href="https://github.com/andrehrferreira/cmmv-reactivity" target="_blank" rel="nofollow">GitHub repository</a> for more details.</p>
 <p>The <code>@cmmv/view</code> module already integrates reactivity natively, so it does not need to be installed separately.</p>
 <h2>Usage</h2><a id="usage" title="Usage"></a>
-<p>Below is the documentation for all directives supported by @cmmv/reactivity based on the samples provided in the CMMV Reactivity GitHub repository.</p>
-<h3>c-model</h3>
+<p>Below is the documentation for all directives supported by <code>@cmmv/reactivity</code> based on the samples provided in the CMMV Reactivity GitHub repository.</p>
+<h2>c-model</h2><a id="c-model" title="c-model"></a>
 <p>Binds the value of an input element to the application’s data and enables two-way data binding. This is useful for dynamically updating the UI as users input data.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">c-model</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Username: {{ username }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -92,11 +92,11 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>In this example, the input’s value is bound to the username field in the data model. Changes in the input will be reflected in the username property.</p>
-<h3>c-show</h3>
+<h2>c-show</h2><a id="c-show" title="c-show"></a>
 <p>Controls the visibility of elements based on a condition. If the condition evaluates to false, the element will be hidden.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;isLoggedIn&quot;</span>&gt;</span>Welcome back, user!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-<h3>c-if</h3>
+<h2>c-if</h2><a id="c-if" title="c-if"></a>
 <p>Conditionally renders an element only if the specified expression is true. Unlike c-show, this directive removes the element from the DOM if the condition is false.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;showMessage&quot;</span>&gt;</span>This message is shown only if showMessage is true.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
@@ -114,7 +114,7 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">c-else</span>&gt;</span>else<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>c-for</h3>
+<h2>c-for</h2><a id="c-for" title="c-for"></a>
 <p>Loops through an array or object and repeats the associated element for each item.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;item in items&quot;</span>&gt;</span>{{ item }}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
@@ -159,7 +159,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>c-on</h3>
+<h2>c-on</h2><a id="c-on" title="c-on"></a>
 <p>Attaches an event listener to an element. Commonly used for handling click events, form submissions, or other user interactions.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">c-on:click</span>=<span class="hljs-string">&quot;incrementCounter&quot;</span>&gt;</span>Click me!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;incrementCounter&quot;</span>&gt;</span>Click me!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -184,7 +184,7 @@
 	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.once</span>=<span class="hljs-string">&quot;alert(&#x27;clicked&#x27;)&quot;</span>&gt;</span>click once<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>c-bind</h3>
+<h2>c-bind</h2><a id="c-bind" title="c-bind"></a>
 <p>Dynamically binds an attribute to an expression. This is often used to modify attributes like src, href, or class.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;imageSource&quot;</span>&gt;</span>
 </code></pre>
@@ -234,23 +234,23 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-bind</span>=<span class="hljs-string">&quot;obj&quot;</span>&gt;</span>object binding - this should be orange<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>c-text</h3>
+<h2>c-text</h2><a id="c-text" title="c-text"></a>
 <p>Dynamically sets the text content of an element.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;{ count: 1 }&quot;</span>&gt;</span>
 	<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">c-text</span>=<span class="hljs-string">&quot;count&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 	<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;count++&quot;</span>&gt;</span>increase<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>c-html</h3>
+<h2>c-html</h2><a id="c-html" title="c-html"></a>
 <p>Inserts raw HTML content into an element.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-html</span>=<span class="hljs-string">&quot;htmlContent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>c-class</h3>
+<h2>c-class</h2><a id="c-class" title="c-class"></a>
 <p>Dynamically binds one or more CSS classes to an element.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-class</span>=<span class="hljs-string">&quot;{ active: isActive, disabled: isDisabled }&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>In this example, if isActive is true, the active class is added, and if isDisabled is true, the disabled class is added.</p>
-<h3>c-once</h3>
+<h2>c-once</h2><a id="c-once" title="c-once"></a>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript">
   <span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src&#x27;</span>
   <span class="hljs-title function_">createApp</span>().<span class="hljs-title function_">mount</span>()
@@ -268,7 +268,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;count++&quot;</span>&gt;</span>++<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h3>ref</h3>
+<h2>ref</h2><a id="ref" title="ref"></a>
 <p>In the @cmmv/reactivity framework, the ref system allows you to easily reference DOM elements within the template and manipulate them in your JavaScript logic. This concept is crucial for managing DOM elements directly when reactive bindings alone are not enough. By associating a ref with an element, you can interact with the DOM directly from the reactive context of your application.</p>
 <p>Key Benefits of Using ref:<br>
 Direct DOM Access: It allows you to interact directly with DOM elements, which is sometimes necessary for operations that cannot be purely reactive.<br>

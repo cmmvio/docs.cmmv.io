@@ -58,7 +58,7 @@
 </ul>
 <p>When the application starts, the system automatically generates controllers, services, and generic entities based on the contract definitions. This process simplifies development by ensuring that common components like CRUD operations are pre-built and ready to use. Each entity and service is created dynamically to match the contract specifications, allowing the developer to focus on custom logic without having to manually define the basic structures. This auto-generation enhances efficiency and consistency throughout the application.</p>
 <h2>HTTP Module</h2><a id="http-module" title="HTTP Module"></a>
-<p>To start a basic REST application using the @cmmv/http and @cmmv/view modules, follow these steps:</p>
+<p>To start a basic REST application using the <code>@cmmv/http</code> and <code>@cmmv/view</code> modules, follow these steps:</p>
 <pre><code class="hljs">npm install @cmmv/http @cmmv/view
 </code></pre>
 <p>Set up the application:</p>
@@ -74,9 +74,9 @@
     ]
 });
 </code></pre>
-<p>To correctly implement a basic CMMV application using either the Express or Fastify adapters, you can use the following structure in your src/index.ts file. The system supports both Express and Fastify for handling HTTP requests, and the correct adapter is selected in the configuration.</p>
-<p>By default, when you start the application, it will be hosted at <a href="http://localhost:3000" target="_blank" rel="nofollow">http://localhost:3000</a>. This can be easily modified by configuring the port and bind address in the application’s configuration file. The configuration settings allow you to change the host, port, and other related properties for the HTTP server. These options will be covered in more detail later when we show the configuration file setup, providing flexibility to adjust your server’s runtime environment.</p>
-<h3>Model</h3>
+<p>To correctly implement a basic CMMV application using either the Express or Fastify adapters, you can use the following structure in your <code>src/index.ts</code> file. The system supports both Express and Fastify for handling HTTP requests, and the correct adapter is selected in the configuration.</p>
+<p>By default, when you start the application, it will be hosted at <code>http://localhost:3000</code>. This can be easily modified by configuring the port and bind address in the application’s configuration file. The configuration settings allow you to change the host, port, and other related properties for the HTTP server. These options will be covered in more detail later when we show the configuration file setup, providing flexibility to adjust your server’s runtime environment.</p>
+<h2>Model</h2><a id="model" title="Model"></a>
 <p>The system will automatically generate the model for your entity in the following format:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
 
@@ -89,8 +89,8 @@
 </code></pre>
 <p>This Task interface defines the structure of the model, including optional and required fields. The id is optional, and fields such as label, checked, and removed are mandatory with defined types. You can further customize or extend this model based on your application’s needs.</p>
 <p>This base interface, such as the Task interface, will be utilized by other modules, including the repository module, to define entities in the database. By sharing the same interface structure across modules, it ensures consistency and type safety throughout the application. For example, the repository module will use this Task interface to map and handle database operations, making it easier to maintain and scale your application while ensuring that the data model aligns across different layers of the system.</p>
-<h3>Controller</h3>
-<p>The example contract provided above will automatically generate a controller at the path /src/controllers/task.controller.ts. This controller will be structured as follows:</p>
+<h2>Controller</h2><a id="controller" title="Controller"></a>
+<p>The example contract provided above will automatically generate a controller at the path <code>/src/controllers/task.controller.ts</code>. This controller will be structured as follows:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
     
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Telemetry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;  
@@ -144,7 +144,7 @@
 }
 </code></pre>
 <p>You can create your own custom controllers by simply informing the application of their existence during the creation process or by including them via modules. This allows for greater flexibility and customization in your application’s architecture. When you define custom controllers, you can register them within the application module during the application setup phase, ensuring that they integrate smoothly with the core framework, such as HTTP routing or WebSocket handling, while adhering to your project’s specific requirements.</p>
-<h3>Services</h3>
+<h2>Services</h2><a id="services" title="Services"></a>
 <p>Just like the controller, the service layer is also automatically generated by the system. In the absence of persistence modules such as the repository, a placeholder service is created, which temporarily stores records in memory while the application is online. This allows basic operations like adding, updating, and deleting data without a persistent store. Once a repository module is introduced, it overrides the default service, enabling direct interaction with a database, allowing data to be saved, queried, and managed efficiently from persistent storage.</p>
 <p>Here is an example of a service created using the repository module. This service interacts directly with the database using the repository pattern:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>

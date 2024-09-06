@@ -1,6 +1,6 @@
 # Reactivity
 
-The `@cmmv/reactivity` module was created based on the core ideas of [Petite Vue](https://github.com/vuejs/petite-vue), a simplified version of Vue.js. Petite Vue, developed by Evan You, the creator of Vue.js, offers a lightweight alternative to the full Vue framework, providing only the essential reactivity and templating features needed for smaller or simpler projects. Petite Vue is just 6KB in size and implements basic directives, making it an excellent foundation for building minimal reactive systems.
+The `@cmmv/reactivity` module was created based on the core ideas of [Petite Vue](https://github.com/vuejs/petite-vue), a simplified version of Vue.js. Petite Vue, developed by Evan You, the creator of Vue.js, offers a lightweight alternative to the full Vue framework, providing only the essential reactivity and templating features needed for smaller or simpler projects. Petite Vue is just ``6KB`` in size and implements basic directives, making it an excellent foundation for building minimal reactive systems.
 
 Inspired by Petite Vue's design philosophy, `@cmmv/reactivity` integrates this lightweight, reactive approach into the CMMV framework. By doing so, it offers developers the ability to use two-way data binding and efficient UI updates with minimal overhead. The core reactivity engine from Petite Vue has been adapted to fit seamlessly into the CMMV ecosystem, allowing for easy integration with server-side rendering, WebSockets, Protobuf, and other key modules of CMMV.
 
@@ -10,17 +10,17 @@ For more information on Petite Vue, you can visit the official [Petite Vue repos
 
 ## Limitations
 
-The primary goal of the CMMV framework is to build high-performance applications with a strong focus on speed, efficiency, and SEO optimization. To achieve this, we highly recommend using @cmmv/reactivity as the frontend framework rather than incorporating heavier frameworks like Vue, React, or Angular. @cmmv/reactivity is designed to handle most of the common challenges faced in web applications, providing essential reactivity features in a lightweight package that minimizes the impact on your application's load times and performance.
+The primary goal of the CMMV framework is to build high-performance applications with a strong focus on speed, efficiency, and SEO optimization. To achieve this, we highly recommend using ``@cmmv/reactivity`` as the frontend framework rather than incorporating heavier frameworks like Vue, React, or Angular. @cmmv/reactivity is designed to handle most of the common challenges faced in web applications, providing essential reactivity features in a lightweight package that minimizes the impact on your application's load times and performance.
 
-By choosing @cmmv/reactivity, you can ensure that your application remains fast and optimized for both users and search engines. Adding larger frameworks such as Vue, React, or Angular introduces additional layers of JavaScript that can increase the page's initial load time, potentially harming your PageSpeed score and overall performance. This goes against the core principles of CMMV, which aims to reduce unnecessary overhead.
+By choosing ``@cmmv/reactivity``, you can ensure that your application remains fast and optimized for both users and search engines. Adding larger frameworks such as Vue, React, or Angular introduces additional layers of JavaScript that can increase the page's initial load time, potentially harming your PageSpeed score and overall performance. This goes against the core principles of CMMV, which aims to reduce unnecessary overhead.
 
-If you find that certain critical features are missing from @cmmv/reactivity, we encourage you to submit a pull request to the repository. We're open to suggestions and contributions that improve the framework while keeping it aligned with CMMV's performance goals.
+If you find that certain critical features are missing from ``@cmmv/reactivity``, we encourage you to submit a pull request to the repository. We're open to suggestions and contributions that improve the framework while keeping it aligned with CMMV's performance goals.
 
-In extreme cases where heavier frameworks like Vue, React, or Angular are necessary, we will eventually provide native support for their integration. However, we strongly advise against this approach due to the performance trade-offs. Any implementation of these frameworks will be at your own risk, and we will not offer official support for such setups—our focus will remain exclusively on optimizing @cmmv/reactivity for the best possible user experience and SEO results.
+In extreme cases where heavier frameworks like Vue, React, or Angular are necessary, we will eventually provide native support for their integration. However, we strongly advise against this approach due to the performance trade-offs. Any implementation of these frameworks will be at your own risk, and we will not offer official support for such setups—our focus will remain exclusively on optimizing ``@cmmv/reactivity`` for the best possible user experience and SEO results.
 
 ## Installation
 
-To install the @cmmv/reactivity package, simply run the following command:
+To install the ``@cmmv/reactivity`` package, simply run the following command:
 
 ```bash
 $ npm install @cmmv/reactivity
@@ -38,9 +38,9 @@ The ``@cmmv/view`` module already integrates reactivity natively, so it does not
 
 ## Usage
 
-Below is the documentation for all directives supported by @cmmv/reactivity based on the samples provided in the CMMV Reactivity GitHub repository.
+Below is the documentation for all directives supported by ``@cmmv/reactivity`` based on the samples provided in the CMMV Reactivity GitHub repository.
 
-### c-model 
+## c-model 
 
 Binds the value of an input element to the application's data and enables two-way data binding. This is useful for dynamically updating the UI as users input data.
 
@@ -120,7 +120,7 @@ Binds the value of an input element to the application's data and enables two-wa
 
 In this example, the input's value is bound to the username field in the data model. Changes in the input will be reflected in the username property.
 
-### c-show
+## c-show
 
 Controls the visibility of elements based on a condition. If the condition evaluates to false, the element will be hidden.
 
@@ -128,7 +128,7 @@ Controls the visibility of elements based on a condition. If the condition evalu
 <p c-show="isLoggedIn">Welcome back, user!</p>
 ```
 
-### c-if
+## c-if
 
 Conditionally renders an element only if the specified expression is true. Unlike c-show, this directive removes the element from the DOM if the condition is false.
 
@@ -152,7 +152,7 @@ Conditionally renders an element only if the specified expression is true. Unlik
 </div>
 ```
 
-### c-for
+## c-for
 
 Loops through an array or object and repeats the associated element for each item.
 
@@ -203,7 +203,7 @@ Loops through an array or object and repeats the associated element for each ite
 </div>
 ```
 
-### c-on
+## c-on
 
 Attaches an event listener to an element. Commonly used for handling click events, form submissions, or other user interactions.
 
@@ -234,7 +234,7 @@ Attaches an event listener to an element. Commonly used for handling click event
 </div>
 ```
 
-### c-bind
+## c-bind
 
 Dynamically binds an attribute to an expression. This is often used to modify attributes like src, href, or class.
 
@@ -290,7 +290,7 @@ Dynamically binds an attribute to an expression. This is often used to modify at
 </div>
 ```
 
-### c-text
+## c-text
 
 Dynamically sets the text content of an element.
 
@@ -301,7 +301,7 @@ Dynamically sets the text content of an element.
 </div>
 ```
 
-### c-html
+## c-html
 
 Inserts raw HTML content into an element.
 
@@ -309,7 +309,7 @@ Inserts raw HTML content into an element.
 <div c-html="htmlContent"></div>
 ```
 
-### c-class
+## c-class
 
 Dynamically binds one or more CSS classes to an element.
 
@@ -319,7 +319,7 @@ Dynamically binds one or more CSS classes to an element.
 
 In this example, if isActive is true, the active class is added, and if isDisabled is true, the disabled class is added.
 
-### c-once
+## c-once
 
 ```html
 <script type="module">
@@ -340,7 +340,7 @@ In this example, if isActive is true, the active class is added, and if isDisabl
 </div>
 ```
 
-### ref
+## ref
 
 In the @cmmv/reactivity framework, the ref system allows you to easily reference DOM elements within the template and manipulate them in your JavaScript logic. This concept is crucial for managing DOM elements directly when reactive bindings alone are not enough. By associating a ref with an element, you can interact with the DOM directly from the reactive context of your application.
 

@@ -7,7 +7,6 @@
 		"dev": "NODE_ENV=dev nodemon",
 		"test": "mocha packages/**/*.spec.ts",
 		"start": "NODE_ENV=prod node dist/index.js",
-		"tailwind": "npx tailwindcss -o ./public/assets/tailwind.min.css --minify",
 		"generate": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./src/generate.ts"
 	},
 	"repository": {
@@ -25,9 +24,9 @@
 	"homepage": "https://github.com/andrehrferreira/docs.cmmv.io#readme",
 	"description": "",
 	"dependencies": {
-		"@cmmv/core": "^0.2.21",
-		"@cmmv/http": "^0.2.21",
-		"@cmmv/view": "^0.2.21",
+		"@cmmv/core": "^0.2.22",
+		"@cmmv/http": "^0.2.22",
+		"@cmmv/view": "^0.2.22",
 		"dotenv": "^16.4.5",
 		"glob": "^11.0.0",
 		"highlight.js": "^11.10.0",
