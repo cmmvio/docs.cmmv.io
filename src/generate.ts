@@ -50,7 +50,7 @@ class GenerateDocs {
         for(let file of docsFiles){
             if(!file.includes("README") && !file.includes("node_modules")){
                 const pathFile = encodeURIComponent(file.replace(process.cwd(), "").replace("docs/", "").replace(/\\/g, "/"));
-                index[this.convertLinkToCleanURL(pathFile)] = path.resolve(file);
+                index[this.convertLinkToCleanURL(pathFile)] = "./" + file.replace(process.cwd() + "/", "");
             }
         }
 
