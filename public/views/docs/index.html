@@ -1,24 +1,15 @@
-<div id="app" s:docs="docs" c-cloak>
+<div id="app" s:docs="docs"  c-cloak>
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
         <div class="max-w-8xl mx-auto flex container">
             <div class="w-60">
                 <a href="/" title="UCS.js">
-                    <img src="/assets/logo-min-invert.png" class="mt-6 ml-4" />
+                    <img src="/assets/logo-min-invert.png" class="mt-6 ml-4" alt="Logo" />
                 </a>
             </div>
 
             <div class="justify-between w-full text">
-                <div class="relative text-right mt-3 hover:cursor-pointer group bg-neutral-800 float-right rounded-lg border border-black">
-                    <div class="absolute text-white z-40 top-2 left-18" style="left: 12px; color: #ccd0d5;">
-                        <i class="fa-solid fa-search"></i>
-                    </div>
-                    <div>
-                        <input 
-                        type="text" 
-                            class="p-1.5 pl-10 text-white bg-transparent" 
-                            placeholder="Search" 
-                        />
-                    </div>
+                <div class="relative text-right mt-3 hover:cursor-pointer group float-right">
+                    <div id="docsearch" class="dark"></div>
                 </div>
             </div>
 
@@ -34,24 +25,22 @@
         </div>
     </nav>
 
-    <div class="max-w-8xl mx-auto flex container">
+    <div class="mx-auto flex">
         <div 
-            class="w-60 fixed mt-20 z-40 overflow-auto" 
-            style="height: calc(100% - 84px); background-color: #2e3035" 
+            class="w-60 fixed z-40 overflow-auto leftbar" 
             c-cloak
         >
             <!-- include('public/views/docs/navbar') -->
         </div>
 
         <div class="mt-20 ml-64 text-justify relative">
+            <!-- include('public/views/docs/anchors'); -->
+
             <div 
                 class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
                 :class="{'w-full': docs.anchors.length < 4}"
             >
-                <!-- include('public/views/docs/breadcrumb'); -->
-                <!-- include('public/views/docs/anchors'); -->
-
-                <div class="max-w-screen-lg relative text-white mb-20 context-html">
+                <div class="relative text-white mb-20 context-html">
                     <div c-html="docs.index">{ docs.index }</div>
 
                     <div class="absolute top-0 right-0">
@@ -68,6 +57,11 @@
 
             <!-- include('public/views/docs/footer'); -->
         </div>
+    </div>
+
+    <div class="ais-InstantSearch">
+        <div id="searchbox"></div>
+        <div id="hits"></div>
     </div>
 </div>
 
@@ -114,6 +108,15 @@
         });
 
         updateCurrent();
+
+        docsearch({
+            container: '#docsearch',
+            appId: 'XSDY8UAIAG',
+            indexName: 'algolia',
+            apiKey: '3f647d783d4570e649ac53453e89578ds',
+            placeholder: 'Search the docs...',
+            inputSelector: '.DocSearch',
+        });
     });
 </script>
 

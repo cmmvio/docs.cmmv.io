@@ -19,7 +19,7 @@ module.exports = {
 
     view: {
         extractInlineScript: true,
-        minifyHTML: true
+        minifyHTML: false
     },
 
     head: {
@@ -30,6 +30,8 @@ module.exports = {
         meta: [
             { charset: 'utf-8' },
             { "http-equiv": "content-type", content: "text/html; charset=UTF-8" },
+            { name: 'description', content: 'CMMV is a minimalist Node.js framework focused on contract-driven development, combining automatic code generation, RPC communication, and declarative programming to build efficient, scalable applications with simplified backend and frontend integration.' },
+            { name: 'keywords', content: 'CMMV, Node.js framework, contract-driven development, RPC communication, TypeScript, automatic code generation, backend, frontend integration, scalable applications, minimalist framework, WebSocket, HTTP, high-performance.' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { name: "robots", content: "index,follow" },
             { name: "twitter:card", content: "summary_large_image" },
@@ -47,12 +49,10 @@ module.exports = {
             { rel: 'icon', href: '/assets/favicon/favicon.ico' },
             { rel: 'shortcut', href: '/assets/favicon/favicon-32x32.png' },
             { rel: 'apple-touch-icon', href: '/assets/favicon/favicon-32x32.png' },
-            { rel: "dns-prefetch", href: "https://.docs.cmmv.io" },
-            { rel: "preconnect", href: "https://.docs.cmmv.io" },     
-            { rel: "preconnect", href: "https://cdnjs.cloudflare.com", crossorigin: "" },
-            { rel: "preconnect", href: "https://cdn.tailwindcss.com", crossorigin: "" },
-            { rel: "preconnect", href: "https://code.jquery.com", crossorigin: "" },              
-            { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" },
+            { rel: "dns-prefetch", href: "https://docs.cmmv.io" },
+            { rel: "preconnect", href: "https://docs.cmmv.io" },    
+            { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@docsearch/css@3" },    
+            { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" },          
             { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
             { rel: "stylesheet", href: "/assets/docs.css" }            
         ]
@@ -61,13 +61,17 @@ module.exports = {
     headers: {
         "Content-Security-Policy": [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-eval'",
-            "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
-            "font-src 'self' https://cdnjs.cloudflare.com"
+            "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net",
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
+            "font-src 'self'",
+            "connect-src 'self' ws://localhost:3001 http://localhost:3001 https://*.algolianet.com https://*.algolia.net",
+            "img-src 'self' data:"
         ]
     },
 
     scripts: [
         { type: "text/javascript", src: "/assets/bundle.min.js", defer: "defer" },
+        { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3", defer: "defer" },
+        { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js", defer: "defer" },
     ]
 };

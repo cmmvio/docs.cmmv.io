@@ -13,8 +13,7 @@
             </div>
 
             <div class="justify-between cursor-pointer" c-if="item?.isDir">
-                <i class="fa-solid fa-angle-down" c-show="!navbar[item?.name.replace(/\s/, `_`)]"></i>
-                <i class="fa-solid fa-angle-up" c-show="navbar[item?.name.replace(/\s/, `_`)]"></i>
+                <i :class="navbar[item?.name.replace(/\s/, `_`)] ? 'fa-solid fa-angle-down' : 'fa-solid fa-angle-up'"></i>
             </div>
         </div>
 

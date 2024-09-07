@@ -17,13 +17,13 @@ To run CMMV it will be necessary to have ``Node.js (version >= 18.0)`` installed
 Currently CMMV does not have any CI system, so to install it in your project you just need to install the modules.
 
 ```bash
-$ npm install @cmmv/core @cmmv/http @cmmv/view
+$ npm install @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
 ```
 
 or 
 
 ```bash
-$ yarn add @cmmv/core @cmmv/http @cmmv/view
+$ yarn add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
 ```
 
 ## Structure

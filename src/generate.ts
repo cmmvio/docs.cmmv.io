@@ -103,10 +103,66 @@ class GenerateDocs {
     
         return modifiedHtml;
     }
+
+    async generateAlgoliaJSON() {
+        const docsFiles = await glob(['./docs/**/*.html', './docs/*.html']);
+        let algoliaData = [];
+
+        for (let file of docsFiles) {
+            if (!file.includes("README") && !file.includes("node_modules")) {
+                const content = await fs.readFileSync(file, "utf8");
+                const pathFile = encodeURIComponent(file.replace(process.cwd(), "").replace("docs/", "").replace(/\\/g, "/"));
+                const url = this.convertLinkToCleanURL(pathFile);
+                const hierarchy = this.extractHierarchy(content);  
+                const cleanedContent = this.cleanContentForAlgolia(content);
+
+                algoliaData.push({
+                    objectID: url,
+                    url: `/${url}.html`,
+                    content: cleanedContent,
+                    hierarchy: hierarchy,
+                    anchor: '',
+                    type: 'content',
+                });
+            }
+        }
+
+        await fs.writeFileSync("docs/algolia.json", JSON.stringify(algoliaData, null, 4));
+    }
+
+    extractHierarchy(htmlContent: string): any {
+        const hierarchy = {
+            lvl0: '',
+            lvl1: '',
+            lvl2: '',
+            lvl3: '',
+            lvl4: '',
+            lvl5: '',
+            lvl6: ''
+        };
+
+        const lvl0Match = htmlContent.match(/<h1>(.*?)<\/h1>/);
+        const lvl1Match = htmlContent.match(/<h2>(.*?)<\/h2>/);
+        const lvl2Match = htmlContent.match(/<h3>(.*?)<\/h3>/);
+
+        if (lvl0Match) hierarchy.lvl0 = lvl0Match[1];
+        if (lvl1Match) hierarchy.lvl1 = lvl1Match[1];
+        if (lvl2Match) hierarchy.lvl2 = lvl2Match[1];
+
+        return hierarchy;
+    }
+
+    cleanContentForAlgolia(htmlContent: string): string {
+        return htmlContent
+            .replace(/<\/?[^>]+(>|$)/g, '') 
+            .replace(/\s+/g, ' ')           
+            .trim();                     
+    }
 }
 
 (async () => {
     let generator = new GenerateDocs();
     await generator.convertMarkdownToHTML();
     await generator.generateIndex();
+    await generator.generateAlgoliaJSON(); 
 })();
