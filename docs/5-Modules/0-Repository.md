@@ -144,7 +144,7 @@ export class TaskService extends AbstractService {
 
 The ``@cmmv/repository`` module significantly simplifies database interaction by automatically generating the necessary entities and services based on predefined contracts. With built-in TypeORM integration, this module streamlines CRUD operations, enabling faster development and easier database management.
 
-### Settings
+## Settings
 
 To ensure that the ``@cmmv/repository`` module works correctly with your project, you need to define the database configurations in a ``.cmmv.config.js`` file. This file serves as the central configuration for your project, including the repository settings for database interaction.
 
@@ -153,10 +153,10 @@ module.exports = {
     // Other project configurations...
 
     repository: {
-        type: "sqlite", // The database type (e.g., "postgres", "mysql", "sqlite")
-        database: "./database.sqlite", // The path to your SQLite database (or connection URL for other databases)
-        synchronize: true, // Automatically synchronize the database schema with your entities
-        logging: false, // Enable or disable query logging
+        type: "sqlite", 
+        database: "./database.sqlite",
+        synchronize: true,
+        logging: false,
     },
 };
 ```

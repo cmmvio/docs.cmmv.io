@@ -1,47 +1,48 @@
-<div id="app" s:docs="docs"  c-cloak>
+<div id="app" s:docs="docs" c-cloak>
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
-        <div class="max-w-8xl mx-auto flex container">
-            <div class="w-60">
-                <a href="/" title="UCS.js">
-                    <img src="/assets/logo-min-invert.png" class="mt-6 ml-4" alt="Logo" />
-                </a>
-            </div>
+        <div class="max-w-8xl mx-auto flex container items-center">
+            <button id="menu-toggle" class="text-white text-2xl p-2 lg:hidden ml-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
 
-            <div class="justify-between w-full text">
-                <div class="relative text-right mt-3 hover:cursor-pointer group float-right">
+            <div class="w-60">
+                <a href="/" title="CMMV - Contract Model Model View Framework" class="text-white ml-4 flex items-center">
+                    <img src="/assets/favicon/favicon-32x32.png" alt="CMMV Logo" height="32" width="32" class="w-[32px] h-auto">
+                    <span class="ml-2 text-lg font-semibold">CMMV</span>
+                </a>
+            </div>           
+
+            <div class="justify-between w-full text mr-2">
+                <div class="relative text-right hover:cursor-pointer group float-right">
                     <div id="docsearch" class="dark"></div>
                 </div>
             </div>
 
             <div class="justify-between align-middle text-center mr-2 text-white flex">
-                <a href="https://github.com/andrehrferreira/cmmv" title="Github" target="_blank" class="text-2xl p-2 mt-2 hover:text-neutral-300">
+                <a href="https://github.com/andrehrferreira/cmmv" title="Github" target="_blank" class="text-2xl p-2 hover:text-neutral-300">
                     <i class="fa-brands fa-github"></i>
                 </a>
-
-                <!--<a href="https://discord.gg/XtUH9sJP" title="Discord" target="_blank" class="text-2xl p-2 mt-2 hover:text-neutral-300">
-                    <i class="fa-brands fa-discord"></i>
-                </a>-->
             </div>
         </div>
     </nav>
 
-    <div class="mx-auto flex">
+    <div class="flex flex-wrap mx-auto">
         <div 
-            class="w-60 fixed z-40 overflow-auto leftbar" 
+            id="sidebar-menu"
+            class="w-60 fixed z-40 overflow-auto leftbar bg-neutral-800 h-screen lg:block hidden" 
             c-cloak
         >
             <!-- include('public/views/docs/navbar') -->
         </div>
-
         <div class="mt-20 ml-64 text-justify relative">
-            <!-- include('public/views/docs/anchors'); -->
+             <!-- include('public/views/docs/anchors'); -->
 
             <div 
                 class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
-                :class="{'w-full': docs.anchors.length < 4}"
+                :class="{'w-full': docs.anchors.length < 3}"
             >
                 <div class="relative text-white mb-20 context-html">
-                    <div c-html="docs.index">{ docs.index }</div>
+                    <div c-html="docs.index" s-data="docs.index"></div>
 
                     <div class="absolute top-0 right-0">
                         <a 
@@ -54,17 +55,11 @@
                     </div>
                 </div>
             </div>
-
-            <!-- include('public/views/docs/footer'); -->
         </div>
-    </div>
-
-    <div class="ais-InstantSearch">
-        <div id="searchbox"></div>
-        <div id="hits"></div>
     </div>
 </div>
 
+<!-- JavaScript -->
 <script s-attr="nonce">
     function updateCurrent(){
         const scrollPosition = window.scrollY;
@@ -89,22 +84,12 @@
     window.addEventListener('scroll', updateCurrent);
 
     window.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('a[href^="#"]').forEach((link, index) => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                const href = this.getAttribute('href');
-                
-                document.querySelectorAll('.current').forEach(el => el.classList.remove('current'));
-                
-                this.parentElement.classList.add('current');
-                
-                window.scrollTo({
-                    top: document.querySelector(href).offsetTop,
-                    behavior: 'smooth'
-                });
-
-                window.location.hash = href;
-            });
+        // Toggle sidebar for mobile view
+        const toggleButton = document.getElementById('menu-toggle');
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        
+        toggleButton.addEventListener('click', () => {
+            sidebarMenu.classList.toggle('hidden');
         });
 
         updateCurrent();
@@ -113,7 +98,7 @@
             container: '#docsearch',
             appId: 'XSDY8UAIAG',
             indexName: 'algolia',
-            apiKey: '3f647d783d4570e649ac53453e89578ds',
+            apiKey: '3f647d783d4570e649ac53453e89578d',
             placeholder: 'Search the docs...',
             inputSelector: '.DocSearch',
         });
@@ -126,10 +111,6 @@ export default {
 
     data(){
         return { navbar: [] }
-    },
-
-    created(){
-        console.log("aki")
     },
 
     async mounted() {

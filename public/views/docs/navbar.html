@@ -1,5 +1,5 @@
 <ul class="p-4 select-none top-16" c-cloak c-show="docs">
-    <li c-for="(item, key) in docs.navbar">
+    <s-for c-for="(item, key) in docs.navbar" render-tag="li">
         <div 
             c-show="item"
             class="flex hover:text-blue-700 itemRoot text-white" 
@@ -29,5 +29,5 @@
                 </div>
             </li>
         </ul>
-    </li>
+    </s-for>
 </ul>

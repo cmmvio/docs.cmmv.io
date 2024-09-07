@@ -127,16 +127,16 @@
 }
 </code></pre>
 <p>The <code>@cmmv/repository</code> module significantly simplifies database interaction by automatically generating the necessary entities and services based on predefined contracts. With built-in TypeORM integration, this module streamlines CRUD operations, enabling faster development and easier database management.</p>
-<h3>Settings</h3>
+<h2>Settings</h2><a id="settings" title="Settings"></a>
 <p>To ensure that the <code>@cmmv/repository</code> module works correctly with your project, you need to define the database configurations in a <code>.cmmv.config.js</code> file. This file serves as the central configuration for your project, including the repository settings for database interaction.</p>
 <pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
     <span class="hljs-comment">// Other project configurations...</span>
 
     <span class="hljs-attr">repository</span>: {
-        <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;sqlite&quot;</span>, <span class="hljs-comment">// The database type (e.g., &quot;postgres&quot;, &quot;mysql&quot;, &quot;sqlite&quot;)</span>
-        <span class="hljs-attr">database</span>: <span class="hljs-string">&quot;./database.sqlite&quot;</span>, <span class="hljs-comment">// The path to your SQLite database (or connection URL for other databases)</span>
-        <span class="hljs-attr">synchronize</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Automatically synchronize the database schema with your entities</span>
-        <span class="hljs-attr">logging</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Enable or disable query logging</span>
+        <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;sqlite&quot;</span>, 
+        <span class="hljs-attr">database</span>: <span class="hljs-string">&quot;./database.sqlite&quot;</span>,
+        <span class="hljs-attr">synchronize</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">logging</span>: <span class="hljs-literal">false</span>,
     },
 };
 </code></pre>
