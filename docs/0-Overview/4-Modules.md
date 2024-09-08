@@ -53,8 +53,8 @@ import { TaskService } from './services/task.service';
 import { TaskGateway } from './gateways/task.gateway';
     
 export let ApplicationModule = new Module({
-    controllers: [TaskController], // Automatically includes the task controller
-    providers: [TaskService, TaskGateway] // Includes the service and gateway for task management
+    controllers: [TaskController], 
+    providers: [TaskService, TaskGateway] 
 });
 ```
 

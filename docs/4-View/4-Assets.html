@@ -1,0 +1,53 @@
+<h1>Assets</h1><a id="assets" title="Assets"></a>
+<p>In CMMV, it is recommended that all static files, such as JavaScript libraries, CSS, fonts, and images, are served through a Content Delivery Network (CDN). CDNs are optimized for fast and efficient delivery of assets, reducing latency and improving the user experience. However, if you choose to serve these files directly from your application, they must be placed in the <code>/public</code> directory. The <code>@cmmv/http</code> module automatically looks for and serves static files from this directory.</p>
+<p>If you choose not to use a CDN, place all your static files under the <code>/public</code> directory. This is the directory where @cmmv/http will automatically serve static files like:</p>
+<h2>Bundle</h2><a id="bundle" title="Bundle"></a>
+<p>By default, the application will generate complementary files, resulting in a final bundle that is necessary if you are using RPC and frontend reactivity. This bundle will be created as <code>/assets/bundle.min.js</code> and must be included in your HTML or template files to ensure the frontend functions correctly.</p>
+<p><strong>Example <code>.cmmv.config.js</code> Configuration for Assets:</strong></p>
+<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    ...
+
+    <span class="hljs-attr">scripts</span>: [
+        { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;text/javascript&quot;</span>, <span class="hljs-attr">src</span>: <span class="hljs-string">&quot;/assets/bundle.min.js&quot;</span>, <span class="hljs-attr">defer</span>: <span class="hljs-string">&quot;defer&quot;</span> },
+        ...
+    ]
+};
+</code></pre>
+<p>If you are serving assets locally, ensure your <code>/public</code> directory is structured as follows:</p>
+<pre><code class="hljs language-bash" lang="bash">/public
+    /assets
+        /styles.css
+        /app.min.js
+        /bundle.min.js
+    /images
+        /logo.png
+    /fonts
+        /custom-font.woff2
+    /favicon.ico
+    /robots.txt
+    /sitemap.xml
+    /service-worker.js
+</code></pre>
+<p>When using these assets in your HTML or templates, you can include the JavaScript bundle and any other static files like this:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>CMMV App<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Include Styles --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/assets/styles.css&quot;</span>&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Favicon --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;icon&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/favicon.ico&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;image/x-icon&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- App Content --&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Include the Bundle --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/bundle.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>In CMMV, managing assets is streamlined by recommending the use of CDNs for static files. However, if serving these assets directly from the application, placing them in the <code>/public</code> directory will allow <code>@cmmv/http</code> to handle them automatically. Additionally, the application will generate the necessary frontend bundles for handling reactivity and RPC features, available as <code>/assets/bundle.min.js</code>. All static files are easily accessible from this directory, ensuring a seamless integration with your application.</p>

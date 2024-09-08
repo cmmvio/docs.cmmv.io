@@ -1,0 +1,118 @@
+<h1>Websocket</h1><a id="websocket" title="Websocket"></a>
+<p>The <code>@cmmv/ws</code> module is a key component responsible for handling WebSocket communication in the CMMV framework. It is crucial for the functioning of <strong>Remote Procedure Calls (RPC)</strong> in the system, allowing for seamless client-server interactions. This module automatically generates WebSocket gateways based on the contracts defined in your project, enabling binary RPC request and response handling.</p>
+<ul>
+<li>
+<p><strong>Automatic Gateway Generation:</strong> When the <code>@cmmv/ws</code> module is added, it automatically generates WebSocket gateways from the contracts defined in your project. These gateways serve as the communication endpoints for RPC requests and responses.</p>
+</li>
+<li>
+<p><strong>Binary Protocol:</strong> The module communicates using a binary format for all RPC requests and responses. This ensures efficient data transfer and supports complex data structures. It is important to note that simple text-based communication is not supported by this module.</p>
+</li>
+<li>
+<p><strong>Contract-based Communication:</strong> The communication follows the structure defined in your contracts, ensuring type-safe, well-structured data handling. The contracts are written using the <code>@Contract</code> decorator from the <code>@cmmv/core</code> module.</p>
+</li>
+</ul>
+<p>Below is an example of a contract that defines the structure for task-related RPC operations. The contract is annotated with the @Contract and @ContractField decorators to specify the fields and types.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+
+<span class="hljs-meta">@Contract</span>({
+    <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
+    <span class="hljs-attr">protoPath</span>: <span class="hljs-string">&#x27;src/protos/task.proto&#x27;</span>,
+    <span class="hljs-attr">protoPackage</span>: <span class="hljs-string">&#x27;task&#x27;</span>,
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TasksContract</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractContract</span> {
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+        <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+    })
+    <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bool&#x27;</span>,
+        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">false</span>,
+    })
+    <span class="hljs-attr">checked</span>: <span class="hljs-built_in">boolean</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bool&#x27;</span>,
+        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">false</span>,
+    })
+    <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
+}
+</code></pre>
+<p>The contract above will generate a WebSocket gateway, responsible for handling RPC operations like adding, updating, deleting, and retrieving tasks. Below is an example of a generated gateway:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+    
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
+<span class="hljs-keyword">import</span> { plainToClass } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;class-transformer&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskEntity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../entities/task.entity&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">AddTaskRequest</span>, 
+    <span class="hljs-title class_">UpdateTaskRequest</span>,   
+    <span class="hljs-title class_">DeleteTaskRequest</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../protos/task&quot;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/task.service&#x27;</span>;
+
+<span class="hljs-meta">@Rpc</span>(<span class="hljs-string">&quot;task&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskGateway</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">taskservice</span>: <span class="hljs-title class_">TaskService</span></span>) {}
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;GetAllTaskRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-params"><span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">getAll</span>();
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;GetAllTaskResponse&quot;</span>, items);
+
+            <span class="hljs-keyword">if</span> (response)
+                socket.<span class="hljs-title function_">send</span>(response);
+        } <span class="hljs-keyword">catch</span> (e) {
+            <span class="hljs-comment">// Handle error</span>
+        }
+    }
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;AddTaskRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() <span class="hljs-attr">data</span>: <span class="hljs-title class_">AddTaskRequest</span>, <span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">const</span> entity = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">TaskEntity</span>, data.<span class="hljs-property">item</span>);
+            <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">add</span>(entity);
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;AddTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result, <span class="hljs-attr">id</span>: result.<span class="hljs-property">id</span> });
+
+            <span class="hljs-keyword">if</span> (response)
+                socket.<span class="hljs-title function_">send</span>(response);
+        } <span class="hljs-keyword">catch</span> (e) {
+            <span class="hljs-comment">// Handle error</span>
+        }
+    }
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;UpdateTaskRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">update</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() <span class="hljs-attr">data</span>: <span class="hljs-title class_">UpdateTaskRequest</span>, <span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">const</span> entity = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">TaskEntity</span>, data.<span class="hljs-property">item</span>);
+            <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">update</span>(data.<span class="hljs-property">id</span>, entity);
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;UpdateTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result, <span class="hljs-attr">id</span>: result.<span class="hljs-property">id</span> });
+
+            <span class="hljs-keyword">if</span> (response)
+                socket.<span class="hljs-title function_">send</span>(response);
+        } <span class="hljs-keyword">catch</span> (e) {
+            <span class="hljs-comment">// Handle error</span>
+        }
+    }
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;DeleteTaskRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() <span class="hljs-attr">data</span>: <span class="hljs-title class_">DeleteTaskRequest</span>, <span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">const</span> result = (<span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">delete</span>(data.<span class="hljs-property">id</span>)).<span class="hljs-property">success</span>;
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;DeleteTaskResponse&quot;</span>, { <span class="hljs-attr">success</span>: result, <span class="hljs-attr">id</span>: data.<span class="hljs-property">id</span> });
+
+            <span class="hljs-keyword">if</span> (response)
+                socket.<span class="hljs-title function_">send</span>(response);
+        } <span class="hljs-keyword">catch</span> (e) {
+            <span class="hljs-comment">// Handle error</span>
+        }
+    }
+}
+</code></pre>
+<p>The gateway interacts with services (e.g., TaskService) to process the data. These services perform business logic and interact with the database or other back-end components.</p>
+<p>The <code>@cmmv/ws</code> module is a powerful tool for handling binary WebSocket communication in the CMMV framework. It automatically generates WebSocket gateways based on contracts, handling RPC requests and responses efficiently using binary data. This ensures secure, performant communication and seamless integration with the rest of the CMMV system.</p>
+<p>By utilizing this module, developers can easily implement real-time functionality in their applications, leveraging the built-in RPC system for tasks such as data synchronization, real-time updates, and more.</p>

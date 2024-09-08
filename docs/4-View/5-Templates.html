@@ -1,0 +1,121 @@
+<h1>Templates</h1><a id="templates" title="Templates"></a>
+<p>CMMV provides a flexible templating system, allowing you to configure master page templates for modular views. This setup helps create reusable layouts across your application, streamlining the structure and ensuring consistency in specific views.</p>
+<p>A master page template defines the base HTML layout of your views and is stored in the <code>/public/templates</code> directory. It serves as a foundation where dynamic content, headers, and scripts are injected. The structure follows a consistent format that looks like this:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">data-theme</span>=<span class="hljs-string">&#x27;dark&#x27;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dark&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">headers</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">scope</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">scripts</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<h2>Key Elements</h2><a id="key-elements" title="Key Elements"></a>
+<ul>
+<li>
+<p><strong><code>&lt;headers/&gt;</code> Tag:</strong></p>
+</li>
+<li>
+<p>This tag is used to inject all processed headers from the <code>@cmmv/view</code> module, which may include metadata, stylesheets, and other elements configured within your views or globally.</p>
+</li>
+<li>
+<p>These headers come from your <code>.cmmv.config.js</code> or from custom settings defined in each view.</p>
+</li>
+<li>
+<p><strong><code>&lt;slot/&gt;</code> Tag:</strong></p>
+</li>
+<li>
+<p>The <code>&lt;slot/&gt;</code> element acts as a placeholder for the main content of your view.</p>
+</li>
+<li>
+<p>When rendering a view, the content of that view is dynamically injected into the slot.</p>
+</li>
+<li>
+<p><strong><code>&lt;scripts/&gt;</code> Tag:</strong></p>
+</li>
+</ul>
+<p>This tag handles the inclusion of JavaScript files configured in your <code>.cmmv.config.js</code> or directly within the view itself.<br>
+This ensures that all required client-side scripts are included in the final rendering of the page.</p>
+<ul>
+<li><strong>Other Custom Tags:</strong></li>
+</ul>
+<p>Any additional tags or attributes you define in your template will be preserved during the rendering process.<br>
+Ensure that all external resources (links, scripts) include the <code>nonce=&quot;{ nonce }&quot;</code> attribute or <code>s-attr=&quot;nonce&quot;</code> for security, as required by the Content Security Policy (CSP) settings in CMMV.</p>
+<p>All master page templates are stored in the <code>/public/templates</code> directory. Here’s an example of a possible directory structure:</p>
+<pre><code class="hljs language-bash" lang="bash">/public
+    /templates
+        /default.html
+        /admin.html
+        /dashboard.html
+</code></pre>
+<h2>Defining a View</h2><a id="defining-a-view" title="Defining a View"></a>
+<p>In your view, you can configure which master template to use. This is done in the <code>s-setup</code> section of the view. Here’s an example of a view configuration that uses a custom layout and injects scripts:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;admin&quot;</span>,  <span class="hljs-comment">// Reference to the /public/templates/admin.html file</span>
+
+    <span class="hljs-attr">head</span>: {
+        <span class="hljs-attr">meta</span>: [
+            { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;description&quot;</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">&quot;Admin Panel&quot;</span> },
+            { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;keywords&quot;</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">&quot;admin, cmmv, dashboard&quot;</span> }
+        ],
+        <span class="hljs-attr">link</span>: [
+            { <span class="hljs-attr">rel</span>: <span class="hljs-string">&quot;stylesheet&quot;</span>, <span class="hljs-attr">href</span>: <span class="hljs-string">&quot;/assets/styles/admin.css&quot;</span> },
+            { <span class="hljs-attr">rel</span>: <span class="hljs-string">&quot;canonical&quot;</span>, <span class="hljs-attr">href</span>: <span class="hljs-string">&quot;https://admin.cmmv.io&quot;</span> }
+        ]
+    },
+
+    <span class="hljs-attr">scripts</span>: [
+        { <span class="hljs-attr">src</span>: <span class="hljs-string">&quot;/assets/js/admin-dashboard.js&quot;</span>, <span class="hljs-attr">async</span>: <span class="hljs-literal">true</span> }
+    ]
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>The <code>.cmmv.config.js</code> file allows you to manage global JavaScript and stylesheets that should be included in your views. These will be injected into the <code>&lt;scripts/&gt;</code> and <code>&lt;headers/&gt;</code> tags of your master templates.</p>
+<p><strong>Example <code>.cmmv.config.js:</code></strong></p>
+<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-attr">headers</span>: {
+        <span class="hljs-string">&quot;Content-Security-Policy&quot;</span>: [
+            <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>,
+            <span class="hljs-string">&quot;script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27;&quot;</span>,
+            <span class="hljs-string">&quot;style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;&quot;</span>,
+            <span class="hljs-string">&quot;font-src &#x27;self&#x27;&quot;</span>,
+            <span class="hljs-string">&quot;connect-src &#x27;self&#x27;&quot;</span>,
+            <span class="hljs-string">&quot;img-src &#x27;self&#x27; data:&quot;</span>
+        ]
+    },
+
+    <span class="hljs-attr">assets</span>: {
+        <span class="hljs-attr">scripts</span>: [
+            { <span class="hljs-attr">src</span>: <span class="hljs-string">&quot;/assets/js/main.js&quot;</span>, <span class="hljs-attr">async</span>: <span class="hljs-literal">true</span> },
+            { <span class="hljs-attr">src</span>: <span class="hljs-string">&quot;/assets/js/extra.js&quot;</span>, <span class="hljs-attr">defer</span>: <span class="hljs-literal">true</span> }
+        ],
+        <span class="hljs-attr">styles</span>: [
+            { <span class="hljs-attr">rel</span>: <span class="hljs-string">&quot;stylesheet&quot;</span>, <span class="hljs-attr">href</span>: <span class="hljs-string">&quot;/assets/css/main.css&quot;</span> }
+        ]
+    }
+};
+</code></pre>
+<p>After setting up a view with a master template, the rendered page might look like this:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">data-theme</span>=<span class="hljs-string">&#x27;dark&#x27;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dark&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;description&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;Admin Panel&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;keywords&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;admin, cmmv, dashboard&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/assets/styles/admin.css&quot;</span> <span class="hljs-attr">nonce</span>=<span class="hljs-string">&quot;a1b2c3&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;canonical&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://admin.cmmv.io&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">scope</span>&gt;</span> 
+        <span class="hljs-comment">&lt;!-- Main content of the view --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;dashboard&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Welcome to the Admin Dashboard<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/js/admin-dashboard.js&quot;</span> <span class="hljs-attr">async</span> <span class="hljs-attr">nonce</span>=<span class="hljs-string">&quot;a1b2c3&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>In CMMV, you can modularize your views by defining master page templates located in <code>/public/templates</code>. These templates handle the injection of headers, dynamic content, and scripts through the <code>&lt;headers/&gt;</code>, <code>&lt;slot/&gt;</code>, and <code>&lt;scripts/&gt;</code> tags, respectively. By ensuring that security protocols are maintained with attributes like <code>nonce=&quot;{ nonce }&quot;</code>, your application remains secure while serving assets efficiently. Through this approach, you can create reusable layouts and maintain consistency across different sections of your application, enhancing both development speed and maintainability.</p>
