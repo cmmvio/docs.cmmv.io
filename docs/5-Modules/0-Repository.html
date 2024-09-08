@@ -106,7 +106,9 @@
         <span class="hljs-keyword">return</span> result;
     }
 
-    <span class="hljs-keyword">async</span> <span class="hljs-title function_">update</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">item</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">update</span>(
+        <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">item</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;, req?: <span class="hljs-built_in">any</span>
+    ): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
         <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
         <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
         <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Update&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
@@ -116,7 +118,9 @@
         <span class="hljs-keyword">return</span> result;
     }
 
-    <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">affected</span>: <span class="hljs-built_in">number</span> }&gt; {
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(
+        <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>, req?: <span class="hljs-built_in">any</span>
+    ): <span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">affected</span>: <span class="hljs-built_in">number</span> }&gt; {
         <span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">getInstance</span>();
         <span class="hljs-keyword">const</span> repository = instance.<span class="hljs-property">dataSource</span>.<span class="hljs-title function_">getRepository</span>(<span class="hljs-title class_">TaskEntity</span>);
         <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Delete&#x27;</span>, req?.<span class="hljs-property">requestId</span>);

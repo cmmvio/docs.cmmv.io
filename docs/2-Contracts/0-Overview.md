@@ -114,8 +114,13 @@ The example contract provided above will automatically generate a controller at 
 ```typescript
 // Generated automatically by CMMV
     
-import { Telemetry } from "@cmmv/core";  
-import { Controller, Get, Post, Put, Delete, Queries, Param, Body, Request } from '@cmmv/http';
+import { Telemetry } from "@cmmv/core";
+
+import { 
+    Controller, Get, Post, Put, Delete, 
+    Queries, Param, Body, Request 
+} from '@cmmv/http';
+
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task.model';
 
@@ -148,7 +153,11 @@ export class TaskController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: string, @Body() item: Task, @Request() req): Promise<Task> {
+    async update(
+        @Param('id') id: string, 
+        @Body() item: Task, 
+        @Request() req
+    ): Promise<Task> {
         Telemetry.start('TaskController::Update', req.requestId);
         let result = await this.taskservice.update(id, item, req);
         Telemetry.end('TaskController::Update', req.requestId);
@@ -156,7 +165,10 @@ export class TaskController {
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: string, @Request() req): Promise<{ success: boolean, affected: number }> {
+    async delete(
+        @Param('id') id: string, 
+        @Request() req
+    ): Promise<{ success: boolean, affected: number }> {
         Telemetry.start('TaskController::Delete', req.requestId);
         let result = await this.taskservice.delete(id, req);
         Telemetry.end('TaskController::Delete', req.requestId);
@@ -216,7 +228,9 @@ export class TaskService extends AbstractService {
         return result;
     }
 
-    async update(id: string, item: Partial<TaskEntity>, req?: any): Promise<TaskEntity> {
+    async update(
+        id: string, item: Partial<TaskEntity>, req?: any
+    ): Promise<TaskEntity> {
         const instance = Repository.getInstance();
         const repository = instance.dataSource.getRepository(TaskEntity);
         Telemetry.start('TaskService::Update', req?.requestId);
@@ -226,7 +240,9 @@ export class TaskService extends AbstractService {
         return result;
     }
 
-    async delete(id: string, req?: any): Promise<{ success: boolean, affected: number }> {
+    async delete(
+        id: string, req?: any
+    ): Promise<{ success: boolean, affected: number }> {
         const instance = Repository.getInstance();
         const repository = instance.dataSource.getRepository(TaskEntity);
         Telemetry.start('TaskService::Delete', req?.requestId);

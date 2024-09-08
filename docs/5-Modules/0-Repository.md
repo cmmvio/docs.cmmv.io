@@ -121,7 +121,9 @@ export class TaskService extends AbstractService {
         return result;
     }
 
-    async update(id: string, item: Partial<TaskEntity>, req?: any): Promise<TaskEntity> {
+    async update(
+        id: string, item: Partial<TaskEntity>, req?: any
+    ): Promise<TaskEntity> {
         const instance = Repository.getInstance();
         const repository = instance.dataSource.getRepository(TaskEntity);
         Telemetry.start('TaskService::Update', req?.requestId);
@@ -131,7 +133,9 @@ export class TaskService extends AbstractService {
         return result;
     }
 
-    async delete(id: string, req?: any): Promise<{ success: boolean, affected: number }> {
+    async delete(
+        id: string, req?: any
+    ): Promise<{ success: boolean, affected: number }> {
         const instance = Repository.getInstance();
         const repository = instance.dataSource.getRepository(TaskEntity);
         Telemetry.start('TaskService::Delete', req?.requestId);

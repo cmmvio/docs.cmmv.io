@@ -145,8 +145,8 @@ The i18n configuration allows you to manage internationalization (i18n) in your 
 
 ```typescript
 i18n: {
-    localeFiles: "./src/locale",  // Path to the folder where locale files are stored.
-    default: "en"  // Default language for the application.
+    localeFiles: "./src/locale", 
+    default: "en" 
 }
 ```
 
@@ -159,8 +159,8 @@ The view configuration lets you control how the HTML output is processed. It inc
 
 ```typescript
 view: {
-    extractInlineScript: true,  // Extract inline scripts to a separate JavaScript file.
-    minifyHTML: true  // Minify HTML output for faster page load times.
+    extractInlineScript: true, 
+    minifyHTML: true  
 }
 ```
 
@@ -170,7 +170,7 @@ The head configuration controls the ``<head>`` section of your HTML document, al
 
 ```typescript
 head: {
-    title: "CMMV",  // Default title for the application.
+    title: "CMMV",  
     htmlAttrs: { lang: "pt-br" },
     meta: [
         { charset: 'utf-8' },
@@ -191,10 +191,10 @@ The ``headers`` configuration allows you to define HTTP headers such as ``Conten
 ```typescript
 headers: {
     "Content-Security-Policy": [
-        "default-src 'self'",  // Allow resources to be loaded only from the same origin.
-        "script-src 'self' 'unsafe-eval'",  // Scripts allowed from the same origin with eval allowed.
-        "style-src 'self' 'unsafe-inline'",  // Inline styles are allowed.
-        "font-src 'self'"  // Fonts allowed only from the same origin.
+        "default-src 'self'", 
+        "script-src 'self' 'unsafe-eval'",  
+        "style-src 'self' 'unsafe-inline'",  
+        "font-src 'self'" 
     ]
 }
 ```
@@ -205,6 +205,6 @@ The ``scripts`` configuration specifies external or internal JavaScript files th
 
 ```typescript
 scripts: [
-    { type: "text/javascript", src: '/assets/bundle.min.js', defer: "defer" }  // Link to the minified JavaScript bundle.
+    { type: "text/javascript", src: '/assets/bundle.min.js', defer: "defer" }
 ]
 ```

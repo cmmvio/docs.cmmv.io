@@ -1,1 +1,184 @@
 <h1>Gateway</h1><a id="gateway" title="Gateway"></a>
+<p>When the <code>@cmmv/ws</code> module is present in the project, it automatically creates WebSocket (WS) gateways based on the defined contracts. These gateways handle <strong>Remote Procedure Call (RPC)</strong> interactions in a binary format, optimizing both the size of the transmitted data and the process of identifying the correct handlers for the messages.</p>
+<ul>
+<li>
+<p><strong>RPC Gateways:</strong> Each contract generates a WebSocket gateway that allows interaction between clients and the server using efficient binary communication.</p>
+</li>
+<li>
+<p><strong>Automatic Request Packaging:</strong> The <code>@cmmv/ws</code> module automatically packages responses and parses incoming requests using the contract definitions, ensuring that all messages conform to the expected structure.</p>
+</li>
+<li>
+<p><strong>WsCall Contract:</strong> The <code>WsCall</code> contract is a crucial component that serves as an index for system packets and defines the available messages in each contract. It helps minimize the number of bytes sent during interactions and allows easy identification of which handler should process each message.</p>
+</li>
+</ul>
+<p>Here is an example of the <code>WsCall</code> contract that serves as the foundation for these interactions:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+
+<span class="hljs-meta">@Contract</span>({ 
+    <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&quot;WsCall&quot;</span>,
+    <span class="hljs-attr">protoPath</span>: <span class="hljs-string">&quot;src/protos/ws.proto&quot;</span>,
+    <span class="hljs-attr">protoPackage</span>: <span class="hljs-string">&quot;ws&quot;</span>,
+    <span class="hljs-attr">directMessage</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">generateController</span>: <span class="hljs-literal">false</span> 
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WSContract</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractContract</span> {
+    <span class="hljs-meta">@ContractField</span>({ <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;int32&#x27;</span> })
+    <span class="hljs-attr">contract</span>: <span class="hljs-built_in">number</span>;
+
+    <span class="hljs-meta">@ContractField</span>({ <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;int32&#x27;</span> })
+    <span class="hljs-attr">message</span>: <span class="hljs-built_in">number</span>;
+
+    <span class="hljs-meta">@ContractField</span>({ <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;bytes&#x27;</span> })
+    <span class="hljs-attr">data</span>: <span class="hljs-title class_">Uint8Array</span>;
+}
+</code></pre>
+<p><strong>Client Sends a Request:</strong> When the client sends a request, it is formatted according to the <code>WsCall</code> contract, containing:</p>
+<ul>
+<li><strong>contract:</strong> A number identifying which contract the message belongs to.</li>
+<li><strong>message:</strong> A number identifying the specific message or action.</li>
+<li><strong>data:</strong> A binary payload (usually a serialized object) containing the actual data of the request.</li>
+</ul>
+<p><strong>Parsing the Request:</strong> Upon receiving the request, the system parses the contract and message fields to determine:</p>
+<ul>
+<li>
+<p>Which contract the request corresponds to.</p>
+</li>
+<li>
+<p>Which handler in the gateway should process the message.</p>
+</li>
+<li>
+<p><strong>Calling the Correct Handler:</strong> Once the system identifies the contract and message, it routes the request to the appropriate handler in the WebSocket gateway. The handler then processes the request and sends back a response in the same efficient binary format.</p>
+</li>
+</ul>
+<h2>Example Gateway</h2><a id="example-gateway" title="Example Gateway"></a>
+<p>When a contract is created, the WebSocket gateway might look like this:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/task.service&#x27;</span>;
+
+<span class="hljs-meta">@Rpc</span>(<span class="hljs-string">&quot;task&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskGateway</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">taskService</span>: <span class="hljs-title class_">TaskService</span></span>) {}
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;GetAllTaskRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-params"><span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">getAll</span>();
+        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;GetAllTaskResponse&quot;</span>, items);
+        socket.<span class="hljs-title function_">send</span>(response);
+    }
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;AddTaskRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() data, <span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">add</span>(data.<span class="hljs-property">item</span>);
+        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;AddTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result });
+        socket.<span class="hljs-title function_">send</span>(response);
+    }
+}
+</code></pre>
+<p><strong>Binary Communication:</strong> Uses binary data (via Uint8Array) for fast and compact message exchanges.<br>
+<strong>Efficient Message Handling:</strong> The contract and message fields allow quick identification of the correct handler, minimizing overhead.<br>
+<strong>Custom Gateways:</strong> Developers can extend or customize gateways by creating specific handlers for different contract messages.<br>
+This approach ensures that communication between clients and the server is not only efficient but also structured and easy to manage.</p>
+<h2>WebSocket Interceptor</h2><a id="websocket-interceptor" title="WebSocket Interceptor"></a>
+<p>The interceptor is a key component in the <code>@cmmv/ws</code> system that handles the parsing and routing of incoming WebSocket messages. When a WebSocket packet is received from the client, the interceptor processes the data, decodes it according to the defined protocol, and dispatches it to the appropriate handler.</p>
+<p>Below is an explanation of how the WebSocket interceptor works step-by-step:</p>
+<p>The interceptor receives a <code>socket</code> and the binary <code>data</code>. The first step is to decode the binary data into a structured message using the <code>WSCall</code> contract:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> message = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">WSCall</span>, <span class="hljs-title class_">ProtoRegistry</span>.
+    <span class="hljs-title function_">retrieve</span>(<span class="hljs-string">&quot;ws&quot;</span>)?.
+    <span class="hljs-title function_">lookupType</span>(<span class="hljs-string">&quot;WsCall&quot;</span>).
+    <span class="hljs-title function_">decode</span>(data)
+);
+</code></pre>
+<p>Next, the system retrieves the contract and message type from the <code>ProtoRegistry</code>:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> contract = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveByIndex</span>(message.<span class="hljs-property">contract</span>);
+<span class="hljs-keyword">const</span> typeName = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveTypes</span>(message.<span class="hljs-property">contract</span>, message.<span class="hljs-property">message</span>);
+</code></pre>
+<br/>
+<ul>
+<li><strong>retrieveByIndex(message.contract):</strong> Retrieves the contract by its index in the registry.</li>
+<li><strong>retrieveTypes(message.contract, message.message):</strong> Determines the specific type of message based on the contract and message identifiers. This will be used to find the correct handler.</li>
+</ul>
+<p>Once the contract and message type are identified, the interceptor checks if the message type has a registered handler:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">if</span> (contract &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">has</span>(typeName)) {
+    <span class="hljs-keyword">const</span> { instance, handlerName, params } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">get</span>(typeName);
+    <span class="hljs-keyword">const</span> realMessage = contract.<span class="hljs-title function_">lookupType</span>(typeName).<span class="hljs-title function_">decode</span>(message.<span class="hljs-property">data</span>);
+}
+</code></pre>
+<p>Finally, the handler is executed with the mapped arguments:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> args = params
+    .<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.<span class="hljs-property">index</span> - b.<span class="hljs-property">index</span>)
+    .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">param</span> =&gt;</span> {
+        <span class="hljs-keyword">switch</span> (param.<span class="hljs-property">paramType</span>) {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;data&#x27;</span>: <span class="hljs-keyword">return</span> realMessage;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;socket&#x27;</span>: <span class="hljs-keyword">return</span> socket;
+            <span class="hljs-attr">default</span>: <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+        }
+    });
+
+<span class="hljs-keyword">try</span> {
+    instance[handlerName](...args);
+} <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">logger</span>.<span class="hljs-title function_">error</span>(e.<span class="hljs-property">message</span>);
+}
+</code></pre>
+<p>This process ensures that all WebSocket messages are efficiently routed to the appropriate handler based on the contract and message type.</p>
+<h2>Utils</h2><a id="utils" title="Utils"></a>
+<p>The <code>RpcUtils</code> class provides utility methods to work with Protobuf serialization and message packaging for RPC communication. It is primarily used to convert JavaScript objects into Protobuf-encoded binary buffers, as well as to pack RPC messages for transmission over WebSocket or other binary protocols.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>generateBuffer(protoFile, namespace, data)</code></td>
+<td>Converts a JavaScript object into a Protobuf-encoded buffer using the specified proto file and message type.</td>
+</tr>
+<tr>
+<td><code>pack(contractName, messageName, data)</code></td>
+<td>Packs a message into a Protobuf-encoded buffer for RPC communication, including contract and message metadata.</td>
+</tr>
+</tbody>
+</table>
+<p><code>generateBuffer(protoFile: string, namespace: string, data: any): Promise&lt;Uint8Array&gt;</code></p>
+<p>This method generates a Protobuf-encoded buffer from a JavaScript object using a specific proto file and message type.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>protoFile (<code>string</code>):</strong> The name of the proto file that defines the message structure.</li>
+<li><strong>namespace (<code>string</code>):</strong> The name of the message type (namespace) within the proto file.</li>
+<li><strong>data (<code>any</code>):</strong> The JavaScript object containing the data to be encoded into Protobuf format.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong><code>Promise&lt;Uint8Array | null&gt;:</code></strong> A promise that resolves to a <code>Uint8Array</code> representing the encoded Protobuf message, or null if an error occurs.</li>
+</ul>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">generateBuffer</span>(<span class="hljs-string">&#x27;myProtoFile&#x27;</span>, <span class="hljs-string">&#x27;MyMessage&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;example&#x27;</span> });
+
+<span class="hljs-keyword">if</span> (buffer) {
+    <span class="hljs-comment">// buffer is ready to be sent via WebSocket or saved</span>
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// handle error</span>
+}
+</code></pre>
+<h2>Pack</h2><a id="pack" title="Pack"></a>
+<p><code>pack(contractName: string, messageName: string, data?: any): Promise&lt;Uint8Array | null&gt;</code></p>
+<p>The <code>pack</code> method prepares a Protobuf-encoded message for RPC communication. It includes metadata such as the contract and message indices, along with the actual message data.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>contractName (<code>string</code>):</strong> The name of the contract associated with the message.</li>
+<li><strong>messageName (<code>string</code>):</strong> The name of the message within the contract.</li>
+<li><strong>data (<code>any</code>, optional):</strong> The data to be included in the message, which will be encoded as Protobuf.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong><code>Promise&lt;Uint8Array | null&gt;</code>:</strong> A promise that resolves to a <code>Uint8Array</code> representing the packed message, or <code>null</code> if an error occurs.</li>
+</ul>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> packedMessage = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&#x27;TaskContract&#x27;</span>, <span class="hljs-string">&#x27;AddTaskRequest&#x27;</span>, { <span class="hljs-attr">taskId</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">taskLabel</span>: <span class="hljs-string">&#x27;New Task&#x27;</span> });
+
+<span class="hljs-keyword">if</span> (packedMessage) {
+    <span class="hljs-comment">// ready to send packed message via WebSocket or other binary protocol</span>
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// handle error</span>
+}
+</code></pre>

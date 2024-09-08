@@ -130,8 +130,8 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
 <h2>I18n Configuration</h2><a id="i18n-configuration" title="I18n Configuration"></a>
 <p>The i18n configuration allows you to manage internationalization (i18n) in your CMMV application by defining the directory for locale files and setting a default language.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">i18n</span>: {
-    <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&quot;./src/locale&quot;</span>,  <span class="hljs-comment">// Path to the folder where locale files are stored.</span>
-    <span class="hljs-attr">default</span>: <span class="hljs-string">&quot;en&quot;</span>  <span class="hljs-comment">// Default language for the application.</span>
+    <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&quot;./src/locale&quot;</span>, 
+    <span class="hljs-attr">default</span>: <span class="hljs-string">&quot;en&quot;</span> 
 }
 </code></pre>
 <p><strong>localeFiles:</strong> Directory where the translation files for different languages are stored.<br>
@@ -139,14 +139,14 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
 <h2>View Configuration</h2><a id="view-configuration" title="View Configuration"></a>
 <p>The view configuration lets you control how the HTML output is processed. It includes options for extracting inline scripts and minifying HTML for optimized performance.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">view</span>: {
-    <span class="hljs-attr">extractInlineScript</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Extract inline scripts to a separate JavaScript file.</span>
-    <span class="hljs-attr">minifyHTML</span>: <span class="hljs-literal">true</span>  <span class="hljs-comment">// Minify HTML output for faster page load times.</span>
+    <span class="hljs-attr">extractInlineScript</span>: <span class="hljs-literal">true</span>, 
+    <span class="hljs-attr">minifyHTML</span>: <span class="hljs-literal">true</span>  
 }
 </code></pre>
 <h2>Head Configuration</h2><a id="head-configuration" title="Head Configuration"></a>
 <p>The head configuration controls the <code>&lt;head&gt;</code> section of your HTML document, allowing you to define meta tags, attributes for the <code>&lt;html&gt;</code> tag, and links such as favicons.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">head</span>: {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;CMMV&quot;</span>,  <span class="hljs-comment">// Default title for the application.</span>
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;CMMV&quot;</span>,  
     <span class="hljs-attr">htmlAttrs</span>: { <span class="hljs-attr">lang</span>: <span class="hljs-string">&quot;pt-br&quot;</span> },
     <span class="hljs-attr">meta</span>: [
         { <span class="hljs-attr">charset</span>: <span class="hljs-string">&#x27;utf-8&#x27;</span> },
@@ -163,16 +163,16 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
 <p>The <code>headers</code> configuration allows you to define HTTP headers such as <code>Content-Security-Policy</code> (CSP), which help secure your application.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">headers</span>: {
     <span class="hljs-string">&quot;Content-Security-Policy&quot;</span>: [
-        <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>,  <span class="hljs-comment">// Allow resources to be loaded only from the same origin.</span>
-        <span class="hljs-string">&quot;script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27;&quot;</span>,  <span class="hljs-comment">// Scripts allowed from the same origin with eval allowed.</span>
-        <span class="hljs-string">&quot;style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;&quot;</span>,  <span class="hljs-comment">// Inline styles are allowed.</span>
-        <span class="hljs-string">&quot;font-src &#x27;self&#x27;&quot;</span>  <span class="hljs-comment">// Fonts allowed only from the same origin.</span>
+        <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>, 
+        <span class="hljs-string">&quot;script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27;&quot;</span>,  
+        <span class="hljs-string">&quot;style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;&quot;</span>,  
+        <span class="hljs-string">&quot;font-src &#x27;self&#x27;&quot;</span> 
     ]
 }
 </code></pre>
 <h3>Scripts Configuration</h3>
 <p>The <code>scripts</code> configuration specifies external or internal JavaScript files that should be included in the HTML output.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">scripts</span>: [
-    { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;text/javascript&quot;</span>, <span class="hljs-attr">src</span>: <span class="hljs-string">&#x27;/assets/bundle.min.js&#x27;</span>, <span class="hljs-attr">defer</span>: <span class="hljs-string">&quot;defer&quot;</span> }  <span class="hljs-comment">// Link to the minified JavaScript bundle.</span>
+    { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;text/javascript&quot;</span>, <span class="hljs-attr">src</span>: <span class="hljs-string">&#x27;/assets/bundle.min.js&#x27;</span>, <span class="hljs-attr">defer</span>: <span class="hljs-string">&quot;defer&quot;</span> }
 ]
 </code></pre>
