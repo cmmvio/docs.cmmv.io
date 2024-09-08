@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.cmmv.io">Documentation</a> &bull;
+  <a href="https://cmmv.io">Documentation</a> &bull;
   <a href="https://github.com/andrehrferreira/cmmv/issues">Report Issue</a>
 </p>
 
 ## Description
 
-This project is compile source documentation in markdown format into the published format. The Repository contains [docs.cmmv.io](https://docs.cmmv.io) source code, the official CMMV documentation.
+This project is compile source documentation in markdown format into the published format. The Repository contains [cmmv.io](https://cmmv.io) source code, the official CMMV documentation.
 
 ## Installing
 
