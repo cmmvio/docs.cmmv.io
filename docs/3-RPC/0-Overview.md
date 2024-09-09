@@ -81,6 +81,8 @@ Application.create({
 });
 ```
 
+<br/>
+
 * **WSAdapter:** Handles WebSocket connections.
 * **ProtobufModule:** Defines message structures with Protocol Buffers for communication.
 * **WSModule:** Manages WebSocket connections, utilizing Protobuf messages for efficient data transmission.
