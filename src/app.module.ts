@@ -1,10 +1,9 @@
 // Generated automatically by CMMV
-    
-    import { Module } from '@cmmv/core';
-    
-    
-    
-    export let ApplicationModule = new Module({
-        controllers: [],
-        providers: []
-    });
+
+import { Module, ApplicationTranspile } from '@cmmv/core';
+
+export let ApplicationModule = new Module({
+    controllers: [],
+    providers: [],
+    transpilers: [ApplicationTranspile],
+});

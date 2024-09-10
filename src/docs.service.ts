@@ -1,101 +1,126 @@
-import * as fs from "fs";
-import * as fg from "fast-glob";
-import * as path from "path";
-import { AbstractService, Service } from "@cmmv/http";
-import { cwd } from "process";
+import * as fs from 'fs';
+import * as fg from 'fast-glob';
+import * as path from 'path';
+import { AbstractService, Service } from '@cmmv/core';
+import { cwd } from 'process';
 
-@Service("docs")
+@Service('docs')
 export class DocsService extends AbstractService {
-    public override name = "docs";
+    public override name = 'docs';
 
-    async getDocsStrutucture(file = null){
+    async getDocsStrutucture(file = null) {
         let strutucture = {
-            index: "",
+            index: '',
             navbar: [],
             breadcrumb: [],
             anchors: [],
-            link: file?.replace(cwd(), "")
+            link: file?.replace(cwd(), ''),
         };
 
-        const filesAndDirsIndex = await fg(path.resolve(process.cwd(), "./docs/*"), { 
-            dot: false, 
-            onlyFiles: false, 
-            ignore: [ "./docs/index.html" ] 
-        });
-        
-        if(file){
-            const pathDivider = (process.platform === "win32") ? "\\" : "/";
-            const [root, content] = file.replace(path.join(process.cwd(), "/docs/"), "").split(pathDivider);
-            strutucture.breadcrumb[0] = root.split("-")[1]?.trim();
+        const filesAndDirsIndex = await fg(
+            path.resolve(process.cwd(), './docs/*'),
+            {
+                dot: false,
+                onlyFiles: false,
+                ignore: ['./docs/index.html'],
+            },
+        );
 
-            if(typeof content == "string")
-                strutucture.breadcrumb[1] = content.split("-")[1]?.trim();
+        if (file) {
+            const pathDivider = process.platform === 'win32' ? '\\' : '/';
+            const [root, content] = file
+                .replace(path.join(process.cwd(), '/docs/'), '')
+                .split(pathDivider);
+            strutucture.breadcrumb[0] = root.split('-')[1]?.trim();
 
-            if(strutucture.breadcrumb[0] && strutucture.breadcrumb[0].includes("."))
-                strutucture.breadcrumb[0] = strutucture.breadcrumb[0].split(".")[0];
+            if (typeof content == 'string')
+                strutucture.breadcrumb[1] = content.split('-')[1]?.trim();
 
-            if(strutucture.breadcrumb[1] && strutucture.breadcrumb[1].includes("."))
-                strutucture.breadcrumb[1] = strutucture.breadcrumb[1].split(".")[0];
+            if (
+                strutucture.breadcrumb[0] &&
+                strutucture.breadcrumb[0].includes('.')
+            )
+                strutucture.breadcrumb[0] =
+                    strutucture.breadcrumb[0].split('.')[0];
+
+            if (
+                strutucture.breadcrumb[1] &&
+                strutucture.breadcrumb[1].includes('.')
+            )
+                strutucture.breadcrumb[1] =
+                    strutucture.breadcrumb[1].split('.')[0];
         }
 
-        strutucture.index = (file) ? 
-        fs.readFileSync(path.resolve(file), "utf8") : 
-        fs.readFileSync(path.resolve("./docs/index.html"), "utf8");
-     
-        for(let fileOrDir of filesAndDirsIndex){
-            try{
-                let basename = path.basename(fileOrDir);
-                let [indexRaw, nameRaw] = basename.split("-");
-                let index = parseInt(indexRaw.trim());
-                let name = (nameRaw?.includes(".")) ? nameRaw.split(".")[0]?.trim() : nameRaw?.trim();
-                const isDir = fs.lstatSync(fileOrDir).isDirectory(); 
+        strutucture.index = file
+            ? fs.readFileSync(path.resolve(file), 'utf8')
+            : fs.readFileSync(path.resolve('./docs/index.html'), 'utf8');
 
-                if(index <= 0)
-                    index = 1;
-                
-                if(name && !strutucture.navbar[index-1]){
-                    strutucture.navbar[index-1] = {
+        for (let fileOrDir of filesAndDirsIndex) {
+            try {
+                let basename = path.basename(fileOrDir);
+                let [indexRaw, nameRaw] = basename.split('-');
+                let index = parseInt(indexRaw.trim());
+                let name = nameRaw?.includes('.')
+                    ? nameRaw.split('.')[0]?.trim()
+                    : nameRaw?.trim();
+                const isDir = fs.lstatSync(fileOrDir).isDirectory();
+
+                if (index <= 0) index = 1;
+
+                if (name && !strutucture.navbar[index - 1]) {
+                    strutucture.navbar[index - 1] = {
                         filename: fileOrDir,
-                        uri: "/docs/" + this.convertLinkToCleanURL(fileOrDir),
+                        uri: '/docs/' + this.convertLinkToCleanURL(fileOrDir),
                         isDir,
                         index: index,
                         name: name,
-                        children: []
+                        children: [],
                     };
-    
-                    if(isDir){                       
-                        const filesChildren = await fg(`${fileOrDir}/*.html`, { dot: false, onlyFiles: true });
-                        
-                        for(let children of filesChildren){
+
+                    if (isDir) {
+                        const filesChildren = await fg(`${fileOrDir}/*.html`, {
+                            dot: false,
+                            onlyFiles: true,
+                        });
+
+                        for (let children of filesChildren) {
                             let basenameChildren = path.basename(children);
-                            let [indexRawChildren, nameRawChildren] = basenameChildren.split("-");
-                            let indexChildren = parseInt(indexRawChildren.trim());
-                            let nameChildren = (nameRawChildren.includes(".")) ? nameRawChildren.split(".")[0]?.trim() : nameRawChildren?.trim();
-        
-                            strutucture.navbar[index-1].children.push({
+                            let [indexRawChildren, nameRawChildren] =
+                                basenameChildren.split('-');
+                            let indexChildren = parseInt(
+                                indexRawChildren.trim(),
+                            );
+                            let nameChildren = nameRawChildren.includes('.')
+                                ? nameRawChildren.split('.')[0]?.trim()
+                                : nameRawChildren?.trim();
+
+                            strutucture.navbar[index - 1].children.push({
                                 filename: children,
-                                uri: "/docs/" + this.convertLinkToCleanURL(children),
-                                name: nameChildren
+                                uri:
+                                    '/docs/' +
+                                    this.convertLinkToCleanURL(children),
+                                name: nameChildren,
                             });
                         }
                     }
                 }
+            } catch (e) {
+                console.log(e);
             }
-            catch(e){ console.log(e) }
         }
 
-        if(strutucture.index){
+        if (strutucture.index) {
             const regex = /<a id="(.*?)".*?>/g;
             let match;
 
             while ((match = regex.exec(strutucture.index)) !== null) {
                 strutucture.anchors.push({
                     id: match[1],
-                    label: this.fixedLabel(match[1])
+                    label: this.fixedLabel(match[1]),
                 });
             }
         }
-        
+
         return strutucture;
     }
 
@@ -104,31 +129,37 @@ export class DocsService extends AbstractService {
     }
 
     fixedLabel(value) {
-        return (value) ? this.uppercaseFirstLetter(value === null || value === void 0 ? void 0 : value.replace(/([A-Z])/g, " $1")) : '';
+        return value
+            ? this.uppercaseFirstLetter(
+                  value === null || value === void 0
+                      ? void 0
+                      : value.replace(/([A-Z])/g, ' $1'),
+              )
+            : '';
     }
-   
+
     convertLinkToCleanURL(link: string): string {
         const decodedLink = decodeURIComponent(
             link
-            .replace(process.cwd(), "")
-            .replace("/docs/", "")
-            .replace(/\\/g, "/")
-            .replace(".html","")
-        );  
+                .replace(process.cwd(), '')
+                .replace('/docs/', '')
+                .replace(/\\/g, '/')
+                .replace('.html', ''),
+        );
 
-        const pathParts = decodedLink.split('/');  
-    
+        const pathParts = decodedLink.split('/');
+
         const cleanPathParts = pathParts.map(part => {
             const cleanPart = part
-                .replace(/\d+\s*-\s*/g, '')  
-                .replace(/\s+/g, '-')      
-                .replace(/[^\w\-]+/g, '')    
-                .toLowerCase();           
-    
+                .replace(/\d+\s*-\s*/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .toLowerCase();
+
             return cleanPart;
         });
-    
-        const cleanURL = cleanPathParts.filter(Boolean).join('/');  
+
+        const cleanURL = cleanPathParts.filter(Boolean).join('/');
         return cleanURL;
     }
 }

@@ -33,15 +33,12 @@
 		]
 	},
 	"dependencies": {
-		"@cmmv/core": "^0.2.27",
-		"@cmmv/http": "^0.2.27",
-		"@cmmv/view": "^0.2.27",
-		"algoliasearch": "^5.3.0",
+		"@cmmv/core": "^0.2.29",
+		"@cmmv/http": "^0.2.29",
+		"@cmmv/view": "^0.2.29",
 		"dotenv": "^16.4.5",
 		"glob": "^11.0.0",
 		"highlight.js": "^11.10.0",
-		"instantsearch.css": "^8.5.0",
-		"instantsearch.js": "^4.74.0",
 		"markdown-it": "^14.1.0"
 	},
 	"devDependencies": {

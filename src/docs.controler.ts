@@ -1,48 +1,49 @@
 import * as fs from 'fs';
-import * as path from "path";
+import * as path from 'path';
 
-import { Controller, Get, Param, Response, ServiceRegistry } from '@cmmv/http';
+import { ServiceRegistry } from '@cmmv/core';
+import { Controller, Get, Param, Response } from '@cmmv/http';
 import { DocsService } from './docs.service';
 
-const index = require("../docs/index.json");
+const index = require('../docs/index.json');
 
-@Controller("docs")
+@Controller('docs')
 export class DocsController {
-    constructor(private docsService: DocsService){}
+    constructor(private docsService: DocsService) {}
 
-	@Get()
-	async indexHandler(@Response() res) {		
-		return res.render("views/docs/index", {
-			docs: await this.docsService.getDocsStrutucture(),
-			services: ServiceRegistry.getServicesArr()
-		});
-	}
+    @Get()
+    async indexHandler(@Response() res) {
+        return res.render('views/docs/index', {
+            docs: await this.docsService.getDocsStrutucture(),
+            services: ServiceRegistry.getServicesArr(),
+        });
+    }
 
-	@Get(":item")
-	async getDocHandler(@Param("item") item: string, @Response() res) {
-		if(index[item])
-			this.getDoc(index[item], res)
-		else
-			res.status(404).end();
-	}
+    @Get(':item')
+    async getDocHandler(@Param('item') item: string, @Response() res) {
+        if (index[item]) this.getDoc(index[item], res);
+        else res.status(404).end();
+    }
 
-	@Get(":dir/:item")
-	async getDocSubdirHandler(@Param("dir") dir: string, @Param("item") item: string, @Response() res) {
-		const fullPath = `${dir}/${item}`;
+    @Get(':dir/:item')
+    async getDocSubdirHandler(
+        @Param('dir') dir: string,
+        @Param('item') item: string,
+        @Response() res,
+    ) {
+        const fullPath = `${dir}/${item}`;
 
-		if(index[fullPath])
-			this.getDoc(index[fullPath], res)
-		else
-			res.status(404).end();
-	}
+        if (index[fullPath]) this.getDoc(index[fullPath], res);
+        else res.status(404).end();
+    }
 
-	async getDoc(docFilename: string, @Response() res) {
-		const file = path.resolve(docFilename);
-		const data = await this.docsService.getDocsStrutucture(file);
+    async getDoc(docFilename: string, @Response() res) {
+        const file = path.resolve(docFilename);
+        const data = await this.docsService.getDocsStrutucture(file);
 
-		return res.render("views/docs/index", {
-			docs: data,
-			services: ServiceRegistry.getServicesArr()
-		});
-	}
+        return res.render('views/docs/index', {
+            docs: data,
+            services: ServiceRegistry.getServicesArr(),
+        });
+    }
 }

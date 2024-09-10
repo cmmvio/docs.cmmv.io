@@ -8,6 +8,7 @@ module.exports = {
 
    cache: {
         store: "@tirke/node-cache-manager-ioredis",
+        getter: "ioRedisStore",
         host: "localhost",
         port: 6379,
         ttl: 600 // Cache TTL (Time-to-Live) in seconds
