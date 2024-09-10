@@ -354,3 +354,74 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
     background-color: #fff;
     border: 1px solid var(--vt-c-brand)
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #1d1d1d;
+    border: 1px solid #2e3035;
+    border-radius: 6px;
+}
+
+table thead {
+    background-color: #2e3035;
+    color: #f7f7f7;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #2e3035;
+    color: #ccd0d5;
+    font-family: 'Source Sans Pro', Helvetica Neue, sans-serif;
+}
+
+table th {
+    font-weight: bold;
+    background-color: #3b3b3d;
+    color: #f7f7f7;
+}
+
+table tbody tr {
+    transition: background-color 0.3s;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #242427;
+}
+
+table tbody tr:hover {
+    background-color: #2a2a2d;
+}
+
+table tbody td {
+    color: #d0d0d4;
+}
+
+table tbody td a {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+table tbody td a:hover {
+    color: #6495ED;
+    text-decoration: underline;
+}
+
+table tbody td code {
+    background-color: #43464c;
+    color: #EFEFFF;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 0.9em;
+}
+
+table thead th {
+    font-size: 16px;
+}
+
+table tbody td {
+    font-size: 14px;
+}

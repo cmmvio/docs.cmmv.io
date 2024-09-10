@@ -223,6 +223,8 @@ The ``s-for`` directive is designed to handle server-side rendering (SSR) of lis
 </div>
 ```
 
+<br/>
+
 * **Pre-Rendering:** The ``s-for`` directive is crucial for SEO as it pre-renders list items with actual data, making the content immediately available for indexing by search engines.
 * **Client-Side Update:** On the client side, the ``c-for`` directive ensures that the content is reactive and can be updated dynamically.
 * **Use with Caution:** As ``s-for`` performs server-side rendering, ensure that the list and its contents are suitable for static pre-rendering. Avoid using it for highly dynamic data that changes frequently on the client side.
@@ -390,6 +392,8 @@ Here’s how individual setups could work in the future, following a model like 
     </div>
 </div>
 ```
+
+<br/>
 
 ```html
 <!-- navbar.html -->

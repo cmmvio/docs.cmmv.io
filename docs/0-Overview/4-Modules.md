@@ -30,6 +30,8 @@ export let DocsModule = new Module({
 });
 ```
 
+<br/>
+
 * **controllers:** An array of controllers that handle HTTP requests and return responses. They manage the application's routes and are responsible for interacting with services.
 * **providers:** A list of services or classes that contain the business logic for your module. These providers are manually instantiated and indexed when needed.
 * **transpilers:** These are responsible for generating necessary files, such as database entities, Protobuf definitions, or other code artifacts based on contracts.

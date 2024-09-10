@@ -1,0 +1,68 @@
+<h1>Scheduling</h1><a id="scheduling" title="Scheduling"></a>
+<p>The <code>@cmmv/scheduling</code> package provides a simple way to schedule tasks in your CMMV application using cron patterns. This module is built using the <code>cron</code> library, and the <code>@Cron</code> decorator allows you to easily schedule methods to run at specific intervals.</p>
+<p>To install the scheduling module, run the following command:</p>
+<pre><code class="hljs language-bash" lang="bash">npm install @cmmv/scheduling
+</code></pre>
+<h2>Usage</h2><a id="usage" title="Usage"></a>
+<p>The <code>@Cron</code> decorator is used to define methods that should be scheduled according to a cron pattern. The scheduling is powered by the cron library, which provides flexible and powerful cron scheduling capabilities.</p>
+<p>After installing the package, you can use the <code>@Cron</code> decorator and the SchedulingService in your project:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cron</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/scheduling&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskService</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">logger</span>: <span class="hljs-title class_">Logger</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;TaskService&#x27;</span>);
+
+    <span class="hljs-meta">@Cron</span>(<span class="hljs-string">&#x27;*/5 * * * * *&#x27;</span>)  <span class="hljs-comment">// Runs every 5 seconds</span>
+    <span class="hljs-title function_">handleTask</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">logger</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Task executed every 5 seconds&#x27;</span>);
+    }
+}
+</code></pre>
+<h2>Setting</h2><a id="setting" title="Setting"></a>
+<p>Ensure that the <code>SchedulingService</code> is initialized during the startup of your application. This will register and start all the scheduled tasks defined with the <code>@Cron</code> decorator.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;dotenv&#x27;</span>).<span class="hljs-title function_">config</span>();
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/ws&#x27;</span>;
+...
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SchedulingModule</span>, <span class="hljs-title class_">SchedulingService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/scheduling&#x27;</span>;
+
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,
+    <span class="hljs-attr">wsAdapter</span>: <span class="hljs-title class_">WSAdapter</span>,
+    <span class="hljs-attr">modules</span>: [
+        ...
+        <span class="hljs-title class_">SchedulingModule</span>
+    ],
+    <span class="hljs-attr">services</span>: [..., <span class="hljs-title class_">SchedulingService</span>]
+});
+</code></pre>
+<h2>Decorator</h2><a id="decorator" title="Decorator"></a>
+<p>The <code>@Cron</code> decorator is used to schedule a method to run based on a cron pattern. It accepts a cron expression as its argument, which defines the schedule.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Cron</span>(<span class="hljs-string">&#x27;*/5 * * * * *&#x27;</span>)  <span class="hljs-comment">// Runs every 5 seconds</span>
+<span class="hljs-title function_">handleTask</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">logger</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Task executed every 5 seconds&#x27;</span>);
+}
+</code></pre>
+<p>The cron patterns follow the standard format used by the cron library:</p>
+<pre><code class="hljs language-scss" lang="scss">*    *    *    *    *    *
+┬    ┬    ┬    ┬    ┬    ┬
+│    │    │    │    │    │
+│    │    │    │    │    └ Day of the week (<span class="hljs-number">0</span> - <span class="hljs-number">7</span>) (Sunday=<span class="hljs-number">0</span> or <span class="hljs-number">7</span>)
+│    │    │    │    └───── Month (<span class="hljs-number">1</span> - <span class="hljs-number">12</span>)
+│    │    │    └────────── Day of the month (<span class="hljs-number">1</span> - <span class="hljs-number">31</span>)
+│    │    └─────────────── Hour (<span class="hljs-number">0</span> - <span class="hljs-number">23</span>)
+│    └──────────────────── Minute (<span class="hljs-number">0</span> - <span class="hljs-number">59</span>)
+└───────────────────────── Second (<span class="hljs-number">0</span> - <span class="hljs-number">59</span>, optional)
+</code></pre>
+<p><strong>Some Sample Cron Patterns</strong></p>
+<p>Here are a few examples of cron patterns you can use with the <code>@Cron</code> decorator:</p>
+<ul>
+<li><code>* * * * * *</code> – Runs every second</li>
+<li><code>*/5 * * * * *</code> – Runs every 5 seconds</li>
+<li><code>0 0 * * * *</code> – Runs every hour</li>
+<li><code>0 0 12 * * *</code> – Runs every day at noon</li>
+<li><code>0 0 1 1 *</code> – Runs at midnight on January 1st</li>
+</ul>
+<p>The <code>@cmmv/scheduling</code> module provides a powerful and flexible way to schedule tasks in a CMMV application using cron patterns. The <code>@Cron</code> decorator makes it easy to define when certain methods should run, and the <code>SchedulingService</code> ensures these tasks are properly managed and executed at runtime.</p>

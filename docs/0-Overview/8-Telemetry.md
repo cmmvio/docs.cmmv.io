@@ -13,7 +13,7 @@ The **Telemetry** class, a singleton, manages telemetry records for processes in
 | `registerPlugin(plugin: any)`               | Allows external plugins to register and extend the telemetry system with additional capabilities.      |
 | `getRecords()`                              | Retrieves all telemetry records currently stored.                                                     |
 
-**Example Telemetry Workflow**
+## Workflow
 
 Start a Telemetry Record: When a request or action starts, the telemetry system logs the start time with the process label.
 
