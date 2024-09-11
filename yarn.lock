@@ -96,10 +96,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@cmmv/core@^0.2.35":
-  version "0.2.35"
-  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.35.tgz#1a8b2749c9d9e9e705f89f574ee55c0ff7e889b1"
-  integrity sha512-7dM0N8LoH8GL+sB8LmUYSfRoQPb+Ac53jycAskS0R91xOSuql/Vyqnw2EW3zz7CBPb7x5Rz0yYR4IAL/KMh44w==
+"@cmmv/core@^0.2.36":
+  version "0.2.36"
+  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.2.36.tgz#af2d21f3b62ab8e1424b492227b237178342c4a3"
+  integrity sha512-4lsAS3BHIFd7W6uVfvOzRoPPZagCVHCh5ofA2QRvbAT9JHnY++/Bcns2CyVtvWrrx0Hnuut0TI5eo7YKOhZSkg==
   dependencies:
     class-transformer "^0.5.1"
     class-validator "^0.14.1"
@@ -110,10 +110,10 @@
     uglify-js "^3.19.3"
     uuid "^10.0.0"
 
-"@cmmv/http@^0.2.35":
-  version "0.2.35"
-  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.35.tgz#587068b34bd2f4d7961cb6c62862f5621cc36d76"
-  integrity sha512-nxS9V/qRfqYd6VO4vOFGeDIsUDTdoafPNkg8ZAg8Qt4YG5xvl5iVfCMNGk015eKQHdr0is7WnJBCQGilP+JrQw==
+"@cmmv/http@^0.2.36":
+  version "0.2.36"
+  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.2.36.tgz#cc170d3f712bcc2977f36b0cb2e1a33dbb19dbb5"
+  integrity sha512-yeBJZRxkFENmC0abm2FSNPAHaca6kWaIj5xc09jQlgR27UOdGxOmGBVtwdMil+0d0DyTOM8tfRFlnO95gU09zg==
   dependencies:
     "@fastify/compress" "^7.0.3"
     "@fastify/cors" "^9.0.1"
@@ -140,10 +140,10 @@
   dependencies:
     "@vue/reactivity" "^3.5.1"
 
-"@cmmv/view@^0.2.35":
-  version "0.2.35"
-  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.35.tgz#5dc2375f9ea93c8ad82ee42421bef53e5b5c61f6"
-  integrity sha512-KwTMWVwaWAoBFFTOmZ2/nJfdjKIQmeNkDgSABhEydpJrKFIp58ylh5H45Vop1D2tZbBUPlCfF9RvHOmNwahBHw==
+"@cmmv/view@^0.2.36":
+  version "0.2.36"
+  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.2.36.tgz#9e2dcbd09583e65176e854cd0605331f55c171ad"
+  integrity sha512-A7TldJua2TCplAg4ck/HlslN8A8D38pyLtkyGbhfxGItqGLbI76InGguJHWBpSweyUU1qgfhKpRb1ZRn7NPhYQ==
   dependencies:
     "@cmmv/reactivity" "^0.0.9"
     fast-glob "^3.3.2"
