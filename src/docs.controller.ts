@@ -35,6 +35,8 @@ export class DocsController {
 
         if (index[fullPath]) this.getDoc(index[fullPath], res);
         else res.status(404).end();
+
+        return false;
     }
 
     async getDoc(docFilename: string, @Response() res) {

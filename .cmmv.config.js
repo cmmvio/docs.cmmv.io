@@ -2,10 +2,36 @@ module.exports = {
     env: process.env.NODE_ENV,
     
     server: {
-        host: "0.0.0.0",
-        port: process.env.PORT || 3000,
-        sessionSecret: process.env.SESSION_SECRET || "secret",
-        sessionCookieName: process.env.SESSION_COOKIENAME || "cmmv-session"
+        host: process.env.HOST || "0.0.0.0",
+        port: process.env.PORT || 3000,        
+        poweredBy: false,
+        removePolicyHeaders: false,
+        compress: {
+            enabled: true,
+            options: {
+                level: 6 
+            }
+        },
+        cors: true,
+        helmet: {
+            enabled: true,
+            options: {
+                contentSecurityPolicy: false
+            }
+        },
+        session: {
+            enabled: true,
+            options: {
+                sessionCookieName: process.env.SESSION_COOKIENAME || "cmmv-session",
+                secret: process.env.SESSION_SECRET || "secret",
+                resave: false,
+                saveUninitialized: false ,
+                cookie: { 
+                    secure: true,
+                    maxAge: 60000 
+                }
+            }
+        }
     },
 
     i18n: {
