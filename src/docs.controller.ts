@@ -21,7 +21,7 @@ export class DocsController {
 
     @Get(':item')
     async getDocHandler(@Param('item') item: string, @Response() res) {
-        if (index[item]) this.getDoc(index[item], res);
+        if (index[item]) await this.getDoc(index[item], res);
         else res.status(404).end();
     }
 
@@ -33,10 +33,8 @@ export class DocsController {
     ) {
         const fullPath = `${dir}/${item}`;
 
-        if (index[fullPath]) this.getDoc(index[fullPath], res);
+        if (index[fullPath]) await this.getDoc(index[fullPath], res);
         else res.status(404).end();
-
-        return false;
     }
 
     async getDoc(docFilename: string, @Response() res) {
