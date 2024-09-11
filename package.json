@@ -33,9 +33,9 @@
 		]
 	},
 	"dependencies": {
-		"@cmmv/core": "^0.3.0",
-		"@cmmv/http": "^0.3.0",
-		"@cmmv/view": "^0.3.0",
+		"@cmmv/core": "^0.3.2",
+		"@cmmv/http": "^0.3.2",
+		"@cmmv/view": "^0.3.2",
 		"dotenv": "^16.4.5",
 		"glob": "^11.0.0",
 		"highlight.js": "^11.10.0",

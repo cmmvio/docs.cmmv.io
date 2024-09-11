@@ -93,6 +93,18 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://cmmv.io/docs/http/services</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/controllers</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/overview</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://cmmv.io/docs/overview/request</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -126,18 +138,6 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/overview/introduction</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/services</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/controllers</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/overview</loc>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>

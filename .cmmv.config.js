@@ -45,7 +45,7 @@ module.exports = {
 
     view: {
         extractInlineScript: true,
-        minifyHTML: false
+        minifyHTML: true
     },
 
     head: {
@@ -94,8 +94,8 @@ module.exports = {
     },
 
     scripts: [
-        { type: "text/javascript", src: "/assets/bundle.min.js", defer: "defer" },
-        { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3", defer: "defer" },
-        { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js", defer: "defer" },
+        { type: "text/javascript", src: "/assets/bundle.min.js", async: "async" },
+        { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3", async: "async" },
+        { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js", async: "async" },
     ]
 };
