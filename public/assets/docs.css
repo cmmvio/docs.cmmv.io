@@ -79,8 +79,8 @@ img {
         transition: transform 0.3s ease-in-out;
     }
 
-    #sidebar-menu.hidden {
-        transform: translateX(0);
+    #sidebar-menu.show {
+        transform: translateX(0) !important;
     }
 
     .anchor{
@@ -339,7 +339,8 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
     --docsearch-logo-color: var(--vt-c-text-2);
     --docsearch-hit-background: var(--vt-c-bg-mute);
     --docsearch-hit-color: var(--vt-c-text-2);
-    --docsearch-hit-shadow: none
+    --docsearch-hit-shadow: none;
+    z-index: 999;
 }
 
 .dark .DocSearch-Footer {

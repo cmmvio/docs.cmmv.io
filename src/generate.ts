@@ -1,12 +1,15 @@
-import * as fs from "fs";
-import * as path from "path";
-import * as MarkdownIt from "markdown-it";
-import hljs from "highlight.js";
-import { glob } from "glob";
+import * as fs from 'fs';
+import * as path from 'path';
+import * as MarkdownIt from 'markdown-it';
+import hljs from 'highlight.js';
+import { glob } from 'glob';
 
 class GenerateDocs {
-    async convertMarkdownToHTML(){
-        hljs.registerLanguage('ts', require('highlight.js/lib/languages/typescript'));
+    async convertMarkdownToHTML() {
+        hljs.registerLanguage(
+            'ts',
+            require('highlight.js/lib/languages/typescript'),
+        );
 
         const markdown = MarkdownIt({
             html: true,
@@ -17,62 +20,88 @@ class GenerateDocs {
                 if (lang && hljs.getLanguage(lang)) {
                     try {
                         return (
-                            '<pre><code class="hljs language-' + lang + '" lang="' + lang + '">' +
-                            hljs.highlight(str, { language: lang }).value + 
+                            '<pre><code class="hljs language-' +
+                            lang +
+                            '" lang="' +
+                            lang +
+                            '">' +
+                            hljs.highlight(str, { language: lang }).value +
                             '</code></pre>'
                         );
                     } catch (__) {}
                 }
 
-                return (
-                    `<pre><code class="hljs">${markdown.utils.escapeHtml(str)}</code></pre>`
-                );
-            }
+                return `<pre><code class="hljs">${markdown.utils.escapeHtml(str)}</code></pre>`;
+            },
         });
-    
-        const docsFiles = await glob(['./docs/**/*.md', './docs/*.md', './packages/**/*.md']);
-    
-        for(let file of docsFiles){
-            if(!file.includes("README") && !file.includes("node_modules")){
-                const content = await fs.readFileSync(path.resolve(file), "utf8");
+
+        const docsFiles = await glob([
+            './docs/**/*.md',
+            './docs/*.md',
+            './packages/**/*.md',
+        ]);
+
+        for (let file of docsFiles) {
+            if (!file.includes('README') && !file.includes('node_modules')) {
+                const content = await fs.readFileSync(
+                    path.resolve(file),
+                    'utf8',
+                );
                 let rendered = await markdown.render(content);
                 rendered = this.fixLinks(rendered);
                 rendered = this.addAnchorLinks(rendered);
-                await fs.writeFileSync(file.replace(".md", ".html"), rendered, "utf8");
+                await fs.writeFileSync(
+                    file.replace('.md', '.html'),
+                    rendered,
+                    'utf8',
+                );
             }
-        } 
+        }
     }
 
-    async generateIndex(){
-        const docsFiles = await glob(['./docs/**/*.html', './docs/*.html', './packages/**/*.html']);
+    async generateIndex() {
+        const docsFiles = await glob([
+            './docs/**/*.html',
+            './docs/*.html',
+            './packages/**/*.html',
+        ]);
         let index = {};
 
-        for(let file of docsFiles){
-            if(!file.includes("README") && !file.includes("node_modules")){
-                const pathFile = encodeURIComponent(file.replace(process.cwd(), "").replace("docs/", "").replace(/\\/g, "/"));
-                index[this.convertLinkToCleanURL(pathFile)] = "./" + file.replace(process.cwd() + "/", "");
+        for (let file of docsFiles) {
+            if (!file.includes('README') && !file.includes('node_modules')) {
+                const pathFile = encodeURIComponent(
+                    file
+                        .replace(process.cwd(), '')
+                        .replace('docs/', '')
+                        .replace(/\\/g, '/'),
+                );
+                index[this.convertLinkToCleanURL(pathFile)] =
+                    './' + file.replace(process.cwd() + '/', '');
             }
         }
 
-        await fs.writeFileSync("docs/index.json", JSON.stringify(index, null, 4));
+        await fs.writeFileSync(
+            'docs/index.json',
+            JSON.stringify(index, null, 4),
+        );
     }
 
     convertLinkToCleanURL(link: string): string {
-        const decodedLink = decodeURIComponent(link);  
-        const pathParts = decodedLink.split('/');  
-    
+        const decodedLink = decodeURIComponent(link);
+        const pathParts = decodedLink.split('/');
+
         const cleanPathParts = pathParts.map(part => {
-            const cleanPart = part            
-                .replace(".html","")
-                .replace(/\d+\s*-\s*/g, '')  
-                .replace(/\s+/g, '-')      
-                .replace(/[^\w\-]+/g, '')    
-                .toLowerCase();           
-    
+            const cleanPart = part
+                .replace('.html', '')
+                .replace(/\d+\s*-\s*/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .toLowerCase();
+
             return cleanPart;
         });
-    
-        const cleanURL = cleanPathParts.filter(Boolean).join('/');  
+
+        const cleanURL = cleanPathParts.filter(Boolean).join('/');
         return cleanURL;
     }
 
@@ -86,21 +115,25 @@ class GenerateDocs {
     addAnchorLinks(html: string): string {
         const headerTags = ['h1', 'h2'];
         const modifiedHtml = headerTags.reduce((html, tag) => {
-        const regex = new RegExp(`(<${tag}[^>]*>)(.*?)(<\/${tag}>)`, 'gi');
-        const matches = html.match(regex);
-    
-        if (matches) {
-            matches.forEach(match => {
-                const text = match.replace(/<\/?[^>]+(>|$)/g, '');
-                const id = text.toLowerCase().replace(/\s/g, '-').replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-                const anchorLink = `<a id="${id}" title="${text}"></a>`;
-                html = html.replace(match, `${match}${anchorLink}`);
-            });
-        }
-    
-        return html;
+            const regex = new RegExp(`(<${tag}[^>]*>)(.*?)(<\/${tag}>)`, 'gi');
+            const matches = html.match(regex);
+
+            if (matches) {
+                matches.forEach(match => {
+                    const text = match.replace(/<\/?[^>]+(>|$)/g, '');
+                    const id = text
+                        .toLowerCase()
+                        .replace(/\s/g, '-')
+                        .replace(/\s+/g, '-')
+                        .replace(/[^\w-]+/g, '');
+                    const anchorLink = `<a id="${id}" title="${text}"></a>`;
+                    html = html.replace(match, `${match}${anchorLink}`);
+                });
+            }
+
+            return html;
         }, html);
-    
+
         return modifiedHtml;
     }
 
@@ -109,11 +142,16 @@ class GenerateDocs {
         let algoliaData = [];
 
         for (let file of docsFiles) {
-            if (!file.includes("README") && !file.includes("node_modules")) {
-                const content = await fs.readFileSync(file, "utf8");
-                const pathFile = encodeURIComponent(file.replace(process.cwd(), "").replace("docs/", "").replace(/\\/g, "/"));
+            if (!file.includes('README') && !file.includes('node_modules')) {
+                const content = await fs.readFileSync(file, 'utf8');
+                const pathFile = encodeURIComponent(
+                    file
+                        .replace(process.cwd(), '')
+                        .replace('docs/', '')
+                        .replace(/\\/g, '/'),
+                );
                 const url = this.convertLinkToCleanURL(pathFile);
-                const hierarchy = this.extractHierarchy(content);  
+                const hierarchy = this.extractHierarchy(content);
                 const cleanedContent = this.cleanContentForAlgolia(content);
 
                 algoliaData.push({
@@ -127,7 +165,10 @@ class GenerateDocs {
             }
         }
 
-        await fs.writeFileSync("docs/algolia.json", JSON.stringify(algoliaData, null, 4));
+        await fs.writeFileSync(
+            'docs/algolia.json',
+            JSON.stringify(algoliaData, null, 4),
+        );
     }
 
     extractHierarchy(htmlContent: string): any {
@@ -138,7 +179,7 @@ class GenerateDocs {
             lvl3: '',
             lvl4: '',
             lvl5: '',
-            lvl6: ''
+            lvl6: '',
         };
 
         const lvl0Match = htmlContent.match(/<h1>(.*?)<\/h1>/);
@@ -154,9 +195,38 @@ class GenerateDocs {
 
     cleanContentForAlgolia(htmlContent: string): string {
         return htmlContent
-            .replace(/<\/?[^>]+(>|$)/g, '') 
-            .replace(/\s+/g, ' ')           
-            .trim();                     
+            .replace(/<\/?[^>]+(>|$)/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    async generateSitemap() {
+        const docsFiles = await glob(['./docs/**/*.html', './docs/*.html']);
+        const baseUrl = 'https://cmmv.io';
+        let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+        sitemap += `  <url>\n`;
+        sitemap += `    <loc>${baseUrl}</loc>\n`;
+        sitemap += `    <changefreq>weekly</changefreq>\n`;
+        sitemap += `  </url>\n`;
+
+        for (let file of docsFiles) {
+            if (!file.includes('README') && !file.includes('node_modules')) {
+                const pathFile = encodeURIComponent(
+                    file.replace(process.cwd(), '').replace(/\\/g, '/'),
+                ).replace('.html', '');
+                const url = this.convertLinkToCleanURL(pathFile);
+
+                sitemap += `  <url>\n`;
+                sitemap += `    <loc>${baseUrl}/${url}</loc>\n`;
+                sitemap += `    <changefreq>weekly</changefreq>\n`;
+                sitemap += `  </url>\n`;
+            }
+        }
+
+        sitemap += `</urlset>`;
+        await fs.writeFileSync('public/sitemap.xml', sitemap, 'utf8');
     }
 }
 
@@ -164,5 +234,6 @@ class GenerateDocs {
     let generator = new GenerateDocs();
     await generator.convertMarkdownToHTML();
     await generator.generateIndex();
-    await generator.generateAlgoliaJSON(); 
+    await generator.generateAlgoliaJSON();
+    await generator.generateSitemap();
 })();

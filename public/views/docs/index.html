@@ -29,7 +29,7 @@
     <div class="flex flex-wrap mx-auto">
         <div 
             id="sidebar-menu"
-            class="w-60 fixed z-40 overflow-auto leftbar bg-neutral-800 h-screen lg:block hidden" 
+            class="w-60 fixed z-40 overflow-auto leftbar bg-neutral-800 h-screen lg:block" 
             c-cloak
         >
             <!-- include('public/views/docs/navbar') -->
@@ -88,7 +88,7 @@
         const sidebarMenu = document.getElementById('sidebar-menu');
         
         toggleButton.addEventListener('click', () => {
-            sidebarMenu.classList.toggle('hidden');
+            sidebarMenu.classList.toggle('show');
         });
 
         updateCurrent();
