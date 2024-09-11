@@ -52,3 +52,5 @@ Thumbs.db
 # compiled templates
 src/app/homepage/pages/**/*.html
 public/assets/*.cached.js
+docs/algolia.json
+docs/index.json
