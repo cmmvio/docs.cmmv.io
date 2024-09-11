@@ -76,9 +76,7 @@ module.exports = {
             { rel: 'shortcut', href: '/assets/favicon/favicon-32x32.png' },
             { rel: 'apple-touch-icon', href: '/assets/favicon/favicon-32x32.png' },
             { rel: "dns-prefetch", href: "https://docs.cmmv.io" },
-            { rel: "preconnect", href: "https://docs.cmmv.io" },    
-            { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@docsearch/css@3" },    
-            { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" },          
+            { rel: "preconnect", href: "https://docs.cmmv.io" },             
             { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
             { rel: "stylesheet", href: "/assets/docs.css" }            
         ]
