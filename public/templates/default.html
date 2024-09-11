@@ -3,7 +3,7 @@
     <head>
         <headers/>
     </head>
-    <body scope> 
+    <body c-show="loaded" :style="{ display: loaded ? 'none' : '' }" scope> 
         <slot/>
         <scripts/>
     </body>
