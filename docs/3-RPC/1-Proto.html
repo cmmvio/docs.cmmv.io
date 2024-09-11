@@ -1,7 +1,7 @@
 <h1>Proto</h1><a id="proto" title="Proto"></a>
-<p>The CMMV framework provides seamless integration between server-side contracts and frontend applications using Protobuf as the communication protocol. By defining contracts in a structured way, CMMV automatically generates Protobuf files and TypeScript types, allowing for a smooth and efficient integration of RPC-based communication.</p>
-<p>In this section, we’ll walk through how the contract definition in the backend is transformed into Protobuf schema, TypeScript types, and integrated into the frontend for real-time binary communication.</p>
-<p>In CMMV, contracts are defined using the @Contract and @ContractField decorators. Below is an example contract for managing tasks:</p>
+<p>The CMMV framework provides seamless integration between server-side contracts and frontend applications using Protobuf as the communication protocol. By defining contracts in a structured way, CMMV automatically generates <a href="https://protobuf.dev/" target="_blank" rel="nofollow">Protobuf</a> files and TypeScript types, allowing for a smooth and efficient integration of RPC-based communication.</p>
+<p>In this section, we’ll walk through how the contract definition in the backend is transformed into <a href="https://protobuf.dev/programming-guides/proto3/" target="_blank" rel="nofollow">Protobuf schema</a>, TypeScript types, and integrated into the frontend for real-time binary communication.</p>
+<p>In CMMV, contracts are defined using the <code>@Contract</code> and <code>@ContractField</code> decorators. Below is an example contract for managing tasks:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { 
 	<span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, 
 	<span class="hljs-title class_">ContractField</span> 
@@ -32,6 +32,7 @@
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+<br/>
 <ul>
 <li><strong>@Contract:</strong> Defines the metadata for the contract, including the name of the controller, the database type (mongodb), the path to the Protobuf file, and the Protobuf package name.</li>
 <li><strong>@ContractField:</strong> Defines individual fields of the contract, specifying their Protobuf type and any additional constraints (e.g., unique values, default values).</li>
@@ -122,10 +123,10 @@ syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
 }
 </code></pre>
 <p>On the frontend, CMMV automatically integrates the Protobuf schema for seamless communication. With WebSocket support and binary communication through Protobuf, the frontend can make RPC (Remote Procedure Call) requests to the server using the defined contract methods.</p>
-<p>By using CMMV’s auto-generated functions, such as AddTaskRequest, UpdateTaskRequest, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.</p>
+<p>By using CMMV’s auto-generated functions, such as <code>AddTaskRequest</code>, <code>UpdateTaskRequest</code>, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.</p>
 <h2>Frontend</h2><a id="frontend" title="Frontend"></a>
 <p>On the frontend, CMMV automatically integrates the Protobuf schema for seamless communication. With WebSocket support and binary communication through Protobuf, the frontend can make RPC (Remote Procedure Call) requests to the server using the defined contract methods.</p>
-<p>By using CMMV’s auto-generated functions, such as AddTaskRequest, UpdateTaskRequest, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.</p>
+<p>By using CMMV’s auto-generated functions, such as <code>AddTaskRequest</code>, <code>UpdateTaskRequest</code>, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-box&quot;</span> <span class="hljs-attr">scope</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;todo&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 
@@ -199,10 +200,14 @@ syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
             }
         },
 
-        <span class="hljs-title class_">AddTaskResponse</span>(data) { <span class="hljs-variable language_">this</span>.<span class="hljs-title class_">UpdateTaskResponse</span>(data); },
+        <span class="hljs-title class_">AddTaskResponse</span>(data) { 
+          <span class="hljs-variable language_">this</span>.<span class="hljs-title class_">UpdateTaskResponse</span>(data); 
+        },
 
         <span class="hljs-title class_">UpdateTaskResponse</span>(data) {
-            <span class="hljs-keyword">const</span> index = <span class="hljs-variable language_">this</span>.<span class="hljs-property">todolist</span>.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-property">id</span> === data.<span class="hljs-property">id</span>);
+            <span class="hljs-keyword">const</span> index = <span class="hljs-variable language_">this</span>.<span class="hljs-property">todolist</span>.<span class="hljs-title function_">findIndex</span>(
+              <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-property">id</span> === data.<span class="hljs-property">id</span>
+            );
             
             <span class="hljs-keyword">if</span> (index !== -<span class="hljs-number">1</span>) 
                 <span class="hljs-variable language_">this</span>.<span class="hljs-property">todolist</span>[index] = { ...data.<span class="hljs-property">item</span>, <span class="hljs-attr">id</span>: data.<span class="hljs-property">id</span> };

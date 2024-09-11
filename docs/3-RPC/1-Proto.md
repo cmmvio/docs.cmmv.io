@@ -1,10 +1,10 @@
 # Proto
 
-The CMMV framework provides seamless integration between server-side contracts and frontend applications using Protobuf as the communication protocol. By defining contracts in a structured way, CMMV automatically generates Protobuf files and TypeScript types, allowing for a smooth and efficient integration of RPC-based communication.
+The CMMV framework provides seamless integration between server-side contracts and frontend applications using Protobuf as the communication protocol. By defining contracts in a structured way, CMMV automatically generates [Protobuf](https://protobuf.dev/) files and TypeScript types, allowing for a smooth and efficient integration of RPC-based communication.
 
-In this section, we'll walk through how the contract definition in the backend is transformed into Protobuf schema, TypeScript types, and integrated into the frontend for real-time binary communication.
+In this section, we'll walk through how the contract definition in the backend is transformed into [Protobuf schema](https://protobuf.dev/programming-guides/proto3/), TypeScript types, and integrated into the frontend for real-time binary communication.
 
-In CMMV, contracts are defined using the @Contract and @ContractField decorators. Below is an example contract for managing tasks:
+In CMMV, contracts are defined using the ``@Contract`` and ``@ContractField`` decorators. Below is an example contract for managing tasks:
 
 ```typescript
 import { 
@@ -37,6 +37,8 @@ export class TasksContract extends AbstractContract {
     removed: boolean;
 }
 ```
+
+<br/>
 
 * **@Contract:** Defines the metadata for the contract, including the name of the controller, the database type (mongodb), the path to the Protobuf file, and the Protobuf package name.
 * **@ContractField:** Defines individual fields of the contract, specifying their Protobuf type and any additional constraints (e.g., unique values, default values).
@@ -136,13 +138,13 @@ export interface GetAllTaskResponse {
 
 On the frontend, CMMV automatically integrates the Protobuf schema for seamless communication. With WebSocket support and binary communication through Protobuf, the frontend can make RPC (Remote Procedure Call) requests to the server using the defined contract methods.
 
-By using CMMV's auto-generated functions, such as AddTaskRequest, UpdateTaskRequest, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.
+By using CMMV's auto-generated functions, such as ``AddTaskRequest``, ``UpdateTaskRequest``, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.
 
 ## Frontend
 
 On the frontend, CMMV automatically integrates the Protobuf schema for seamless communication. With WebSocket support and binary communication through Protobuf, the frontend can make RPC (Remote Procedure Call) requests to the server using the defined contract methods.
 
-By using CMMV's auto-generated functions, such as AddTaskRequest, UpdateTaskRequest, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.
+By using CMMV's auto-generated functions, such as ``AddTaskRequest``, ``UpdateTaskRequest``, etc., developers can interact with the backend contract without writing additional code for parsing and validation. The functions are available directly in the context of the view, enabling effortless interaction from the UI.
 
 ```html
 <div class="todo-box" scope>
@@ -218,10 +220,14 @@ export default {
             }
         },
 
-        AddTaskResponse(data) { this.UpdateTaskResponse(data); },
+        AddTaskResponse(data) { 
+          this.UpdateTaskResponse(data); 
+        },
 
         UpdateTaskResponse(data) {
-            const index = this.todolist.findIndex(item => item.id === data.id);
+            const index = this.todolist.findIndex(
+              item => item.id === data.id
+            );
             
             if (index !== -1) 
                 this.todolist[index] = { ...data.item, id: data.id };

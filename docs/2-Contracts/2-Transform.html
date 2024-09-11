@@ -1,5 +1,5 @@
 <h1>Transform</h1><a id="transform" title="Transform"></a>
-<p>In CMMV, you can <code>transform</code> data within contracts using the transform parameter in the field decorator. The system utilizes the <code>class-transformer</code> <a href="https://www.npmjs.com/package/class-transformer" target="_blank" rel="nofollow">https://www.npmjs.com/package/class-transformer</a> library to handle these transformations. This is particularly useful for converting input data into the appropriate format for entity and model classes, which are necessary for interactions with repositories, among other functionalities.</p>
+<p>In CMMV, you can <code>transform</code> data within contracts using the transform parameter in the field decorator. The system utilizes the <code>class-transformer</code> (<a href="https://www.npmjs.com/package/class-transformer" target="_blank" rel="nofollow">NPM</a>) library to handle these transformations. This is particularly useful for converting input data into the appropriate format for entity and model classes, which are necessary for interactions with repositories, among other functionalities.</p>
 <ul>
 <li><strong><code>exclude:</code></strong> Removes the field during serialization or deserialization.</li>
 <li><strong><code>toClassOnly:</code></strong> Ensures that the transformation is only applied when converting to a class instance (useful for data integrity).</li>
@@ -18,14 +18,17 @@
     <span class="hljs-meta">@ContractField</span>({
         <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
         <span class="hljs-attr">validations</span>: [<span class="hljs-string">&quot;IsString&quot;</span>],
-        <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">{ value }</span>) =&gt;</span> value.<span class="hljs-title function_">toUpperCase</span>(),  <span class="hljs-comment">// Example of simple transformation</span>
+        <span class="hljs-comment">// Example of simple transformation</span>
+        <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">{ value }</span>) =&gt;</span> value.<span class="hljs-title function_">toUpperCase</span>(),  
     })
     <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-meta">@ContractField</span>({
         <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
-        <span class="hljs-attr">exclude</span>: <span class="hljs-literal">false</span>,  <span class="hljs-comment">// This field will be excluded in output</span>
-        <span class="hljs-attr">toClassOnly</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Will be processed only when converting to class</span>
+        <span class="hljs-comment">// This field will be excluded in output</span>
+        <span class="hljs-attr">exclude</span>: <span class="hljs-literal">false</span>,  
+        <span class="hljs-comment">// Will be processed only when converting to class</span>
+        <span class="hljs-attr">toClassOnly</span>: <span class="hljs-literal">true</span>,  
         <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">{ value }</span>) =&gt;</span> 
             crypto.<span class="hljs-title function_">createHash</span>(<span class="hljs-string">&#x27;sha256&#x27;</span>)
             .<span class="hljs-title function_">update</span>(value).<span class="hljs-title function_">digest</span>(<span class="hljs-string">&#x27;hex&#x27;</span>),  <span class="hljs-comment">// Hash the value</span>
@@ -49,8 +52,10 @@
 </code></pre>
 <p>Here’s what happens when plainToClass(UsersContract, input) is applied:</p>
 <pre><code class="hljs language-typescript" lang="typescript">{
-    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;JOHN DOE&quot;</span>,   <span class="hljs-comment">// Transformed to uppercase as specified</span>
-    <span class="hljs-attr">password</span>: <span class="hljs-literal">undefined</span> <span class="hljs-comment">// Not included in output due to `exclude` and `toClassOnly` options</span>
+    <span class="hljs-comment">// Transformed to uppercase as specified</span>
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;JOHN DOE&quot;</span>,
+    <span class="hljs-comment">// Not included in output due to `exclude` and `toClassOnly` options   </span>
+    <span class="hljs-attr">password</span>: <span class="hljs-literal">undefined</span> 
 }
 </code></pre>
 <br/>
@@ -63,8 +68,10 @@
 <p><strong>Example Without Exclude</strong></p>
 <p>If we remove the <code>exclude: true</code> option for password, it will still be hashed but included in the output:</p>
 <pre><code class="hljs language-typescript" lang="typescript">{
-    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;JOHN DOE&quot;</span>,   <span class="hljs-comment">// Transformed to uppercase</span>
-    <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;5e884898da28047151d0e56f...&quot;</span>  <span class="hljs-comment">// Hashed password</span>
+    <span class="hljs-comment">// Transformed to uppercase</span>
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;JOHN DOE&quot;</span>,   
+    <span class="hljs-comment">// Hashed password</span>
+    <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;5e884898da28047151d0e56f...&quot;</span>  
 }
 </code></pre>
 <p>In this case, the <code>transform</code> function is applied, and the password is hashed, but it is not excluded from the output anymore. The <code>toClassOnly: true</code> ensures the transformation is only applied when converting to a class.</p>

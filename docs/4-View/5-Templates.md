@@ -113,8 +113,12 @@ After setting up a view with a master template, the rendered page might look lik
     <head>
         <meta name="description" content="Admin Panel">
         <meta name="keywords" content="admin, cmmv, dashboard">
-        <link rel="stylesheet" href="/assets/styles/admin.css" nonce="a1b2c3">
-        <link rel="canonical" href="https://admin.cmmv.io">
+        <link 
+            rel="stylesheet" 
+            href="/assets/styles/admin.css" 
+            nonce="a1b2c3"
+        />
+        <link rel="canonical" href="https://admin.cmmv.io" />
     </head>
     <body scope> 
         <!-- Main content of the view -->
@@ -123,7 +127,11 @@ After setting up a view with a master template, the rendered page might look lik
         </div>
 
         <!-- Scripts -->
-        <script src="/assets/js/admin-dashboard.js" async nonce="a1b2c3"></script>
+        <script 
+            src="/assets/js/admin-dashboard.js" 
+            async 
+            nonce="a1b2c3"
+        ></script>
     </body>
 </html>
 ```

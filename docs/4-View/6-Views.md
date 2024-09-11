@@ -8,7 +8,9 @@ Here is an example of a view structure using the ``docs`` section of the applica
 
 ```html
 <div id="app" s:docs="docs" c-cloak>
-    <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
+    <nav 
+        class="navbar bg-neutral-800 h-16 top-0 w-full fixed ..."
+    >
         <div class="max-w-8xl mx-auto flex container items-center">
             <button 
                 id="menu-toggle" 
@@ -96,7 +98,10 @@ Here is an example of a view structure using the ``docs`` section of the applica
             :data-opened="false"
             @click.stop="navbar[item?.name.replace(/\s/, `_`)] = toggle(...">
             <div class="flex flex-1 font-bold ...">
-                <h3 c-if="item && item?.isDir" class="text-white">{{ item?.name }}</h3>
+                <h3 
+                    c-if="item && item?.isDir" 
+                    class="text-white"
+                >{{ item?.name }}</h3>
                 <span c-else class="text-white">{{ item?.name }}</span>
             </div>
             <div class="justify-between cursor-pointer" c-if="item?.isDir">
@@ -106,7 +111,7 @@ Here is an example of a view structure using the ``docs`` section of the applica
         <ul c-if="item && item.children && item.children.length > 0"
             :id="`${item?.name.replace(/\s/, `_`)}_contents`"
             class="p-4 py-1 text-md mb-4"
-            :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : 'display: none;'">
+            :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : ...">
             <li c-for="(child) in item.children">
                 <div class="hover:text-..." style="font-size: 12px">
                     <a :href="child.uri" class="text-base">{{ child.name }}</a>
@@ -150,7 +155,10 @@ export default {
 
     methods: {
         loadState(){
-            this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
+            this.navbar = JSON.parse(
+                localStorage.getItem('navbarState')
+            ) || {};
+            
             return this.navbar;
         },
 

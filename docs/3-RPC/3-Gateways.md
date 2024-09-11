@@ -60,14 +60,22 @@ export class TaskGateway {
     @Message("GetAllTaskRequest")
     async getAll(@Socket() socket) {
         const items = await this.taskService.getAll();
-        const response = await RpcUtils.pack("task", "GetAllTaskResponse", items);
+
+        const response = await RpcUtils.pack(
+            "task", "GetAllTaskResponse", items
+        );
+
         socket.send(response);
     }
 
     @Message("AddTaskRequest")
     async add(@Data() data, @Socket() socket) {
         const result = await this.taskService.add(data.item);
-        const response = await RpcUtils.pack("task", "AddTaskResponse", { item: result });
+
+        const response = await RpcUtils.pack(
+            "task", "AddTaskResponse", { item: result }
+        );
+
         socket.send(response);
     }
 }
@@ -98,7 +106,9 @@ Next, the system retrieves the contract and message type from the ``ProtoRegistr
 
 ```typescript
 const contract = ProtoRegistry.retrieveByIndex(message.contract);
-const typeName = ProtoRegistry.retrieveTypes(message.contract, message.message);
+const typeName = ProtoRegistry.retrieveTypes(
+    message.contract, message.message
+);
 ```
 <br/>
 
@@ -109,8 +119,13 @@ Once the contract and message type are identified, the interceptor checks if the
 
 ```typescript
 if (contract && this.registeredMessages.has(typeName)) {
-    const { instance, handlerName, params } = this.registeredMessages.get(typeName);
-    const realMessage = contract.lookupType(typeName).decode(message.data);
+    const { 
+        instance, handlerName, params 
+    } = this.registeredMessages.get(typeName);
+
+    const realMessage = contract
+    .lookupType(typeName)
+    .decode(message.data);
 }
 ```
 
@@ -158,7 +173,9 @@ This method generates a Protobuf-encoded buffer from a JavaScript object using a
 * **``Promise<Uint8Array | null>:``** A promise that resolves to a ``Uint8Array`` representing the encoded Protobuf message, or null if an error occurs.
 
 ```typescript
-const buffer = await RpcUtils.generateBuffer('myProtoFile', 'MyMessage', { id: 1, name: 'example' });
+const buffer = await RpcUtils.generateBuffer(
+    'myProtoFile', 'MyMessage', { id: 1, name: 'example' }
+);
 
 if (buffer) {
     // buffer is ready to be sent via WebSocket or saved
@@ -182,7 +199,9 @@ The ``pack`` method prepares a Protobuf-encoded message for RPC communication. I
 * **``Promise<Uint8Array | null>``:** A promise that resolves to a ``Uint8Array`` representing the packed message, or ``null`` if an error occurs.
 
 ```typescript
-const packedMessage = await RpcUtils.pack('TaskContract', 'AddTaskRequest', { taskId: 1, taskLabel: 'New Task' });
+const packedMessage = await RpcUtils.pack(
+    'TaskContract', 'AddTaskRequest', { taskId: 1, taskLabel: 'New Task' }
+);
 
 if (packedMessage) {
     // ready to send packed message via WebSocket or other binary protocol

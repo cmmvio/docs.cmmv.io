@@ -4,6 +4,28 @@
 <p>To use the <code>@cmmv/repository</code> module in your project, you can install it via npm:</p>
 <pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/repository
 </code></pre>
+<p>In addition to installing the <code>@cmmv/repository</code> module, depending on the database type you are using, you will need to install the respective database driver.</p>
+<p><strong>Supported Databases and Drivers</strong></p>
+<p>TypeORM supports multiple database systems, and each system requires the appropriate npm package to function correctly. Here is a list of supported databases along with the corresponding driver to install:</p>
+<p><strong>SQLite:</strong> <a href="https://www.npmjs.com/package/sqlite3" target="_blank" rel="nofollow">NPM</a></p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install sqlite3
+</code></pre>
+<p><strong>MySQL / MariaDB:</strong> <a href="https://www.npmjs.com/package/mysql2" target="_blank" rel="nofollow">NPM</a></p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install mysql2
+</code></pre>
+<p><strong>PostgreSQL:</strong> <a href="https://www.npmjs.com/package/pg" target="_blank" rel="nofollow">NPM</a></p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install pg
+</code></pre>
+<p><strong>Microsoft SQL Server:</strong> <a href="https://www.npmjs.com/package/mssql" target="_blank" rel="nofollow">NPM</a></p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install mssql
+</code></pre>
+<p><strong>Oracle:</strong> <a href="https://www.npmjs.com/package/oracledb" target="_blank" rel="nofollow">NPM</a></p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install oracledb
+</code></pre>
+<p><strong>MongoDB:</strong> <a href="https://www.npmjs.com/package/mongodb" target="_blank" rel="nofollow">NPM</a></p>
+<pre><code class="hljs language-bash" lang="bash">$ npm install mongodb
+</code></pre>
+<p>Once you install the module and the corresponding database driver, you can configure your database connection in the <code>.cmmv.config.js</code> file. TypeORM will automatically use the appropriate driver based on the configuration.</p>
 <h2>Purpose</h2><a id="purpose" title="Purpose"></a>
 <p>The <code>@cmmv/repository</code> module simplifies the process of integrating database entities and services for CRUD operations by leveraging contracts defined using <code>@cmmv/core</code>. It automatically transpiles contracts into TypeORM entities and provides a standardized way to manage interactions with the database.</p>
 <ul>

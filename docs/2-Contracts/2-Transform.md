@@ -1,6 +1,6 @@
 # Transform
 
-In CMMV, you can ``transform`` data within contracts using the transform parameter in the field decorator. The system utilizes the ``class-transformer`` [https://www.npmjs.com/package/class-transformer](https://www.npmjs.com/package/class-transformer) library to handle these transformations. This is particularly useful for converting input data into the appropriate format for entity and model classes, which are necessary for interactions with repositories, among other functionalities.
+In CMMV, you can ``transform`` data within contracts using the transform parameter in the field decorator. The system utilizes the ``class-transformer`` ([NPM](https://www.npmjs.com/package/class-transformer)) library to handle these transformations. This is particularly useful for converting input data into the appropriate format for entity and model classes, which are necessary for interactions with repositories, among other functionalities.
 
 * **``exclude:``** Removes the field during serialization or deserialization.
 * **``toClassOnly:``** Ensures that the transformation is only applied when converting to a class instance (useful for data integrity).
@@ -21,14 +21,17 @@ export class UsersContract extends AbstractContract {
     @ContractField({
         protoType: 'string',
         validations: ["IsString"],
-        transform: ({ value }) => value.toUpperCase(),  // Example of simple transformation
+        // Example of simple transformation
+        transform: ({ value }) => value.toUpperCase(),  
     })
     name: string;
 
     @ContractField({
         protoType: 'string',
-        exclude: false,  // This field will be excluded in output
-        toClassOnly: true,  // Will be processed only when converting to class
+        // This field will be excluded in output
+        exclude: false,  
+        // Will be processed only when converting to class
+        toClassOnly: true,  
         transform: ({ value }) => 
             crypto.createHash('sha256')
             .update(value).digest('hex'),  // Hash the value
@@ -60,8 +63,10 @@ Here’s what happens when plainToClass(UsersContract, input) is applied:
 
 ```typescript
 {
-    name: "JOHN DOE",   // Transformed to uppercase as specified
-    password: undefined // Not included in output due to `exclude` and `toClassOnly` options
+    // Transformed to uppercase as specified
+    name: "JOHN DOE",
+    // Not included in output due to `exclude` and `toClassOnly` options   
+    password: undefined 
 }
 ```
 
@@ -78,8 +83,10 @@ If we remove the ``exclude: true`` option for password, it will still be hashed 
 
 ```typescript
 {
-    name: "JOHN DOE",   // Transformed to uppercase
-    password: "5e884898da28047151d0e56f..."  // Hashed password
+    // Transformed to uppercase
+    name: "JOHN DOE",   
+    // Hashed password
+    password: "5e884898da28047151d0e56f..."  
 }
 ```
 

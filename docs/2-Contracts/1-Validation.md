@@ -1,6 +1,6 @@
 # Validation
 
-CMMV supports automatic contract validation using the ``class-validator`` ([https://www.npmjs.com/package/class-validator](https://www.npmjs.com/package/class-validator)) module. During data insertion and update operations, CMMV can apply validation rules to contract fields, ensuring that data meets the defined criteria before being processed. You can specify validation rules for each field by adding the validations parameter.
+CMMV supports automatic contract validation using the ``class-validator`` ([NPM](https://www.npmjs.com/package/class-validator)) module. During data insertion and update operations, CMMV can apply validation rules to contract fields, ensuring that data meets the defined criteria before being processed. You can specify validation rules for each field by adding the validations parameter.
 
 These validations are executed automatically during ``insert`` and ``update`` operations, and the system will return errors if any validation fails.
 
@@ -221,7 +221,9 @@ async add(item: ITask, req?: any): Promise<TaskEntity> {
             }); 
 
             // Validate the newItem with class-validator
-            const errors = await validate(newItem, { skipMissingProperties: true });
+            const errors = await validate(newItem, { 
+                skipMissingProperties: true 
+            });
             
             if (errors.length > 0) {
                 // If validation fails, return the errors
@@ -229,8 +231,10 @@ async add(item: ITask, req?: any): Promise<TaskEntity> {
                 reject(errors);
             } 
             else {                   
-                // If validation passes, proceed with the repository insert operation
-                const result = await Repository.insert<TaskEntity>(TaskEntity, newItem);
+                // If validation passes, proceed with the repository
+                const result = await Repository.insert<TaskEntity>(
+                    TaskEntity, newItem
+                );
                 Telemetry.end('TaskService::Add', req?.requestId);
                 resolve(result);                    
             }

@@ -278,8 +278,13 @@ export default {
     },
     methods: {
         loadState() {
-            this.navbarState = JSON.parse(localStorage.getItem('navbarState')) || {};
-            this.contentData = { message: 'Dynamically loaded content.' };
+            this.navbarState = JSON.parse(
+                localStorage.getItem('navbarState')
+            ) || {};
+
+            this.contentData = { 
+                message: 'Dynamically loaded content.' 
+            };
         }
     }
 };
@@ -327,7 +332,10 @@ export default {
 
     methods: {
         loadState() {
-            this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
+            this.navbar = JSON.parse(
+                localStorage.getItem('navbarState')
+            ) || {};
+            
             return this.navbar;
         },
 

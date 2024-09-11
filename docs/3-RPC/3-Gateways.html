@@ -62,14 +62,22 @@
     <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;GetAllTaskRequest&quot;</span>)
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-params"><span class="hljs-meta">@Socket</span>() socket</span>) {
         <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">getAll</span>();
-        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;GetAllTaskResponse&quot;</span>, items);
+
+        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+            <span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;GetAllTaskResponse&quot;</span>, items
+        );
+
         socket.<span class="hljs-title function_">send</span>(response);
     }
 
     <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;AddTaskRequest&quot;</span>)
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() data, <span class="hljs-meta">@Socket</span>() socket</span>) {
         <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskService</span>.<span class="hljs-title function_">add</span>(data.<span class="hljs-property">item</span>);
-        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;AddTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result });
+
+        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+            <span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;AddTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result }
+        );
+
         socket.<span class="hljs-title function_">send</span>(response);
     }
 }
@@ -90,7 +98,9 @@ This approach ensures that communication between clients and the server is not o
 </code></pre>
 <p>Next, the system retrieves the contract and message type from the <code>ProtoRegistry</code>:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> contract = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveByIndex</span>(message.<span class="hljs-property">contract</span>);
-<span class="hljs-keyword">const</span> typeName = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveTypes</span>(message.<span class="hljs-property">contract</span>, message.<span class="hljs-property">message</span>);
+<span class="hljs-keyword">const</span> typeName = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveTypes</span>(
+    message.<span class="hljs-property">contract</span>, message.<span class="hljs-property">message</span>
+);
 </code></pre>
 <br/>
 <ul>
@@ -99,8 +109,13 @@ This approach ensures that communication between clients and the server is not o
 </ul>
 <p>Once the contract and message type are identified, the interceptor checks if the message type has a registered handler:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">if</span> (contract &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">has</span>(typeName)) {
-    <span class="hljs-keyword">const</span> { instance, handlerName, params } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">get</span>(typeName);
-    <span class="hljs-keyword">const</span> realMessage = contract.<span class="hljs-title function_">lookupType</span>(typeName).<span class="hljs-title function_">decode</span>(message.<span class="hljs-property">data</span>);
+    <span class="hljs-keyword">const</span> { 
+        instance, handlerName, params 
+    } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">get</span>(typeName);
+
+    <span class="hljs-keyword">const</span> realMessage = contract
+    .<span class="hljs-title function_">lookupType</span>(typeName)
+    .<span class="hljs-title function_">decode</span>(message.<span class="hljs-property">data</span>);
 }
 </code></pre>
 <p>Finally, the handler is executed with the mapped arguments:</p>
@@ -153,7 +168,9 @@ This approach ensures that communication between clients and the server is not o
 <ul>
 <li><strong><code>Promise&lt;Uint8Array | null&gt;:</code></strong> A promise that resolves to a <code>Uint8Array</code> representing the encoded Protobuf message, or null if an error occurs.</li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">generateBuffer</span>(<span class="hljs-string">&#x27;myProtoFile&#x27;</span>, <span class="hljs-string">&#x27;MyMessage&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;example&#x27;</span> });
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">generateBuffer</span>(
+    <span class="hljs-string">&#x27;myProtoFile&#x27;</span>, <span class="hljs-string">&#x27;MyMessage&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;example&#x27;</span> }
+);
 
 <span class="hljs-keyword">if</span> (buffer) {
     <span class="hljs-comment">// buffer is ready to be sent via WebSocket or saved</span>
@@ -174,7 +191,9 @@ This approach ensures that communication between clients and the server is not o
 <ul>
 <li><strong><code>Promise&lt;Uint8Array | null&gt;</code>:</strong> A promise that resolves to a <code>Uint8Array</code> representing the packed message, or <code>null</code> if an error occurs.</li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> packedMessage = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&#x27;TaskContract&#x27;</span>, <span class="hljs-string">&#x27;AddTaskRequest&#x27;</span>, { <span class="hljs-attr">taskId</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">taskLabel</span>: <span class="hljs-string">&#x27;New Task&#x27;</span> });
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> packedMessage = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+    <span class="hljs-string">&#x27;TaskContract&#x27;</span>, <span class="hljs-string">&#x27;AddTaskRequest&#x27;</span>, { <span class="hljs-attr">taskId</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">taskLabel</span>: <span class="hljs-string">&#x27;New Task&#x27;</span> }
+);
 
 <span class="hljs-keyword">if</span> (packedMessage) {
     <span class="hljs-comment">// ready to send packed message via WebSocket or other binary protocol</span>

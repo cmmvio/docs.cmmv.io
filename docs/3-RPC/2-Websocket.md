@@ -65,7 +65,9 @@ export class TaskGateway {
     async getAll(@Socket() socket) {
         try {
             const items = await this.taskservice.getAll();
-            const response = await RpcUtils.pack("task", "GetAllTaskResponse", items);
+            const response = await RpcUtils.pack(
+                "task", "GetAllTaskResponse", items
+            );
 
             if (response)
                 socket.send(response);
@@ -79,7 +81,9 @@ export class TaskGateway {
         try {
             const entity = plainToClass(TaskEntity, data.item);
             const result = await this.taskservice.add(entity);
-            const response = await RpcUtils.pack("task", "AddTaskResponse", { item: result, id: result.id });
+            const response = await RpcUtils.pack(
+                "task", "AddTaskResponse", { item: result, id: result.id }
+            );
 
             if (response)
                 socket.send(response);
@@ -93,7 +97,9 @@ export class TaskGateway {
         try {
             const entity = plainToClass(TaskEntity, data.item);
             const result = await this.taskservice.update(data.id, entity);
-            const response = await RpcUtils.pack("task", "UpdateTaskResponse", { item: result, id: result.id });
+            const response = await RpcUtils.pack(
+                "task", "UpdateTaskResponse", { item: result, id: result.id }
+            );
 
             if (response)
                 socket.send(response);
@@ -106,7 +112,9 @@ export class TaskGateway {
     async delete(@Data() data: DeleteTaskRequest, @Socket() socket) {
         try {
             const result = (await this.taskservice.delete(data.id)).success;
-            const response = await RpcUtils.pack("task", "DeleteTaskResponse", { success: result, id: data.id });
+            const response = await RpcUtils.pack(
+                "task", "DeleteTaskResponse", { success: result, id: data.id }
+            );
 
             if (response)
                 socket.send(response);

@@ -1,6 +1,44 @@
 # Cache
 
-The ``@cmmv/cache`` module integrates with cache-manager for in-memory cache management. By default, it includes ``@tirke/node-cache-manager-ioredis`` [Github](https://github.com/Tirke/node-cache-manager-stores/blob/main/packages/node-cache-manager-ioredis/README.md) for using Redis as a cache store, but it supports any store that works with ``cache-manager``. Configuration is done through the ``.cmmv.config.js`` file. Here's an example configuration:
+The ``@cmmv/cache`` module integrates with ``cache-manager`` to provide in-memory cache management. By default, it includes support for Redis using the ``@tirke/node-cache-manager-ioredis`` package, but it also supports other cache stores that are compatible with ``cache-manager``.
+
+To install the ``@cmmv/cache`` module, use npm:
+
+```bash
+$ npm install @cmmv/cache
+```
+
+If you're planning to use Redis or other stores, you'll need to install the appropriate package based on the cache store you intend to use.
+
+**Supported Cache Stores and Drivers**
+
+``cache-manager`` supports various cache stores, and you can configure your store based on your requirements. Here are the supported stores and their respective drivers:
+
+**Redis:** [Github](https://github.com/Tirke/node-cache-manager-stores/tree/main)
+
+```bash
+$ npm install @tirke/node-cache-manager-ioredis
+```
+
+**Memcached:** [Github](https://github.com/theogravity/node-cache-manager-memcached-store)
+
+```bash
+$ npm install cache-manager-memcached-store
+```
+
+**MongoDB:** [Github](https://github.com/v4l3r10/node-cache-manager-mongodb)
+
+```bash
+$ npm install cache-manager-mongodb
+```
+
+**Filesystem Binary:** [Github](https://github.com/sheershoff/node-cache-manager-fs-binary)
+
+```bash
+$ npm install cache-manager-fs-binary
+```
+
+## Configuration
 
 ```javascript
 module.exports = {
@@ -24,14 +62,6 @@ module.exports = {
 * **ttl:** Defines the default time-to-live for cache entries (in seconds).
 
 To find out all the possible configurations, visit [NPM](https://www.npmjs.com/package/cache-manager)
-
-**Installation**
-
-To use the ``@cmmv/cache`` module in your project, you can install it via npm:
-
-```bash
-$ npm install @cmmv/cache
-```
 
 ## Cache Decorator
 
@@ -383,7 +413,11 @@ export class TaskGateway {
     @Cache("task:getAll", { ttl: 300, compress: true }) // Cache decorator
     async getAll(@Socket() socket) {
         const items = await this.taskservice.getAll();
-        const response = await RpcUtils.pack("task", "GetAllTaskResponse", items);
+
+        const response = await RpcUtils.pack(
+            "task", "GetAllTaskResponse", items
+        );
+
         socket.send(response);
     }
 
@@ -391,14 +425,18 @@ export class TaskGateway {
     async add(@Data() data: AddTaskRequest, @Socket() socket) {
         const entity = plainToClass(TaskEntity, data.item);
         const result = await this.taskservice.add(entity);
-        const response = await RpcUtils.pack("task", "AddTaskResponse", { 
-            item: result, id: result.id 
-        });
+
+        const response = await RpcUtils.pack(
+            "task", "AddTaskResponse", 
+            { item: result, id: result.id }
+        );
+
         CacheService.set(// Manual cache update
             `task:${result.id}`, 
             JSON.stringify(result), 
             300
         ); 
+
         socket.send(response);
     }
 
@@ -406,26 +444,33 @@ export class TaskGateway {
     async update(@Data() data: UpdateTaskRequest, @Socket() socket) {
         const entity = plainToClass(TaskEntity, data.item);
         const result = await this.taskservice.update(data.id, entity);
-        const response = await RpcUtils.pack("task", "UpdateTaskResponse", { 
-            item: result, id: result.id 
-        });
+
+        const response = await RpcUtils.pack(
+            "task", "UpdateTaskResponse", 
+            {  item: result, id: result.id }
+        );
+
         CacheService.set(// Manual cache update
             `task:${result.id}`, 
             JSON.stringify(result), 
             300
         ); 
+
         socket.send(response);
     }
 
     @Message("DeleteTaskRequest")
     async delete(@Data() data: DeleteTaskRequest, @Socket() socket) {
         const result = (await this.taskservice.delete(data.id)).success;
+
         const response = await RpcUtils.pack(
             "task", 
             "DeleteTaskResponse", 
             { success: result, id: data.id }
         );
+
         CacheService.del(`task:${data.id}`); // Cache deletion
+        
         socket.send(response);
     }
 }

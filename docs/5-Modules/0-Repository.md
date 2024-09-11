@@ -10,6 +10,50 @@ To use the ``@cmmv/repository`` module in your project, you can install it via n
 $ npm install @cmmv/repository
 ```
 
+In addition to installing the ``@cmmv/repository`` module, depending on the database type you are using, you will need to install the respective database driver.
+
+**Supported Databases and Drivers**
+
+TypeORM supports multiple database systems, and each system requires the appropriate npm package to function correctly. Here is a list of supported databases along with the corresponding driver to install:
+
+**SQLite:** [NPM](https://www.npmjs.com/package/sqlite3)
+
+```bash
+$ npm install sqlite3
+```
+
+**MySQL / MariaDB:** [NPM](https://www.npmjs.com/package/mysql2)
+
+```bash
+$ npm install mysql2
+```
+
+**PostgreSQL:** [NPM](https://www.npmjs.com/package/pg)
+
+```bash
+$ npm install pg
+```
+
+**Microsoft SQL Server:** [NPM](https://www.npmjs.com/package/mssql)
+
+```bash
+$ npm install mssql
+```
+
+**Oracle:** [NPM](https://www.npmjs.com/package/oracledb)
+
+```bash
+$ npm install oracledb
+```
+
+**MongoDB:** [NPM](https://www.npmjs.com/package/mongodb)
+
+```bash
+$ npm install mongodb
+```
+
+Once you install the module and the corresponding database driver, you can configure your database connection in the ``.cmmv.config.js`` file. TypeORM will automatically use the appropriate driver based on the configuration.
+
 ## Purpose
 
 The ``@cmmv/repository`` module simplifies the process of integrating database entities and services for CRUD operations by leveraging contracts defined using ``@cmmv/core``. It automatically transpiles contracts into TypeORM entities and provides a standardized way to manage interactions with the database.

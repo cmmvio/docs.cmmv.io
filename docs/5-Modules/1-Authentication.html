@@ -1,0 +1,450 @@
+<h1>Authentication</h1><a id="authentication" title="Authentication"></a>
+<p>The <code>@cmmv/auth</code> module provides a set of features to handle authentication in your application. It supports both HTTP and WebSocket-based authentication and can be easily integrated into any <code>@cmmv</code> based application.</p>
+<h2>Installation</h2><a id="installation" title="Installation"></a>
+<p>To install the <code>@cmmv/auth</code> module, run the following command:</p>
+<pre><code class="hljs language-typescript" lang="typescript">$ npm install <span class="hljs-meta">@cmmv</span>/auth
+</code></pre>
+<h2>Integrating</h2><a id="integrating" title="Integrating"></a>
+<p>Once installed, you can integrate the <code>@cmmv/auth</code> module into your application as shown below. This example demonstrates the basic setup of a CMMV application that includes the <code>@cmmv/auth</code> module for handling authentication.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;dotenv&#x27;</span>).<span class="hljs-title function_">config</span>();
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/protobuf&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/ws&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/view&#x27;</span>;
+...
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AuthModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/auth&#x27;</span>;
+
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,
+    <span class="hljs-attr">wsAdapter</span>: <span class="hljs-title class_">WSAdapter</span>,
+    <span class="hljs-attr">modules</span>: [
+        <span class="hljs-title class_">ExpressModule</span>,
+        <span class="hljs-title class_">ProtobufModule</span>,
+        <span class="hljs-title class_">WSModule</span>,
+        <span class="hljs-title class_">ViewModule</span>,
+        <span class="hljs-title class_">RepositoryModule</span>,
+        <span class="hljs-title class_">AuthModule</span>,  <span class="hljs-comment">// Add the AuthModule </span>
+    ],
+    <span class="hljs-attr">services</span>: [
+        <span class="hljs-comment">// Add your custom services here</span>
+    ],
+    <span class="hljs-attr">contracts</span>: [
+        <span class="hljs-comment">// Add your contracts here</span>
+    ],
+});
+</code></pre>
+<h2>Configuration</h2><a id="configuration" title="Configuration"></a>
+<p>The <code>.cmmv.config.js</code> file is the central configuration file for your CMMV application, which allows you to set up different settings related to the server, authentication, and other modules. Below is a detailed explanation of the configuration options relevant to the <code>@cmmv/auth</code> module:</p>
+<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-attr">env</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span>,
+
+    <span class="hljs-attr">server</span>: {
+        <span class="hljs-attr">session</span>: {
+            <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Enable session support</span>
+            <span class="hljs-attr">options</span>: {
+                <span class="hljs-comment">// Name of the session cookie</span>
+                <span class="hljs-attr">sessionCookieName</span>: 
+                    process.<span class="hljs-property">env</span>.<span class="hljs-property">SESSION_COOKIENAME</span> || <span class="hljs-string">&quot;cmmv-session&quot;</span>, 
+                <span class="hljs-comment">// Secret for signing the session ID cookie</span>
+                <span class="hljs-attr">secret</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">SESSION_SECRET</span> || <span class="hljs-string">&quot;secret&quot;</span>, 
+                <span class="hljs-comment">// Prevents session being saved back to the session store</span>
+                <span class="hljs-attr">resave</span>: <span class="hljs-literal">false</span>, 
+                <span class="hljs-comment">// Forces a session to be saved, even if it’s uninitialized</span>
+                <span class="hljs-attr">saveUninitialized</span>: <span class="hljs-literal">false</span>, 
+                <span class="hljs-attr">cookie</span>: { 
+                    <span class="hljs-comment">// Ensures the browser only sends the cookie over HTTPS</span>
+                    <span class="hljs-attr">secure</span>: <span class="hljs-literal">true</span>,  
+                    <span class="hljs-comment">// The max age (in milliseconds) for the session cookie</span>
+                    <span class="hljs-attr">maxAge</span>: <span class="hljs-number">60000</span>  
+                }
+            }
+        }
+    },
+
+    <span class="hljs-comment">// Authentication settings for @cmmv/auth</span>
+    <span class="hljs-attr">auth</span>: {
+        <span class="hljs-comment">// Enable local registration (email/password)</span>
+        <span class="hljs-attr">localRegister</span>: <span class="hljs-literal">true</span>,  
+        <span class="hljs-comment">// Enable local login (email/password)</span>
+        <span class="hljs-attr">localLogin</span>: <span class="hljs-literal">true</span>,     
+        <span class="hljs-comment">// Secret key for signing JWT tokens</span>
+        <span class="hljs-attr">jwtSecret</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">JWT_SECRET</span> || <span class="hljs-string">&quot;secret&quot;</span>,  
+        <span class="hljs-comment">// Token expiration time in seconds (1 hour)</span>
+        <span class="hljs-attr">expiresIn</span>: <span class="hljs-number">60</span> * <span class="hljs-number">60</span>,  
+        
+        <span class="hljs-attr">google</span>: {
+            <span class="hljs-comment">// Google OAuth client ID</span>
+            <span class="hljs-attr">clientID</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">GOOGLE_CLIENT_ID</span>,  
+            <span class="hljs-comment">// Google OAuth client secret</span>
+            <span class="hljs-attr">clientSecret</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">GOOGLE_CLIENT_SECRET</span>,  
+            <span class="hljs-comment">// URL to redirect after Google login</span>
+            <span class="hljs-attr">callbackURL</span>: <span class="hljs-string">&quot;http://localhost:3000/auth/google/callback&quot;</span>  
+        }
+    },
+};
+</code></pre>
+<h2>Generated</h2><a id="generated" title="Generated"></a>
+<p>The <code>@cmmv/auth</code> module is responsible for generating the necessary files for authentication in a CMMV-based application. This includes protocol buffers (proto files), TypeScript definitions, service implementations, and controllers. If the <code>@cmmv/ws</code> module is installed, it will also generate the WebSocket gateway for handling authentication events. Below are the key components that are generated by this module:</p>
+<p><strong><code>src/protos/auth.proto</code></strong></p>
+<p>This <code>.proto</code> file defines the <code>User</code>, <code>LoginRequest</code>, <code>LoginResponse</code>, <code>RegisterRequest</code>, <code>RegisterResponse</code> messages, and the <code>AuthService</code> service with two RPC methods, Login and Register.</p>
+<pre><code class="hljs language-proto" lang="proto"><span class="hljs-comment">// Generated automatically by CMMV</span>
+
+syntax = <span class="hljs-string">&quot;proto3&quot;</span>;
+<span class="hljs-keyword">package</span> auth;
+
+<span class="hljs-keyword">message </span><span class="hljs-title class_">User</span> {
+   <span class="hljs-type">string</span> username = <span class="hljs-number">1</span>;
+   <span class="hljs-type">string</span> password = <span class="hljs-number">2</span>;
+   <span class="hljs-type">string</span> googleId = <span class="hljs-number">3</span>;
+   <span class="hljs-type">string</span> groups = <span class="hljs-number">4</span>;
+}
+
+<span class="hljs-keyword">message </span><span class="hljs-title class_">LoginRequest</span> {
+    <span class="hljs-type">string</span> username = <span class="hljs-number">1</span>;
+    <span class="hljs-type">string</span> password = <span class="hljs-number">2</span>;
+}
+
+<span class="hljs-keyword">message </span><span class="hljs-title class_">LoginResponse</span> {
+    <span class="hljs-type">bool</span> success = <span class="hljs-number">1</span>;
+    <span class="hljs-type">string</span> token = <span class="hljs-number">2</span>;
+    <span class="hljs-type">string</span> message = <span class="hljs-number">3</span>;
+}
+
+<span class="hljs-keyword">message </span><span class="hljs-title class_">RegisterRequest</span> {
+    <span class="hljs-type">string</span> username = <span class="hljs-number">1</span>;
+    <span class="hljs-type">string</span> email = <span class="hljs-number">2</span>;
+    <span class="hljs-type">string</span> password = <span class="hljs-number">3</span>;
+}
+
+<span class="hljs-keyword">message </span><span class="hljs-title class_">RegisterResponse</span> {
+    <span class="hljs-type">bool</span> success = <span class="hljs-number">1</span>;
+    <span class="hljs-type">string</span> message = <span class="hljs-number">3</span>;
+}
+          
+<span class="hljs-keyword">service </span><span class="hljs-title class_">AuthService</span> {
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Login (LoginRequest) <span class="hljs-keyword">returns</span> (LoginResponse)</span>;
+    <span class="hljs-function"><span class="hljs-keyword">rpc</span> Register (RegisterRequest) <span class="hljs-keyword">returns</span> (RegisterResponse)</span>;
+}
+</code></pre>
+<br/>
+<p><strong><code>src/protos/auth.d.ts</code></strong></p>
+<p>This file provides TypeScript interfaces that mirror the <code>.proto</code> definitions, making it easier to work with the data structures in your application.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">User</span> {
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> username = <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> password = <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> googleId = <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> groups = <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">LoginRequest</span> {
+    <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">password</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">LoginResponse</span> {
+    <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">token</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">RegisterRequest</span> {
+    <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">email</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">password</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">RegisterResponse</span> {
+    <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
+}
+</code></pre>
+<br/>
+<p><strong><code>src/services/auth.services.ts</code></strong></p>
+<p>The service handles the core logic for user authentication, such as logging in and registering users. It makes use of class-validator for validation and class-transformer for transforming the incoming data into a User object.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+    
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> jwt <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jsonwebtoken&#x27;</span>;
+<span class="hljs-keyword">import</span> { validate } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;class-validator&#x27;</span>;
+<span class="hljs-keyword">import</span> { plainToClass } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;class-transformer&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">Telemetry</span>, <span class="hljs-title class_">Service</span>, 
+    <span class="hljs-title class_">AbstractService</span>, <span class="hljs-title class_">Config</span>
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Repository</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/repository&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">User</span>, <span class="hljs-title class_">IUser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../models/user.model&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">LoginRequest</span>, <span class="hljs-title class_">LoginResponse</span>, 
+    <span class="hljs-title class_">RegisterRequest</span>, <span class="hljs-title class_">RegisterResponse</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../protos/auth&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserEntity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../entities/user.entity&#x27;</span>;
+
+<span class="hljs-meta">@Service</span>(<span class="hljs-string">&quot;auth&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractService</span> {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">login</span>(
+        <span class="hljs-attr">payload</span>: <span class="hljs-title class_">LoginRequest</span>, 
+        req?: <span class="hljs-built_in">any</span>, res?: <span class="hljs-built_in">any</span>, 
+        session?: <span class="hljs-built_in">any</span>
+    ): <span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">result</span>: <span class="hljs-title class_">LoginResponse</span>, <span class="hljs-attr">user</span>: <span class="hljs-built_in">any</span> }&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;AuthService::login&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+
+        <span class="hljs-keyword">const</span> jwtToken = <span class="hljs-title class_">Config</span>.<span class="hljs-property">get</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&quot;auth.jwtSecret&quot;</span>);
+        <span class="hljs-keyword">const</span> expiresIn = <span class="hljs-title class_">Config</span>.<span class="hljs-property">get</span>&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">&quot;auth.expiresIn&quot;</span>, <span class="hljs-number">60</span> * <span class="hljs-number">60</span>);
+        <span class="hljs-keyword">const</span> sessionEnabled = <span class="hljs-title class_">Config</span>.<span class="hljs-property">get</span>&lt;<span class="hljs-built_in">boolean</span>&gt;(
+            <span class="hljs-string">&quot;server.session.enabled&quot;</span>, <span class="hljs-literal">true</span>
+        );
+        <span class="hljs-keyword">const</span> cookieName = <span class="hljs-title class_">Config</span>.<span class="hljs-property">get</span>&lt;<span class="hljs-built_in">string</span>&gt;(
+            <span class="hljs-string">&quot;server.session.options.sessionCookieName&quot;</span>, 
+            <span class="hljs-string">&quot;token&quot;</span>
+        );
+        <span class="hljs-keyword">const</span> cookieTTL = <span class="hljs-title class_">Config</span>.<span class="hljs-property">get</span>&lt;<span class="hljs-built_in">number</span>&gt;(
+            <span class="hljs-string">&quot;server.session.options.cookie.maxAge&quot;</span>, 
+            <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">100</span>
+        );
+        <span class="hljs-keyword">const</span> cookieSecure = <span class="hljs-title class_">Config</span>.<span class="hljs-property">get</span>&lt;<span class="hljs-built_in">boolean</span>&gt;(
+            <span class="hljs-string">&quot;server.session.options.cookie.secure&quot;</span>, 
+            process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;dev&#x27;</span>
+        );
+
+        <span class="hljs-keyword">const</span> userValidation = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">User</span>, payload, { 
+            <span class="hljs-attr">exposeUnsetFields</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">enableImplicitConversion</span>: <span class="hljs-literal">true</span>
+        }); 
+
+        <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">findBy</span>(<span class="hljs-title class_">UserEntity</span>, userValidation);;
+
+        <span class="hljs-keyword">if</span> (!user) {
+            <span class="hljs-keyword">return</span> { <span class="hljs-attr">result</span>: { 
+                <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">token</span>: <span class="hljs-string">&quot;&quot;</span>, 
+                <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;Invalid credentials&quot;</span> 
+            }, <span class="hljs-attr">user</span>: <span class="hljs-literal">null</span>  };
+        }
+            
+        <span class="hljs-keyword">const</span> token = jwt.<span class="hljs-title function_">sign</span>({ 
+            <span class="hljs-attr">id</span>: user.<span class="hljs-property">id</span>,
+            <span class="hljs-attr">username</span>: payload.<span class="hljs-property">username</span> 
+        }, jwtToken, { expiresIn });
+
+        res.<span class="hljs-title function_">cookie</span>(cookieName, <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span>, {
+            <span class="hljs-attr">httpOnly</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">secure</span>: cookieSecure,
+            <span class="hljs-attr">sameSite</span>: <span class="hljs-string">&#x27;strict&#x27;</span>,
+            <span class="hljs-attr">maxAge</span>: cookieTTL
+        });
+
+        <span class="hljs-keyword">if</span>(sessionEnabled){
+            session.<span class="hljs-property">user</span> = {
+                <span class="hljs-attr">username</span>: payload.<span class="hljs-property">username</span>,
+                <span class="hljs-attr">token</span>: token,
+            };
+    
+            session.<span class="hljs-title function_">save</span>();
+        }
+        
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;AuthService::login&#x27;</span>, req?.<span class="hljs-property">requestId</span>);        
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">result</span>: { 
+            <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>, token, 
+            <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;Login successful&quot;</span> 
+        }, user };
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">register</span>(
+        <span class="hljs-attr">payload</span>: <span class="hljs-title class_">RegisterRequest</span>, req?: <span class="hljs-built_in">any</span>
+    ): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">RegisterResponse</span>&gt; {
+        <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;AuthService::register&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+        <span class="hljs-keyword">const</span> jwtToken = <span class="hljs-title class_">Config</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;auth.jwtSecret&quot;</span>);
+
+        <span class="hljs-keyword">const</span> newUser = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">User</span>, payload, { 
+            <span class="hljs-attr">exposeUnsetFields</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">enableImplicitConversion</span>: <span class="hljs-literal">true</span>
+        }); 
+
+        <span class="hljs-keyword">const</span> errors = <span class="hljs-keyword">await</span> <span class="hljs-title function_">validate</span>(newUser, { 
+            <span class="hljs-attr">skipMissingProperties</span>: <span class="hljs-literal">true</span> 
+        });
+        
+        <span class="hljs-keyword">if</span> (errors.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(errors);
+            <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;AuthService::register&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+            <span class="hljs-keyword">return</span> { 
+                <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, 
+                <span class="hljs-attr">message</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(errors[<span class="hljs-number">0</span>].<span class="hljs-property">constraints</span>) 
+            };
+        } 
+        <span class="hljs-keyword">else</span> {    
+            <span class="hljs-keyword">try</span>{
+                <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Repository</span>.<span class="hljs-property">insert</span>&lt;<span class="hljs-title class_">UserEntity</span>&gt;(
+                    <span class="hljs-title class_">UserEntity</span>, newUser
+                );
+
+                <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;AuthService::register&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+
+                <span class="hljs-keyword">return</span> (result) ? 
+                    { 
+                        <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>, 
+                        <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;User registered successfully!&quot;</span> 
+                    } : 
+                    { 
+                        <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, 
+                        <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;Error trying to register new user&quot;</span> 
+                    };
+            }   
+            <span class="hljs-keyword">catch</span>(e){
+                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(e);
+                <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;AuthService::register&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
+                <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">message</span>: e.<span class="hljs-property">message</span> };
+            }                                                    
+        }
+    }
+}
+</code></pre>
+<br/>
+<p><strong><code>src/controllers/auth.controller.ts</code></strong></p>
+<p>This controller is responsible for handling authentication-related HTTP requests. It includes endpoints for logging in, registering, and retrieving the current user’s information.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+    
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Auth</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/auth&quot;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Post</span>, <span class="hljs-title class_">Body</span>, <span class="hljs-title class_">Req</span>, 
+    <span class="hljs-title class_">Res</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Session</span>
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AuthService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/auth.service&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">LoginRequest</span>, <span class="hljs-title class_">LoginResponse</span>, 
+    <span class="hljs-title class_">RegisterRequest</span>, <span class="hljs-title class_">RegisterResponse</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../protos/auth&#x27;</span>;
+
+<span class="hljs-meta">@Controller</span>(<span class="hljs-string">&quot;auth&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthController</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">authService</span>: <span class="hljs-title class_">AuthService</span></span>) {}
+
+    <span class="hljs-meta">@Get</span>(<span class="hljs-string">&quot;user&quot;</span>)
+    <span class="hljs-meta">@Auth</span>()  <span class="hljs-comment">// Uses the Auth decorator for authorization</span>
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">user</span>(<span class="hljs-params"><span class="hljs-meta">@Req</span>() req</span>) {
+        <span class="hljs-keyword">return</span> req.<span class="hljs-property">user</span>;
+    }
+
+    <span class="hljs-meta">@Post</span>(<span class="hljs-string">&quot;login&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">login</span>(
+        <span class="hljs-meta">@Body</span>() <span class="hljs-attr">payload</span>: <span class="hljs-title class_">LoginRequest</span>, 
+        <span class="hljs-meta">@Req</span>() req, <span class="hljs-meta">@Res</span>() res, <span class="hljs-meta">@Session</span>() session
+    ): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">LoginResponse</span>&gt; {
+        <span class="hljs-keyword">const</span> { result } = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">authService</span>.<span class="hljs-title function_">login</span>(
+            payload, req, res, session
+        );
+
+        <span class="hljs-keyword">return</span> result;
+    }
+
+    <span class="hljs-meta">@Post</span>(<span class="hljs-string">&quot;register&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">register</span>(
+        <span class="hljs-meta">@Body</span>() <span class="hljs-attr">payload</span>: <span class="hljs-title class_">RegisterRequest</span>
+    ): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">RegisterResponse</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">authService</span>.<span class="hljs-title function_">register</span>(payload);
+    }
+}
+</code></pre>
+<br/>
+<p><strong><code>src/gateways/auth.gateway.ts</code></strong></p>
+<p>When <code>@cmmv/ws</code> is installed, a WebSocket gateway is generated to handle authentication events in real-time.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AuthService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/auth.service&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { 
+    <span class="hljs-title class_">LoginRequest</span>,
+    <span class="hljs-title class_">RegisterRequest</span>  
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../protos/auth&quot;</span>;
+
+<span class="hljs-meta">@Rpc</span>(<span class="hljs-string">&quot;auth&quot;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthGateway</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">authService</span>: <span class="hljs-title class_">AuthService</span></span>) {}
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;LoginRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">login</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() <span class="hljs-attr">data</span>: <span class="hljs-title class_">LoginRequest</span>, <span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">try</span>{
+            <span class="hljs-keyword">const</span> { result } = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">authService</span>.<span class="hljs-title function_">login</span>(data);
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+                <span class="hljs-string">&quot;auth&quot;</span>, <span class="hljs-string">&quot;LoginResponse&quot;</span>, result
+            );
+
+            <span class="hljs-keyword">if</span>(response)
+                socket.<span class="hljs-title function_">send</span>(response);            
+        }
+        <span class="hljs-keyword">catch</span>(e){
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+    }
+
+    <span class="hljs-meta">@Message</span>(<span class="hljs-string">&quot;RegisterRequest&quot;</span>)
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">register</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() <span class="hljs-attr">data</span>: <span class="hljs-title class_">RegisterRequest</span>, <span class="hljs-meta">@Socket</span>() socket</span>) {
+        <span class="hljs-keyword">try</span>{
+            <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">authService</span>.<span class="hljs-title function_">register</span>(data);
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+                <span class="hljs-string">&quot;auth&quot;</span>, <span class="hljs-string">&quot;RegisterResponse&quot;</span>, result
+            );
+
+            <span class="hljs-keyword">if</span>(response)
+                socket.<span class="hljs-title function_">send</span>(response);            
+        }
+        <span class="hljs-keyword">catch</span>(e){
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+    }
+}
+</code></pre>
+<h2>Decorator</h2><a id="decorator" title="Decorator"></a>
+<p>The <code>@Auth</code> decorator is designed to enforce authentication and authorization on specific routes within an application. It provides middleware functionality that checks if a user is authenticated by verifying a JWT (JSON Web Token) and optionally validates that the user has the required roles to access the route.</p>
+<p>This decorator is used in conjunction with route handlers to protect specific endpoints. It validates the existence of a JWT token and, if provided, checks whether the token’s payload includes the necessary roles to access the route.</p>
+<ul>
+<li><strong>Token Location:</strong> The middleware first checks for the JWT token in the request cookies (using a configurable cookie name) or in the <code>Authorization</code> header. If no token is found, it returns a <code>401 Unauthorized</code> response.</li>
+<li><strong>Token Verification:</strong> If a token is found, it verifies the token using the secret stored in the configuration (<code>auth.jwtSecret</code>). If the token is invalid or expired, the middleware returns a <code>401 Unauthorized</code> response.</li>
+<li><strong>Role Validation:</strong> If roles are specified, the middleware checks if the token’s payload includes the required roles. If the user does not have the appropriate roles, the middleware returns a <code>403 Forbidden</code> response.</li>
+<li><strong>User Information:</strong> Upon successful validation, the decoded token (which typically includes user information such as user ID, username, and roles) is attached to the <code>req.user</code> object for further use in the route handler.</li>
+</ul>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Req</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Auth</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/auth&#x27;</span>;
+
+<span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;user&#x27;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> {
+    <span class="hljs-comment">// Protects the route, checks for valid JWT</span>
+    <span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;profile&#x27;</span>)
+    <span class="hljs-meta">@Auth</span>()  
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getProfile</span>(<span class="hljs-params"><span class="hljs-meta">@Req</span>() req</span>) {
+        <span class="hljs-keyword">return</span> req.<span class="hljs-property">user</span>;  <span class="hljs-comment">// Access the authenticated user&#x27;s info</span>
+    }
+
+    <span class="hljs-comment">// Protects the route, checks for valid JWT and admin role</span>
+    <span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;admin&#x27;</span>)
+    <span class="hljs-meta">@Auth</span>([<span class="hljs-string">&#x27;admin&#x27;</span>])  
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAdminDashboard</span>(<span class="hljs-params"><span class="hljs-meta">@Req</span>() req</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`Welcome admin <span class="hljs-subst">${req.user.username}</span>`</span>;
+    }
+}
+</code></pre>
+<br/>
+<ul>
+<li><strong>roles?:</strong> (Optional) An array of roles that a user must have to access the route. If no roles are provided, only authentication is required (i.e., a valid JWT). If roles are specified, the user must possess at least one of the provided roles.</li>
+</ul>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Auth</span>([<span class="hljs-string">&#x27;admin&#x27;</span>, <span class="hljs-string">&#x27;moderator&#x27;</span>]) 
+</code></pre>
+<p><strong>Configuration Dependencies</strong></p>
+<ul>
+<li><strong>JWT Secret:</strong> The decorator uses the secret specified in the configuration (<code>auth.jwtSecret</code>) to verify the token.</li>
+<li><strong>Session Cookie Name:</strong> By default, the token is checked in a cookie with the name specified in <code>server.session.options.sessionCookieName</code>. If no token is found in the cookie, it checks the <code>Authorization</code> header.</li>
+</ul>
+<p>The decorator adds the authentication and authorization middleware to the route’s metadata. This middleware is processed before the route handler is executed, ensuring that unauthorized users are blocked before any business logic is reached.</p>

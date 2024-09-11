@@ -3,7 +3,9 @@
 <p>Here is an example of a view structure using the <code>docs</code> section of the application.</p>
 <p><strong><code>docs/index.html</code></strong> <a href="https://github.com/andrehrferreira/docs.cmmv.io/blob/main/public/views/docs/index.html" target="_blank" rel="nofollow">Code</a></p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> 
+        <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar bg-neutral-800 h-16 top-0 w-full fixed ...&quot;</span>
+    &gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;max-w-8xl mx-auto flex container items-center&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
                 <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;menu-toggle&quot;</span> 
@@ -89,7 +91,10 @@
             <span class="hljs-attr">:data-opened</span>=<span class="hljs-string">&quot;false&quot;</span>
             @<span class="hljs-attr">click.stop</span>=<span class="hljs-string">&quot;navbar[item?.name.replace(/\s/, `_`)] = toggle(...&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;flex flex-1 font-bold ...&quot;</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item &amp;&amp; item?.isDir&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-white&quot;</span>&gt;</span>{{ item?.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> 
+                    <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item &amp;&amp; item?.isDir&quot;</span> 
+                    <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-white&quot;</span>
+                &gt;</span>{{ item?.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">c-else</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-white&quot;</span>&gt;</span>{{ item?.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;justify-between cursor-pointer&quot;</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item?.isDir&quot;</span>&gt;</span>
@@ -99,7 +104,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;item &amp;&amp; item.children &amp;&amp; item.children.length &gt; 0&quot;</span>
             <span class="hljs-attr">:id</span>=<span class="hljs-string">&quot;`${item?.name.replace(/\s/, `_`)}_contents`&quot;</span>
             <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 py-1 text-md mb-4&quot;</span>
-            <span class="hljs-attr">:style</span>=<span class="hljs-string">&quot;(navbar[item?.name.replace(/\s/, `_`)]) ? &#x27;&#x27; : &#x27;display: none;&#x27;&quot;</span>&gt;</span>
+            <span class="hljs-attr">:style</span>=<span class="hljs-string">&quot;(navbar[item?.name.replace(/\s/, `_`)]) ? &#x27;&#x27; : ...&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(child) in item.children&quot;</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hover:text-...&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-size: 12px&quot;</span>&gt;</span>
                     <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">&quot;child.uri&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-base&quot;</span>&gt;</span>{{ child.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
@@ -132,7 +137,10 @@
 
     <span class="hljs-attr">methods</span>: {
         <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>){
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(
+                <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)
+            ) || {};
+            
             <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span>;
         },
 

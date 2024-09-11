@@ -51,12 +51,12 @@ By using Protobuf, CMMV ensures optimal performance in data serialization, makin
 To implement WebSocket communication using Protobuf in CMMV, follow these steps:
 
 ```bash
-$ npm install @cmmv/protobuf @cmmv/ws 
+$ npm install @cmmv/protobuf @cmmv/ws protobufjs 
 ```
 
 or 
 ```bash
-$ yarn add @cmmv/protobuf @cmmv/ws 
+$ yarn add @cmmv/protobuf @cmmv/ws protobufjs 
 ```
 
 Application setup:

@@ -62,7 +62,9 @@
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-params"><span class="hljs-meta">@Socket</span>() socket</span>) {
         <span class="hljs-keyword">try</span> {
             <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">getAll</span>();
-            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;GetAllTaskResponse&quot;</span>, items);
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+                <span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;GetAllTaskResponse&quot;</span>, items
+            );
 
             <span class="hljs-keyword">if</span> (response)
                 socket.<span class="hljs-title function_">send</span>(response);
@@ -76,7 +78,9 @@
         <span class="hljs-keyword">try</span> {
             <span class="hljs-keyword">const</span> entity = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">TaskEntity</span>, data.<span class="hljs-property">item</span>);
             <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">add</span>(entity);
-            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;AddTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result, <span class="hljs-attr">id</span>: result.<span class="hljs-property">id</span> });
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+                <span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;AddTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result, <span class="hljs-attr">id</span>: result.<span class="hljs-property">id</span> }
+            );
 
             <span class="hljs-keyword">if</span> (response)
                 socket.<span class="hljs-title function_">send</span>(response);
@@ -90,7 +94,9 @@
         <span class="hljs-keyword">try</span> {
             <span class="hljs-keyword">const</span> entity = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">TaskEntity</span>, data.<span class="hljs-property">item</span>);
             <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">update</span>(data.<span class="hljs-property">id</span>, entity);
-            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;UpdateTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result, <span class="hljs-attr">id</span>: result.<span class="hljs-property">id</span> });
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+                <span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;UpdateTaskResponse&quot;</span>, { <span class="hljs-attr">item</span>: result, <span class="hljs-attr">id</span>: result.<span class="hljs-property">id</span> }
+            );
 
             <span class="hljs-keyword">if</span> (response)
                 socket.<span class="hljs-title function_">send</span>(response);
@@ -103,7 +109,9 @@
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params"><span class="hljs-meta">@Data</span>() <span class="hljs-attr">data</span>: <span class="hljs-title class_">DeleteTaskRequest</span>, <span class="hljs-meta">@Socket</span>() socket</span>) {
         <span class="hljs-keyword">try</span> {
             <span class="hljs-keyword">const</span> result = (<span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">delete</span>(data.<span class="hljs-property">id</span>)).<span class="hljs-property">success</span>;
-            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(<span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;DeleteTaskResponse&quot;</span>, { <span class="hljs-attr">success</span>: result, <span class="hljs-attr">id</span>: data.<span class="hljs-property">id</span> });
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+                <span class="hljs-string">&quot;task&quot;</span>, <span class="hljs-string">&quot;DeleteTaskResponse&quot;</span>, { <span class="hljs-attr">success</span>: result, <span class="hljs-attr">id</span>: data.<span class="hljs-property">id</span> }
+            );
 
             <span class="hljs-keyword">if</span> (response)
                 socket.<span class="hljs-title function_">send</span>(response);

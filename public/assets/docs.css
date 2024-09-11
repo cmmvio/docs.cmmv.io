@@ -425,3 +425,8 @@ table thead th {
 table tbody td {
     font-size: 14px;
 }
+
+
+h2 code {
+    text-align: left;
+}

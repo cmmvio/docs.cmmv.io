@@ -20,7 +20,7 @@ module.exports = {
         "X-Frame-Options": "DENY",
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "no-referrer",
-        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+        "Strict-Transport-Security": "max-age=31536000; ..."
     }
 }
 ```
@@ -180,7 +180,7 @@ module.exports = {
             directives: {
                 defaultSrc: ["'self'"],
                 scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
-                styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"]
+                styleSrc: ["'self'", "'unsafe-inline'"]
             }
         }
     },

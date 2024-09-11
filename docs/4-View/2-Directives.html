@@ -216,8 +216,13 @@ By combining <code>s-for</code> with <code>c-for</code>, you can leverage server
     },
     <span class="hljs-attr">methods</span>: {
         <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbarState</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">contentData</span> = { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Dynamically loaded content.&#x27;</span> };
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbarState</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(
+                <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)
+            ) || {};
+
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">contentData</span> = { 
+                <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Dynamically loaded content.&#x27;</span> 
+            };
         }
     }
 };
@@ -250,7 +255,10 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
 
     <span class="hljs-attr">methods</span>: {
         <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(
+                <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)
+            ) || {};
+            
             <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span>;
         },
 

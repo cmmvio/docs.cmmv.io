@@ -1,5 +1,5 @@
 <h1>Validation</h1><a id="validation" title="Validation"></a>
-<p>CMMV supports automatic contract validation using the <code>class-validator</code> (<a href="https://www.npmjs.com/package/class-validator" target="_blank" rel="nofollow">https://www.npmjs.com/package/class-validator</a>) module. During data insertion and update operations, CMMV can apply validation rules to contract fields, ensuring that data meets the defined criteria before being processed. You can specify validation rules for each field by adding the validations parameter.</p>
+<p>CMMV supports automatic contract validation using the <code>class-validator</code> (<a href="https://www.npmjs.com/package/class-validator" target="_blank" rel="nofollow">NPM</a>) module. During data insertion and update operations, CMMV can apply validation rules to contract fields, ensuring that data meets the defined criteria before being processed. You can specify validation rules for each field by adding the validations parameter.</p>
 <p>These validations are executed automatically during <code>insert</code> and <code>update</code> operations, and the system will return errors if any validation fails.</p>
 <p>Below is an example of a <code>TasksContract</code>, where each field is validated using different rules:</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
@@ -353,7 +353,9 @@
             }); 
 
             <span class="hljs-comment">// Validate the newItem with class-validator</span>
-            <span class="hljs-keyword">const</span> errors = <span class="hljs-keyword">await</span> <span class="hljs-title function_">validate</span>(newItem, { <span class="hljs-attr">skipMissingProperties</span>: <span class="hljs-literal">true</span> });
+            <span class="hljs-keyword">const</span> errors = <span class="hljs-keyword">await</span> <span class="hljs-title function_">validate</span>(newItem, { 
+                <span class="hljs-attr">skipMissingProperties</span>: <span class="hljs-literal">true</span> 
+            });
             
             <span class="hljs-keyword">if</span> (errors.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) {
                 <span class="hljs-comment">// If validation fails, return the errors</span>
@@ -361,8 +363,10 @@
                 <span class="hljs-title function_">reject</span>(errors);
             } 
             <span class="hljs-keyword">else</span> {                   
-                <span class="hljs-comment">// If validation passes, proceed with the repository insert operation</span>
-                <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Repository</span>.<span class="hljs-property">insert</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;(<span class="hljs-title class_">TaskEntity</span>, newItem);
+                <span class="hljs-comment">// If validation passes, proceed with the repository</span>
+                <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Repository</span>.<span class="hljs-property">insert</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt;(
+                    <span class="hljs-title class_">TaskEntity</span>, newItem
+                );
                 <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::Add&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
                 <span class="hljs-title function_">resolve</span>(result);                    
             }
