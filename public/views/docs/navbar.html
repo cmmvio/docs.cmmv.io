@@ -1,4 +1,4 @@
-<ul class="p-4 select-none top-16" c-cloak c-show="docs">
+<div class="p-4 select-none top-16" c-cloak c-show="docs">
     <s-for c-for="(item, key) in docs.navbar" render-tag="li">
         <div 
             c-show="item"
@@ -17,17 +17,17 @@
             </div>
         </div>
 
-        <ul 
+        <div 
             c-if="item && item.children && item.children.length > 0"
             :id="`${item?.name.replace(/\s/, `_`)}_contents`" 
             class="p-4 py-1 text-md mb-4"
             :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : 'display: none;'"
         >
-            <li c-for="(child) in item.children">
+            <div c-for="(child) in item.children">
                 <div class="hover:text-gray-800 text-white text-base p-1" style="font-size: 12px">
                     <a :href="child.uri" class="text-base">{{ child.name }}</a>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </s-for>
-</ul>
+</div>

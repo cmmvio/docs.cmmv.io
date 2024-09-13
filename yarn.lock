@@ -96,10 +96,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@cmmv/core@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.3.3.tgz#972f6a090fee88d5bcbb343eedd01a4c268aa84b"
-  integrity sha512-LpeXyABVawt8+qlf5DL3M2uZd6AeTVGP8015g8CGYiHrgHK5D8y1QWJked07GihaCnsUAIVJt6EA9fIuiTBAsQ==
+"@cmmv/core@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.3.4.tgz#16bb306e6851940fba9a1b1bd9093ad0648f9313"
+  integrity sha512-l/9q9v7WYgtfLrPB+KPMX2qsjt2auB7MPIffqVwSWseFH+Ia3GcUD5k8EJUzJRQ8/NKu7QtmzUzmR8Qgl7EkvA==
   dependencies:
     class-transformer "^0.5.1"
     class-validator "^0.14.1"
@@ -110,10 +110,10 @@
     uglify-js "^3.19.3"
     uuid "^10.0.0"
 
-"@cmmv/http@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.3.3.tgz#c6178d223df23abea2a9ca29e736d80e45c18a5c"
-  integrity sha512-4de1hLRl5C58FD2RXz0eJ6OeF3CBPmJWFBU3e0secwEQlDAjfCoaT2yMoHmVAcR9ddL6da8lPvvyn66kxKvKaQ==
+"@cmmv/http@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.3.4.tgz#8a41ce0c5c34f7efed8c12869f21302fd5091c4b"
+  integrity sha512-oobbe2KoVMnO6VjXlEZEwBcrHAmBIVmAB8fHmr49PqREvILShZ+r7lBW5N3V57ucQT6Xg1HYfFNu3yJKpZgohA==
   dependencies:
     "@fastify/compress" "^7.0.3"
     "@fastify/cors" "^9.0.1"
@@ -133,19 +133,19 @@
     helmet "^7.1.0"
     multer "^1.4.5-lts.1"
 
-"@cmmv/reactivity@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@cmmv/reactivity/-/reactivity-0.0.9.tgz#be7ff2aa525ba0ec7574cb624da28d42bf34e364"
-  integrity sha512-LaK/kDpGSqB/cMeDgfzdSUnEx6x8U+GLWPOqtBv/I+AU7k+/tTr4REaWpci+elvg79n5q2vRYv8lBBsWz5gfww==
+"@cmmv/reactivity@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@cmmv/reactivity/-/reactivity-0.1.0.tgz#7d011a56f165b20619b2e118f62f18ef6d246773"
+  integrity sha512-RP3YWbTVkY+jWbsYtEiidI3Q1hmcrqPR1//ofoxHvmsYQjtFhgcABGcpobHba5mUP1mfp2CwkCABHCvSrkfL+w==
   dependencies:
     "@vue/reactivity" "^3.5.1"
 
-"@cmmv/view@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.3.3.tgz#e7e88f7c098f03cf84a86ad15769d8eba980f28a"
-  integrity sha512-TxP8dimkxKon7LkPG/McbBOsDBTUPLktuN+FTJhiSD1Wy6VrmoifPmadYi6Rid3BS+K0GB2cp/yvXqYAMhBQIA==
+"@cmmv/view@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.3.4.tgz#726626534fcbf84f818493627b1184a4141b40c4"
+  integrity sha512-e1JjgpuM2WrNZAv66YiWqFsz0e1gFBroGb37gnDweIZZS4ws6H8IDp3gAALKB/+lNmSuWtgSr6no+CBk5gcLpQ==
   dependencies:
-    "@cmmv/reactivity" "^0.0.9"
+    "@cmmv/reactivity" "^0.1.0"
     fast-glob "^3.3.2"
     html-minifier "^4.0.0"
     uglify-js "^3.19.2"

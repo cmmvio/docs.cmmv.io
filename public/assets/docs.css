@@ -191,7 +191,7 @@ p {
     border-radius: 50%;
     transform: translateY(-50%);
     content: "";
-    background: #fdfdfd;
+    background: #1F1F22;
     border: 2px solid #efefef;
     left: -4px;
     width: 10px;
@@ -226,7 +226,7 @@ p {
     background: cornflowerblue;
     border-color: cornflowerblue;
     border-width: 1px;
-    left: -3px;
+    left: -4px;
     color: cornflowerblue;
     font-weight: 600;
 }
