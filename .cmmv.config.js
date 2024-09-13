@@ -89,7 +89,7 @@ module.exports = {
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
             "font-src 'self'",
             "connect-src 'self' ws://localhost:3001 http://localhost:3001 https://*.algolianet.com https://*.algolia.net https://googletagmanager.com https://www.google-analytics.com",
-            "img-src 'self' data: https://googletagmanager.com"
+            "img-src 'self' data: https://googletagmanager.com https://img.shields.io https://dl.circleci.com"
         ]
     },
 

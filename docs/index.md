@@ -1,3 +1,21 @@
+<p align="center">
+  <img src="assets/logo-invert.png" width="300" alt="CMMV Logo" />
+</p>
+<p align="center">Contract-Model-Model-View (CMMV) <br/> A minimalistic framework for building scalable and modular applications using TypeScript contracts.</p>
+<div class="flex flex-container">
+    <a href="https://www.npmjs.com/package/@cmmv/core">
+        <img src="https://img.shields.io/npm/v/@cmmv/core.svg" alt="NPM Version" />
+    </a>
+    <a href="https://github.com/andrehrferreira/cmmv/blob/main/LICENSE">
+        <img src="https://img.shields.io/npm/l/@cmmv/core.svg" alt="Package License" />
+    </a>
+    <a href="https://dl.circleci.com/status-badge/redirect/circleci/QyJWAYrZ9JTfN1eubSDo5u/7gdwcdqbMYfbYYX4hhoNhc/tree/main" target="_blank">
+        <img src="https://dl.circleci.com/status-badge/img/circleci/QyJWAYrZ9JTfN1eubSDo5u/7gdwcdqbMYfbYYX4hhoNhc/tree/main.svg" alt="CircleCI" />
+    </a>
+</div>
+
+<br/>
+
 # Introduction
 
 CMMV (Contract-Model-Model-View) is a minimalistic framework designed to streamline the development of scalable and modular applications using TypeScript. By combining the power of contracts with a modular architecture, CMMV allows developers to define their entire application structure, from ORM entities to REST controllers and WebSocket endpoints, in a clear and maintainable way.
