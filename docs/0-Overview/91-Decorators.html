@@ -1,0 +1,96 @@
+<h1>Decorators</h1><a id="decorators" title="Decorators"></a>
+<p>Custom decorators in <code>@cmmv</code> allow you to extend and modify class behavior dynamically by using <code>Reflect</code> metadata. Here’s how you can create your own decorators:</p>
+<p>Use TypeScript’s <code>ClassDecorator</code>, <code>MethodDecorator</code>, or <code>PropertyDecorator</code> interfaces to define your custom decorators.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">CustomClassDecorator</span>(<span class="hljs-params">options?: <span class="hljs-built_in">any</span></span>): <span class="hljs-title class_">ClassDecorator</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">target</span>: <span class="hljs-built_in">object</span></span>) =&gt;</span> {
+        <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineMetadata</span>(<span class="hljs-string">&#x27;custom_metadata&#x27;</span>, options, target);
+    };
+}
+</code></pre>
+<p>This stores metadata (<code>options</code>) associated with the class.</p>
+<p>To access this metadata later, use <code>Reflect.getMetadata()</code>:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> metadata = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">getMetadata</span>(<span class="hljs-string">&#x27;custom_metadata&#x27;</span>, <span class="hljs-title class_">MyClass</span>);
+</code></pre>
+<h2>Custom Method</h2><a id="custom-method" title="Custom Method"></a>
+<p>You can define decorators for methods similarly:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">LogExecutionTime</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">MethodDecorator</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">target, propertyKey, <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">PropertyDescriptor</span></span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> originalMethod = descriptor.<span class="hljs-property">value</span>;
+        
+        descriptor.<span class="hljs-property">value</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]</span>) {
+            <span class="hljs-keyword">const</span> start = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
+            <span class="hljs-keyword">const</span> result = originalMethod.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, args);
+            <span class="hljs-keyword">const</span> end = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Execution time: <span class="hljs-subst">${end - start}</span>ms`</span>);
+            <span class="hljs-keyword">return</span> result;
+        };
+    };
+}
+</code></pre>
+<p>This method decorator logs the execution time of the method.</p>
+<h2>Property Decorator</h2><a id="property-decorator" title="Property Decorator"></a>
+<p>For property decorators, you can use the following pattern:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">DefaultValue</span>(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">any</span></span>): <span class="hljs-title class_">PropertyDecorator</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">target, <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span></span>) =&gt;</span> {
+        <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineMetadata</span>(
+            <span class="hljs-string">&#x27;default_value&#x27;</span>, value, target, propertyKey
+        );
+    };
+}
+</code></pre>
+<p>Later, retrieve the default value:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> defaultValue = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">getMetadata</span>(
+    <span class="hljs-string">&#x27;default_value&#x27;</span>, target, propertyKey
+);
+</code></pre>
+<br/>
+<ul>
+<li><strong>Create the Decorator:</strong> Use <code>Reflect.defineMetadata()</code> to attach metadata to the class, method, or property.</li>
+<li><strong>Use the Decorator:</strong> Apply the decorator to classes, methods, or properties.</li>
+<li><strong>Retrieve Metadata:</strong> Use <code>Reflect.getMetadata()</code> to retrieve the attached metadata at runtime.</li>
+</ul>
+<h2>Contract Decorator</h2><a id="contract-decorator" title="Contract Decorator"></a>
+<p>The <code>@Contract</code> decorator is used to define a contract controller with various options, such as authentication, caching, and proto file paths.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Contract</span>({
+  <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;UserContract&#x27;</span>,
+  <span class="hljs-attr">protoPath</span>: <span class="hljs-string">&#x27;user.proto&#x27;</span>,
+  <span class="hljs-attr">generateEntities</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">auth</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">cache</span>: { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;userCache&#x27;</span>, <span class="hljs-attr">ttl</span>: <span class="hljs-number">300</span> }
+})
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UserContract</span> {}
+</code></pre>
+<ul>
+<li><strong>``controllerName (string):</strong> Defines the name of the controller to be generated.</li>
+<li><strong><code>controllerCustomPath (string, optional):</code></strong> Custom path for the controller.</li>
+<li><strong><code>protoPath (string):</code></strong> Path to the .proto file for the contract.</li>
+<li><strong><code>protoPackage (string, optional):</code></strong> Package name for the protocol buffer.</li>
+<li><strong><code>directMessage (boolean, optional):</code></strong> If true, enables direct messaging via WebSocket.</li>
+<li><strong><code>generateController (boolean, optional):</code></strong> Automatically generates the controller if set to true.</li>
+<li><strong><code>generateEntities (boolean, optional):</code></strong> Controls whether entities are generated.</li>
+<li><strong><code>auth (boolean, optional):</code></strong> Enables authentication for the controller.</li>
+<li><strong><code>imports (Array&lt;string&gt;, optional):</code></strong> Specifies additional imports required by the controller.</li>
+<li><strong><code>cache (CacheOptions, optional):</code></strong> Defines caching behavior for the contract.</li>
+</ul>
+<h2>ContractField Decorator</h2><a id="contractfield-decorator" title="ContractField Decorator"></a>
+<p>The <code>@ContractField</code> decorator is used to declare fields within a contract and define validation rules, transformations, and database configurations.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@ContractField</span>({
+  <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+  <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">validations</span>: [{ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;isEmail&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Invalid email format&#x27;</span> }]
+})
+<span class="hljs-attr">email</span>: <span class="hljs-built_in">string</span>;
+</code></pre>
+<br/>
+<ul>
+<li><strong><code>protoType (string):</code></strong> Defines the data type in the protocol buffer (e.g., <code>string</code>, <code>int32</code>).</li>
+<li><strong><code>protoRepeated (boolean, optional):</code></strong> Indicates if the field is a repeated (array) type.</li>
+<li><strong><code>defaultValue (any, optional):</code></strong> Specifies the default value for the field.</li>
+<li><strong><code>index (boolean, optional):</code></strong> Enables database indexing for the field.</li>
+<li><strong><code>unique (boolean, optional):</code></strong> Ensures the field has unique values.</li>
+<li><strong><code>exclude (boolean, optional):</code></strong> Excludes the field from the generated contract.</li>
+<li><strong><code>nullable (boolean, optional):</code></strong> Allows null values.<br>
+toClassOnly (boolean, optional): Restricts field mapping to the class, excluding database/entity.</li>
+<li><strong><code>transform (Function, optional):</code></strong> A custom transformation function for field values.</li>
+<li><strong><code>validations (ValidationOption[], optional):</code></strong> Defines validation rules, such as type checks or custom validation logic.</li>
+</ul>
