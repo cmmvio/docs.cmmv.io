@@ -96,10 +96,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@cmmv/core@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.3.4.tgz#16bb306e6851940fba9a1b1bd9093ad0648f9313"
-  integrity sha512-l/9q9v7WYgtfLrPB+KPMX2qsjt2auB7MPIffqVwSWseFH+Ia3GcUD5k8EJUzJRQ8/NKu7QtmzUzmR8Qgl7EkvA==
+"@cmmv/core@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@cmmv/core/-/core-0.3.8.tgz#a6162b2d8fef6ab58e4ce9fd6a5cee90458821f6"
+  integrity sha512-6h8K2MHUOTcE//anjzjDBL2nAbN38A8LpBBBCvUhWSKlrJMc5cXjMo9igzgwAUSiB+Wn+OPcsQNz5UW+eM0IHg==
   dependencies:
     class-transformer "^0.5.1"
     class-validator "^0.14.1"
@@ -110,10 +110,10 @@
     uglify-js "^3.19.3"
     uuid "^10.0.0"
 
-"@cmmv/http@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.3.4.tgz#8a41ce0c5c34f7efed8c12869f21302fd5091c4b"
-  integrity sha512-oobbe2KoVMnO6VjXlEZEwBcrHAmBIVmAB8fHmr49PqREvILShZ+r7lBW5N3V57ucQT6Xg1HYfFNu3yJKpZgohA==
+"@cmmv/http@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@cmmv/http/-/http-0.3.8.tgz#8538786b45a8c9d4d7cdc357c1959d3237b55372"
+  integrity sha512-SBTcKwbYtLynAVIfycG4SG3asrUrA/da8U5TB3F6xcDDbW50x+Jtuu1JTEgpHVxqAOrACQKAJ4rG5KEAWY4muw==
   dependencies:
     "@fastify/compress" "^7.0.3"
     "@fastify/cors" "^9.0.1"
@@ -140,10 +140,10 @@
   dependencies:
     "@vue/reactivity" "^3.5.1"
 
-"@cmmv/view@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.3.4.tgz#726626534fcbf84f818493627b1184a4141b40c4"
-  integrity sha512-e1JjgpuM2WrNZAv66YiWqFsz0e1gFBroGb37gnDweIZZS4ws6H8IDp3gAALKB/+lNmSuWtgSr6no+CBk5gcLpQ==
+"@cmmv/view@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@cmmv/view/-/view-0.3.8.tgz#4574511ebd42f39ec8479e1dab7376ce55f57ced"
+  integrity sha512-lEQMUf9+LDZe8+57kNaLWrGZNdO3+B4Sd9IWZxG2SPfadBy0nzK9zEksiv16PyYTEk7PuOYyRnuoCQXbNysQ1Q==
   dependencies:
     "@cmmv/reactivity" "^0.1.0"
     fast-glob "^3.3.2"
@@ -2222,6 +2222,11 @@ highlight.js@^11.10.0:
   version "11.10.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.10.0.tgz#6e3600dc4b33d6dc23d5bd94fbf72405f5892b92"
   integrity sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==
+
+highlightjs-copy@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/highlightjs-copy/-/highlightjs-copy-1.0.5.tgz#44fa17c2d3ed27d87ca8efcb67a937e7f760ce4a"
+  integrity sha512-e7vXcq4HyMqXEw9omt8riYMxEGSanjY2bLQL91Jk0zGnqEhs/pO/6X4tC0PQEVkGBqUdYUyfr06V/VEfQZ7Pmg==
 
 html-minifier@^4.0.0:
   version "4.0.0"

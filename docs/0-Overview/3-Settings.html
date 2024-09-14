@@ -54,6 +54,23 @@
 };
 </code></pre>
 <p>The default HTTP renderer in CMMV natively supports internationalization, SEO configuration, and security-focused custom headers. These features allow developers to manage localized content, improve search engine optimization, and apply security policies like Content-Security-Policy directly in the configuration. Additional settings for templates and views can also be added later, providing flexibility for customizing pages. More detailed instructions can be found in the “View” documentation, which explains how to implement these configurations within the template system.</p>
+<h2>Assign</h2><a id="assign" title="Assign"></a>
+<p>The <code>Config.assign()</code> method allows you to dynamically modify or override the system configuration at runtime. This method takes an object that merges or updates the existing configuration. Below is an example of how the configuration can be applied using <code>Config.assign()</code>:</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+
+<span class="hljs-title class_">Config</span>.<span class="hljs-title function_">assign</span>({
+    <span class="hljs-attr">server</span>: {
+        <span class="hljs-attr">host</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">HOST</span> || <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,
+        <span class="hljs-attr">port</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">4000</span>,
+    },
+    <span class="hljs-attr">i18n</span>: {
+        <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&#x27;./locales&#x27;</span>,
+        <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;en&#x27;</span>,
+    },
+    <span class="hljs-comment">// Additional settings...</span>
+});
+</code></pre>
+<p>With <code>Config.assign()</code>, you can flexibly modify settings such as server configuration, internationalization, and more, without hardcoding them directly in <code>.cmmv.config.js</code>.</p>
 <h2>API</h2><a id="api" title="API"></a>
 <p>The system configurations in a CMMV-based application can be accessed programmatically through the Config class from the <code>@cmmv/core</code> module. This allows developers to dynamically retrieve, modify, or delete configuration values throughout the application. For example, the server’s host and port settings, database configurations, or internationalization options can be accessed and altered by calling methods like Config.get(), Config.set(), and Config.has(). These features enable a flexible and centralized approach to managing system settings.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
@@ -79,3 +96,148 @@
 });
 </code></pre>
 <p>Each module in the CMMV system has its own set of configurations that can be added to the central configuration file (.cmmv.config.js). This allows developers to customize the behavior and features of the modules they are using. Because different modules may require specific settings, it’s essential to review each module’s documentation carefully to understand the available configuration options and how they integrate with the core system. This ensures optimal setup and use of advanced functionalities such as RPC, authentication, caching, and more.</p>
+<h2>Environment</h2><a id="environment" title="Environment"></a>
+<p>The <code>env</code> setting allows you to control the environment of the application (e.g., <code>development</code>, <code>production</code>). This setting typically comes from environment variables using <code>dotenv</code> <a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="nofollow">NPM</a> to manage sensitive values securely.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">env</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span>, <span class="hljs-comment">// Example: &#x27;development&#x27; or &#x27;production&#x27;</span>
+</code></pre>
+<h2>Server Configuration</h2><a id="server-configuration" title="Server Configuration"></a>
+<p>The server settings control various aspects of how the application is hosted and its behavior in terms of security, performance, and session management. The configuration supports environment variables for flexibility in different deployment environments.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">server</span>: {
+    <span class="hljs-attr">host</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">HOST</span> || <span class="hljs-string">&#x27;0.0.0.0&#x27;</span>,  <span class="hljs-comment">// Default host</span>
+    <span class="hljs-attr">port</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">3000</span>,       <span class="hljs-comment">// Default port</span>
+    <span class="hljs-attr">poweredBy</span>: <span class="hljs-literal">false</span>,                     <span class="hljs-comment">// Remove &#x27;X-Powered-By&#x27; header</span>
+    <span class="hljs-attr">removePolicyHeaders</span>: <span class="hljs-literal">false</span>,           <span class="hljs-comment">// Option to remove headers added by Helmet</span>
+    <span class="hljs-attr">cors</span>: <span class="hljs-literal">true</span>,                           <span class="hljs-comment">// Enable Cross-Origin Resource Sharing (CORS)</span>
+    
+    <span class="hljs-comment">// Compression settings</span>
+    <span class="hljs-attr">compress</span>: {
+        <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">options</span>: {
+            <span class="hljs-attr">level</span>: <span class="hljs-number">6</span>,  <span class="hljs-comment">// Compression level (0-9)</span>
+        },
+    },
+    
+    <span class="hljs-comment">// Security headers with Helmet.js</span>
+    <span class="hljs-attr">helmet</span>: {
+        <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">options</span>: {
+            <span class="hljs-attr">contentSecurityPolicy</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// CSP can be customized</span>
+        },
+    },
+
+    <span class="hljs-comment">// Session management</span>
+    <span class="hljs-attr">session</span>: {
+        <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Enable sessions</span>
+        <span class="hljs-attr">options</span>: {
+            <span class="hljs-attr">sessionCookieName</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">SESSION_COOKIENAME</span> || <span class="hljs-string">&#x27;cmmv-session&#x27;</span>,
+            <span class="hljs-attr">secret</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">SESSION_SECRET</span> || <span class="hljs-string">&#x27;secret&#x27;</span>,  <span class="hljs-comment">// Session secret</span>
+            <span class="hljs-attr">resave</span>: <span class="hljs-literal">false</span>,    <span class="hljs-comment">// Prevent resaving session data</span>
+            <span class="hljs-attr">saveUninitialized</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Do not save uninitialized sessions</span>
+            <span class="hljs-attr">cookie</span>: {
+                <span class="hljs-attr">secure</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Ensure secure cookie (only over HTTPS)</span>
+                <span class="hljs-attr">maxAge</span>: <span class="hljs-number">60000</span>, <span class="hljs-comment">// Cookie expiration time in ms</span>
+            },
+        },
+    },
+},
+</code></pre>
+<p>This section includes detailed control over CORS, session management, compression, and security features such as Helmet. You can also set up different environments using <code>dotenv</code>.</p>
+<h2>Internationalization</h2><a id="internationalization" title="Internationalization"></a>
+<p>The i18n (Internationalization) system provides a way to manage locale files and define the default language for the application. This helps with the translation and localization of content.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">i18n</span>: {
+    <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&#x27;./src/locale&#x27;</span>,  <span class="hljs-comment">// Path to locale files</span>
+    <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;en&#x27;</span>,                <span class="hljs-comment">// Default language (English)</span>
+},
+</code></pre>
+<h2>RPC</h2><a id="rpc" title="RPC"></a>
+<p>The <code>rpc</code> configuration allows Remote Procedure Calls (RPC) to be used in the application. RPC improves the performance and modularity of the system by enabling communication via predefined contracts.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">rpc</span>: {
+    <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,           <span class="hljs-comment">// Enable RPC system</span>
+    <span class="hljs-attr">preLoadContracts</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Pre-load RPC contracts for efficiency</span>
+},
+</code></pre>
+<h2>View</h2><a id="view" title="View"></a>
+<p>View settings control how HTML is rendered, including options for minifying HTML and handling inline scripts. These settings can be adjusted to optimize the delivery of frontend content.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">view</span>: {
+    <span class="hljs-attr">extractInlineScript</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Disable extraction of inline scripts for better control</span>
+    <span class="hljs-attr">minifyHTML</span>: <span class="hljs-literal">true</span>,           <span class="hljs-comment">// Enable HTML minification for performance</span>
+},
+</code></pre>
+<h2>Repository</h2><a id="repository" title="Repository"></a>
+<p>The <code>repository</code> settings define the database type, path, and options for synchronization and logging. By default, SQLite is used, but other databases can be configured as needed.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">repository</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;sqlite&#x27;</span>,                <span class="hljs-comment">// Default database type</span>
+    <span class="hljs-attr">database</span>: <span class="hljs-string">&#x27;./database.sqlite&#x27;</span>,  <span class="hljs-comment">// Path to the SQLite database file</span>
+    <span class="hljs-attr">synchronize</span>: <span class="hljs-literal">true</span>,              <span class="hljs-comment">// Synchronize database schema</span>
+    <span class="hljs-attr">logging</span>: <span class="hljs-literal">false</span>,                 <span class="hljs-comment">// Disable logging for performance</span>
+},
+</code></pre>
+<h2>Cache</h2><a id="cache" title="Cache"></a>
+<p>The cache configuration uses Redis by default for caching data, improving the speed and performance of the application.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">cache</span>: {
+    <span class="hljs-attr">store</span>: <span class="hljs-string">&#x27;@tirke/node-cache-manager-ioredis&#x27;</span>,  <span class="hljs-comment">// Redis cache store</span>
+    <span class="hljs-attr">getter</span>: <span class="hljs-string">&#x27;ioRedisStore&#x27;</span>,                      <span class="hljs-comment">// Cache store getter</span>
+    <span class="hljs-attr">host</span>: <span class="hljs-string">&#x27;localhost&#x27;</span>,                           <span class="hljs-comment">// Redis host</span>
+    <span class="hljs-attr">port</span>: <span class="hljs-number">6379</span>,                                  <span class="hljs-comment">// Redis port</span>
+    <span class="hljs-attr">ttl</span>: <span class="hljs-number">600</span>,                                    <span class="hljs-comment">// Time to live for cache (in seconds)</span>
+},
+</code></pre>
+<h2>Authentication</h2><a id="authentication" title="Authentication"></a>
+<p>This section handles user authentication, including local login/registration and third-party OAuth integration (e.g., Google). The configuration allows for flexible setup of authentication mechanisms.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">auth</span>: {
+    <span class="hljs-attr">localRegister</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// Enable local user registration</span>
+    <span class="hljs-attr">localLogin</span>: <span class="hljs-literal">true</span>,     <span class="hljs-comment">// Enable local user login</span>
+    <span class="hljs-attr">jwtSecret</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">JWT_SECRET</span> || <span class="hljs-string">&#x27;secret&#x27;</span>,  <span class="hljs-comment">// JWT secret for token signing</span>
+    <span class="hljs-attr">expiresIn</span>: <span class="hljs-number">60</span> * <span class="hljs-number">60</span>,   <span class="hljs-comment">// JWT token expiration time (in seconds)</span>
+    
+    <span class="hljs-comment">// Google OAuth configuration</span>
+    <span class="hljs-attr">google</span>: {
+        <span class="hljs-attr">clientID</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">GOOGLE_CLIENT_ID</span>,               <span class="hljs-comment">// Google client ID</span>
+        <span class="hljs-attr">clientSecret</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">GOOGLE_CLIENT_SECRET</span>,       <span class="hljs-comment">// Google client secret</span>
+        <span class="hljs-attr">callbackURL</span>: <span class="hljs-string">&#x27;http://localhost:3000/auth/google/callback&#x27;</span>,  <span class="hljs-comment">// OAuth callback URL</span>
+    },
+},
+</code></pre>
+<h2>Head</h2><a id="head" title="Head"></a>
+<p>The <code>head</code> configuration manages HTML attributes, meta tags, and link elements, which are essential for SEO and proper rendering of the application.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">head</span>: {
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;CMMV&#x27;</span>,  <span class="hljs-comment">// Default title</span>
+    <span class="hljs-attr">htmlAttrs</span>: {
+        <span class="hljs-attr">lang</span>: <span class="hljs-string">&#x27;pt-br&#x27;</span>,  <span class="hljs-comment">// Default language</span>
+    },
+    <span class="hljs-attr">meta</span>: [
+        { <span class="hljs-attr">charset</span>: <span class="hljs-string">&#x27;utf-8&#x27;</span> },
+        {
+            <span class="hljs-string">&#x27;http-equiv&#x27;</span>: <span class="hljs-string">&#x27;content-type&#x27;</span>,
+            <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;text/html; charset=UTF-8&#x27;</span>,
+        },
+        {
+            <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;viewport&#x27;</span>,
+            <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;width=device-width, initial-scale=1&#x27;</span>,
+        },
+    ],
+    <span class="hljs-attr">link</span>: [{ <span class="hljs-attr">rel</span>: <span class="hljs-string">&#x27;icon&#x27;</span>, <span class="hljs-attr">href</span>: <span class="hljs-string">&#x27;assets/favicon/favicon.ico&#x27;</span> }],
+},
+</code></pre>
+<h2>Headers</h2><a id="headers" title="Headers"></a>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">&#x27;Content-Security-Policy&#x27;</span>: [
+        <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>,
+        <span class="hljs-string">&quot;script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-hashes&#x27;&quot;</span>,
+        <span class="hljs-string">&quot;style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;&quot;</span>,
+        <span class="hljs-string">&quot;font-src &#x27;self&#x27;&quot;</span>,
+        <span class="hljs-string">&quot;connect-src &#x27;self&#x27;&quot;</span>,
+    ],
+},
+</code></pre>
+<h2>Scripts</h2><a id="scripts" title="Scripts"></a>
+<p>The <code>scripts</code> configuration defines JavaScript files to load in the application, which can be customized based on the project’s needs.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">scripts</span>: [
+    {
+        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;text/javascript&#x27;</span>,
+        <span class="hljs-attr">src</span>: <span class="hljs-string">&#x27;/assets/bundle.min.js&#x27;</span>,  <span class="hljs-comment">// Main JavaScript bundle</span>
+        <span class="hljs-attr">defer</span>: <span class="hljs-string">&#x27;defer&#x27;</span>,  <span class="hljs-comment">// Load script after HTML is parsed</span>
+    },
+],
+</code></pre>
+<p>This completes the detailed documentation of the settings. The assign method in Config allows you to dynamically update or override these settings, providing flexibility across different environments and modules.</p>

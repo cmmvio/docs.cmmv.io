@@ -1,4 +1,4 @@
-<div id="app" s:docs="docs" c-cloak>
+<div id="app" s:docs="docs" :class="styles.docs.app" c-cloak>
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
         <div class="max-w-8xl mx-auto flex container items-center">
             <button 
@@ -13,7 +13,7 @@
             <div class="w-60">
                 <a href="/" title="CMMV - Contract Model Model View Framework" class="text-white ml-4 flex items-center">
                     <img src="/assets/favicon/favicon-32x32.png" alt="CMMV Logo" height="32" width="32">
-                    <span class="ml-2 text-lg font-semibold">CMMV</span>
+                    <span :class="styles.docs.title">CMMV</span>
                 </a>
             </div>           
 
@@ -24,7 +24,21 @@
             </div>
 
             <div class="justify-between align-middle text-center mr-2 text-white flex">
-                <a href="https://github.com/andrehrferreira/cmmv" title="Github" target="_blank" class="text-2xl p-2 hover:text-neutral-300">
+                <a href="#" title="Switch Theme" class="text-2xl p-2 hover:text-neutral-300" @click.stop="toggleTheme()">
+                    <div c-show="styles.theme === 'default'" class="text-black">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                    <div c-show="styles.theme === 'dark'" class="text-slate-50">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                </a>
+
+                <a 
+                    href="https://github.com/andrehrferreira/cmmv" 
+                    title="Github" 
+                    target="_blank" 
+                    :class="[(styles.theme === 'default') ? 'text-black' : 'text-slate-50', 'text-2xl p-2 hover:text-neutral-300']"
+                >
                     <i class="fa-brands fa-github"></i>
                 </a>
             </div>
@@ -32,11 +46,7 @@
     </nav>
 
     <div class="flex flex-wrap mx-auto">
-        <div 
-            id="sidebar-menu"
-            class="w-60 fixed z-40 overflow-auto leftbar bg-neutral-800 h-screen lg:block" 
-            c-cloak
-        >
+        <div id="sidebar-menu" :class="styles.docs.sideMenu" c-cloak>
             <!-- include('public/views/docs/navbar') -->
         </div>
         <div class="mt-20 ml-64 text-justify relative">
@@ -46,7 +56,7 @@
                 class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
                 :class="{'w-full': docs.anchors.length < 3}"
             >
-                <div class="relative text-white mb-20 context-html">
+                <div :class="styles.docs.mainText">
                     <div c-html="docs.index" s-data="docs.index"></div>
 
                     <div class="absolute top-0 right-0">
@@ -119,9 +129,14 @@ export default {
 
     async mounted() {
         this.loadState();
+        this.styles.load();
     },
 
     methods: {
+        toggleTheme(){
+            this.styles.switch((this.styles.theme === "default") ? "dark" : "default");
+        },
+
         loadState(){
             this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
             return this.navbar;

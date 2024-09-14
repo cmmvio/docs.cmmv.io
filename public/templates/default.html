@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme='dark' class="dark">
+<html lang="en" :data-theme='styles.theme' scope>
     <head>
         <headers/>
     </head>
-    <body scope> 
+    <body :class="styles.theme"> 
         <slot/>
         
         <script s-attr="nonce">

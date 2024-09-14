@@ -9,6 +9,30 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://cmmv.io/docs/modules/scheduling</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/modules/queue</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/modules/cache</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/modules/authentication</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/modules/repository</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/view/styles</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://cmmv.io/docs/view/views</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -37,6 +61,18 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://cmmv.io/docs/http/services</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/controllers</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/overview</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://cmmv.io/docs/rpc/benchmarks</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -54,26 +90,6 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/rpc/overview</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/modules/scheduling</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/modules/queue</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/modules/cache</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/modules/authentication</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/modules/repository</loc>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -126,18 +142,6 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/overview/introduction</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/services</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/controllers</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/overview</loc>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>

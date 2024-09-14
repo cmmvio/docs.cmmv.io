@@ -14,3 +14,4 @@ tsconfig.json
 yarn.lock
 
 *.tsbuildinfo
+.env

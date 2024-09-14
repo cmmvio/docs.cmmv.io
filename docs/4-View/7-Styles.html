@@ -1,0 +1,65 @@
+<h1>Styles</h1><a id="styles" title="Styles"></a>
+<p>The new styling feature in <code>@cmmv/view</code> allows developers to define theme-specific styles that can be dynamically switched on the frontend. The system maps JSON files from the /public/styles directory, which contain the style rules, and makes them accessible in the frontend for easy theme management.</p>
+<p>To create a custom style, define a <code>.style.json</code> file in <code>/public/styles</code>. Each key-value pair represents a style class, and you can create multiple themes by appending a suffix (e.g., .dark) to the keys.</p>
+<p><code>docs.style.json</code></p>
+<pre><code class="hljs language-json" lang="json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;app&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;bg-gray-200&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;app.dark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;bg-gray-900&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ml-2 text-lg text-slate-800 font-semibold&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;title.dark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ml-2 text-lg text-gray-200 font-semibold&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;mainText&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text-slate-800 relative text-white mb-20 context-html&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;mainText.dark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text-gray-200 relative text-white mb-20 context-html&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;sideMenu&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;w-60 fixed z-40 overflow-auto text-slate-800 ...&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;sideMenu.dark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;w-60 fixed z-40 overflow-auto text-white ...&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2>Accessing Styles</h2><a id="accessing-styles" title="Accessing Styles"></a>
+<p>In your HTML, you can access the defined styles by referencing the style file and keys. The styles object is automatically made available, and the theme-specific classes are applied based on the current theme.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;w-60&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> 
+        <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span> 
+        <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;CMMV - Contract Model Model View Framework&quot;</span> 
+        <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-white ml-4 flex items-center&quot;</span>
+    &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> 
+            <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/favicon/favicon-32x32.png&quot;</span> 
+            <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;CMMV Logo&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;32&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;32&quot;</span>
+        &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;styles.docs.title&quot;</span>&gt;</span>CMMV<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<h2>Theme Switching</h2><a id="theme-switching" title="Theme Switching"></a>
+<p>The system allows switching between themes (e.g., <code>default</code>, <code>dark</code>). When a theme is changed, all relevant classes with the suffix (e.g., <code>.dark</code>) are applied automatically.</p>
+<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-title function_">toggleTheme</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">styles</span>.<span class="hljs-title function_">switch</span>(
+        (<span class="hljs-variable language_">this</span>.<span class="hljs-property">styles</span>.<span class="hljs-property">theme</span> === <span class="hljs-string">&quot;default&quot;</span>) ? 
+        <span class="hljs-string">&quot;dark&quot;</span> : <span class="hljs-string">&quot;default&quot;</span>
+    );
+}
+</code></pre>
+<br/>
+<ul>
+<li><strong>JSON File Structure:</strong> The JSON defines style classes for different components. Theme-specific classes are suffixed with <code>.dark</code>, <code>.light</code>, etc.</li>
+<li><strong>Frontend Access:</strong> Styles are accessed through <code>styles.[filename].[key]</code> in the frontend.</li>
+<li><strong>Dynamic Switching:</strong> Theme switching is done programmatically, and the system handles the replacement of style classes based on the active theme.</li>
+<li><strong>No Subindices Support:</strong> Nested JSON subindices are not supported, meaning that each key-value pair must be a flat entry.</li>
+</ul>
+<h2>Theme Management</h2><a id="theme-management" title="Theme Management"></a>
+<p>The theme selection in <code>@cmmv/view</code> is handled automatically by the framework, saving the user’s preference in <code>localStorage</code> and retrieving it upon page load. This enables the system to maintain consistent styling based on the user’s previous choice, without manual intervention.</p>
+<p>You can check the current theme directly in your template using <code>styles.theme</code>. For example, to integrate with a component like DocSearch that requires a theme setting, you can update the HTML tag with the <code>data-theme</code> attribute:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">:data-theme</span>=<span class="hljs-string">&#x27;styles.theme&#x27;</span> <span class="hljs-attr">scope</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">headers</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>This ensures that the correct theme is applied across components like search bars and other elements that require theme awareness.</p>
+<p>This implementation of dynamic themes in <code>@cmmv/view</code> provides a streamlined approach to managing multiple themes without needing additional plugins, Tailwind extensions, or complex CSS rules. By utilizing <code>.style.json</code> files, developers can easily define theme-specific styles, reducing the amount of code and ensuring consistent theme switching. While it’s possible to achieve similar results using CSS variables, this method simplifies the process, eliminating the need for custom view logic or CSS management for theme switching, making it intuitive and efficient.</p>
+<ul>
+<li><strong>Support for Nested Styles:</strong> Introducing support for nested JSON indices could allow for more complex style structures and better organization.</li>
+<li><strong>CSS Variable Integration:</strong> An option to integrate with CSS variables can complement the theme system, offering finer control over dynamic theming.</li>
+<li><strong>Theme Preloading:</strong> Allow theme preloading based on system preferences (e.g., dark mode based on OS settings) to enhance user experience.</li>
+<li><strong>Advanced Animations:</strong> Adding built-in transitions for theme switching could improve UX when toggling between light and dark modes.</li>
+</ul>

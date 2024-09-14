@@ -1,0 +1,10 @@
+{
+    "app": "bg-gray-200",
+    "app.dark": "bg-gray-900",
+    "title": "ml-2 text-lg text-slate-800 font-semibold",
+    "title.dark": "ml-2 text-lg text-gray-200 font-semibold",
+    "mainText": "text-slate-800 relative text-white mb-20 context-html",
+    "mainText.dark": "text-gray-200 relative text-white mb-20 context-html",
+    "sideMenu": "w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 h-screen lg:block",
+    "sideMenu.dark": "w-60 fixed z-40 overflow-auto text-white leftbar bg-gray-900 h-screen lg:block"
+}

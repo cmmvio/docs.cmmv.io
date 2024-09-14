@@ -2,14 +2,14 @@
     <s-for c-for="(item, key) in docs.navbar" render-tag="li">
         <div 
             c-show="item"
-            class="flex hover:text-blue-700 itemRoot text-white" 
+            class="flex hover:text-blue-700 itemRoot" 
             :id="item?.name.replace(/\s/,'_')" 
             :data-opened="false" 
             @click.stop="navbar[item?.name.replace(/\s/, `_`)] = toggle(navbar[item?.name.replace(/\s/, `_`)], item.name?.replace(/\s/, `_`))"
         >
             <div class="flex flex-1 font-bold text-md cursor-pointer navbar-item">
-                <h3 c-if="item && item?.isDir" class="text-white">{{ item?.name }}</h3>
-                <span c-else class="text-white">{{ item?.name }}</span>
+                <h3 c-if="item && item?.isDir">{{ item?.name }}</h3>
+                <span c-else>{{ item?.name }}</span>
             </div>
 
             <div class="justify-between cursor-pointer" c-if="item?.isDir">
@@ -24,7 +24,7 @@
             :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : 'display: none;'"
         >
             <div c-for="(child) in item.children">
-                <div class="hover:text-gray-800 text-white text-base p-1" style="font-size: 12px">
+                <div class="hover:text-gray-800 text-base p-1" style="font-size: 12px">
                     <a :href="child.uri" class="text-base">{{ child.name }}</a>
                 </div>
             </div>
