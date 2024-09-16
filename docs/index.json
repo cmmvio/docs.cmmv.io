@@ -1,5 +1,10 @@
 {
     "index": "./docs/index.html",
+    "modules/scheduling": "./docs/6-Modules/4-Scheduling.html",
+    "modules/cache": "./docs/6-Modules/2-Cache.html",
+    "modules/authentication": "./docs/6-Modules/1-Authentication.html",
+    "modules/repository": "./docs/6-Modules/0-Repository.html",
+    "view/components": "./docs/5-View/8-Components.html",
     "view/styles": "./docs/5-View/7-Styles.html",
     "view/views": "./docs/5-View/6-Views.html",
     "view/templates": "./docs/5-View/5-Templates.html",
@@ -8,10 +13,6 @@
     "view/directives": "./docs/5-View/2-Directives.html",
     "view/reactivity": "./docs/5-View/1-Reactivity.html",
     "view/overview": "./docs/5-View/0-Overview.html",
-    "modules/scheduling": "./docs/6-Modules/4-Scheduling.html",
-    "modules/cache": "./docs/6-Modules/2-Cache.html",
-    "modules/authentication": "./docs/6-Modules/1-Authentication.html",
-    "modules/repository": "./docs/6-Modules/0-Repository.html",
     "rpc/benchmarks": "./docs/4-RPC/9-Benchmarks.html",
     "rpc/gateways": "./docs/4-RPC/3-Gateways.html",
     "rpc/websocket": "./docs/4-RPC/2-Websocket.html",
@@ -20,10 +21,6 @@
     "http/services": "./docs/3-HTTP/2-Services.html",
     "http/controllers": "./docs/3-HTTP/1-Controllers.html",
     "http/overview": "./docs/3-HTTP/0-Overview.html",
-    "contracts/serialization": "./docs/2-Contracts/3-Serialization.html",
-    "contracts/transform": "./docs/2-Contracts/2-Transform.html",
-    "contracts/validation": "./docs/2-Contracts/1-Validation.html",
-    "contracts/overview": "./docs/2-Contracts/0-Overview.html",
     "overview/decorators": "./docs/0-Overview/91-Decorators.html",
     "overview/request": "./docs/0-Overview/9-Request.html",
     "overview/telemetry": "./docs/0-Overview/8-Telemetry.html",
@@ -33,5 +30,9 @@
     "overview/modules": "./docs/0-Overview/4-Modules.html",
     "overview/settings": "./docs/0-Overview/3-Settings.html",
     "overview/first-steps": "./docs/0-Overview/1-First Steps.html",
-    "overview/introduction": "./docs/0-Overview/0-Introduction.html"
+    "overview/introduction": "./docs/0-Overview/0-Introduction.html",
+    "contracts/serialization": "./docs/2-Contracts/3-Serialization.html",
+    "contracts/transform": "./docs/2-Contracts/2-Transform.html",
+    "contracts/validation": "./docs/2-Contracts/1-Validation.html",
+    "contracts/overview": "./docs/2-Contracts/0-Overview.html"
 }
