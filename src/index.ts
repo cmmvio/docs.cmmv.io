@@ -1,16 +1,11 @@
-require('dotenv').config()
+require('dotenv').config();
 
-import { Application } from "@cmmv/core";
-import { ExpressAdapter, ExpressModule } from "@cmmv/http";
-import { ViewModule } from "@cmmv/view";
-import { DocsModule } from "./docs.module";
+import { Application } from '@cmmv/core';
+import { ExpressAdapter, ExpressModule } from '@cmmv/http';
+import { ViewModule } from '@cmmv/view';
+import { DocsModule } from './docs.module';
 
 Application.create({
     httpAdapter: ExpressAdapter,
-    wsAdapter: null,   
-    modules: [ 
-        ExpressModule,
-        ViewModule,
-        DocsModule
-    ]
+    modules: [ExpressModule, ViewModule, DocsModule],
 });

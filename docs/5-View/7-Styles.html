@@ -13,7 +13,7 @@
     <span class="hljs-attr">&quot;sideMenu.dark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;w-60 fixed z-40 overflow-auto text-white ...&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-<h2>Accessing Styles</h2><a id="accessing-styles" title="Accessing Styles"></a>
+<h2>Accessing</h2><a id="accessing" title="Accessing"></a>
 <p>In your HTML, you can access the defined styles by referencing the style file and keys. The styles object is automatically made available, and the theme-specific classes are applied based on the current theme.</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;w-60&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">a</span> 
@@ -29,7 +29,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<h2>Theme Switching</h2><a id="theme-switching" title="Theme Switching"></a>
+<h2>Switching</h2><a id="switching" title="Switching"></a>
 <p>The system allows switching between themes (e.g., <code>default</code>, <code>dark</code>). When a theme is changed, all relevant classes with the suffix (e.g., <code>.dark</code>) are applied automatically.</p>
 <pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-title function_">toggleTheme</span>(<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">styles</span>.<span class="hljs-title function_">switch</span>(
@@ -45,7 +45,7 @@
 <li><strong>Dynamic Switching:</strong> Theme switching is done programmatically, and the system handles the replacement of style classes based on the active theme.</li>
 <li><strong>No Subindices Support:</strong> Nested JSON subindices are not supported, meaning that each key-value pair must be a flat entry.</li>
 </ul>
-<h2>Theme Management</h2><a id="theme-management" title="Theme Management"></a>
+<h2>Management</h2><a id="management" title="Management"></a>
 <p>The theme selection in <code>@cmmv/view</code> is handled automatically by the framework, saving the user’s preference in <code>localStorage</code> and retrieving it upon page load. This enables the system to maintain consistent styling based on the user’s previous choice, without manual intervention.</p>
 <p>You can check the current theme directly in your template using <code>styles.theme</code>. For example, to integrate with a component like DocSearch that requires a theme setting, you can update the HTML tag with the <code>data-theme</code> attribute:</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
@@ -63,3 +63,25 @@
 <li><strong>Theme Preloading:</strong> Allow theme preloading based on system preferences (e.g., dark mode based on OS settings) to enhance user experience.</li>
 <li><strong>Advanced Animations:</strong> Adding built-in transitions for theme switching could improve UX when toggling between light and dark modes.</li>
 </ul>
+<h2>Component</h2><a id="component" title="Component"></a>
+<p>In addition to the previously discussed style system, CMMV introduces the <code>$style</code> property within components, allowing scoped styles to be accessed directly.</p>
+<p>This feature enables developers to define and reference styles within the component’s data model, facilitating style management within templates.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;$style.themeSwitch.container&quot;</span>&gt;</span>{{ test }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;test++&quot;</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>){
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">test</span>: <span class="hljs-number">123</span>
+        }
+    },
+    <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-comment">//console.log(&quot;mounted&quot;);</span>
+    }
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>This allows more intuitive style handling, making styles accessible directly within the component context.</p>

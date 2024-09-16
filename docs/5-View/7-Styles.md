@@ -19,7 +19,7 @@ To create a custom style, define a ``.style.json`` file in ``/public/styles``. E
 }
 ```
 
-## Accessing Styles
+## Accessing
 
 In your HTML, you can access the defined styles by referencing the style file and keys. The styles object is automatically made available, and the theme-specific classes are applied based on the current theme.
 
@@ -39,7 +39,7 @@ In your HTML, you can access the defined styles by referencing the style file an
 </div>
 ```
 
-## Theme Switching
+## Switching
 
 The system allows switching between themes (e.g., ``default``, ``dark``). When a theme is changed, all relevant classes with the suffix (e.g., ``.dark``) are applied automatically.
 
@@ -59,7 +59,7 @@ toggleTheme() {
 * **Dynamic Switching:** Theme switching is done programmatically, and the system handles the replacement of style classes based on the active theme.
 * **No Subindices Support:** Nested JSON subindices are not supported, meaning that each key-value pair must be a flat entry.
 
-## Theme Management
+## Management
 
 The theme selection in ``@cmmv/view`` is handled automatically by the framework, saving the user's preference in ``localStorage`` and retrieving it upon page load. This enables the system to maintain consistent styling based on the user's previous choice, without manual intervention.
 
@@ -82,3 +82,31 @@ This implementation of dynamic themes in ``@cmmv/view`` provides a streamlined a
 * **CSS Variable Integration:** An option to integrate with CSS variables can complement the theme system, offering finer control over dynamic theming.
 * **Theme Preloading:** Allow theme preloading based on system preferences (e.g., dark mode based on OS settings) to enhance user experience.
 * **Advanced Animations:** Adding built-in transitions for theme switching could improve UX when toggling between light and dark modes.
+
+## Component 
+
+In addition to the previously discussed style system, CMMV introduces the ``$style`` property within components, allowing scoped styles to be accessed directly.
+
+This feature enables developers to define and reference styles within the component’s data model, facilitating style management within templates.
+
+```html
+<template>
+    <div :class="$style.themeSwitch.container">{{ test }}</div>
+    <button @click="test++">Add</button>
+</template>
+
+<script>
+export default {
+    data(){
+        return {
+            test: 123
+        }
+    },
+    mounted() {
+        //console.log("mounted");
+    }
+}
+</script>
+```
+
+This allows more intuitive style handling, making styles accessible directly within the component context.
