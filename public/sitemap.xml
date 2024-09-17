@@ -25,26 +25,6 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://cmmv.io/docs/rpc/benchmarks</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/rpc/gateways</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/rpc/websocket</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/rpc/proto</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/rpc/overview</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
     <loc>https://cmmv.io/docs/view/components</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -78,6 +58,54 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/view/overview</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/rpc/benchmarks</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/rpc/gateways</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/rpc/websocket</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/rpc/proto</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/rpc/overview</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/services</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/controllers</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/overview</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/serialization</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/transform</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/validation</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/overview</loc>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -118,34 +146,6 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/overview/introduction</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/serialization</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/transform</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/validation</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/overview</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/services</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/controllers</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/overview</loc>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
