@@ -209,3 +209,26 @@
 }
 </code></pre>
 <p>The <code>mounted</code> hook is essential when you need to ensure that your component is fully loaded into the DOM before interacting with it, making it useful for DOM manipulations, setting up event listeners, or initializing components that rely on third-party libraries or services.</p>
+<h1>Slot</h1><a id="slot" title="Slot"></a>
+<p>Slots in CMMV allow you to pass custom content from the parent scope into the child component. They can be dynamically updated using data from the parent component.</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">ComponentTemplate</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;comp&quot;</span> <span class="hljs-attr">:count</span>=<span class="hljs-string">&quot;test&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">c-slot</span>=<span class="hljs-string">&quot;{ count }&quot;</span>&gt;</span>
+        Component value: {{ count }}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ComponentTemplate</span>&gt;</span>
+</code></pre>
+<p>In this example, the <code>c-slot</code> directive is used to pass the slot content, making the parent’s <code>count</code> data available inside the <code>ComponentTemplate</code>. The parent scope can dynamically change the slot content, reflecting the updated values inside the child component.</p>
+<p>The slot in the component is rendered like this:</p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">:count</span>=<span class="hljs-string">&quot;count&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+</code></pre>
+<p><strong>Rendering</strong></p>
+<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;comp&quot;</span> <span class="hljs-attr">count</span>=<span class="hljs-string">&quot;123&quot;</span>&gt;</span>
+  Component value: 123
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<br/>
+<ul>
+<li><strong>Named Slots:</strong> Slots can be given names for better organization.</li>
+<li><strong>Reactivity:</strong> Slots update reactively with changes in parent data.</li>
+<li><strong>Scoped Slots:</strong> Scoped slots provide the ability to pass data from the child component to the parent for rendering custom content.</li>
+</ul>

@@ -34,7 +34,7 @@ In your HTML, you can access the defined styles by referencing the style file an
             src="/assets/favicon/favicon-32x32.png" 
             alt="CMMV Logo" height="32" width="32"
         >
-        <span :class="styles.docs.title">CMMV</span>
+        <span :class="$style.docs.title">CMMV</span>
     </a>
 </div>
 ```
@@ -45,8 +45,8 @@ The system allows switching between themes (e.g., ``default``, ``dark``). When a
 
 ```javascript
 toggleTheme() {
-    this.styles.switch(
-        (this.styles.theme === "default") ? 
+    this.$style.switch(
+        (this.$style.theme === "default") ? 
         "dark" : "default"
     );
 }
@@ -63,11 +63,11 @@ toggleTheme() {
 
 The theme selection in ``@cmmv/view`` is handled automatically by the framework, saving the user's preference in ``localStorage`` and retrieving it upon page load. This enables the system to maintain consistent styling based on the user's previous choice, without manual intervention.
 
-You can check the current theme directly in your template using ``styles.theme``. For example, to integrate with a component like DocSearch that requires a theme setting, you can update the HTML tag with the ``data-theme`` attribute:
+You can check the current theme directly in your template using ``$style.theme``. For example, to integrate with a component like DocSearch that requires a theme setting, you can update the HTML tag with the ``data-theme`` attribute:
 
 ```html
 <!DOCTYPE html>
-<html lang="en" :data-theme='styles.theme' scope>
+<html lang="en" :data-theme='$style.theme' scope>
     <head>
         <headers/>
     </head>
@@ -101,9 +101,6 @@ export default {
         return {
             test: 123
         }
-    },
-    mounted() {
-        //console.log("mounted");
     }
 }
 </script>

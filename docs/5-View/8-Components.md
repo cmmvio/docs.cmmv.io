@@ -249,3 +249,37 @@ export default {
 ```
 
 The ``mounted`` hook is essential when you need to ensure that your component is fully loaded into the DOM before interacting with it, making it useful for DOM manipulations, setting up event listeners, or initializing components that rely on third-party libraries or services.
+
+# Slot
+
+Slots in CMMV allow you to pass custom content from the parent scope into the child component. They can be dynamically updated using data from the parent component.
+
+```html
+<ComponentTemplate ref="comp" :count="test">
+    <template c-slot="{ count }">
+        Component value: {{ count }}
+    </template>
+</ComponentTemplate>
+```
+
+In this example, the ``c-slot`` directive is used to pass the slot content, making the parent’s ``count`` data available inside the ``ComponentTemplate``. The parent scope can dynamically change the slot content, reflecting the updated values inside the child component.
+
+The slot in the component is rendered like this:
+
+```html
+<slot :count="count"></slot>
+```
+
+**Rendering**
+
+```html
+<div ref="comp" count="123">
+  Component value: 123
+</div>
+```
+
+<br/>
+
+* **Named Slots:** Slots can be given names for better organization.
+* **Reactivity:** Slots update reactively with changes in parent data.
+* **Scoped Slots:** Scoped slots provide the ability to pass data from the child component to the parent for rendering custom content.

@@ -25,15 +25,15 @@
             <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/favicon/favicon-32x32.png&quot;</span> 
             <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;CMMV Logo&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;32&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;32&quot;</span>
         &gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;styles.docs.title&quot;</span>&gt;</span>CMMV<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;$style.docs.title&quot;</span>&gt;</span>CMMV<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <h2>Switching</h2><a id="switching" title="Switching"></a>
 <p>The system allows switching between themes (e.g., <code>default</code>, <code>dark</code>). When a theme is changed, all relevant classes with the suffix (e.g., <code>.dark</code>) are applied automatically.</p>
 <pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-title function_">toggleTheme</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">styles</span>.<span class="hljs-title function_">switch</span>(
-        (<span class="hljs-variable language_">this</span>.<span class="hljs-property">styles</span>.<span class="hljs-property">theme</span> === <span class="hljs-string">&quot;default&quot;</span>) ? 
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">$style</span>.<span class="hljs-title function_">switch</span>(
+        (<span class="hljs-variable language_">this</span>.<span class="hljs-property">$style</span>.<span class="hljs-property">theme</span> === <span class="hljs-string">&quot;default&quot;</span>) ? 
         <span class="hljs-string">&quot;dark&quot;</span> : <span class="hljs-string">&quot;default&quot;</span>
     );
 }
@@ -47,9 +47,9 @@
 </ul>
 <h2>Management</h2><a id="management" title="Management"></a>
 <p>The theme selection in <code>@cmmv/view</code> is handled automatically by the framework, saving the user’s preference in <code>localStorage</code> and retrieving it upon page load. This enables the system to maintain consistent styling based on the user’s previous choice, without manual intervention.</p>
-<p>You can check the current theme directly in your template using <code>styles.theme</code>. For example, to integrate with a component like DocSearch that requires a theme setting, you can update the HTML tag with the <code>data-theme</code> attribute:</p>
+<p>You can check the current theme directly in your template using <code>$style.theme</code>. For example, to integrate with a component like DocSearch that requires a theme setting, you can update the HTML tag with the <code>data-theme</code> attribute:</p>
 <pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">:data-theme</span>=<span class="hljs-string">&#x27;styles.theme&#x27;</span> <span class="hljs-attr">scope</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">:data-theme</span>=<span class="hljs-string">&#x27;$style.theme&#x27;</span> <span class="hljs-attr">scope</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">headers</span>/&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
@@ -77,9 +77,6 @@
         <span class="hljs-keyword">return</span> {
             <span class="hljs-attr">test</span>: <span class="hljs-number">123</span>
         }
-    },
-    <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-comment">//console.log(&quot;mounted&quot;);</span>
     }
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
