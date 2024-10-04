@@ -7,5 +7,5 @@
         "public/assets/*", "docs/**/*.html",
         "docs/*.html"
     ],
-    "exec": "npm run generate && ts-node -r tsconfig-paths/register ./src/index.ts" 
+    "exec": "npm run generate && node -r @swc-node/register ./src/index.ts" 
 }
