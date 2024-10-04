@@ -15,7 +15,9 @@
 		"url": "git+https://github.com/andrehrferreira/docs.cmmv.io.git"
 	},
 	"keywords": [
-		"cmmv"
+		"cmmv",
+		"docs",
+		"documentation"
 	],
 	"author": "Andre Ferreira",
 	"license": "MIT",
@@ -33,9 +35,9 @@
 		]
 	},
 	"dependencies": {
-		"@cmmv/core": "^0.3.13",
-		"@cmmv/http": "^0.3.13",
-		"@cmmv/view": "^0.3.13",
+		"@cmmv/core": "^0.3.15",
+		"@cmmv/http": "^0.3.15",
+		"@cmmv/view": "^0.3.15",
 		"dotenv": "^16.4.5",
 		"glob": "^11.0.0",
 		"highlight.js": "^11.10.0",

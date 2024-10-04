@@ -24,7 +24,7 @@
             :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : 'display: none;'"
         >
             <div c-for="(child) in item.children">
-                <div class="hover:text-gray-800 text-base p-1" style="font-size: 12px">
+                <div class="hover:text-gray-800 text-base p-1" style="font-size: 10px">
                     <a :href="child.uri" class="text-base">{{ child.name }}</a>
                 </div>
             </div>

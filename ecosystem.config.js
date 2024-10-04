@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
         name   : "API",
-        script : "yarn start"
+        script : "npm run start"
     }]
 }

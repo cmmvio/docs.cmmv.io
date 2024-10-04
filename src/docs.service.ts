@@ -110,13 +110,13 @@ export class DocsService extends AbstractService {
         }
 
         if (strutucture.index) {
-            const regex = /<a id="(.*?)".*?>/g;
+            const regex = /<h[1-4]>(.*?)<\/.*?<a id="(.*?)".*?>/g;
             let match;
 
             while ((match = regex.exec(strutucture.index)) !== null) {
                 strutucture.anchors.push({
-                    id: match[1],
-                    label: this.fixedLabel(match[1]),
+                    id: match[2],
+                    label: match[1],
                 });
             }
         }
