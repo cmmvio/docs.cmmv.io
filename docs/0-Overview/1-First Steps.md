@@ -42,7 +42,7 @@ Every application flow starts in the `src/index.ts` file which is responsible fo
 
 ```typescript
 import { Application } from "@cmmv/core";
-import { ExpressAdapter, ExpressModule } from "@cmmv/http";
+import { DefaultAdapter, DefaultHTTPModule } from "@cmmv/http";
 import { ProtobufModule } from "@cmmv/protobuf";
 import { WSModule, WSAdapter } from "@cmmv/ws";
 import { ViewModule } from "@cmmv/view";
@@ -50,10 +50,10 @@ import { RepositoryModule, Repository } from "@cmmv/repository";
 import { ApplicationModule } from "./app.module";
 
 Application.create({
-    httpAdapter: ExpressAdapter,    
+    httpAdapter: DefaultAdapter,    
     wsAdapter: WSAdapter,
     modules: [
-        ExpressModule,
+        DefaultHTTPModule,
         ProtobufModule,
         WSModule,
         ViewModule,
@@ -64,7 +64,7 @@ Application.create({
 });
 ```
 
-It is possible to perform configurations through the ```.cmmv.config.js``` file without having to change the application source code, even in the future we will provide other HTTP server modules.
+It is possible to perform configurations through the ``.cmmv.config.js`` file without having to change the application source code, even in the future we will provide other HTTP server modules.
 
 The default directories that come with the project are the following:
 ```

@@ -1,6 +1,6 @@
-<h1>HTTP Overview</h1><a id="http-overview" title="HTTP Overview"></a>
-<p>The CMMV framework comes with built-in support for both Express and Fastify as HTTP adapters. However, the system allows for custom HTTP adapters by implementing the AbstractHttpAdapter class. This makes it possible to integrate other web frameworks or HTTP libraries with the same consistency and features provided by the default adapters. Developers can extend and customize their server architecture based on their requirements while maintaining the structure and benefits of the CMMV ecosystem.</p>
-<p>The ExpressAdapter in CMMV provides an abstraction over the Express.js framework, enabling seamless integration with the CMMV ecosystem. This adapter includes features such as request compression, session management, custom headers, and middleware. Below are the key functionalities implemented:</p>
+<h1>Overview</h1><a id="overview" title="Overview"></a>
+<p>The CMMV framework introduces its own default server implementation, <code>@cmmv/server</code>, which offers superior performance and seamless integration with the overall CMMV ecosystem. This server is highly optimized and designed to provide built-in support for critical features such as compression, routing, request handling, static file serving, security, and middleware management. Because <code>@cmmv/server</code> is developed as a core part of CMMV, it allows for better control over feature enhancements, bug fixes, and performance improvements, making it the recommended option for most applications.</p>
+<p>The server is flexible and shares many of the same APIs and capabilities as <a href="https://expressjs.com/" target="_blank" rel="nofollow">Express</a> and <a href="https://fastify.dev/" target="_blank" rel="nofollow">Fastify</a>, which ensures an easy transition if you’re familiar with those frameworks. However, <code>@cmmv/server</code> also includes enhanced integration with CMMV’s contracts, modules, and services, providing a more consistent developer experience across different layers of the application.</p>
 <p>Key Features:</p>
 <ul>
 <li><strong>HTTP and HTTPS Support:</strong> The adapter can initialize servers using both HTTP and HTTPS based on configuration.</li>
@@ -13,31 +13,43 @@
 <li><strong>Open Connection Tracking:</strong> Tracks and closes open connections when the server shuts down.</li>
 <li><strong>Error Handling:</strong> Captures and logs errors during request processing, providing detailed error messages.</li>
 </ul>
-<h2>Dependences</h2><a id="dependences" title="Dependences"></a>
-<p>The modules used for the Express adapter in your code include:</p>
-<ul>
-<li><strong>express:</strong> Core framework for handling HTTP requests.</li>
-<li><strong>body-parser:</strong> Middleware for parsing incoming request bodies.</li>
-<li><strong>compression:</strong> Middleware for compressing response bodies.</li>
-<li><strong>cors:</strong> Middleware to enable Cross-Origin Resource Sharing.</li>
-<li><strong>express-session:</strong> Middleware for managing sessions.</li>
-<li><strong>helmet:</strong> Middleware for securing Express apps by setting HTTP headers.</li>
-<li><strong>uuid:</strong> Utility for generating unique request IDs.</li>
-</ul>
-<h2>Initialization</h2><a id="initialization" title="Initialization"></a>
-<p>To use the ExpressAdapter:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<h2>Default Server</h2><a id="default-server" title="Default Server"></a>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DefaultAdapter</span>, <span class="hljs-title class_">DefaultHTTPModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">DefaultAdapter</span>,
+    <span class="hljs-attr">modules</span>: [<span class="hljs-title class_">DefaultHTTPModule</span>, ...],
+    <span class="hljs-attr">services</span>: [...],
+    <span class="hljs-attr">contracts</span>: [...],
+});
+</code></pre>
+<h2>Express</h2><a id="express" title="Express"></a>
+<p>In addition to the default server, CMMV also supports Express and Fastify as alternative HTTP adapters, providing flexibility for developers who prefer or need to use these popular frameworks. Both Express and Fastify adapters are fully integrated into the CMMV ecosystem and can be used by simply switching the adapter in the application configuration.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
     <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,
-    <span class="hljs-attr">modules</span>: [<span class="hljs-title class_">YourModule</span>]
+    <span class="hljs-attr">modules</span>: [<span class="hljs-title class_">ExpressModule</span>, ...],
+    <span class="hljs-attr">services</span>: [...],
+    <span class="hljs-attr">contracts</span>: [...],
 });
 </code></pre>
 <p>The adapter registers all controllers automatically from the ControllerRegistry. It matches the controller’s routes to the corresponding HTTP methods (GET, POST, etc.), and processes middleware defined at the controller level.</p>
 <h2>Fastify</h2><a id="fastify" title="Fastify"></a>
 <p>The Fastify Adapter in CMMV provides an alternative to the Express Adapter, allowing for lightweight, high-performance HTTP handling using Fastify’s framework. This adapter integrates key middleware like compression, CORS, helmet for security, and static file serving. It automatically registers controllers and manages the lifecycle of incoming requests. The Fastify Adapter follows the same structure as the Express Adapter, supporting session management and content rendering, while offering a faster, more optimized environment.</p>
 <p>Both Express and Fastify adapters are natively supported, and custom HTTP adapters can be created by extending the AbstractHttpAdapter.</p>
+<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FastifyAdapter</span>, <span class="hljs-title class_">FastifyModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">FastifyAdapter</span>,
+    <span class="hljs-attr">modules</span>: [<span class="hljs-title class_">FastifyModule</span>, ...],
+    <span class="hljs-attr">services</span>: [...],
+    <span class="hljs-attr">contracts</span>: [...],
+});
+</code></pre>
 <h2>Middlewares</h2><a id="middlewares" title="Middlewares"></a>
 <p>The httpMiddlewares configuration allows you to inject custom middleware into the HTTP adapter (such as Express or Fastify) during the application’s initialization. This provides additional flexibility by letting you apply any middleware functions to handle tasks like logging, request validation, or security checks.</p>
 <p>To use this feature, define an array of middleware functions in the httpMiddlewares property when creating the application.</p>

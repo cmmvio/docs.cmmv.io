@@ -20,7 +20,7 @@
 <p>In short, CMMV is more than a collection of tools and frameworks; it is an integrated approach to development, where contracts are at the core of everything. With a solid foundation, CMMV gives developers the freedom to build modern and scalable applications, without compromising the simplicity and flexibility that are essential for continuous innovation.</p>
 <p>Every application flow starts in the <code>src/index.ts</code> file which is responsible for starting the HTTP server and its adapters.</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DefaultAdapter</span>, <span class="hljs-title class_">DefaultHTTPModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/protobuf&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/view&quot;</span>;
@@ -28,10 +28,10 @@
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ApplicationModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./app.module&quot;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
-    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,    
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">DefaultAdapter</span>,    
     <span class="hljs-attr">wsAdapter</span>: <span class="hljs-title class_">WSAdapter</span>,
     <span class="hljs-attr">modules</span>: [
-        <span class="hljs-title class_">ExpressModule</span>,
+        <span class="hljs-title class_">DefaultHTTPModule</span>,
         <span class="hljs-title class_">ProtobufModule</span>,
         <span class="hljs-title class_">WSModule</span>,
         <span class="hljs-title class_">ViewModule</span>,

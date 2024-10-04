@@ -1,8 +1,8 @@
-# HTTP Overview
+# Overview
 
-The CMMV framework comes with built-in support for both Express and Fastify as HTTP adapters. However, the system allows for custom HTTP adapters by implementing the AbstractHttpAdapter class. This makes it possible to integrate other web frameworks or HTTP libraries with the same consistency and features provided by the default adapters. Developers can extend and customize their server architecture based on their requirements while maintaining the structure and benefits of the CMMV ecosystem.
+The CMMV framework introduces its own default server implementation, ``@cmmv/server``, which offers superior performance and seamless integration with the overall CMMV ecosystem. This server is highly optimized and designed to provide built-in support for critical features such as compression, routing, request handling, static file serving, security, and middleware management. Because ``@cmmv/server`` is developed as a core part of CMMV, it allows for better control over feature enhancements, bug fixes, and performance improvements, making it the recommended option for most applications.
 
-The ExpressAdapter in CMMV provides an abstraction over the Express.js framework, enabling seamless integration with the CMMV ecosystem. This adapter includes features such as request compression, session management, custom headers, and middleware. Below are the key functionalities implemented:
+The server is flexible and shares many of the same APIs and capabilities as [Express](https://expressjs.com/) and [Fastify](https://fastify.dev/), which ensures an easy transition if you're familiar with those frameworks. However, ``@cmmv/server`` also includes enhanced integration with CMMV’s contracts, modules, and services, providing a more consistent developer experience across different layers of the application.
 
 Key Features:
 * **HTTP and HTTPS Support:** The adapter can initialize servers using both HTTP and HTTPS based on configuration.
@@ -15,29 +15,33 @@ Key Features:
 * **Open Connection Tracking:** Tracks and closes open connections when the server shuts down.
 * **Error Handling:** Captures and logs errors during request processing, providing detailed error messages.
 
-## Dependences 
-
-The modules used for the Express adapter in your code include:
-
-* **express:** Core framework for handling HTTP requests.
-* **body-parser:** Middleware for parsing incoming request bodies.
-* **compression:** Middleware for compressing response bodies.
-* **cors:** Middleware to enable Cross-Origin Resource Sharing.
-* **express-session:** Middleware for managing sessions.
-* **helmet:** Middleware for securing Express apps by setting HTTP headers.
-* **uuid:** Utility for generating unique request IDs.
-
-## Initialization
-
-To use the ExpressAdapter:
+## Default Server
 
 ```typescript
-import { ExpressAdapter } from '@cmmv/http';
 import { Application } from '@cmmv/core';
+import { DefaultAdapter, DefaultHTTPModule } from '@cmmv/http';
+
+Application.create({
+    httpAdapter: DefaultAdapter,
+    modules: [DefaultHTTPModule, ...],
+    services: [...],
+    contracts: [...],
+});
+```
+
+## Express
+
+In addition to the default server, CMMV also supports Express and Fastify as alternative HTTP adapters, providing flexibility for developers who prefer or need to use these popular frameworks. Both Express and Fastify adapters are fully integrated into the CMMV ecosystem and can be used by simply switching the adapter in the application configuration.
+
+```typescript
+import { Application } from '@cmmv/core';
+import { ExpressAdapter, ExpressModule } from '@cmmv/http';
 
 Application.create({
     httpAdapter: ExpressAdapter,
-    modules: [YourModule]
+    modules: [ExpressModule, ...],
+    services: [...],
+    contracts: [...],
 });
 ```
 
@@ -48,6 +52,18 @@ The adapter registers all controllers automatically from the ControllerRegistry.
 The Fastify Adapter in CMMV provides an alternative to the Express Adapter, allowing for lightweight, high-performance HTTP handling using Fastify's framework. This adapter integrates key middleware like compression, CORS, helmet for security, and static file serving. It automatically registers controllers and manages the lifecycle of incoming requests. The Fastify Adapter follows the same structure as the Express Adapter, supporting session management and content rendering, while offering a faster, more optimized environment.
 
 Both Express and Fastify adapters are natively supported, and custom HTTP adapters can be created by extending the AbstractHttpAdapter.
+
+```typescript
+import { Application } from '@cmmv/core';
+import { FastifyAdapter, FastifyModule } from '@cmmv/http';
+
+Application.create({
+    httpAdapter: FastifyAdapter,
+    modules: [FastifyModule, ...],
+    services: [...],
+    contracts: [...],
+});
+```
 
 ## Middlewares
 

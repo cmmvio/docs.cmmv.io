@@ -33,7 +33,7 @@ export class TasksContract extends AbstractContract {
 }
 ```
 
-## `@Contract`
+## @Contract
 Defines a contract class with the following options:
 - **controllerName**: Specifies the contract name.
 - **controllerCustomPath**: defines a custom path for the Rest controller.
@@ -43,7 +43,7 @@ Defines a contract class with the following options:
 - **generateController**: defines whether or not transpilers should automatically generate drivers for this contract.
 - **generateController**: defines access to data that requires authentication.
 
-## `@ContractField`
+## @ContractField
 Defines a contract field with options such as:
 - **protoType**: Field type (`string`, `number`, etc.).
 - **protoRepeated**: defines whether the field is a list.
