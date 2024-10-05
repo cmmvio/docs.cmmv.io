@@ -47,3 +47,6 @@ yarn.lock
 # Gsuite
 googleapis.json
 newrelic.js
+docs/algolia.json
+docs/index.json
+public/sitemap.xml
