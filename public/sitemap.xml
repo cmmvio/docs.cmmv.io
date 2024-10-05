@@ -25,18 +25,6 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://cmmv.io/docs/http/services</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/controllers</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/http/overview</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
     <loc>https://cmmv.io/docs/view/components</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -70,22 +58,6 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/view/overview</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/serialization</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/transform</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/validation</loc>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://cmmv.io/docs/contracts/overview</loc>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -145,6 +117,22 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://cmmv.io/docs/http/services</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/controllers</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/http/overview</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/overview/ecosystem</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://cmmv.io/docs/overview/decorators</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -182,6 +170,22 @@
   </url>
   <url>
     <loc>https://cmmv.io/docs/overview/introduction</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/serialization</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/transform</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/validation</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cmmv.io/docs/contracts/overview</loc>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
