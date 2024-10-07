@@ -146,68 +146,26 @@
             "desc": "Custom decorators in @cmmv allow you to extend and modify class behavior dynamic..."
         },
         "next": {
-            "link": "docs/http/overview",
-            "title": "Overview",
-            "desc": "The CMMV framework introduces its own default server implementation, @cmmv/serve..."
+            "link": "docs/contracts/overview",
+            "title": "Contracts",
+            "desc": "CMMV’s contract system allows defining structured models that are used to auto-g..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/decorators\" />\n                    <link rel=\"next\" href=\"/docs/http/overview\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Ecosystem\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/decorators\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/overview\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/decorators\" />\n                    <link rel=\"next\" href=\"/docs/contracts/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Ecosystem\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/decorators\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/overview\"\n            }\n        ]\n    }\n}"
     },
-    "http/overview": {
+    "contracts/overview": {
         "prev": {
             "link": "docs/overview/ecosystem",
             "title": "Ecosystem",
             "desc": "CMMV offers a range of plugins to complement applications, providing additional..."
         },
         "next": {
-            "link": "docs/http/controllers",
-            "title": "Controllers",
-            "desc": "The @cmmv/http module automatically generates REST controllers with standard CRU..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/ecosystem\" />\n                    <link rel=\"next\" href=\"/docs/http/controllers\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Overview\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/controllers\"\n            }\n        ]\n    }\n}"
-    },
-    "http/controllers": {
-        "prev": {
-            "link": "docs/http/overview",
-            "title": "Overview",
-            "desc": "The CMMV framework introduces its own default server implementation, @cmmv/serve..."
-        },
-        "next": {
-            "link": "docs/http/services",
-            "title": "Services",
-            "desc": "In @cmmv/core, services play a crucial role in managing business logic, serving..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/overview\" />\n                    <link rel=\"next\" href=\"/docs/http/services\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Controllers\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/controllers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/services\"\n            }\n        ]\n    }\n}"
-    },
-    "http/services": {
-        "prev": {
-            "link": "docs/http/controllers",
-            "title": "Controllers",
-            "desc": "The @cmmv/http module automatically generates REST controllers with standard CRU..."
-        },
-        "next": {
-            "link": "docs/contracts/overview",
-            "title": "Contracts",
-            "desc": "CMMV’s contract system allows defining structured models that are used to auto-g..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/controllers\" />\n                    <link rel=\"next\" href=\"/docs/contracts/overview\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Services\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/controllers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/services\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/overview\"\n            }\n        ]\n    }\n}"
-    },
-    "contracts/overview": {
-        "prev": {
-            "link": "docs/http/services",
-            "title": "Services",
-            "desc": "In @cmmv/core, services play a crucial role in managing business logic, serving..."
-        },
-        "next": {
             "link": "docs/contracts/validation",
             "title": "Validation",
             "desc": "CMMV supports automatic contract validation using the class-validator (NPM) modu..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/services\" />\n                    <link rel=\"next\" href=\"/docs/contracts/validation\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Contracts\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/services\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/contracts/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/validation\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/ecosystem\" />\n                    <link rel=\"next\" href=\"/docs/contracts/validation\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Contracts\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/contracts/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/validation\"\n            }\n        ]\n    }\n}"
     },
     "contracts/validation": {
         "prev": {
@@ -370,152 +328,68 @@
             "desc": "The middleware system in @cmmv/server offers flexibility and powerful integratio..."
         },
         "next": {
-            "link": "docs/rpc/overview",
-            "title": "RPC",
-            "desc": "In modern web applications, reducing overhead and increasing efficiency in commu..."
+            "link": "docs/http/overview",
+            "title": "Overview",
+            "desc": "The CMMV framework introduces its own default server implementation, @cmmv/serve..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/middleware\" />\n                    <link rel=\"next\" href=\"/docs/rpc/overview\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": null,\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/middleware\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/view-engine\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/overview\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/middleware\" />\n                    <link rel=\"next\" href=\"/docs/http/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": null,\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/middleware\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/view-engine\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/overview\"\n            }\n        ]\n    }\n}"
     },
-    "rpc/overview": {
+    "http/overview": {
         "prev": {
             "link": "docs/server/view-engine",
             "title": null,
             "desc": "View Engine\nIn web applications, the view engine is responsible for rendering te..."
         },
         "next": {
-            "link": "docs/rpc/proto",
-            "title": "Proto",
-            "desc": "The CMMV framework provides seamless integration between server-side contracts a..."
+            "link": "docs/http/controllers",
+            "title": "Controllers",
+            "desc": "The @cmmv/http module automatically generates REST controllers with standard CRU..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/view-engine\" />\n                    <link rel=\"next\" href=\"/docs/rpc/proto\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"RPC\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/view-engine\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/proto\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/view-engine\" />\n                    <link rel=\"next\" href=\"/docs/http/controllers\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Overview\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/view-engine\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/controllers\"\n            }\n        ]\n    }\n}"
     },
-    "rpc/proto": {
+    "http/controllers": {
         "prev": {
-            "link": "docs/rpc/overview",
-            "title": "RPC",
-            "desc": "In modern web applications, reducing overhead and increasing efficiency in commu..."
+            "link": "docs/http/overview",
+            "title": "Overview",
+            "desc": "The CMMV framework introduces its own default server implementation, @cmmv/serve..."
         },
         "next": {
-            "link": "docs/rpc/websocket",
-            "title": "Websocket",
-            "desc": "The @cmmv/ws module is a key component responsible for handling WebSocket commun..."
+            "link": "docs/http/services",
+            "title": "Services",
+            "desc": "In @cmmv/core, services play a crucial role in managing business logic, serving..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/overview\" />\n                    <link rel=\"next\" href=\"/docs/rpc/websocket\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Proto\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/proto\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/overview\" />\n                    <link rel=\"next\" href=\"/docs/http/services\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Controllers\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/controllers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/services\"\n            }\n        ]\n    }\n}"
     },
-    "rpc/websocket": {
+    "http/services": {
         "prev": {
-            "link": "docs/rpc/proto",
-            "title": "Proto",
-            "desc": "The CMMV framework provides seamless integration between server-side contracts a..."
-        },
-        "next": {
-            "link": "docs/rpc/gateways",
-            "title": "Gateway",
-            "desc": "When the @cmmv/ws module is present in the project, it automatically creates Web..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/proto\" />\n                    <link rel=\"next\" href=\"/docs/rpc/gateways\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Websocket\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/proto\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            }\n        ]\n    }\n}"
-    },
-    "rpc/gateways": {
-        "prev": {
-            "link": "docs/rpc/websocket",
-            "title": "Websocket",
-            "desc": "The @cmmv/ws module is a key component responsible for handling WebSocket commun..."
-        },
-        "next": {
-            "link": "docs/rpc/benchmarks",
-            "title": "RPC Benchmarks",
-            "desc": "This report demonstrates a simple benchmark test for making 1000 HTTP requests t..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/websocket\" />\n                    <link rel=\"next\" href=\"/docs/rpc/benchmarks\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Gateway\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            }\n        ]\n    }\n}"
-    },
-    "rpc/benchmarks": {
-        "prev": {
-            "link": "docs/rpc/gateways",
-            "title": "Gateway",
-            "desc": "When the @cmmv/ws module is present in the project, it automatically creates Web..."
-        },
-        "next": {
-            "link": "docs/modules/repository",
-            "title": null,
-            "desc": "Repository\nThe @cmmv/repository module is designed to work alongside the @cmmv/c..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/gateways\" />\n                    <link rel=\"next\" href=\"/docs/modules/repository\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"RPC Benchmarks\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/repository\"\n            }\n        ]\n    }\n}"
-    },
-    "modules/repository": {
-        "prev": {
-            "link": "docs/rpc/benchmarks",
-            "title": "RPC Benchmarks",
-            "desc": "This report demonstrates a simple benchmark test for making 1000 HTTP requests t..."
-        },
-        "next": {
-            "link": "docs/modules/authentication",
-            "title": "Authentication",
-            "desc": "The @cmmv/auth module provides a set of features to handle authentication in you..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/benchmarks\" />\n                    <link rel=\"next\" href=\"/docs/modules/authentication\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": null,\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/repository\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/authentication\"\n            }\n        ]\n    }\n}"
-    },
-    "modules/authentication": {
-        "prev": {
-            "link": "docs/modules/repository",
-            "title": null,
-            "desc": "Repository\nThe @cmmv/repository module is designed to work alongside the @cmmv/c..."
-        },
-        "next": {
-            "link": "docs/modules/cache",
-            "title": "Cache",
-            "desc": "The @cmmv/cache module integrates with cache-manager to provide in-memory cache..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/repository\" />\n                    <link rel=\"next\" href=\"/docs/modules/cache\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Authentication\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/repository\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/authentication\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/cache\"\n            }\n        ]\n    }\n}"
-    },
-    "modules/cache": {
-        "prev": {
-            "link": "docs/modules/authentication",
-            "title": "Authentication",
-            "desc": "The @cmmv/auth module provides a set of features to handle authentication in you..."
-        },
-        "next": {
-            "link": "docs/modules/scheduling",
-            "title": "Scheduling",
-            "desc": "The @cmmv/scheduling package provides a simple way to schedule tasks in your CMM..."
-        },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/authentication\" />\n                    <link rel=\"next\" href=\"/docs/modules/scheduling\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Cache\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/authentication\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/cache\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            }\n        ]\n    }\n}"
-    },
-    "modules/scheduling": {
-        "prev": {
-            "link": "docs/modules/cache",
-            "title": "Cache",
-            "desc": "The @cmmv/cache module integrates with cache-manager to provide in-memory cache..."
+            "link": "docs/http/controllers",
+            "title": "Controllers",
+            "desc": "The @cmmv/http module automatically generates REST controllers with standard CRU..."
         },
         "next": {
             "link": "docs/view/overview",
             "title": "View",
             "desc": "The @cmmv/view module in CMMV is a custom view engine designed to optimize SEO a..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/cache\" />\n                    <link rel=\"next\" href=\"/docs/view/overview\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Scheduling\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/cache\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/overview\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/controllers\" />\n                    <link rel=\"next\" href=\"/docs/view/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Services\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/controllers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/services\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/overview\"\n            }\n        ]\n    }\n}"
     },
     "view/overview": {
         "prev": {
-            "link": "docs/modules/scheduling",
-            "title": "Scheduling",
-            "desc": "The @cmmv/scheduling package provides a simple way to schedule tasks in your CMM..."
+            "link": "docs/http/services",
+            "title": "Services",
+            "desc": "In @cmmv/core, services play a crucial role in managing business logic, serving..."
         },
         "next": {
             "link": "docs/view/reactivity",
             "title": "Reactivity",
             "desc": "The @cmmv/reactivity module was created based on the core ideas of Petite Vue, a..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/scheduling\" />\n                    <link rel=\"next\" href=\"/docs/view/reactivity\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"View\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/reactivity\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/services\" />\n                    <link rel=\"next\" href=\"/docs/view/reactivity\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"View\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/services\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/reactivity\"\n            }\n        ]\n    }\n}"
     },
     "view/reactivity": {
         "prev": {
@@ -622,25 +496,151 @@
             "desc": "The new styling feature in @cmmv/view allows developers to define theme-specific..."
         },
         "next": {
-            "link": "docs/index",
-            "title": "Introduction",
-            "desc": "Contract-Model-Model-View (CMMV)  A minimalistic framework for building sca..."
+            "link": "docs/rpc/overview",
+            "title": "RPC",
+            "desc": "In modern web applications, reducing overhead and increasing efficiency in commu..."
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/styles\" />\n                    <link rel=\"next\" href=\"/docs/index\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Components\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/styles\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/components\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/index\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/styles\" />\n                    <link rel=\"next\" href=\"/docs/rpc/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Components\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/styles\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/components\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/overview\"\n            }\n        ]\n    }\n}"
     },
-    "index": {
+    "rpc/overview": {
         "prev": {
             "link": "docs/view/components",
             "title": "Components",
             "desc": "The CMMV framework introduces a simple yet powerful way to integrate server-side..."
         },
         "next": {
+            "link": "docs/rpc/proto",
+            "title": "Proto",
+            "desc": "The CMMV framework provides seamless integration between server-side contracts a..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/components\" />\n                    <link rel=\"next\" href=\"/docs/rpc/proto\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"RPC\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/components\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/proto\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/proto": {
+        "prev": {
+            "link": "docs/rpc/overview",
+            "title": "RPC",
+            "desc": "In modern web applications, reducing overhead and increasing efficiency in commu..."
+        },
+        "next": {
+            "link": "docs/rpc/websocket",
+            "title": "Websocket",
+            "desc": "The @cmmv/ws module is a key component responsible for handling WebSocket commun..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/overview\" />\n                    <link rel=\"next\" href=\"/docs/rpc/websocket\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Proto\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/proto\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/websocket": {
+        "prev": {
+            "link": "docs/rpc/proto",
+            "title": "Proto",
+            "desc": "The CMMV framework provides seamless integration between server-side contracts a..."
+        },
+        "next": {
+            "link": "docs/rpc/gateways",
+            "title": "Gateway",
+            "desc": "When the @cmmv/ws module is present in the project, it automatically creates Web..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/proto\" />\n                    <link rel=\"next\" href=\"/docs/rpc/gateways\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Websocket\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/proto\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/gateways": {
+        "prev": {
+            "link": "docs/rpc/websocket",
+            "title": "Websocket",
+            "desc": "The @cmmv/ws module is a key component responsible for handling WebSocket commun..."
+        },
+        "next": {
+            "link": "docs/rpc/benchmarks",
+            "title": "RPC Benchmarks",
+            "desc": "This report demonstrates a simple benchmark test for making 1000 HTTP requests t..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/websocket\" />\n                    <link rel=\"next\" href=\"/docs/rpc/benchmarks\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Gateway\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/benchmarks": {
+        "prev": {
+            "link": "docs/rpc/gateways",
+            "title": "Gateway",
+            "desc": "When the @cmmv/ws module is present in the project, it automatically creates Web..."
+        },
+        "next": {
+            "link": "docs/modules/repository",
+            "title": null,
+            "desc": "Repository\nThe @cmmv/repository module is designed to work alongside the @cmmv/c..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/gateways\" />\n                    <link rel=\"next\" href=\"/docs/modules/repository\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"RPC Benchmarks\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/repository\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/repository": {
+        "prev": {
+            "link": "docs/rpc/benchmarks",
+            "title": "RPC Benchmarks",
+            "desc": "This report demonstrates a simple benchmark test for making 1000 HTTP requests t..."
+        },
+        "next": {
+            "link": "docs/modules/authentication",
+            "title": "Authentication",
+            "desc": "The @cmmv/auth module provides a set of features to handle authentication in you..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/benchmarks\" />\n                    <link rel=\"next\" href=\"/docs/modules/authentication\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": null,\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/repository\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/authentication\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/authentication": {
+        "prev": {
+            "link": "docs/modules/repository",
+            "title": null,
+            "desc": "Repository\nThe @cmmv/repository module is designed to work alongside the @cmmv/c..."
+        },
+        "next": {
+            "link": "docs/modules/cache",
+            "title": "Cache",
+            "desc": "The @cmmv/cache module integrates with cache-manager to provide in-memory cache..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/repository\" />\n                    <link rel=\"next\" href=\"/docs/modules/cache\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Authentication\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/repository\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/authentication\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/cache\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/cache": {
+        "prev": {
+            "link": "docs/modules/authentication",
+            "title": "Authentication",
+            "desc": "The @cmmv/auth module provides a set of features to handle authentication in you..."
+        },
+        "next": {
+            "link": "docs/modules/scheduling",
+            "title": "Scheduling",
+            "desc": "The @cmmv/scheduling package provides a simple way to schedule tasks in your CMM..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/authentication\" />\n                    <link rel=\"next\" href=\"/docs/modules/scheduling\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Cache\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/authentication\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/cache\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/scheduling": {
+        "prev": {
+            "link": "docs/modules/cache",
+            "title": "Cache",
+            "desc": "The @cmmv/cache module integrates with cache-manager to provide in-memory cache..."
+        },
+        "next": {
+            "link": "docs/index",
+            "title": "Introduction",
+            "desc": "Contract-Model-Model-View (CMMV)  A minimalistic framework for building sca..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/cache\" />\n                    <link rel=\"next\" href=\"/docs/index\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Scheduling\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/cache\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/index\"\n            }\n        ]\n    }\n}"
+    },
+    "index": {
+        "prev": {
+            "link": "docs/modules/scheduling",
+            "title": "Scheduling",
+            "desc": "The @cmmv/scheduling package provides a simple way to schedule tasks in your CMM..."
+        },
+        "next": {
             "link": "",
             "title": "",
             "desc": ""
         },
-        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/components\" />\n                    <link rel=\"next\" href=\"/\" />\n                    ",
-        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Introduction\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/components\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/index\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/\"\n            }\n        ]\n    }\n}"
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/scheduling\" />\n                    <link rel=\"next\" href=\"/\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Introduction\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/index\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/\"\n            }\n        ]\n    }\n}"
     }
 }

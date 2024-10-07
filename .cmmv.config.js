@@ -85,7 +85,7 @@ module.exports = {
     headers: {
         "Content-Security-Policy": [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net",
+            "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://googletagmanager.com",
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
             "font-src 'self'",
             "connect-src 'self' ws://localhost:3001 http://localhost:3001 https://*.algolianet.com https://*.algolia.net https://googletagmanager.com https://www.google-analytics.com",

@@ -29,12 +29,20 @@
         </script>
         <scripts/>
         <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQLSJYH3LD" s-attr="nonce"></script>
         <script s-attr="nonce">
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-FQLSJYH3LD');
+            document.addEventListener("DOMContentLoaded", function() {
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://googletagmanager.com/gtag/js?id=G-FQLSJYH3LD';
+                document.head.appendChild(script);
+
+                script.onload = function() {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-FQLSJYH3LD');
+                };
+            });
         </script>
     </body>
 </html>
