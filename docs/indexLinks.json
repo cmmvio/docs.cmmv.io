@@ -1,0 +1,646 @@
+{
+    "http/overview": {
+        "prev": {
+            "link": "",
+            "title": "",
+            "desc": ""
+        },
+        "next": {
+            "link": "docs/http/controllers",
+            "title": "Controllers",
+            "desc": "The @cmmv/http module automatically generates REST controllers with standard CRU..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/\" />\n                    <link rel=\"next\" href=\"/docs/http/controllers\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Overview\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/controllers\"\n            }\n        ]\n    }\n}"
+    },
+    "http/controllers": {
+        "prev": {
+            "link": "docs/http/overview",
+            "title": "Overview",
+            "desc": "The CMMV framework introduces its own default server implementation, @cmmv/serve..."
+        },
+        "next": {
+            "link": "docs/http/services",
+            "title": "Services",
+            "desc": "In @cmmv/core, services play a crucial role in managing business logic, serving..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/overview\" />\n                    <link rel=\"next\" href=\"/docs/http/services\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Controllers\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/controllers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/http/services\"\n            }\n        ]\n    }\n}"
+    },
+    "http/services": {
+        "prev": {
+            "link": "docs/http/controllers",
+            "title": "Controllers",
+            "desc": "The @cmmv/http module automatically generates REST controllers with standard CRU..."
+        },
+        "next": {
+            "link": "docs/view/overview",
+            "title": "View",
+            "desc": "The @cmmv/view module in CMMV is a custom view engine designed to optimize SEO a..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/controllers\" />\n                    <link rel=\"next\" href=\"/docs/view/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Services\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/controllers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/http/services\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/overview\"\n            }\n        ]\n    }\n}"
+    },
+    "view/overview": {
+        "prev": {
+            "link": "docs/http/services",
+            "title": "Services",
+            "desc": "In @cmmv/core, services play a crucial role in managing business logic, serving..."
+        },
+        "next": {
+            "link": "docs/view/reactivity",
+            "title": "Reactivity",
+            "desc": "The @cmmv/reactivity module was created based on the core ideas of Petite Vue, a..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/http/services\" />\n                    <link rel=\"next\" href=\"/docs/view/reactivity\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"View\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/http/services\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/reactivity\"\n            }\n        ]\n    }\n}"
+    },
+    "view/reactivity": {
+        "prev": {
+            "link": "docs/view/overview",
+            "title": "View",
+            "desc": "The @cmmv/view module in CMMV is a custom view engine designed to optimize SEO a..."
+        },
+        "next": {
+            "link": "docs/view/directives",
+            "title": "Directives",
+            "desc": "Preloading data that will be sent directly in HTML is a crucial factor for SEO (..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/overview\" />\n                    <link rel=\"next\" href=\"/docs/view/directives\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Reactivity\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/reactivity\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/directives\"\n            }\n        ]\n    }\n}"
+    },
+    "view/directives": {
+        "prev": {
+            "link": "docs/view/reactivity",
+            "title": "Reactivity",
+            "desc": "The @cmmv/reactivity module was created based on the core ideas of Petite Vue, a..."
+        },
+        "next": {
+            "link": "docs/view/headers",
+            "title": "Headers",
+            "desc": "In CMMV, you can configure response headers to enhance security, define metadata..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/reactivity\" />\n                    <link rel=\"next\" href=\"/docs/view/headers\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Directives\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/reactivity\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/directives\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/headers\"\n            }\n        ]\n    }\n}"
+    },
+    "view/headers": {
+        "prev": {
+            "link": "docs/view/directives",
+            "title": "Directives",
+            "desc": "Preloading data that will be sent directly in HTML is a crucial factor for SEO (..."
+        },
+        "next": {
+            "link": "docs/view/assets",
+            "title": "Assets",
+            "desc": "In CMMV, it is recommended that all static files, such as JavaScript libraries,..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/directives\" />\n                    <link rel=\"next\" href=\"/docs/view/assets\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Headers\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/directives\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/headers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/assets\"\n            }\n        ]\n    }\n}"
+    },
+    "view/assets": {
+        "prev": {
+            "link": "docs/view/headers",
+            "title": "Headers",
+            "desc": "In CMMV, you can configure response headers to enhance security, define metadata..."
+        },
+        "next": {
+            "link": "docs/view/templates",
+            "title": "Templates",
+            "desc": "CMMV provides a flexible templating system, allowing you to configure master pag..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/headers\" />\n                    <link rel=\"next\" href=\"/docs/view/templates\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Assets\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/headers\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/assets\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/templates\"\n            }\n        ]\n    }\n}"
+    },
+    "view/templates": {
+        "prev": {
+            "link": "docs/view/assets",
+            "title": "Assets",
+            "desc": "In CMMV, it is recommended that all static files, such as JavaScript libraries,..."
+        },
+        "next": {
+            "link": "docs/view/views",
+            "title": "Views",
+            "desc": "Views in CMMV are HTML files located in the /public/views/ directory, typically..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/assets\" />\n                    <link rel=\"next\" href=\"/docs/view/views\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Templates\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/assets\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/templates\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/views\"\n            }\n        ]\n    }\n}"
+    },
+    "view/views": {
+        "prev": {
+            "link": "docs/view/templates",
+            "title": "Templates",
+            "desc": "CMMV provides a flexible templating system, allowing you to configure master pag..."
+        },
+        "next": {
+            "link": "docs/view/styles",
+            "title": "Styles",
+            "desc": "The new styling feature in @cmmv/view allows developers to define theme-specific..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/templates\" />\n                    <link rel=\"next\" href=\"/docs/view/styles\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Views\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/templates\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/views\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/styles\"\n            }\n        ]\n    }\n}"
+    },
+    "view/styles": {
+        "prev": {
+            "link": "docs/view/views",
+            "title": "Views",
+            "desc": "Views in CMMV are HTML files located in the /public/views/ directory, typically..."
+        },
+        "next": {
+            "link": "docs/view/components",
+            "title": "Components",
+            "desc": "The CMMV framework introduces a simple yet powerful way to integrate server-side..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/views\" />\n                    <link rel=\"next\" href=\"/docs/view/components\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Styles\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/views\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/styles\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/view/components\"\n            }\n        ]\n    }\n}"
+    },
+    "view/components": {
+        "prev": {
+            "link": "docs/view/styles",
+            "title": "Styles",
+            "desc": "The new styling feature in @cmmv/view allows developers to define theme-specific..."
+        },
+        "next": {
+            "link": "docs/server/overview",
+            "title": "Server",
+            "desc": "The @cmmv/server is a minimalistic server written in TypeScript, designed to mai..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/styles\" />\n                    <link rel=\"next\" href=\"/docs/server/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Components\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/styles\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/view/components\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/overview\"\n            }\n        ]\n    }\n}"
+    },
+    "server/overview": {
+        "prev": {
+            "link": "docs/view/components",
+            "title": "Components",
+            "desc": "The CMMV framework introduces a simple yet powerful way to integrate server-side..."
+        },
+        "next": {
+            "link": "docs/server/application",
+            "title": "Application",
+            "desc": "The Application class is the core component that manages the server’s lifecycle,..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/view/components\" />\n                    <link rel=\"next\" href=\"/docs/server/application\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Server\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/view/components\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/application\"\n            }\n        ]\n    }\n}"
+    },
+    "server/application": {
+        "prev": {
+            "link": "docs/server/overview",
+            "title": "Server",
+            "desc": "The @cmmv/server is a minimalistic server written in TypeScript, designed to mai..."
+        },
+        "next": {
+            "link": "docs/server/hooks",
+            "title": "Hooks",
+            "desc": "The hook system in this server framework is designed to follow a similar lifecyc..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/overview\" />\n                    <link rel=\"next\" href=\"/docs/server/hooks\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Application\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/application\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/hooks\"\n            }\n        ]\n    }\n}"
+    },
+    "server/hooks": {
+        "prev": {
+            "link": "docs/server/application",
+            "title": "Application",
+            "desc": "The Application class is the core component that manages the server’s lifecycle,..."
+        },
+        "next": {
+            "link": "docs/server/request",
+            "title": "Request",
+            "desc": "The req object represents the incoming HTTP request and provides access to vario..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/application\" />\n                    <link rel=\"next\" href=\"/docs/server/request\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Hooks\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/application\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/hooks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/request\"\n            }\n        ]\n    }\n}"
+    },
+    "server/request": {
+        "prev": {
+            "link": "docs/server/hooks",
+            "title": "Hooks",
+            "desc": "The hook system in this server framework is designed to follow a similar lifecyc..."
+        },
+        "next": {
+            "link": "docs/server/response",
+            "title": "Response",
+            "desc": "The res object represents the HTTP response in a server-side application and is..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/hooks\" />\n                    <link rel=\"next\" href=\"/docs/server/response\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Request\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/hooks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/request\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/response\"\n            }\n        ]\n    }\n}"
+    },
+    "server/response": {
+        "prev": {
+            "link": "docs/server/request",
+            "title": "Request",
+            "desc": "The req object represents the incoming HTTP request and provides access to vario..."
+        },
+        "next": {
+            "link": "docs/server/content-parser",
+            "title": "Content Type Parser",
+            "desc": "One of the powerful features of the @cmmv/server framework is its ability to cre..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/request\" />\n                    <link rel=\"next\" href=\"/docs/server/content-parser\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Response\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/request\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/response\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/content-parser\"\n            }\n        ]\n    }\n}"
+    },
+    "server/content-parser": {
+        "prev": {
+            "link": "docs/server/response",
+            "title": "Response",
+            "desc": "The res object represents the HTTP response in a server-side application and is..."
+        },
+        "next": {
+            "link": "docs/server/http2",
+            "title": "HTTP2",
+            "desc": "The @cmmv/server framework natively supports HTTP/2, which offers significant pe..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/response\" />\n                    <link rel=\"next\" href=\"/docs/server/http2\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Content Type Parser\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/response\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/content-parser\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/http2\"\n            }\n        ]\n    }\n}"
+    },
+    "server/http2": {
+        "prev": {
+            "link": "docs/server/content-parser",
+            "title": "Content Type Parser",
+            "desc": "One of the powerful features of the @cmmv/server framework is its ability to cre..."
+        },
+        "next": {
+            "link": "docs/server/middleware",
+            "title": "Middleware",
+            "desc": "The middleware system in @cmmv/server offers flexibility and powerful integratio..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/content-parser\" />\n                    <link rel=\"next\" href=\"/docs/server/middleware\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"HTTP2\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/content-parser\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/http2\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/middleware\"\n            }\n        ]\n    }\n}"
+    },
+    "server/middleware": {
+        "prev": {
+            "link": "docs/server/http2",
+            "title": "HTTP2",
+            "desc": "The @cmmv/server framework natively supports HTTP/2, which offers significant pe..."
+        },
+        "next": {
+            "link": "docs/server/view-engine",
+            "title": null,
+            "desc": "View Engine\nIn web applications, the view engine is responsible for rendering te..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/http2\" />\n                    <link rel=\"next\" href=\"/docs/server/view-engine\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Middleware\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/http2\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/middleware\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/server/view-engine\"\n            }\n        ]\n    }\n}"
+    },
+    "server/view-engine": {
+        "prev": {
+            "link": "docs/server/middleware",
+            "title": "Middleware",
+            "desc": "The middleware system in @cmmv/server offers flexibility and powerful integratio..."
+        },
+        "next": {
+            "link": "docs/overview/introduction",
+            "title": "Introduction",
+            "desc": "CMMV (Contract-Model-Model-View) is a minimalistic framework designed to streaml..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/middleware\" />\n                    <link rel=\"next\" href=\"/docs/overview/introduction\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": null,\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/middleware\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/server/view-engine\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/introduction\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/introduction": {
+        "prev": {
+            "link": "docs/server/view-engine",
+            "title": null,
+            "desc": "View Engine\nIn web applications, the view engine is responsible for rendering te..."
+        },
+        "next": {
+            "link": "docs/overview/first-steps",
+            "title": "First steps",
+            "desc": "CMMV (Contract Model Model View) is a revolution in web application development,..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/server/view-engine\" />\n                    <link rel=\"next\" href=\"/docs/overview/first-steps\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Introduction\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/server/view-engine\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/introduction\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/first-steps\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/first-steps": {
+        "prev": {
+            "link": "docs/overview/introduction",
+            "title": "Introduction",
+            "desc": "CMMV (Contract-Model-Model-View) is a minimalistic framework designed to streaml..."
+        },
+        "next": {
+            "link": "docs/overview/settings",
+            "title": "Settings",
+            "desc": "The system configuration for a CMMV project is managed through a .cmmv.config.js..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/introduction\" />\n                    <link rel=\"next\" href=\"/docs/overview/settings\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"First steps\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/introduction\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/first-steps\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/settings\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/settings": {
+        "prev": {
+            "link": "docs/overview/first-steps",
+            "title": "First steps",
+            "desc": "CMMV (Contract Model Model View) is a revolution in web application development,..."
+        },
+        "next": {
+            "link": "docs/overview/modules",
+            "title": "Modules",
+            "desc": "The CMMV module system shares similarities with NestJS, providing a modular appr..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/first-steps\" />\n                    <link rel=\"next\" href=\"/docs/overview/modules\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Settings\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/first-steps\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/settings\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/modules\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/modules": {
+        "prev": {
+            "link": "docs/overview/settings",
+            "title": "Settings",
+            "desc": "The system configuration for a CMMV project is managed through a .cmmv.config.js..."
+        },
+        "next": {
+            "link": "docs/overview/singleton",
+            "title": "Singleton",
+            "desc": "In CMMV, the traditional dependency injection pattern is replaced by singleton r..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/settings\" />\n                    <link rel=\"next\" href=\"/docs/overview/singleton\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Modules\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/settings\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/modules\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/singleton\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/singleton": {
+        "prev": {
+            "link": "docs/overview/modules",
+            "title": "Modules",
+            "desc": "The CMMV module system shares similarities with NestJS, providing a modular appr..."
+        },
+        "next": {
+            "link": "docs/overview/transpiles",
+            "title": "Transpiles",
+            "desc": "In the CMMV framework, transpilers are essential tools used to generate necessar..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/modules\" />\n                    <link rel=\"next\" href=\"/docs/overview/transpiles\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Singleton\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/modules\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/singleton\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/transpiles\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/transpiles": {
+        "prev": {
+            "link": "docs/overview/singleton",
+            "title": "Singleton",
+            "desc": "In CMMV, the traditional dependency injection pattern is replaced by singleton r..."
+        },
+        "next": {
+            "link": "docs/overview/logging",
+            "title": "Logger",
+            "desc": "The Logger class in the @cmmv/core module is designed to provide standardized lo..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/singleton\" />\n                    <link rel=\"next\" href=\"/docs/overview/logging\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Transpiles\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/singleton\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/transpiles\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/logging\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/logging": {
+        "prev": {
+            "link": "docs/overview/transpiles",
+            "title": "Transpiles",
+            "desc": "In the CMMV framework, transpilers are essential tools used to generate necessar..."
+        },
+        "next": {
+            "link": "docs/overview/telemetry",
+            "title": "Telemetry",
+            "desc": "The telemetry system within the CMMV framework provides a powerful mechanism for..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/transpiles\" />\n                    <link rel=\"next\" href=\"/docs/overview/telemetry\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Logger\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/transpiles\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/logging\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/telemetry\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/telemetry": {
+        "prev": {
+            "link": "docs/overview/logging",
+            "title": "Logger",
+            "desc": "The Logger class in the @cmmv/core module is designed to provide standardized lo..."
+        },
+        "next": {
+            "link": "docs/overview/request",
+            "title": "Request",
+            "desc": "The HttpService class in the @cmmv/http package provides a convenient way to mak..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/logging\" />\n                    <link rel=\"next\" href=\"/docs/overview/request\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Telemetry\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/logging\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/telemetry\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/request\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/request": {
+        "prev": {
+            "link": "docs/overview/telemetry",
+            "title": "Telemetry",
+            "desc": "The telemetry system within the CMMV framework provides a powerful mechanism for..."
+        },
+        "next": {
+            "link": "docs/overview/decorators",
+            "title": "Decorators",
+            "desc": "Custom decorators in @cmmv allow you to extend and modify class behavior dynamic..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/telemetry\" />\n                    <link rel=\"next\" href=\"/docs/overview/decorators\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Request\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/telemetry\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/request\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/decorators\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/decorators": {
+        "prev": {
+            "link": "docs/overview/request",
+            "title": "Request",
+            "desc": "The HttpService class in the @cmmv/http package provides a convenient way to mak..."
+        },
+        "next": {
+            "link": "docs/overview/ecosystem",
+            "title": "Ecosystem",
+            "desc": "CMMV offers a range of plugins to complement applications, providing additional..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/request\" />\n                    <link rel=\"next\" href=\"/docs/overview/ecosystem\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Decorators\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/request\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/decorators\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            }\n        ]\n    }\n}"
+    },
+    "overview/ecosystem": {
+        "prev": {
+            "link": "docs/overview/decorators",
+            "title": "Decorators",
+            "desc": "Custom decorators in @cmmv allow you to extend and modify class behavior dynamic..."
+        },
+        "next": {
+            "link": "docs/contracts/overview",
+            "title": "Contracts",
+            "desc": "CMMV’s contract system allows defining structured models that are used to auto-g..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/decorators\" />\n                    <link rel=\"next\" href=\"/docs/contracts/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Ecosystem\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/decorators\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/overview\"\n            }\n        ]\n    }\n}"
+    },
+    "contracts/overview": {
+        "prev": {
+            "link": "docs/overview/ecosystem",
+            "title": "Ecosystem",
+            "desc": "CMMV offers a range of plugins to complement applications, providing additional..."
+        },
+        "next": {
+            "link": "docs/contracts/validation",
+            "title": "Validation",
+            "desc": "CMMV supports automatic contract validation using the class-validator (NPM) modu..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/overview/ecosystem\" />\n                    <link rel=\"next\" href=\"/docs/contracts/validation\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Contracts\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/overview/ecosystem\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/contracts/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/validation\"\n            }\n        ]\n    }\n}"
+    },
+    "contracts/validation": {
+        "prev": {
+            "link": "docs/contracts/overview",
+            "title": "Contracts",
+            "desc": "CMMV’s contract system allows defining structured models that are used to auto-g..."
+        },
+        "next": {
+            "link": "docs/contracts/transform",
+            "title": "Transform",
+            "desc": "In CMMV, you can transform data within contracts using the transform parameter i..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/contracts/overview\" />\n                    <link rel=\"next\" href=\"/docs/contracts/transform\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Validation\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/contracts/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/contracts/validation\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/transform\"\n            }\n        ]\n    }\n}"
+    },
+    "contracts/transform": {
+        "prev": {
+            "link": "docs/contracts/validation",
+            "title": "Validation",
+            "desc": "CMMV supports automatic contract validation using the class-validator (NPM) modu..."
+        },
+        "next": {
+            "link": "docs/contracts/serialization",
+            "title": "Serialization",
+            "desc": "Serialization and deserialization in a project using class-transformer are cruci..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/contracts/validation\" />\n                    <link rel=\"next\" href=\"/docs/contracts/serialization\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Transform\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/contracts/validation\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/contracts/transform\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/contracts/serialization\"\n            }\n        ]\n    }\n}"
+    },
+    "contracts/serialization": {
+        "prev": {
+            "link": "docs/contracts/transform",
+            "title": "Transform",
+            "desc": "In CMMV, you can transform data within contracts using the transform parameter i..."
+        },
+        "next": {
+            "link": "docs/rpc/overview",
+            "title": "RPC",
+            "desc": "In modern web applications, reducing overhead and increasing efficiency in commu..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/contracts/transform\" />\n                    <link rel=\"next\" href=\"/docs/rpc/overview\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Serialization\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/contracts/transform\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/contracts/serialization\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/overview\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/overview": {
+        "prev": {
+            "link": "docs/contracts/serialization",
+            "title": "Serialization",
+            "desc": "Serialization and deserialization in a project using class-transformer are cruci..."
+        },
+        "next": {
+            "link": "docs/rpc/proto",
+            "title": "Proto",
+            "desc": "The CMMV framework provides seamless integration between server-side contracts a..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/contracts/serialization\" />\n                    <link rel=\"next\" href=\"/docs/rpc/proto\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"RPC\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/contracts/serialization\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/proto\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/proto": {
+        "prev": {
+            "link": "docs/rpc/overview",
+            "title": "RPC",
+            "desc": "In modern web applications, reducing overhead and increasing efficiency in commu..."
+        },
+        "next": {
+            "link": "docs/rpc/websocket",
+            "title": "Websocket",
+            "desc": "The @cmmv/ws module is a key component responsible for handling WebSocket commun..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/overview\" />\n                    <link rel=\"next\" href=\"/docs/rpc/websocket\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Proto\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/overview\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/proto\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/websocket": {
+        "prev": {
+            "link": "docs/rpc/proto",
+            "title": "Proto",
+            "desc": "The CMMV framework provides seamless integration between server-side contracts a..."
+        },
+        "next": {
+            "link": "docs/rpc/gateways",
+            "title": "Gateway",
+            "desc": "When the @cmmv/ws module is present in the project, it automatically creates Web..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/proto\" />\n                    <link rel=\"next\" href=\"/docs/rpc/gateways\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Websocket\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/proto\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/gateways": {
+        "prev": {
+            "link": "docs/rpc/websocket",
+            "title": "Websocket",
+            "desc": "The @cmmv/ws module is a key component responsible for handling WebSocket commun..."
+        },
+        "next": {
+            "link": "docs/rpc/benchmarks",
+            "title": "RPC Benchmarks",
+            "desc": "This report demonstrates a simple benchmark test for making 1000 HTTP requests t..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/websocket\" />\n                    <link rel=\"next\" href=\"/docs/rpc/benchmarks\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Gateway\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/websocket\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            }\n        ]\n    }\n}"
+    },
+    "rpc/benchmarks": {
+        "prev": {
+            "link": "docs/rpc/gateways",
+            "title": "Gateway",
+            "desc": "When the @cmmv/ws module is present in the project, it automatically creates Web..."
+        },
+        "next": {
+            "link": "docs/modules/repository",
+            "title": null,
+            "desc": "Repository\nThe @cmmv/repository module is designed to work alongside the @cmmv/c..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/gateways\" />\n                    <link rel=\"next\" href=\"/docs/modules/repository\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"RPC Benchmarks\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/gateways\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/repository\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/repository": {
+        "prev": {
+            "link": "docs/rpc/benchmarks",
+            "title": "RPC Benchmarks",
+            "desc": "This report demonstrates a simple benchmark test for making 1000 HTTP requests t..."
+        },
+        "next": {
+            "link": "docs/modules/authentication",
+            "title": "Authentication",
+            "desc": "The @cmmv/auth module provides a set of features to handle authentication in you..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/rpc/benchmarks\" />\n                    <link rel=\"next\" href=\"/docs/modules/authentication\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": null,\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/rpc/benchmarks\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/repository\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/authentication\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/authentication": {
+        "prev": {
+            "link": "docs/modules/repository",
+            "title": null,
+            "desc": "Repository\nThe @cmmv/repository module is designed to work alongside the @cmmv/c..."
+        },
+        "next": {
+            "link": "docs/modules/cache",
+            "title": "Cache",
+            "desc": "The @cmmv/cache module integrates with cache-manager to provide in-memory cache..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/repository\" />\n                    <link rel=\"next\" href=\"/docs/modules/cache\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Authentication\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/repository\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/authentication\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/cache\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/cache": {
+        "prev": {
+            "link": "docs/modules/authentication",
+            "title": "Authentication",
+            "desc": "The @cmmv/auth module provides a set of features to handle authentication in you..."
+        },
+        "next": {
+            "link": "docs/modules/scheduling",
+            "title": "Scheduling",
+            "desc": "The @cmmv/scheduling package provides a simple way to schedule tasks in your CMM..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/authentication\" />\n                    <link rel=\"next\" href=\"/docs/modules/scheduling\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Cache\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/authentication\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/cache\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            }\n        ]\n    }\n}"
+    },
+    "modules/scheduling": {
+        "prev": {
+            "link": "docs/modules/cache",
+            "title": "Cache",
+            "desc": "The @cmmv/cache module integrates with cache-manager to provide in-memory cache..."
+        },
+        "next": {
+            "link": "docs/index",
+            "title": "Introduction",
+            "desc": "Contract-Model-Model-View (CMMV)  A minimalistic framework for building sca..."
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/cache\" />\n                    <link rel=\"next\" href=\"/docs/index\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Scheduling\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/cache\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/docs/index\"\n            }\n        ]\n    }\n}"
+    },
+    "index": {
+        "prev": {
+            "link": "docs/modules/scheduling",
+            "title": "Scheduling",
+            "desc": "The @cmmv/scheduling package provides a simple way to schedule tasks in your CMM..."
+        },
+        "next": {
+            "link": "",
+            "title": "",
+            "desc": ""
+        },
+        "meta": "\n                    <link rel=\"prev\" href=\"/docs/modules/scheduling\" />\n                    <link rel=\"next\" href=\"/\" />\n                    ",
+        "ldjson": "{\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebPage\",\n    \"name\": \"Introduction\",\n    \"breadcrumb\": {\n        \"@type\": \"BreadcrumbList\",\n        \"itemListElement\": [\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Previous Page\",\n                \"item\": \"/docs/modules/scheduling\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Current Page\",\n                \"item\": \"/docs/index\"\n            },\n            {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Next Page\",\n                \"item\": \"/\"\n            }\n        ]\n    }\n}"
+    }
+}

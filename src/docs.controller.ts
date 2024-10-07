@@ -5,6 +5,7 @@ import { Controller, Get, Param, Response } from '@cmmv/http';
 import { DocsService } from './docs.service';
 
 const index = require('../docs/index.json');
+const indexLinks = require('../docs/indexLinks.json');
 
 @Controller('docs')
 export class DocsController {
@@ -20,7 +21,7 @@ export class DocsController {
 
     @Get(':item')
     async getDocHandler(@Param('item') item: string, @Response() res) {
-        if (index[item]) await this.getDoc(index[item], res);
+        if (index[item]) await this.getDoc(index[item], res, item);
         else res.code(404).end();
     }
 
@@ -31,14 +32,14 @@ export class DocsController {
         @Response() res,
     ) {
         const fullPath = `${dir}/${item}`;
-
-        if (index[fullPath]) await this.getDoc(index[fullPath], res);
+        if (index[fullPath]) await this.getDoc(index[fullPath], res, fullPath);
         else res.code(404).end();
     }
 
-    async getDoc(docFilename: string, @Response() res) {
+    async getDoc(docFilename: string, @Response() res, fullPath) {
         const file = path.resolve(docFilename);
         const data = await this.docsService.getDocsStrutucture(file);
+        data.links = indexLinks[fullPath];
 
         return res.render('views/docs/index', {
             docs: data,

@@ -2,6 +2,10 @@ body, html, * {
     transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease;
 }
 
+*,:after,:before {
+    border: none;
+}
+
 html {
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
@@ -108,6 +112,19 @@ img {
     background-color: #777777;
 }
   
+hr{
+    border-top: 1px solid rgb(107 114 128/var(--tw-text-opacity)) !important;
+    border-color: rgb(30 41 59);
+    border-top-width: 1px;
+    margin-bottom: 3em;
+    margin-top: 3em;
+    height: 2px;
+}
+
+.dark hr {
+    border-color: rgb(109, 113, 118);
+}
+
 @media (max-width: 1024px) {
     #sidebar-menu {
         position: absolute;
@@ -467,4 +484,18 @@ table tbody td {
 
 h2 code {
     text-align: left;
+}
+
+.footer a {
+    text-decoration: none;
+    border: 1px solid rgb(107 114 128/var(--tw-text-opacity));
+    
+}
+
+.footer a:hover {
+    background-color: rgb(209 213 219/var(--tw-bg-opacity));
+}
+
+.dark .footer a:hover {
+    background-color: #262628 !important;
 }

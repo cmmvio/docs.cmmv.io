@@ -45,3 +45,4 @@ If you like the project and develop solutions for other services, I encourage yo
 I’m not here to engage in debates over architectural choices or personal preferences. For example, if you prefer React syntax over Vue, you are free to fork the project and modify it to fit your preferred stack or technology. However, do not expect CMMV to be changed to suit your individual needs. The project is focused on solving my specific workflow and use cases.
 
 While CMMV provides flexibility for customization, any changes that affect the core of the project will be carefully reviewed. The main guiding principle is that this project is built to meet my own needs, not yours.
+

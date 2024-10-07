@@ -66,6 +66,23 @@ class GenerateDocs {
             './packages/**/*.html',
         ]);
         let index = {};
+        let indexLink = {};
+
+        docsFiles.sort((a, b) => {
+            const regex = /(\d+)|([^\d]+)/g;
+            const partsA = a.match(regex).map(part => Number(part));
+            const partsB = b.match(regex).map(part => Number(part));
+
+            for (let i = 0; i < Math.max(partsA.length, partsB.length); i++) {
+                if (partsA[i] !== partsB[i]) {
+                    return partsA[i] > partsB[i] ? 1 : -1;
+                }
+            }
+
+            return 0;
+        });
+
+        let pointer = 0;
 
         for (let file of docsFiles) {
             if (!file.includes('README') && !file.includes('node_modules')) {
@@ -77,6 +94,113 @@ class GenerateDocs {
                 );
                 index[this.convertLinkToCleanURL(pathFile)] =
                     './' + file.replace(process.cwd() + '/', '');
+
+                const title = this.getTitle(
+                    './' + file.replace(process.cwd() + '/', ''),
+                );
+
+                indexLink[this.convertLinkToCleanURL(pathFile)] = {
+                    prev: {
+                        link: docsFiles[pointer - 1]
+                            ? this.convertLinkToCleanURL(docsFiles[pointer - 1])
+                            : '',
+                        title: docsFiles[pointer - 1]
+                            ? this.getTitle(
+                                  './' +
+                                      docsFiles[pointer - 1].replace(
+                                          process.cwd() + '/',
+                                          '',
+                                      ),
+                              )
+                            : '',
+                        desc: docsFiles[pointer - 1]
+                            ? this.getDesc(
+                                  './' +
+                                      docsFiles[pointer - 1].replace(
+                                          process.cwd() + '/',
+                                          '',
+                                      ),
+                              )
+                            : '',
+                    },
+                    next: {
+                        link: docsFiles[pointer + 1]
+                            ? this.convertLinkToCleanURL(docsFiles[pointer + 1])
+                            : '',
+                        title: docsFiles[pointer + 1]
+                            ? this.getTitle(
+                                  './' +
+                                      docsFiles[pointer + 1].replace(
+                                          process.cwd() + '/',
+                                          '',
+                                      ),
+                              )
+                            : '',
+                        desc: docsFiles[pointer + 1]
+                            ? this.getDesc(
+                                  './' +
+                                      docsFiles[pointer + 1].replace(
+                                          process.cwd() + '/',
+                                          '',
+                                      ),
+                              )
+                            : '',
+                    },
+                    meta: `
+                    <link rel="prev" href="/${docsFiles[pointer - 1] ? this.convertLinkToCleanURL(docsFiles[pointer - 1]) : ''}" />
+                    <link rel="next" href="/${docsFiles[pointer + 1] ? this.convertLinkToCleanURL(docsFiles[pointer + 1]) : ''}" />
+                    `,
+                    ldjson: JSON.stringify(
+                        {
+                            '@context': 'https://schema.org',
+                            '@type': 'WebPage',
+                            name: title,
+                            breadcrumb: {
+                                '@type': 'BreadcrumbList',
+                                itemListElement: [
+                                    {
+                                        '@type': 'ListItem',
+                                        position: 1,
+                                        name: 'Previous Page',
+                                        item:
+                                            '/' +
+                                            (docsFiles[pointer - 1]
+                                                ? this.convertLinkToCleanURL(
+                                                      docsFiles[pointer - 1],
+                                                  )
+                                                : ''),
+                                    },
+                                    {
+                                        '@type': 'ListItem',
+                                        position: 2,
+                                        name: 'Current Page',
+                                        item:
+                                            '/docs/' +
+                                            this.convertLinkToCleanURL(
+                                                pathFile,
+                                            ),
+                                    },
+                                    {
+                                        '@type': 'ListItem',
+                                        position: 3,
+                                        name: 'Next Page',
+                                        item:
+                                            '/' +
+                                            (docsFiles[pointer + 1]
+                                                ? this.convertLinkToCleanURL(
+                                                      docsFiles[pointer + 1],
+                                                  )
+                                                : ''),
+                                    },
+                                ],
+                            },
+                        },
+                        null,
+                        4,
+                    ),
+                };
+
+                pointer++;
             }
         }
 
@@ -84,6 +208,31 @@ class GenerateDocs {
             'docs/index.json',
             JSON.stringify(index, null, 4),
         );
+
+        await fs.writeFileSync(
+            'docs/indexLinks.json',
+            JSON.stringify(indexLink, null, 4),
+        );
+    }
+
+    getTitle(file) {
+        const content = fs.readFileSync(path.resolve(file), 'utf-8');
+
+        const regex = /<h1[^>]*>(.*?)<\/h1>/i;
+        const match = content.match(regex);
+
+        if (match && match[1]) return match[1];
+
+        return null;
+    }
+
+    getDesc(file) {
+        const content = fs
+            .readFileSync(path.resolve(file), 'utf-8')
+            .replace(/<h1>.*?<\/a>\n<p>/, '');
+        const textOnly = content.replace(/<[^>]*>/g, '');
+        const dec = textOnly.substring(0, 80).trim() + '...';
+        return dec;
     }
 
     convertLinkToCleanURL(link: string): string {
