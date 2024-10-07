@@ -34,7 +34,7 @@ export class DocsController {
     }
 
     getDoc(docFilename, res, fullPath) {
-        let indexData = indexLinks[fullPath];
+        let indexData = { ...indexLinks[fullPath] };
         const data = indexData.data;
         delete indexData.data;
         data.links = indexData;
