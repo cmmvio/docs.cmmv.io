@@ -2,26 +2,23 @@ import * as path from 'path';
 
 import { ServiceRegistry } from '@cmmv/core';
 import { Controller, Get, Param, Response } from '@cmmv/http';
-import { DocsService } from './docs.service';
 
 const index = require('../docs/index.json');
 const indexLinks = require('../docs/indexLinks.json');
 
 @Controller('docs')
 export class DocsController {
-    constructor(private docsService: DocsService) {}
-
     @Get()
     async indexHandler(@Response() res) {
         return res.render('views/docs/index', {
-            docs: await this.docsService.getDocsStrutucture(),
+            docs: indexLinks['index'].data,
             services: ServiceRegistry.getServicesArr(),
         });
     }
 
     @Get(':item')
     async getDocHandler(@Param('item') item: string, @Response() res) {
-        if (index[item]) await this.getDoc(index[item], res, item);
+        if (index[item]) this.getDoc(index[item], res, item);
         else res.code(404).end();
     }
 
@@ -32,14 +29,15 @@ export class DocsController {
         @Response() res,
     ) {
         const fullPath = `${dir}/${item}`;
-        if (index[fullPath]) await this.getDoc(index[fullPath], res, fullPath);
+        if (index[fullPath]) this.getDoc(index[fullPath], res, fullPath);
         else res.code(404).end();
     }
 
-    async getDoc(docFilename: string, @Response() res, fullPath) {
-        const file = path.resolve(docFilename);
-        const data = await this.docsService.getDocsStrutucture(file);
-        data.links = indexLinks[fullPath];
+    getDoc(docFilename, res, fullPath) {
+        let indexData = indexLinks[fullPath];
+        const data = indexData.data;
+        delete indexData.data;
+        data.links = indexData;
 
         return res.render('views/docs/index', {
             docs: data,
