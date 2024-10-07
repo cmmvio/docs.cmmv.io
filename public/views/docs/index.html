@@ -111,9 +111,9 @@
                         </a>
                     </div>
 
-                    <hr/>
+                    <hr />
 
-                    <div class="grid gap-8 sm:grid-cols-2 footer">
+                    <div class="grid gap-8 sm:grid-cols-2 footer" c-if="docs.links.prev.link || docs.links.next.link">
                         <a :href="`/${docs.links.prev.link}`" class="block px-6 py-8 border not-prose rounded-lg border-gray-600 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group">
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
                                 <span class="fa-solid fa-arrow-left i-ph:arrow-left w-5 h-5 text-gray-900 dark:text-white group-hover:text-primary" aria-hidden="true"></span>
