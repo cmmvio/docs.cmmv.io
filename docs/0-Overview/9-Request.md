@@ -118,7 +118,9 @@ const response = await this.httpService.head('https://api.example.com/data');
 * **Returns:** A ``Promise`` that resolves with an ``AxiosResponse``.
 
 ```typescript
-const response = await httpService.post('https://api.example.com/data', { key: 'value' });
+const response = await httpService.post('https://api.example.com/data', { 
+    key: 'value' 
+});
 ```
 
 ## Put
@@ -138,7 +140,9 @@ const response = await httpService.post('https://api.example.com/data', { key: '
 * **Returns:** A ``Promise`` that resolves with an ``AxiosResponse``.
 
 ```typescript
-const response = await httpService.put('https://api.example.com/data/1', { key: 'newValue' });
+const response = await httpService.put('https://api.example.com/data/1', { 
+    key: 'newValue' 
+});
 ```
 
 ## Patch
@@ -158,7 +162,9 @@ const response = await httpService.put('https://api.example.com/data/1', { key: 
 * **Returns:** A ``Promise`` that resolves with an ``AxiosResponse``.
 
 ```typescript
-const response = await httpService.patch('https://api.example.com/data/1', { key: 'patchedValue' });
+const response = await httpService.patch('https://api.example.com/data/1', { 
+    key: 'patchedValue' 
+});
 ```
 
 # Usage 

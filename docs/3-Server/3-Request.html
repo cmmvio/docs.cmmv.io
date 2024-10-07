@@ -11,6 +11,7 @@
 });
 </code></pre>
 <p>The <code>req</code> object extends Node.js’s core <code>http.IncomingMessage</code> object, which means it inherits all the built-in properties and methods of Node’s request object. In addition, the <code>req</code> object includes a number of added functionalities specific to HTTP request handling in your application, making it more powerful and easier to work with.</p>
+<h2>Properties</h2><a id="properties" title="Properties"></a>
 <h2>req.query</h2><a id="reqquery" title="req.query"></a>
 <p>Returns the parsed query string as an object. The query string is automatically parsed using the query parser (e.g., qs library).</p>
 <pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
@@ -87,6 +88,7 @@
 <p>Returns the cookies sent by the client.</p>
 <h2>req.signedCookies</h2><a id="reqsignedcookies" title="req.signedCookies"></a>
 <p>Returns the signed cookies sent by the client.</p>
+<h2>Methods</h2><a id="methods" title="Methods"></a>
 <h2>req.header()</h2><a id="reqheader" title="req.header()"></a>
 <p>Alias for <code>req.get()</code>. Returns the value of the specified request header field.</p>
 <pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">header</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);  <span class="hljs-comment">// &quot;application/json&quot;</span>

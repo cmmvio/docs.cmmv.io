@@ -85,7 +85,9 @@ The ``@Contract`` decorator is used to define a contract controller with various
 class UserContract {}
 ```
 
-* **``controllerName (string):** Defines the name of the controller to be generated.
+<br/>
+
+* **``controllerName (string):``** Defines the name of the controller to be generated.
 * **``controllerCustomPath (string, optional):``** Custom path for the controller.
 * **``protoPath (string):``** Path to the .proto file for the contract.
 * **``protoPackage (string, optional):``** Package name for the protocol buffer.

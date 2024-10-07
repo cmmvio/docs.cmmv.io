@@ -19,6 +19,8 @@ app.get('/user/:id', function (request, response) {
 
 The ``req`` object extends Node.js’s core ``http.IncomingMessage`` object, which means it inherits all the built-in properties and methods of Node's request object. In addition, the ``req`` object includes a number of added functionalities specific to HTTP request handling in your application, making it more powerful and easier to work with.
 
+## Properties
+
 ## req.query
 
 Returns the parsed query string as an object. The query string is automatically parsed using the query parser (e.g., qs library).
@@ -166,6 +168,8 @@ Returns the cookies sent by the client.
 ## req.signedCookies
 
 Returns the signed cookies sent by the client.
+
+## Methods
 
 ## req.header()
 
