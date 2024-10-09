@@ -24,3 +24,4 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/etag](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/etag)             | ETag generation for response caching, improving efficiency by validating cached responses.        |
 | [@cmmv/helmet](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/helmet)           | Security middleware to help protect applications by setting various HTTP headers.                 |
 | [@cmmv/swagger](https://github.com/andrehrferreira/cmmv-swagger)          | Provides API documentation with Swagger integration, automatically generating OpenAPI specifications. |
+| [@cmmv/plugin-vite](https://github.com/andrehrferreira/cmmv-swagger)          | Enables Vite to interpret ``.cmmv`` files, similar to how Vue files are processed, with full support for CMMV syntax. |
