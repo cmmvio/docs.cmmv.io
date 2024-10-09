@@ -22,18 +22,3 @@ services:
         limits:
           cpus: "0.6"
           memory: "225M"
-
-  nginx:
-    image: nginx:1.25.4
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "3000:3000"
-    depends_on:
-      - api1
-      - api2
-    deploy:
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: "50M"

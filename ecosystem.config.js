@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
         name   : "API",
-        script : "npm run start"
+        script : "pnpm run start"
     }]
 }

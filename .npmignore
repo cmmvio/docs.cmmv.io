@@ -12,6 +12,7 @@ tslint.json
 tsconfig.json
 .prettierrc
 yarn.lock
+pnpm-lock.yaml
 
 *.tsbuildinfo
 .env
