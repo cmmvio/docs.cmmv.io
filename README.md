@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://cmmv.io/" target="blank"><img src="https://raw.githubusercontent.com/andrehrferreira/cmmv/main/public/assets/logo.png" width="300" alt="CMMV Logo" /></a>
+  <a href="https://cmmv.io/" target="blank"><img src="https://raw.githubusercontent.com/andrehrferreira/cmmv/main/public/assets/logo_CMMV_negativa.svg" width="300" alt="CMMV Logo" /></a>
 </p>
 <p align="center">Contract-Model-Model-View (CMMV) <br/> A minimalistic framework for building scalable and modular applications using TypeScript contracts.</p>
 <p align="center">
@@ -22,8 +22,8 @@ This project is compile source documentation in markdown format into the publish
 Install project dependencies and start a local server with the following terminal commands:
 
 ```bash
-$ npm install
-$ npm run dev
+$ pnpm install
+$ pnpm run dev
 ```
 
 Navigate to [`http://localhost:3000/`](http://localhost:3000/).
@@ -32,7 +32,7 @@ All pages are written in [markdown](https://github.com/adam-p/markdown-here/wiki
 
 ## Build
 
-Use `npm run build` for a production build.
+Use `pnpm run build` for a production build.
 
 ## Support
 

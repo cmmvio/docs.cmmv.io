@@ -65,7 +65,7 @@ When the application starts, the system automatically generates controllers, ser
 To start a basic REST application using the ``@cmmv/http`` and ``@cmmv/view`` modules, follow these steps:
 
 ```
-npm install @cmmv/http @cmmv/view
+$ pnpm add @cmmv/http @cmmv/view
 ```
 
 Set up the application:
