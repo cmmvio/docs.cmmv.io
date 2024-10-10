@@ -11,15 +11,7 @@
                 <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
                     <i class="fa-regular fa-clone"></i>
                 </button>
-                <pre><code class="hljs language-bash" lang="bash"">$ npm install @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
-</code></pre>
-             </div>
-<p>or</p>
-<div class="code-block-container">
-                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
-                    <i class="fa-regular fa-clone"></i>
-                </button>
-                <pre><code class="hljs language-bash" lang="bash"">$ yarn add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
+                <pre><code class="hljs language-bash" lang="bash"">$ pnpm add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
 </code></pre>
              </div>
 <h2>Structure</h2><a id="structure" title="Structure"></a>
@@ -138,20 +130,7 @@
                 <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
                     <i class="fa-regular fa-clone"></i>
                 </button>
-                <pre><code class="hljs language-bash" lang="bash"">$ yarn dev || npm run dev
+                <pre><code class="hljs language-bash" lang="bash"">$ pnpm dev
 </code></pre>
              </div>
 <p>In this way, the initial application watches in parallel with the nodemon that checks for changes in the files and automatically reloads in case of changes, the server that provides the API will be loaded following the pure Typescript settings, the editor will be compiled for Javascript.</p>
-<h2>Linting and formatting</h2><a id="linting-and-formatting" title="Linting and formatting"></a>
-<p>Like most public web applications that use Typescript, I use eslint and prettier to format and organize the code, making it possible to perform checks and corrections using the commands below</p>
-<div class="code-block-container">
-                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
-                    <i class="fa-regular fa-clone"></i>
-                </button>
-                <pre><code class="hljs language-bash" lang="bash""><span class="hljs-comment"># Lint with eslint</span>
-$ yarn lint || npm run lint
-
-<span class="hljs-comment"># Format with prettier</span>
-$ yarn format || npm run format
-</code></pre>
-             </div>

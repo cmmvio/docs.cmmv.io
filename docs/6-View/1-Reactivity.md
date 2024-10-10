@@ -23,13 +23,7 @@ In extreme cases where heavier frameworks like Vue, React, or Angular are necess
 To install the ``@cmmv/reactivity`` package, simply run the following command:
 
 ```bash
-$ npm install @cmmv/reactivity
-```
-
-or
-
-```bash
-$ yarn add @cmmv/reactivity
+$ pnpm add @cmmv/reactivity
 ```
 
 Alternatively, you can visit the [GitHub repository](https://github.com/andrehrferreira/cmmv-reactivity) for more details.

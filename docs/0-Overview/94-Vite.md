@@ -9,7 +9,7 @@ The CMMV Vite Plugin allows Vite to seamlessly handle ``.cmmv`` files in the sam
 To use the CMMV Vite Plugin, you can install it via npm:
 
 ```bash
-npm install @cmmv/plugin-vite --save-dev
+$ pnpm add -D @cmmv/plugin-vite
 ```
 
 ## Configuration
@@ -37,22 +37,22 @@ Here's an example ``.cmmv`` file structure. It works similarly to Vue’s Single
 
 ```html
 <template>
-  <div>{{ message }}</div>
+	<div>{{ message }}</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      message: 'Hello CMMV!'
-    };
-  }
+	data() {
+		return {
+			message: 'Hello CMMV!'
+		};
+	}
 };
 </script>
 
 <style>
 div {
-  color: blue;
+	color: blue;
 }
 </style>
 ```

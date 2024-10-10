@@ -5,7 +5,7 @@ The ``@cmmv/cache`` module integrates with ``cache-manager`` to provide in-memor
 To install the ``@cmmv/cache`` module, use npm:
 
 ```bash
-$ npm install @cmmv/cache
+$ pnpm add @cmmv/cache
 ```
 
 If you're planning to use Redis or other stores, you'll need to install the appropriate package based on the cache store you intend to use.
@@ -17,25 +17,25 @@ If you're planning to use Redis or other stores, you'll need to install the appr
 **Redis:** [Github](https://github.com/Tirke/node-cache-manager-stores/tree/main)
 
 ```bash
-$ npm install @tirke/node-cache-manager-ioredis
+$ pnpm add @tirke/node-cache-manager-ioredis
 ```
 
 **Memcached:** [Github](https://github.com/theogravity/node-cache-manager-memcached-store)
 
 ```bash
-$ npm install cache-manager-memcached-store
+$ pnpm add cache-manager-memcached-store
 ```
 
 **MongoDB:** [Github](https://github.com/v4l3r10/node-cache-manager-mongodb)
 
 ```bash
-$ npm install cache-manager-mongodb
+$ pnpm add cache-manager-mongodb
 ```
 
 **Filesystem Binary:** [Github](https://github.com/sheershoff/node-cache-manager-fs-binary)
 
 ```bash
-$ npm install cache-manager-fs-binary
+$ pnpm add cache-manager-fs-binary
 ```
 
 ## Configuration

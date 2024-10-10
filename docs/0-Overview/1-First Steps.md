@@ -17,13 +17,7 @@ To run CMMV it will be necessary to have ``Node.js (version >= 18.0)`` installed
 Currently CMMV does not have any CI system, so to install it in your project you just need to install the modules.
 
 ```bash
-$ npm install @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
-```
-
-or 
-
-```bash
-$ yarn add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
+$ pnpm add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
 ```
 
 ## Structure
@@ -126,19 +120,7 @@ The recommendation regarding static files is to always use the CDN integration f
 To start the application in development mode you can use the following command. 
 
 ```bash
-$ yarn dev || npm run dev
+$ pnpm dev
 ```
 
 In this way, the initial application watches in parallel with the nodemon that checks for changes in the files and automatically reloads in case of changes, the server that provides the API will be loaded following the pure Typescript settings, the editor will be compiled for Javascript.
-
-## Linting and formatting
-
-Like most public web applications that use Typescript, I use eslint and prettier to format and organize the code, making it possible to perform checks and corrections using the commands below
-
-```bash
-# Lint with eslint
-$ yarn lint || npm run lint
-
-# Format with prettier
-$ yarn format || npm run format
-```

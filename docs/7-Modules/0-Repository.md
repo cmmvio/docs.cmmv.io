@@ -7,7 +7,7 @@ The ``@cmmv/repository`` module is designed to work alongside the ``@cmmv/core``
 To use the ``@cmmv/repository`` module in your project, you can install it via npm:
 
 ```bash
-$ npm install @cmmv/repository
+$ pnpm add @cmmv/repository
 ```
 
 In addition to installing the ``@cmmv/repository`` module, depending on the database type you are using, you will need to install the respective database driver.
@@ -19,37 +19,37 @@ TypeORM supports multiple database systems, and each system requires the appropr
 **SQLite:** [NPM](https://www.npmjs.com/package/sqlite3)
 
 ```bash
-$ npm install sqlite3
+$ pnpm add sqlite3
 ```
 
 **MySQL / MariaDB:** [NPM](https://www.npmjs.com/package/mysql2)
 
 ```bash
-$ npm install mysql2
+$ pnpm add mysql2
 ```
 
 **PostgreSQL:** [NPM](https://www.npmjs.com/package/pg)
 
 ```bash
-$ npm install pg
+$ pnpm add pg
 ```
 
 **Microsoft SQL Server:** [NPM](https://www.npmjs.com/package/mssql)
 
 ```bash
-$ npm install mssql
+$ pnpm add mssql
 ```
 
 **Oracle:** [NPM](https://www.npmjs.com/package/oracledb)
 
 ```bash
-$ npm install oracledb
+$ pnpm add oracledb
 ```
 
 **MongoDB:** [NPM](https://www.npmjs.com/package/mongodb)
 
 ```bash
-$ npm install mongodb
+$ pnpm add mongodb
 ```
 
 Once you install the module and the corresponding database driver, you can configure your database connection in the ``.cmmv.config.js`` file. TypeORM will automatically use the appropriate driver based on the configuration.
