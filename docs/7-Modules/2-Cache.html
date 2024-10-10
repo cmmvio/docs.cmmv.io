@@ -1,25 +1,54 @@
 <h1>Cache</h1><a id="cache" title="Cache"></a>
 <p>The <code>@cmmv/cache</code> module integrates with <code>cache-manager</code> to provide in-memory cache management. By default, it includes support for Redis using the <code>@tirke/node-cache-manager-ioredis</code> package, but it also supports other cache stores that are compatible with <code>cache-manager</code>.</p>
 <p>To install the <code>@cmmv/cache</code> module, use npm:</p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/cache
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install @cmmv/cache
 </code></pre>
+             </div>
 <p>If you’re planning to use Redis or other stores, you’ll need to install the appropriate package based on the cache store you intend to use.</p>
 <p><strong>Supported Cache Stores and Drivers</strong></p>
 <p><code>cache-manager</code> supports various cache stores, and you can configure your store based on your requirements. Here are the supported stores and their respective drivers:</p>
 <p><strong>Redis:</strong> <a href="https://github.com/Tirke/node-cache-manager-stores/tree/main" target="_blank" rel="nofollow">Github</a></p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install @tirke/node-cache-manager-ioredis
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install @tirke/node-cache-manager-ioredis
 </code></pre>
+             </div>
 <p><strong>Memcached:</strong> <a href="https://github.com/theogravity/node-cache-manager-memcached-store" target="_blank" rel="nofollow">Github</a></p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install cache-manager-memcached-store
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install cache-manager-memcached-store
 </code></pre>
+             </div>
 <p><strong>MongoDB:</strong> <a href="https://github.com/v4l3r10/node-cache-manager-mongodb" target="_blank" rel="nofollow">Github</a></p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install cache-manager-mongodb
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install cache-manager-mongodb
 </code></pre>
+             </div>
 <p><strong>Filesystem Binary:</strong> <a href="https://github.com/sheershoff/node-cache-manager-fs-binary" target="_blank" rel="nofollow">Github</a></p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install cache-manager-fs-binary
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install cache-manager-fs-binary
 </code></pre>
+             </div>
 <h2>Configuration</h2><a id="configuration" title="Configuration"></a>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
    <span class="hljs-comment">// Other configurations</span>
 
    <span class="hljs-attr">cache</span>: {
@@ -31,6 +60,7 @@
     },
 }
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>store:</strong> Defines the cache store type (<code>cache-manager-redis</code> in this case).</li>
@@ -46,7 +76,11 @@
 <li><strong>Cache Decorator:</strong> The <code>@Cache</code> decorator is used to cache responses automatically for GET endpoints. In this case, <code>task:getAll</code> and <code>task:{id}</code> are cached for 300 seconds with compression.</li>
 <li><strong>CacheService:</strong> For <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> operations, the cache is updated or removed manually using the <code>CacheService</code> API.</li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Generated automatically by CMMV</span>
     
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Telemetry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;  
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">CacheService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/cache&quot;</span>; 
@@ -127,6 +161,7 @@
     }
 }
 </code></pre>
+             </div>
 <p><strong>Caching on GET Requests:</strong></p>
 <ul>
 <li><strong>Automatic Caching:</strong> The @Cache decorator is applied to the getAll and getById methods. Cached results are automatically stored and retrieved based on the key pattern, reducing database load and improving performance.</li>
@@ -143,7 +178,11 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
 <h2>Contract Settings</h2><a id="contract-settings" title="Contract Settings"></a>
 <p>The <code>@cmmv/cache</code> module provides the <code>Cache</code> decorator, which can be applied to any controller, gateway, or specific methods. This decorator is useful for automatically caching responses for specific routes.</p>
 <p>In the following example, cache properties are added to a contract using the <code>@Contract</code> decorator. This enables caching for the associated controller and gateway routes automatically generated by the transpiler.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-meta">@Contract</span>({
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
@@ -197,6 +236,7 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+             </div>
 <h2>Cache Properties</h2><a id="cache-properties" title="Cache Properties"></a>
 <ul>
 <li><strong>key:</strong> A prefix for the cache key. In the example above, it is <code>&quot;task:&quot;</code>. For a <code>getAll</code> request, the cached result will be stored as <code>task:getAll</code>.</li>
@@ -206,7 +246,11 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
 <p>If you need more advanced caching strategies or custom store integrations, you can customize the cache settings in the <code>.cmmv.config.js</code> file or extend the existing cache functionalities within your project. For example, you could add custom cache strategies like memory caching, database caching, or even multi-level caching.</p>
 <h2>Controllers</h2><a id="controllers" title="Controllers"></a>
 <p>When the <code>@cmmv/cache</code> module is included in the project, the automatically generated controllers from <code>@cmmv/http</code> are modified to include caching functionalities. The caching configuration is defined directly in the contract using the cache property. Here’s how the controller is altered:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-meta">@Contract</span>({
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
@@ -260,8 +304,13 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+             </div>
 <p>Based on the above contract with cache configuration, the generated controller will include caching logic using the <code>@Cache</code> decorator from <code>@cmmv/cache</code>. Here’s an example of how the controller is generated:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Generated automatically by CMMV</span>
 
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Telemetry</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;  
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">CacheService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/cache&quot;</span>; 
@@ -328,6 +377,7 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
     }
 }
 </code></pre>
+             </div>
 <ul>
 <li>
 <p><strong>Cache Decorator:</strong> The <code>@Cache</code> decorator is added to methods like <code>getAll</code> and <code>getById</code> based on the cache configuration provided in the contract. This decorator automatically caches the results for the specified time (<code>ttl</code>) and applies compression (<code>compress</code>) if configured.</p>
@@ -359,7 +409,11 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
 <p><strong>Manual Cache Management:</strong> Cache entries are manually updated or deleted when new data is added or modified, ensuring that the cache remains consistent with the latest data.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Generated automatically by CMMV</span>
 
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
 <span class="hljs-keyword">import</span> { plainToClass } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;class-transformer&#x27;</span>;
@@ -444,6 +498,7 @@ TTL (Time-to-Live): The cached results are valid for 300 seconds.</li>
     }
 }
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>Automatic Caching:</strong> The <code>@Cache</code> decorator is applied to message handlers to cache responses based on the contract configuration.</li>

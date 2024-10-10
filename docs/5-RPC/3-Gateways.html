@@ -12,7 +12,11 @@
 </li>
 </ul>
 <p>Here is an example of the <code>WsCall</code> contract that serves as the foundation for these interactions:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 
 <span class="hljs-meta">@Contract</span>({ 
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&quot;WsCall&quot;</span>,
@@ -32,6 +36,7 @@
     <span class="hljs-attr">data</span>: <span class="hljs-title class_">Uint8Array</span>;
 }
 </code></pre>
+             </div>
 <p><strong>Client Sends a Request:</strong> When the client sends a request, it is formatted according to the <code>WsCall</code> contract, containing:</p>
 <ul>
 <li><strong>contract:</strong> A number identifying which contract the message belongs to.</li>
@@ -52,7 +57,11 @@
 </ul>
 <h2>Example Gateway</h2><a id="example-gateway" title="Example Gateway"></a>
 <p>When a contract is created, the WebSocket gateway might look like this:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/task.service&#x27;</span>;
 
 <span class="hljs-meta">@Rpc</span>(<span class="hljs-string">&quot;task&quot;</span>)
@@ -82,6 +91,7 @@
     }
 }
 </code></pre>
+             </div>
 <p><strong>Binary Communication:</strong> Uses binary data (via Uint8Array) for fast and compact message exchanges.<br>
 <strong>Efficient Message Handling:</strong> The contract and message fields allow quick identification of the correct handler, minimizing overhead.<br>
 <strong>Custom Gateways:</strong> Developers can extend or customize gateways by creating specific handlers for different contract messages.<br>
@@ -90,25 +100,39 @@ This approach ensures that communication between clients and the server is not o
 <p>The interceptor is a key component in the <code>@cmmv/ws</code> system that handles the parsing and routing of incoming WebSocket messages. When a WebSocket packet is received from the client, the interceptor processes the data, decodes it according to the defined protocol, and dispatches it to the appropriate handler.</p>
 <p>Below is an explanation of how the WebSocket interceptor works step-by-step:</p>
 <p>The interceptor receives a <code>socket</code> and the binary <code>data</code>. The first step is to decode the binary data into a structured message using the <code>WSCall</code> contract:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> message = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">WSCall</span>, <span class="hljs-title class_">ProtoRegistry</span>.
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> message = <span class="hljs-title function_">plainToClass</span>(<span class="hljs-title class_">WSCall</span>, <span class="hljs-title class_">ProtoRegistry</span>.
     <span class="hljs-title function_">retrieve</span>(<span class="hljs-string">&quot;ws&quot;</span>)?.
     <span class="hljs-title function_">lookupType</span>(<span class="hljs-string">&quot;WsCall&quot;</span>).
     <span class="hljs-title function_">decode</span>(data)
 );
 </code></pre>
+             </div>
 <p>Next, the system retrieves the contract and message type from the <code>ProtoRegistry</code>:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> contract = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveByIndex</span>(message.<span class="hljs-property">contract</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> contract = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveByIndex</span>(message.<span class="hljs-property">contract</span>);
 <span class="hljs-keyword">const</span> typeName = <span class="hljs-title class_">ProtoRegistry</span>.<span class="hljs-title function_">retrieveTypes</span>(
     message.<span class="hljs-property">contract</span>, message.<span class="hljs-property">message</span>
 );
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>retrieveByIndex(message.contract):</strong> Retrieves the contract by its index in the registry.</li>
 <li><strong>retrieveTypes(message.contract, message.message):</strong> Determines the specific type of message based on the contract and message identifiers. This will be used to find the correct handler.</li>
 </ul>
 <p>Once the contract and message type are identified, the interceptor checks if the message type has a registered handler:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">if</span> (contract &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">has</span>(typeName)) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">if</span> (contract &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">has</span>(typeName)) {
     <span class="hljs-keyword">const</span> { 
         instance, handlerName, params 
     } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">registeredMessages</span>.<span class="hljs-title function_">get</span>(typeName);
@@ -118,8 +142,13 @@ This approach ensures that communication between clients and the server is not o
     .<span class="hljs-title function_">decode</span>(message.<span class="hljs-property">data</span>);
 }
 </code></pre>
+             </div>
 <p>Finally, the handler is executed with the mapped arguments:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> args = params
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> args = params
     .<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.<span class="hljs-property">index</span> - b.<span class="hljs-property">index</span>)
     .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">param</span> =&gt;</span> {
         <span class="hljs-keyword">switch</span> (param.<span class="hljs-property">paramType</span>) {
@@ -135,6 +164,7 @@ This approach ensures that communication between clients and the server is not o
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">logger</span>.<span class="hljs-title function_">error</span>(e.<span class="hljs-property">message</span>);
 }
 </code></pre>
+             </div>
 <p>This process ensures that all WebSocket messages are efficiently routed to the appropriate handler based on the contract and message type.</p>
 <h2>Utils</h2><a id="utils" title="Utils"></a>
 <p>The <code>RpcUtils</code> class provides utility methods to work with Protobuf serialization and message packaging for RPC communication. It is primarily used to convert JavaScript objects into Protobuf-encoded binary buffers, as well as to pack RPC messages for transmission over WebSocket or other binary protocols.</p>
@@ -168,7 +198,11 @@ This approach ensures that communication between clients and the server is not o
 <ul>
 <li><strong><code>Promise&lt;Uint8Array | null&gt;:</code></strong> A promise that resolves to a <code>Uint8Array</code> representing the encoded Protobuf message, or null if an error occurs.</li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">generateBuffer</span>(
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">generateBuffer</span>(
     <span class="hljs-string">&#x27;myProtoFile&#x27;</span>, <span class="hljs-string">&#x27;MyMessage&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;example&#x27;</span> }
 );
 
@@ -178,6 +212,7 @@ This approach ensures that communication between clients and the server is not o
     <span class="hljs-comment">// handle error</span>
 }
 </code></pre>
+             </div>
 <h2>Pack</h2><a id="pack" title="Pack"></a>
 <p><code>pack(contractName: string, messageName: string, data?: any): Promise&lt;Uint8Array | null&gt;</code></p>
 <p>The <code>pack</code> method prepares a Protobuf-encoded message for RPC communication. It includes metadata such as the contract and message indices, along with the actual message data.</p>
@@ -191,7 +226,11 @@ This approach ensures that communication between clients and the server is not o
 <ul>
 <li><strong><code>Promise&lt;Uint8Array | null&gt;</code>:</strong> A promise that resolves to a <code>Uint8Array</code> representing the packed message, or <code>null</code> if an error occurs.</li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> packedMessage = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> packedMessage = <span class="hljs-keyword">await</span> <span class="hljs-title class_">RpcUtils</span>.<span class="hljs-title function_">pack</span>(
     <span class="hljs-string">&#x27;TaskContract&#x27;</span>, <span class="hljs-string">&#x27;AddTaskRequest&#x27;</span>, { <span class="hljs-attr">taskId</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">taskLabel</span>: <span class="hljs-string">&#x27;New Task&#x27;</span> }
 );
 
@@ -201,3 +240,4 @@ This approach ensures that communication between clients and the server is not o
     <span class="hljs-comment">// handle error</span>
 }
 </code></pre>
+             </div>

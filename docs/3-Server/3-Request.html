@@ -1,71 +1,141 @@
 <h1>Request</h1><a id="request" title="Request"></a>
 <p>The <code>req</code> object represents the incoming HTTP request and provides access to various properties and methods, such as the request’s query string, parameters, body, HTTP headers, and more. In this documentation, as well as by common convention, this object is referred to as req (with the HTTP response object being res). However, the actual names used for these objects can be defined by the parameters in the callback function you’re working within.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) {
   res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;User: &#x27;</span> + req.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>);
 });
 </code></pre>
+             </div>
 <p>Alternatively, you could name the parameters differently, like this:</p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
   response.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;User: &#x27;</span> + request.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>);
 });
 </code></pre>
+             </div>
 <p>The <code>req</code> object extends Node.js’s core <code>http.IncomingMessage</code> object, which means it inherits all the built-in properties and methods of Node’s request object. In addition, the <code>req</code> object includes a number of added functionalities specific to HTTP request handling in your application, making it more powerful and easier to work with.</p>
 <h2>Properties</h2><a id="properties" title="Properties"></a>
 <h2>req.query</h2><a id="reqquery" title="req.query"></a>
 <p>Returns the parsed query string as an object. The query string is automatically parsed using the query parser (e.g., qs library).</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">query</span>);  <span class="hljs-comment">// { name: &#x27;John&#x27;, age: &#x27;30&#x27; }</span>
 </code></pre>
+             </div>
 <h2>req.querystring</h2><a id="reqquerystring" title="req.querystring"></a>
 <p>Returns the raw query string from the URL.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">querystring</span>);  <span class="hljs-comment">// &quot;name=John&amp;age=30&quot;</span>
 </code></pre>
+             </div>
 <h2>req.search</h2><a id="reqsearch" title="req.search"></a>
 <p>Returns the search string, which is the query string prefixed with a question mark (<code>?</code>).</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// URL: /search?name=John&amp;age=30</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">search</span>);  <span class="hljs-comment">// &quot;?name=John&amp;age=30&quot;</span>
 </code></pre>
+             </div>
 <h2>req.socket</h2><a id="reqsocket" title="req.socket"></a>
 <p>Returns the request socket object, which represents the underlying connection.</p>
 <h2>req.protocol</h2><a id="reqprotocol" title="req.protocol"></a>
 <p>Returns the protocol used in the request (<code>http</code> or <code>https</code>). If the application is behind a proxy, it will also check the <code>X-Forwarded-Proto</code> header if the <code>trust proxy</code> setting is enabled.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">protocol</span>);  <span class="hljs-comment">// &quot;https&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">protocol</span>);  <span class="hljs-comment">// &quot;https&quot;</span>
 </code></pre>
+             </div>
 <h2>req.headers</h2><a id="reqheaders" title="req.headers"></a>
 <p>Returns the request headers as an object.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;content-type&#x27;</span>]);  <span class="hljs-comment">// &quot;application/json&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;content-type&#x27;</span>]);  <span class="hljs-comment">// &quot;application/json&quot;</span>
 </code></pre>
+             </div>
 <h2>req.url</h2><a id="requrl" title="req.url"></a>
 <p>Returns the request URL.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">url</span>);  <span class="hljs-comment">// &quot;/search?name=John&amp;age=30&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">url</span>);  <span class="hljs-comment">// &quot;/search?name=John&amp;age=30&quot;</span>
 </code></pre>
+             </div>
 <h2>req.origin</h2><a id="reqorigin" title="req.origin"></a>
 <p>Returns the origin of the request, including the protocol and host.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">origin</span>);  <span class="hljs-comment">// &quot;https://example.com&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">origin</span>);  <span class="hljs-comment">// &quot;https://example.com&quot;</span>
 </code></pre>
+             </div>
 <h2>req.href</h2><a id="reqhref" title="req.href"></a>
 <p>Returns the full request URL, including the origin and original URL.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">href</span>);  <span class="hljs-comment">// &quot;https://example.com/search?name=John&amp;age=30&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">href</span>);  <span class="hljs-comment">// &quot;https://example.com/search?name=John&amp;age=30&quot;</span>
 </code></pre>
+             </div>
 <h2>req.secure</h2><a id="reqsecure" title="req.secure"></a>
 <p>Returns the HTTP method of the request (e.g., <code>GET</code>, <code>POST</code>, etc.).</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">method</span>);  <span class="hljs-comment">// &quot;GET&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">method</span>);  <span class="hljs-comment">// &quot;GET&quot;</span>
 </code></pre>
+             </div>
 <h2>req.path</h2><a id="reqpath" title="req.path"></a>
 <p>Returns the path of the request URL without the query string.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// URL: /search?name=John</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// URL: /search?name=John</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">path</span>);  <span class="hljs-comment">// &quot;/search&quot;</span>
 </code></pre>
+             </div>
 <h2>req.host</h2><a id="reqhost" title="req.host"></a>
 <p>Returns the host name from the request, considering the <code>X-Forwarded-Host</code> header if the <code>trust proxy</code> setting is enabled.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">host</span>);  <span class="hljs-comment">// &quot;example.com&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">host</span>);  <span class="hljs-comment">// &quot;example.com&quot;</span>
 </code></pre>
+             </div>
 <h2>req.hostname</h2><a id="reqhostname" title="req.hostname"></a>
 <p>Returns the hostname from the <code>Host</code> header, excluding the port number.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">hostname</span>);  <span class="hljs-comment">// &quot;example.com&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(req.<span class="hljs-property">hostname</span>);  <span class="hljs-comment">// &quot;example.com&quot;</span>
 </code></pre>
+             </div>
 <h2>req.URL</h2><a id="requrl" title="req.URL"></a>
 <p>Returns a parsed URL object from the WHATWG URL API.</p>
 <h2>req.fresh</h2><a id="reqfresh" title="req.fresh"></a>
@@ -91,33 +161,73 @@
 <h2>Methods</h2><a id="methods" title="Methods"></a>
 <h2>req.header()</h2><a id="reqheader" title="req.header()"></a>
 <p>Alias for <code>req.get()</code>. Returns the value of the specified request header field.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">header</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);  <span class="hljs-comment">// &quot;application/json&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">header</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);  <span class="hljs-comment">// &quot;application/json&quot;</span>
 </code></pre>
+             </div>
 <h2>req.get()</h2><a id="reqget" title="req.get()"></a>
 <p>Returns the value of the specified request header field.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);  <span class="hljs-comment">// &quot;application/json&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);  <span class="hljs-comment">// &quot;application/json&quot;</span>
 </code></pre>
+             </div>
 <h2>req.accepts()</h2><a id="reqaccepts" title="req.accepts()"></a>
 <p>Checks if the specified MIME types are acceptable based on the Accept header. Returns the best match or <code>undefined</code>.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">accepts</span>(<span class="hljs-string">&#x27;html&#x27;</span>);  <span class="hljs-comment">// &quot;html&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">accepts</span>(<span class="hljs-string">&#x27;html&#x27;</span>);  <span class="hljs-comment">// &quot;html&quot;</span>
 </code></pre>
+             </div>
 <h2>req.acceptsEncodings()</h2><a id="reqacceptsencodings" title="req.acceptsEncodings()"></a>
 <p>Checks if the specified encodings are acceptable based on the <code>Accept-Encoding</code> header.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">acceptsEncodings</span>(<span class="hljs-string">&#x27;gzip&#x27;</span>);  <span class="hljs-comment">// &quot;gzip&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">acceptsEncodings</span>(<span class="hljs-string">&#x27;gzip&#x27;</span>);  <span class="hljs-comment">// &quot;gzip&quot;</span>
 </code></pre>
+             </div>
 <h2>req.acceptsCharsets()</h2><a id="reqacceptscharsets" title="req.acceptsCharsets()"></a>
 <p>Checks if the specified charsets are acceptable based on the <code>Accept-Charset</code> header.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">acceptsCharsets</span>(<span class="hljs-string">&#x27;utf-8&#x27;</span>);  <span class="hljs-comment">// &quot;utf-8&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">acceptsCharsets</span>(<span class="hljs-string">&#x27;utf-8&#x27;</span>);  <span class="hljs-comment">// &quot;utf-8&quot;</span>
 </code></pre>
+             </div>
 <h2>req.acceptsLanguages()</h2><a id="reqacceptslanguages" title="req.acceptsLanguages()"></a>
 <p>Checks if the specified languages are acceptable based on the <code>Accept-Language</code> header.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">acceptsLanguages</span>(<span class="hljs-string">&#x27;en&#x27;</span>);  <span class="hljs-comment">// &quot;en&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">acceptsLanguages</span>(<span class="hljs-string">&#x27;en&#x27;</span>);  <span class="hljs-comment">// &quot;en&quot;</span>
 </code></pre>
+             </div>
 <h2>req.range()</h2><a id="reqrange" title="req.range()"></a>
 <p>Parses the Range header and returns an array of ranges, or <code>-1</code> if unsatisfiable, or <code>-2</code> if invalid.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">range</span>(<span class="hljs-number">1000</span>);  <span class="hljs-comment">// [{ start: 0, end: 999 }]</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">range</span>(<span class="hljs-number">1000</span>);  <span class="hljs-comment">// [{ start: 0, end: 999 }]</span>
 </code></pre>
+             </div>
 <h2>req.is()</h2><a id="reqis" title="req.is()"></a>
 <p>Checks if the request’s <code>Content-Type</code> matches the specified MIME type.</p>
-<pre><code class="hljs language-typescript" lang="typescript">req.<span class="hljs-title function_">is</span>(<span class="hljs-string">&#x27;json&#x27;</span>);  <span class="hljs-comment">// &quot;json&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">req.<span class="hljs-title function_">is</span>(<span class="hljs-string">&#x27;json&#x27;</span>);  <span class="hljs-comment">// &quot;json&quot;</span>
 </code></pre>
+             </div>

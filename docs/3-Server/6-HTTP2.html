@@ -5,7 +5,11 @@
 To enable HTTP/2, you simply need to configure the server with the http2 option set to true. Additionally, you will need to provide SSL certificates since HTTP/2 requires HTTPS for browser support.</p>
 <p>Here’s an example of how to implement HTTP/2 support in @cmmv/server:</p>
 <p><strong>Example with HTTP/2</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
 <span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>({
@@ -34,8 +38,13 @@ app.<span class="hljs-title function_">listen</span>({ host, port })
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(err.<span class="hljs-property">message</span>);
 });
 </code></pre>
+             </div>
 <p><a href="https://datatracker.ietf.org/doc/html/rfc7301" target="_blank" rel="nofollow">ALPN negotiation</a> allows support for both HTTPS and HTTP/2 over the same socket. Node core req and res objects can be either HTTP/1 or HTTP/2:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>({
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>({
     <span class="hljs-attr">http2</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Enable HTTP/2</span>
     <span class="hljs-attr">https</span>: {
         <span class="hljs-attr">allowHTTP1</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// fallback support for HTTP1</span>
@@ -45,9 +54,15 @@ app.<span class="hljs-title function_">listen</span>({ host, port })
     }
 });
 </code></pre>
+             </div>
 <p>You can test your new server with:</p>
-<pre><code class="hljs language-bash" lang="bash">$ npx h2url https://localhost:3000
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npx h2url https://localhost:3000
 </code></pre>
+             </div>
 <h2>Self-Signed SSL Certificate</h2><a id="self-signed-ssl-certificate" title="Self-Signed SSL Certificate"></a>
 <p>To test HTTP/2 locally with <code>@cmmv/server</code>, you need an SSL certificate because browsers require HTTPS to support HTTP/2. Here’s how to generate a self-signed certificate for your localhost environment.</p>
 <p>Steps to Create a Self-Signed SSL Certificate<br>
@@ -55,19 +70,39 @@ You can use OpenSSL, which is a free and open-source tool, to generate the neces
 <p><strong>1. Install OpenSSL</strong><br>
 If you don’t already have OpenSSL installed, you can download and install it from here or through a package manager like <code>brew</code> on macOS or <code>apt-get</code> on Linux.</p>
 <p>For macOS:</p>
-<pre><code class="hljs language-bash" lang="bash">brew install openssl
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">brew install openssl
 </code></pre>
+             </div>
 <p>For Linux (Ubuntu/Debian):</p>
-<pre><code class="hljs language-bash" lang="bash"><span class="hljs-built_in">sudo</span> apt-get install openssl
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash""><span class="hljs-built_in">sudo</span> apt-get install openssl
 </code></pre>
+             </div>
 <p><strong>2. Generate a Private Key</strong></p>
 <p>First, you need to create a private key that will be used to sign the SSL certificate.</p>
-<pre><code class="hljs language-bash" lang="bash">openssl genpkey -algorithm RSA -out private-key.pem -aes256
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">openssl genpkey -algorithm RSA -out private-key.pem -aes256
 </code></pre>
+             </div>
 <p><strong>3. Create a Self-Signed Certificate</strong></p>
 <p>Now that you have a private key, you can create the SSL certificate.</p>
-<pre><code class="hljs language-bash" lang="bash">openssl req -new -x509 -key private-key.pem -out certificate.pem -days 365
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">openssl req -new -x509 -key private-key.pem -out certificate.pem -days 365
 </code></pre>
+             </div>
 <p>This command will generate a self-signed certificate named <code>certificate.pem</code> that’s valid for 365 days. The <code>-subj</code> parameter provides the necessary certificate information, such as the Common Name (<code>CN</code>), which should be <code>localhost</code>.</p>
 <p><strong>4. Bypass Browser Warnings (Optional)</strong></p>
 <p>Since the certificate is self-signed, most browsers will display a security warning. To bypass this:</p>
@@ -77,7 +112,11 @@ If you don’t already have OpenSSL installed, you can download and install it f
 </ul>
 <p><strong>5. Use the Certificate in <code>@cmmv/server</code></strong></p>
 <p>Now, you can use the generated <code>private-key.pem</code> and certificate.pem files in your <code>@cmmv/server</code> configuration as shown below:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
 <span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>({
@@ -101,10 +140,15 @@ app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">h
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Error starting the server:&#x27;</span>, err);
 });
 </code></pre>
+             </div>
 <p>Now your local server will run with HTTP/2 and SSL encryption!</p>
 <h2>Plain or insecure</h2><a id="plain-or-insecure" title="Plain or insecure"></a>
 <p>If you are building microservices, you can connect to HTTP2 in plain text, however, this is not supported by browsers.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
 <span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>({ <span class="hljs-attr">http2</span>: <span class="hljs-literal">true</span> });
@@ -121,6 +165,12 @@ app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">h
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Error starting the server:&#x27;</span>, err);
 });
 </code></pre>
+             </div>
 <p>You can test your new server with:</p>
-<pre><code class="hljs language-bash" lang="bash">$ npx h2url http://localhost:3000
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npx h2url http://localhost:3000
 </code></pre>
+             </div>

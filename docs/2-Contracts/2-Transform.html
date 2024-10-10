@@ -6,7 +6,11 @@
 <li><strong><code>transform:</code></strong> Allows for custom transformation logic such as encrypting, hashing, adding metadata, or converting dates.</li>
 </ul>
 <p>These transforms enable seamless handling of complex data formats like hashing passwords, generating timestamps, and converting or formatting incoming/outgoing data. Below are a few examples:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> crypto <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;crypto&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> crypto <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;crypto&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-meta">@Contract</span>({
@@ -36,6 +40,7 @@
     <span class="hljs-attr">password</span>: <span class="hljs-built_in">string</span>;
 }
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>Data Security:</strong> You can easily encrypt or hash sensitive fields, such as passwords.</li>
@@ -45,19 +50,29 @@
 <p>These transforms ensure that your contract and data structure remain flexible while allowing control over how data is processed during the request-response lifecycle.</p>
 <h2>Input Data</h2><a id="input-data" title="Input Data"></a>
 <p>Assume you have the following plain JavaScript object as input data:</p>
-<pre><code class="hljs language-json" lang="json"><span class="hljs-punctuation">{</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-json" lang="json""><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;john doe&quot;</span><span class="hljs-punctuation">,</span>
     <span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;mypassword&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+             </div>
 <p>Here’s what happens when plainToClass(UsersContract, input) is applied:</p>
-<pre><code class="hljs language-typescript" lang="typescript">{
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">{
     <span class="hljs-comment">// Transformed to uppercase as specified</span>
     <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;JOHN DOE&quot;</span>,
     <span class="hljs-comment">// Not included in output due to `exclude` and `toClassOnly` options   </span>
     <span class="hljs-attr">password</span>: <span class="hljs-literal">undefined</span> 
 }
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>Name Transformation:</strong></li>
@@ -67,11 +82,16 @@
 </ul>
 <p><strong>Example Without Exclude</strong></p>
 <p>If we remove the <code>exclude: true</code> option for password, it will still be hashed but included in the output:</p>
-<pre><code class="hljs language-typescript" lang="typescript">{
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">{
     <span class="hljs-comment">// Transformed to uppercase</span>
     <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;JOHN DOE&quot;</span>,   
     <span class="hljs-comment">// Hashed password</span>
     <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;5e884898da28047151d0e56f...&quot;</span>  
 }
 </code></pre>
+             </div>
 <p>In this case, the <code>transform</code> function is applied, and the password is hashed, but it is not excluded from the output anymore. The <code>toClassOnly: true</code> ensures the transformation is only applied when converting to a class.</p>

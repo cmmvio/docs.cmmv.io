@@ -37,19 +37,43 @@
 </table>
 <h2>Workflow</h2><a id="workflow" title="Workflow"></a>
 <p>Start a Telemetry Record: When a request or action starts, the telemetry system logs the start time with the process label.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, requestId);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, requestId);
 </code></pre>
+             </div>
 <p>End the Telemetry Record: When the process completes, the telemetry system logs the end time.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, requestId);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, requestId);
 </code></pre>
+             </div>
 <p>Retrieve the Telemetry Data: After the request completes, you can retrieve all telemetry data associated with the request ID.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> records = <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">getTelemetry</span>(requestId);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> records = <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">getTelemetry</span>(requestId);
 </code></pre>
+             </div>
 <p>Clear the Telemetry Data: Once telemetry data is no longer needed, you can clear it.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">clearTelemetry</span>(requestId);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">clearTelemetry</span>(requestId);
 </code></pre>
+             </div>
 <p>In services that communicate with external components (e.g., databases, queues), it is recommended to implement telemetry points to track the execution time of these operations. This is particularly helpful when <code>NODE_ENV</code> is set to <code>dev</code>, as it will log the telemetry data and display it in the console.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>[]&gt; {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>[]&gt; {
     <span class="hljs-keyword">try</span> {
         <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::GetAll&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
         
@@ -63,6 +87,7 @@
     }
 }
 </code></pre>
+             </div>
 <p>The telemetry system supports both backend and frontend processes. By implementing telemetry in both environments, you can get a complete view of the system’s performance from request initiation to response and rendering.</p>
 <p><strong>Example console output of telemetry:</strong></p>
 <table>

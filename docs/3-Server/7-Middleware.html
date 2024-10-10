@@ -5,7 +5,11 @@
 <h2>Sample</h2><a id="sample" title="Sample"></a>
 <p>ETag middleware is used to manage ETag headers for caching purposes. ETags are a mechanism for cache validation and are generated based on the content of the response body. If the content hasn’t changed between requests, the server can respond with a 304 Not Modified status, improving performance.</p>
 <p>Here’s an example of the ETag middleware implemented in <code>@cmmv/server</code>:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EtagMiddleware</span> {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EtagMiddleware</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-attr">middlewareName</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;etag&#x27;</span>;
 
     <span class="hljs-keyword">protected</span> <span class="hljs-attr">options</span>: <span class="hljs-title class_">ETagOptions</span>;
@@ -85,6 +89,7 @@
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> middleware.<span class="hljs-title function_">process</span>(req, res, next);
 };
 </code></pre>
+             </div>
 <p>The middleware system in <code>@cmmv/server</code> is designed to offer both compatibility with Express and enhancements that provide better control over the request-response cycle. By leveraging hooks and selective execution, the system ensures that middleware only runs when necessary, leading to better performance.</p>
 <p>While most middleware is compatible with Express, some—like Server-Static—introduce specific behavior changes. This system is designed to be flexible and modular, allowing you to implement custom middleware easily, integrate existing middleware, and optimize your application’s performance.</p>
 <p>Additionally, all middlewares implemented for <code>@cmmv/server</code> must return a promise, ensuring they fit into the asynchronous lifecycle of the framework. When possible, compatible versions of middleware are provided for use in Express applications.</p>
@@ -93,17 +98,27 @@
 <p>This middleware integrates seamlessly with the request lifecycle, applying compression to responses based on content type, size, and the client’s Accept-Encoding header. The middleware automatically handles large payloads and dynamically adjusts encoding for different content types.</p>
 <p><strong>Installation</strong></p>
 <p>To install the <code>@cmmv/compression</code> middleware, run the following command:</p>
-<pre><code class="hljs language-bash" lang="bash">npm install @cmmv/compression
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npm install @cmmv/compression
 </code></pre>
+             </div>
 <p><strong>Usage</strong></p>
 <p>When using <code>@cmmv/server</code>, the compression middleware must be added as part of the middleware chain. Here’s an example of how to use it:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> compression <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/compression&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> compression <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/compression&#x27;</span>;
 
 app.<span class="hljs-title function_">use</span>(<span class="hljs-title function_">compression</span>({ 
     <span class="hljs-attr">threshold</span>: <span class="hljs-number">1024</span>, 
     <span class="hljs-attr">cacheEnabled</span>: <span class="hljs-literal">true</span> 
 }));
 </code></pre>
+             </div>
 <p>The <code>@cmmv/compression</code> middleware comes with a range of options to control how and when compression is applied. Below is a list of available options:</p>
 <table>
 <thead>
@@ -192,11 +207,20 @@ app.<span class="hljs-title function_">use</span>(<span class="hljs-title functi
 <h2>Cookie-Parser</h2><a id="cookie-parser" title="Cookie-Parser"></a>
 <p>The <code>@cmmv/cookie-parser</code> middleware is designed to parse cookies in HTTP requests, both signed and unsigned, and make them available in the <code>req.cookies</code> object. It supports both <code>CMMV</code> and Express, providing seamless integration with either framework.</p>
 <p><strong>Installation</strong></p>
-<pre><code class="hljs language-bash" lang="bash">npm install @cmmv/cookie-parser
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npm install @cmmv/cookie-parser
 </code></pre>
+             </div>
 <p><strong>Usage</strong></p>
 <p>In CMMV, the middleware is used by registering it with the app using hooks. It will automatically parse cookies on incoming requests and make them available in the <code>req.cookies</code> and <code>req.signedCookies</code> objects.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> cookieParser <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/cookie-parser&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
@@ -212,6 +236,7 @@ app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x2
 
 app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });
 </code></pre>
+             </div>
 <table>
 <thead>
 <tr>
@@ -249,7 +274,11 @@ app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">p
 </tbody>
 </table>
 <p><strong>Example for Signed Cookies</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">use</span>(<span class="hljs-title function_">cookieParser</span>({ <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;mySecretKey&#x27;</span> }));
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">use</span>(<span class="hljs-title function_">cookieParser</span>({ <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;mySecretKey&#x27;</span> }));
 
 app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/set-cookie&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
     res.<span class="hljs-title function_">cookie</span>(<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>, { <span class="hljs-attr">signed</span>: <span class="hljs-literal">true</span> });
@@ -260,19 +289,30 @@ app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x2
     res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">signedCookies</span>: req.<span class="hljs-property">signedCookies</span> });
 });
 </code></pre>
+             </div>
 <h2>Cors</h2><a id="cors" title="Cors"></a>
 <p>The CORS (Cross-Origin Resource Sharing) middleware allows you to enable cross-origin resource sharing for your applications by setting appropriate HTTP headers. It is based on the Express CORS middleware but has been adapted to support asynchronous hooks for the CMMV server environment, making it fully compatible with @cmmv/server while maintaining compatibility with Express wherever possible.</p>
 <p><strong>Installation</strong></p>
-<pre><code class="hljs language-bash" lang="bash">npm install @cmmv/cors
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npm install @cmmv/cors
 </code></pre>
+             </div>
 <p><strong>Usage</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> cors <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/cors&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
 app.<span class="hljs-title function_">use</span>(<span class="hljs-title function_">cors</span>());
 app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });
 </code></pre>
+             </div>
 <table>
 <thead>
 <tr>
@@ -343,16 +383,26 @@ app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">p
 <p>The CMMV ETag middleware automatically adds an <code>ETag</code> header to HTTP responses, helping with cache validation by generating a unique hash for each response payload. This middleware is based on the Fastify ETag implementation but adapted to work within the CMMV framework. The ETag header allows browsers and other clients to determine whether the content has changed since the last request, reducing bandwidth usage and improving performance.</p>
 <p>This middleware is designed to support both CMMV and Express environments. For CMMV, the default export returns a promise, and for Express, a separate etag function is available.</p>
 <p><strong>Installation</strong></p>
-<pre><code class="hljs language-bash" lang="bash">npm install @cmmv/etag
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npm install @cmmv/etag
 </code></pre>
+             </div>
 <p><strong>Usage</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> etag <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/etag&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
 app.<span class="hljs-title function_">use</span>(<span class="hljs-title function_">etag</span>());
 app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });
 </code></pre>
+             </div>
 <p>The <code>ETagOptions</code> interface provides several configuration options to customize the behavior of the ETag middleware.</p>
 <table>
 <thead>
@@ -382,10 +432,19 @@ app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">p
 <p>The <code>@cmmv/helmet</code> middleware is designed to enhance the security of web applications by setting various HTTP headers. It provides support for content security policies, security headers like <code>X-Frame-Options</code>, <code>Strict-Transport-Security</code>, and more. This middleware is built with flexibility in mind, allowing you to customize its behavior based on your application’s requirements. It follows a similar implementation pattern to the popular <code>helmet</code> library and includes native integration with CMMV while maintaining compatibility with Express when possible.</p>
 <p>This middleware automatically configures HTTP security headers for better protection against common vulnerabilities such as cross-site scripting (XSS) attacks, clickjacking, and data sniffing.</p>
 <p><strong>Installation</strong></p>
-<pre><code class="hljs language-bash" lang="bash">npm install @cmmv/helmet
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npm install @cmmv/helmet
 </code></pre>
+             </div>
 <p><strong>Usage</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> helmet <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/helmet&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
@@ -405,6 +464,7 @@ app.<span class="hljs-title function_">use</span>(<span class="hljs-title functi
 }));
 app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });
 </code></pre>
+             </div>
 <p>The <code>HelmetMiddleware</code> allows for configuring various HTTP headers and security policies. Below is the list of available options:</p>
 <table>
 <thead>
@@ -487,7 +547,11 @@ app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">p
 <h2>Server-Static</h2><a id="server-static" title="Server-Static"></a>
 <p>The <code>@cmmv/server-static</code> middleware provides functionality to serve static files from a directory. It is inspired by <code>serve-static</code> from Express and Fastify’s <code>fastify-static</code>. This middleware can be configured to serve files from one or more directories and provides caching, file compression, and other useful options for serving static content.</p>
 <p>You can use the <code>serveStatic</code> function to serve static files from a directory:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> cmmv, { serverStatic } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> cmmv, { serverStatic } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
 <span class="hljs-keyword">const</span> host = <span class="hljs-string">&#x27;0.0.0.0&#x27;</span>;
@@ -511,9 +575,14 @@ app.<span class="hljs-title function_">listen</span>({ host, port })
     <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(err.<span class="hljs-property">message</span>);
 });
 </code></pre>
+             </div>
 <h2>All Middlwares</h2><a id="all-middlwares" title="All Middlwares"></a>
 <p>This example sets up a server using <code>@cmmv/server</code> with various middlewares to efficiently handle HTTP requests. It serves static files from the <code>public</code> folder, enables CORS for cross-origin resource sharing, and adds ETag headers for caching using the <code>fnv1a</code> algorithm. The cookie parser middleware is used to parse cookies and populate <code>req.cookies</code>, while JSON and URL-encoded parsers process request body data. Responses are compressed using GZIP via the compression middleware, and Helmet adds security headers, including a custom Content Security Policy. The server defines routes to handle basic GET and POST requests, render views, send JSON responses, and handle dynamic routes. It listens on <code>0.0.0.0:3000</code>, with an option to enable HTTP/2 and HTTPS if certificates are provided.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">//import { readFileSync } from &quot;node:fs&quot;;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">//import { readFileSync } from &quot;node:fs&quot;;</span>
 
 <span class="hljs-keyword">import</span> cmmv, { json, urlencoded, serverStatic } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> etag <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/etag&#x27;</span>;
@@ -593,3 +662,4 @@ app.<span class="hljs-title function_">listen</span>({ host, port })
     <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(err.<span class="hljs-property">message</span>);
 });
 </code></pre>
+             </div>

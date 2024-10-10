@@ -40,7 +40,11 @@ Client-side rendering frameworks often involve large JavaScript bundles and sign
 <p><strong>Pre-Loaded Data for SEO and UX</strong><br>
 By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ensures that users and search engines see the most relevant content immediately. Whether it’s product information, blog content, or news articles, everything is available as soon as the page loads, improving both SEO and user engagement.</p>
 <h2>Exemple</h2><a id="exemple" title="Exemple"></a>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
     <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;product-page&quot;</span> 
     <span class="hljs-attr">s:product</span>=<span class="hljs-string">&quot;services.product.getProductById(productId)&quot;</span> 
     <span class="hljs-attr">scope</span>
@@ -79,11 +83,16 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <p>By using <code>@cmmv/view</code>, developers can leverage the advantages of SSR to significantly boost their SEO performance and reduce load times. By pre-loading content, optimizing JavaScript bundles, and offering seamless integration with modern frontend frameworks, <code>@cmmv/view</code> provides a comprehensive solution for building scalable, SEO-friendly web applications.</p>
 <p>The ability to serve pre-rendered content, while maintaining the flexibility of client-side interactivity, ensures that CMMV applications can deliver the best of both worlds: high SEO performance and rich, responsive user experiences.</p>
 <h2>Settings</h2><a id="settings" title="Settings"></a>
 <p>The <code>@cmmv/view</code> module in CMMV allows for flexible customization through the <code>.cmmv.config.js</code> file. Below are the available configurations that you can use to fine-tune the behavior of the view engine, internationalization (i18n), meta tags for SEO, security headers, and JavaScript resources.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
     ...
 
     <span class="hljs-attr">i18n</span>: {
@@ -127,25 +136,40 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
     ]
 }
 </code></pre>
+             </div>
 <h2>I18n Configuration</h2><a id="i18n-configuration" title="I18n Configuration"></a>
 <p>The i18n configuration allows you to manage internationalization (i18n) in your CMMV application by defining the directory for locale files and setting a default language.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">i18n</span>: {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-attr">i18n</span>: {
     <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&quot;./src/locale&quot;</span>, 
     <span class="hljs-attr">default</span>: <span class="hljs-string">&quot;en&quot;</span> 
 }
 </code></pre>
+             </div>
 <p><strong>localeFiles:</strong> Directory where the translation files for different languages are stored.<br>
 <strong>default:</strong> The default language to be used when no specific locale is selected.</p>
 <h2>View Configuration</h2><a id="view-configuration" title="View Configuration"></a>
 <p>The view configuration lets you control how the HTML output is processed. It includes options for extracting inline scripts and minifying HTML for optimized performance.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">view</span>: {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-attr">view</span>: {
     <span class="hljs-attr">extractInlineScript</span>: <span class="hljs-literal">true</span>, 
     <span class="hljs-attr">minifyHTML</span>: <span class="hljs-literal">true</span>  
 }
 </code></pre>
+             </div>
 <h2>Head Configuration</h2><a id="head-configuration" title="Head Configuration"></a>
 <p>The head configuration controls the <code>&lt;head&gt;</code> section of your HTML document, allowing you to define meta tags, attributes for the <code>&lt;html&gt;</code> tag, and links such as favicons.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">head</span>: {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-attr">head</span>: {
     <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;CMMV&quot;</span>,  
     <span class="hljs-attr">htmlAttrs</span>: { <span class="hljs-attr">lang</span>: <span class="hljs-string">&quot;pt-br&quot;</span> },
     <span class="hljs-attr">meta</span>: [
@@ -159,9 +183,14 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
     ]
 }
 </code></pre>
+             </div>
 <h2>Headers Configuration</h2><a id="headers-configuration" title="Headers Configuration"></a>
 <p>The <code>headers</code> configuration allows you to define HTTP headers such as <code>Content-Security-Policy</code> (CSP), which help secure your application.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">headers</span>: {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-attr">headers</span>: {
     <span class="hljs-string">&quot;Content-Security-Policy&quot;</span>: [
         <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>, 
         <span class="hljs-string">&quot;script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27;&quot;</span>,  
@@ -170,9 +199,15 @@ By pre-fetching data and injecting it into the HTML, <code>@cmmv/view</code> ens
     ]
 }
 </code></pre>
+             </div>
 <h3>Scripts Configuration</h3>
 <p>The <code>scripts</code> configuration specifies external or internal JavaScript files that should be included in the HTML output.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-attr">scripts</span>: [
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-attr">scripts</span>: [
     { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;text/javascript&quot;</span>, <span class="hljs-attr">src</span>: <span class="hljs-string">&#x27;/assets/bundle.min.js&#x27;</span>, <span class="hljs-attr">defer</span>: <span class="hljs-string">&quot;defer&quot;</span> }
 ]
 </code></pre>
+             </div>

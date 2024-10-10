@@ -12,7 +12,11 @@
 </li>
 </ul>
 <p>Below is an example of a contract that defines the structure for task-related RPC operations. The contract is annotated with the @Contract and @ContractField decorators to specify the fields and types.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-meta">@Contract</span>({
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
@@ -39,8 +43,13 @@
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+             </div>
 <p>The contract above will generate a WebSocket gateway, responsible for handling RPC operations like adding, updating, deleting, and retrieving tasks. Below is an example of a generated gateway:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Generated automatically by CMMV</span>
     
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Rpc</span>, <span class="hljs-title class_">Message</span>, <span class="hljs-title class_">Data</span>, <span class="hljs-title class_">Socket</span>, <span class="hljs-title class_">RpcUtils</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
 <span class="hljs-keyword">import</span> { plainToClass } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;class-transformer&#x27;</span>;
@@ -121,6 +130,7 @@
     }
 }
 </code></pre>
+             </div>
 <p>The gateway interacts with services (e.g., TaskService) to process the data. These services perform business logic and interact with the database or other back-end components.</p>
 <p>The <code>@cmmv/ws</code> module is a powerful tool for handling binary WebSocket communication in the CMMV framework. It automatically generates WebSocket gateways based on contracts, handling RPC requests and responses efficiently using binary data. This ensures secure, performant communication and seamless integration with the rest of the CMMV system.</p>
 <p>By utilizing this module, developers can easily implement real-time functionality in their applications, leveraging the built-in RPC system for tasks such as data synchronization, real-time updates, and more.</p>

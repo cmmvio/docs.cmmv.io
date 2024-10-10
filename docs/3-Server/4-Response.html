@@ -1,39 +1,74 @@
 <h1>Response</h1><a id="response" title="Response"></a>
 <p>The <code>res</code> object represents the HTTP response in a server-side application and is responsible for managing and sending responses back to the client. This object allows you to set status codes, headers, cookies, and more. It is an enhanced version of the standard Node.js <code>ServerResponse</code> object, providing additional features for greater control over the response.  <code>res</code> object is commonly used to send various types of responses—such as HTML, JSON, or files—to the client. By convention, the <code>res</code> object refers to the response (and req refers to the request), but its name can be different depending on the parameters used in your callback function.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) {
   res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;user &#x27;</span> + req.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>);
 });
 </code></pre>
+             </div>
 <p>You can also name the parameters differently, like this:</p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
   response.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;user &#x27;</span> + request.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>);
 });
 </code></pre>
+             </div>
 <p>The res object not only supports all built-in methods and properties of Node’s core <code>ServerResponse</code> but also offers additional capabilities, making it easier to manage the HTTP lifecycle in modern applications.</p>
 <h2>Properties</h2><a id="properties" title="Properties"></a>
 <h3>res.socket</h3>
 <p>Returns the request socket.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">socket</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">socket</span>);
 </code></pre>
+             </div>
 <h3>res.status</h3>
 <p>Retrieves the HTTP status code of the response.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">status</span>); <span class="hljs-comment">// Outputs the status code</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">status</span>); <span class="hljs-comment">// Outputs the status code</span>
 </code></pre>
+             </div>
 <h3>res.now</h3>
 <p>Returns the current timestamp in milliseconds.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">now</span>); <span class="hljs-comment">// Outputs the current timestamp</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">now</span>); <span class="hljs-comment">// Outputs the current timestamp</span>
 </code></pre>
+             </div>
 <h3>res.elapsedTime</h3>
 <p>Returns the elapsed time in milliseconds since the response started.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">elapsedTime</span>); <span class="hljs-comment">// Outputs the time elapsed</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">elapsedTime</span>); <span class="hljs-comment">// Outputs the time elapsed</span>
 </code></pre>
+             </div>
 <h3>res.sent</h3>
 <p>Checks if the response has already been sent.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">if</span> (res.<span class="hljs-property">sent</span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">if</span> (res.<span class="hljs-property">sent</span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Response already sent&#x27;</span>);
 }
 </code></pre>
+             </div>
 <h3>res.headerSent</h3>
 <p>Returns <code>true</code> if the headers have already been sent.</p>
 <h3>res.writable</h3>
@@ -46,60 +81,120 @@
 <p>Returns the length of the response content. / Sets the Content-Length header to n.</p>
 <h3>res.status (get/set)</h3>
 <p>Sets the HTTP status code for the response.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-property">status</span> = <span class="hljs-number">404</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-property">status</span> = <span class="hljs-number">404</span>;
 </code></pre>
+             </div>
 <h3>res.lastModified (get/set)</h3>
 <p>Sets the <code>Last-Modified</code> header using a string or a <code>Date</code>.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-property">lastModified</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-property">lastModified</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();
 </code></pre>
+             </div>
 <h2>Methods</h2><a id="methods" title="Methods"></a>
 <h2>res.has(field)</h2><a id="reshasfield" title="res.has(field)"></a>
 <p>Checks if a specific header is present in the response.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">if</span> (res.<span class="hljs-title function_">has</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>)) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">if</span> (res.<span class="hljs-title function_">has</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>)) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Content-Type header is set&#x27;</span>);
 }
 </code></pre>
+             </div>
 <h2>res.remove(field)</h2><a id="resremovefield" title="res.remove(field)"></a>
 <p>Removes a specific header from the response.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.hijack()</h2><a id="reshijack" title="res.hijack()"></a>
 <p>Marks the response as hijacked.</p>
 <h2>res.code(code)</h2><a id="rescodecode" title="res.code(code)"></a>
 <p>Sets the HTTP status code and returns the response for chaining.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">code</span>(<span class="hljs-number">200</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">code</span>(<span class="hljs-number">200</span>);
 </code></pre>
+             </div>
 <h2>res.links(links)</h2><a id="reslinkslinks" title="res.links(links)"></a>
 <p>Sets the <code>Link</code> header field with the given <code>links</code> object.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">links</span>({
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">links</span>({
   <span class="hljs-attr">next</span>: <span class="hljs-string">&#x27;http://example.com/page2&#x27;</span>,
   <span class="hljs-attr">last</span>: <span class="hljs-string">&#x27;http://example.com/page5&#x27;</span>
 });
 </code></pre>
+             </div>
 <h2>res.header(field, val)</h2><a id="resheaderfield-val" title="res.header(field, val)"></a>
 <p>Sets a header field to a specific value.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">header</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>, <span class="hljs-string">&#x27;application/json&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">header</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>, <span class="hljs-string">&#x27;application/json&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.get(field)</h2><a id="resgetfield" title="res.get(field)"></a>
 <p>Retrieves the value of a specific header.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>));
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>));
 </code></pre>
+             </div>
 <h2>res.type(type)</h2><a id="restypetype" title="res.type(type)"></a>
 <p>Sets the <code>Content-Type</code> based on the provided type.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">type</span>(<span class="hljs-string">&#x27;json&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">type</span>(<span class="hljs-string">&#x27;json&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.sendStatus(statusCode)</h2><a id="ressendstatusstatuscode" title="res.sendStatus(statusCode)"></a>
 <p>Sends the HTTP status code with the standard message.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">404</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">404</span>);
 </code></pre>
+             </div>
 <h2>res.send(payload)</h2><a id="ressendpayload" title="res.send(payload)"></a>
 <p>Sends the response with the provided payload.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">send</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span> });
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">send</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span> });
 </code></pre>
+             </div>
 <h2>res.json(obj)</h2><a id="resjsonobj" title="res.json(obj)"></a>
 <p>Sends a JSON response.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">user</span>: <span class="hljs-string">&#x27;John&#x27;</span> });
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">user</span>: <span class="hljs-string">&#x27;John&#x27;</span> });
 </code></pre>
+             </div>
 <h2>res.jsonp(obj)</h2><a id="resjsonpobj" title="res.jsonp(obj)"></a>
 <p>Sends a JSONP response with callback support.</p>
 <h2>res.sendFile(path, opt, cb)</h2><a id="ressendfilepath-opt-cb" title="res.sendFile(path, opt, cb)"></a>
@@ -179,43 +274,77 @@
 <p>Ends the response process.</p>
 <h2>res.format(obj)</h2><a id="resformatobj" title="res.format(obj)"></a>
 <p>Responds to the request by calling the appropriate callback from the object <code>obj</code> based on the <code>Accept</code> header.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">format</span>({
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">format</span>({
   <span class="hljs-string">&#x27;text/plain&#x27;</span>: <span class="hljs-function">() =&gt;</span> res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Plain text&#x27;</span>),
   <span class="hljs-string">&#x27;application/json&#x27;</span>: <span class="hljs-function">() =&gt;</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;JSON&#x27;</span> })
 });
 </code></pre>
+             </div>
 <h2>res.vary(field)</h2><a id="resvaryfield" title="res.vary(field)"></a>
 <p>Adds the given field to the <code>Vary</code> header.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">vary</span>(<span class="hljs-string">&#x27;Accept-Encoding&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">vary</span>(<span class="hljs-string">&#x27;Accept-Encoding&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.attachment(filename)</h2><a id="resattachmentfilename" title="res.attachment(filename)"></a>
 <p>Sets the <code>Content-Disposition</code> header to attachment and sets the file name.</p>
 <h2>res.append(field, val)</h2><a id="resappendfield-val" title="res.append(field, val)"></a>
 <p>Appends a value to a specific header.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;Link&#x27;</span>, [<span class="hljs-string">&#x27;&lt;http://localhost/&gt;&#x27;</span>, <span class="hljs-string">&#x27;&lt;http://localhost:3000/&gt;&#x27;</span>]);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;Link&#x27;</span>, [<span class="hljs-string">&#x27;&lt;http://localhost/&gt;&#x27;</span>, <span class="hljs-string">&#x27;&lt;http://localhost:3000/&gt;&#x27;</span>]);
 res.<span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;Set-Cookie&#x27;</span>, <span class="hljs-string">&#x27;foo=bar; Path=/; HttpOnly&#x27;</span>);
 res.<span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;Warning&#x27;</span>, <span class="hljs-string">&#x27;199 Miscellaneous warning&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.location(url)</h2><a id="reslocationurl" title="res.location(url)"></a>
 <p>Sets the <code>Location</code> header to the given URL.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">location</span>(<span class="hljs-string">&#x27;/foo/bar&#x27;</span>).;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">location</span>(<span class="hljs-string">&#x27;/foo/bar&#x27;</span>).;
 res.<span class="hljs-title function_">location</span>(<span class="hljs-string">&#x27;http://example.com&#x27;</span>);
 res.<span class="hljs-title function_">location</span>(<span class="hljs-string">&#x27;../login&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.redirect(url, alt)</h2><a id="resredirecturl-alt" title="res.redirect(url, alt)"></a>
 <p>Performs a 302 redirect to the specified URL.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">this</span>.<span class="hljs-title function_">redirect</span>(<span class="hljs-string">&#x27;back&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">this</span>.<span class="hljs-title function_">redirect</span>(<span class="hljs-string">&#x27;back&#x27;</span>);
 <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">redirect</span>(<span class="hljs-string">&#x27;back&#x27;</span>, <span class="hljs-string">&#x27;/index.html&#x27;</span>);
 <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">redirect</span>(<span class="hljs-string">&#x27;/login&#x27;</span>);
 <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">redirect</span>(<span class="hljs-string">&#x27;http://google.com&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.clearCookie(name, options)</h2><a id="resclearcookiename-options" title="res.clearCookie(name, options)"></a>
 <p>Clears the cookie with the given name.</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">clearCookie</span>(<span class="hljs-string">&#x27;session_id&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">clearCookie</span>(<span class="hljs-string">&#x27;session_id&#x27;</span>);
 </code></pre>
+             </div>
 <h2>res.cookie(name, value, options)</h2><a id="rescookiename-value-options" title="res.cookie(name, value, options)"></a>
 <p>The <code>res.cookie()</code> method is used to set a cookie with a specified name and value. It allows you to define additional options to control the behavior of the cookie, such as its expiration time, security flags, and more. The method is chainable, meaning you can call it multiple times in a single response.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Set a cookie that expires in 15 minutes</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Set a cookie that expires in 15 minutes</span>
 res.<span class="hljs-title function_">cookie</span>(<span class="hljs-string">&#x27;rememberme&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, { 
     <span class="hljs-attr">expires</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() + <span class="hljs-number">900000</span>), 
     <span class="hljs-attr">httpOnly</span>: <span class="hljs-literal">true</span> 
@@ -227,6 +356,7 @@ res.<span class="hljs-title function_">cookie</span>(<span class="hljs-string">&
     <span class="hljs-attr">httpOnly</span>: <span class="hljs-literal">true</span> 
 });
 </code></pre>
+             </div>
 <table>
 <thead>
 <tr>
@@ -290,12 +420,21 @@ res.<span class="hljs-title function_">cookie</span>(<span class="hljs-string">&
 <h2>res.render(view, opt, cb)</h2><a id="resrenderview-opt-cb" title="res.render(view, opt, cb)"></a>
 <p>Renders a view template with the provided options and an optional callback function. If a callback is provided, it is executed once the view has been rendered, and no automatic response is sent. If no callback is provided, the method sends a default response with a status code of <code>200</code> and content type <code>text/html</code>.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/about&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/about&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
     res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;about&#x27;</span>, { <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;About Us&#x27;</span>, <span class="hljs-attr">company</span>: <span class="hljs-string">&#x27;MyCompany&#x27;</span> });
 });
 </code></pre>
+             </div>
 <p><strong>Callback Example:</strong></p>
-<pre><code class="hljs language-typescript" lang="typescript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/custom-view&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/custom-view&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
     res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;custom&#x27;</span>, { <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Custom Page&#x27;</span> }, <span class="hljs-function">(<span class="hljs-params">err, html</span>) =&gt;</span> {
         <span class="hljs-keyword">if</span> (err) 
             <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Error rendering the page.&#x27;</span>);
@@ -304,6 +443,7 @@ res.<span class="hljs-title function_">cookie</span>(<span class="hljs-string">&
     });
 });
 </code></pre>
+             </div>
 <p>In this example, a custom callback function is provided. If an error occurs during rendering, the callback handles it by sending a <code>500</code> status code and error message to the client.</p>
 <h2>Response Compatibility</h2><a id="response-compatibility" title="Response Compatibility"></a>
 <h3>res.trailer(key, fn)</h3>

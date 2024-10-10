@@ -2,7 +2,11 @@
 <p>Views in CMMV are HTML files located in the <code>/public/views/</code> directory, typically with the .html extension. They can either be rendered by controllers or accessed directly based on the URL path. For example, a request to <code>http://localhost:3000/docs</code> will automatically map to <code>/public/views/docs/index.html</code>. The <code>index.html</code> file can also include other views through the include directive, allowing for modular view components.</p>
 <p>Here is an example of a view structure using the <code>docs</code> section of the application.</p>
 <p><strong><code>docs/index.html</code></strong> <a href="https://github.com/andrehrferreira/docs.cmmv.io/blob/main/public/views/docs/index.html" target="_blank" rel="nofollow">Code</a></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> 
         <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar bg-neutral-800 h-16 top-0 w-full fixed ...&quot;</span>
     &gt;</span>
@@ -82,8 +86,13 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <p><strong><code>docs/navbar.html</code></strong> <a href="https://github.com/andrehrferreira/docs.cmmv.io/blob/main/public/views/docs/navbar.html" target="_blank" rel="nofollow">Code</a></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 select-none top-16&quot;</span> <span class="hljs-attr">c-cloak</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;docs&quot;</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 select-none top-16&quot;</span> <span class="hljs-attr">c-cloak</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;docs&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">s-for</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in docs.navbar&quot;</span> <span class="hljs-attr">render-tag</span>=<span class="hljs-string">&quot;li&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;item&quot;</span>
             <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;flex hover:text-blue-700 itemRoot text-white&quot;</span>
@@ -114,16 +123,26 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">s-for</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
+             </div>
 <p>Views are mapped based on the URL path. When a request is made to a specific path like /docs, the system automatically looks for <code>/public/views/docs/index.html</code>. If found, it is rendered; otherwise, a 404 error is returned.</p>
 <h2>Include Directive</h2><a id="include-directive" title="Include Directive"></a>
 <p>The <code>include</code> directive allows the inclusion of other view files, enabling modularity in views. For example, <code>docs/index.html</code> includes <code>docs/navbar.html</code> using:</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
 </code></pre>
+             </div>
 <p>This approach lets you reuse components like headers, footers, and sidebars across different views.</p>
 <h2>Setup and Data Binding</h2><a id="setup-and-data-binding" title="Setup and Data Binding"></a>
 <p>View components can be controlled using the <code>s-setup</code> directive. However, at the moment, only the <code>index.html</code> (or root view) can use the <code>s-setup</code> tag for setting up scripts, meta tags, or other configurations. Any setups added in subcomponents are ignored. This means that data or configurations must be passed from the top-level view.</p>
 <p><strong>Exemple:</strong></p>
-<pre><code class="hljs language-javascript" lang="javascript">&lt;script s-setup&gt;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript"">&lt;script s-setup&gt;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
     <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>,
 
@@ -161,31 +180,51 @@
 }
 &lt;/script&gt;
 </code></pre>
+             </div>
 <p>CMMV introduces a concept of setup scripts in the views, similar to what you may find in frameworks like <a href="https://vuejs.org/" target="_blank" rel="nofollow">Vue.js</a> and <a href="https://nuxt.com/" target="_blank" rel="nofollow">Nuxt.js</a>. This concept allows dynamic configuration of headers, structured data, and enables binding data to the frontend. Additionally, setup scripts provide lifecycle hooks, such as <code>mounted</code> and <code>created</code>, which are executed when the frontend is loaded.</p>
 <h2>Dynamic Layout</h2><a id="dynamic-layout" title="Dynamic Layout"></a>
 <p>The <code>layout</code> property allows you to specify the layout that the view will use. In this example, the layout is set to <code>&quot;default&quot;</code>, meaning the view will inherit and render within a base layout, often defined in <code>/public/templates</code>.</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>
 </code></pre>
+             </div>
 <h2>Lifecycle Hooks</h2><a id="lifecycle-hooks" title="Lifecycle Hooks"></a>
 <p>CMMV’s setup scripts provide lifecycle hooks similar to Vue.js. These lifecycle hooks allow you to control code execution at different stages of the component’s lifecycle:</p>
 <ul>
 <li><strong>mounted:</strong> Runs when the view is fully mounted on the DOM. Typically used for tasks like DOM manipulation or API requests.</li>
 <li><strong>created:</strong> Can be used to execute code as soon as the view is created, before it is mounted to the DOM.</li>
 </ul>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-keyword">async</span> <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-keyword">async</span> <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadState</span>();
 }
 </code></pre>
+             </div>
 <h2>Data Property</h2><a id="data-property" title="Data Property"></a>
 <p>You can define the <code>data()</code> function to return an object that holds reactive data, which can be bound to the view. This data will be automatically updated when modified.</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> { <span class="hljs-attr">navbar</span>: [] }
 }
 </code></pre>
+             </div>
 <p>In this example, navbar is initialized as an empty array and is later populated using the <code>loadState()</code> method.</p>
 <h2>Methods</h2><a id="methods" title="Methods"></a>
 <p>Setup scripts allow the inclusion of methods that are accessible in the view’s scope. These methods are incorporated into the framework’s context and can be used within the template or as event handlers for UI interactions.</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-attr">methods</span>: {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-attr">methods</span>: {
     <span class="hljs-title function_">loadState</span>(<span class="hljs-params"></span>) {
         <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;navbarState&#x27;</span>)) || {};
         <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">navbar</span>;
@@ -206,9 +245,14 @@
     }
 }
 </code></pre>
+             </div>
 <h2>Headers</h2><a id="headers" title="Headers"></a>
 <p>The setup script can also be used to dynamically configure headers and scripts for the view. By using properties like head, you can define meta tags, links (e.g., for stylesheets), and other elements dynamically:</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-attr">head</span>: {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-attr">head</span>: {
     <span class="hljs-attr">meta</span>: [
         { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;description&quot;</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">&quot;CMMV Todolist sample&quot;</span> },
         { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;keywords&quot;</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">&quot;cmmv, contract model, websocket&quot;</span> }
@@ -219,8 +263,14 @@
     ]
 }
 </code></pre>
+             </div>
 <h2>Data Binding</h2><a id="data-binding" title="Data Binding"></a>
 <p>The setup provides data and methods that are directly accessible for data binding on the frontend. This allows seamless interaction with UI components and dynamic updates. For example:</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-html</span>=<span class="hljs-string">&quot;docs.index&quot;</span> <span class="hljs-attr">s-data</span>=<span class="hljs-string">&quot;docs.index&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-html</span>=<span class="hljs-string">&quot;docs.index&quot;</span> <span class="hljs-attr">s-data</span>=<span class="hljs-string">&quot;docs.index&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <p>This binds the <code>docs.index</code> content to the HTML, enabling dynamic rendering based on the state of docs.index.</p>

@@ -60,7 +60,11 @@
 <p><strong>Customization:</strong></p>
 <p>The logger can be initialized with a custom context name for more specific categorization of logs.</p>
 <h2>Example</h2><a id="example" title="Example"></a>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;MyApp&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;MyApp&#x27;</span>);
 
 logger.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Application has started&#x27;</span>);
 logger.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Failed to connect to the database&#x27;</span>, <span class="hljs-string">&#x27;DatabaseService&#x27;</span>);
@@ -68,6 +72,7 @@ logger.<span class="hljs-title function_">warning</span>(<span class="hljs-strin
 logger.<span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;User object: &#x27;</span>, <span class="hljs-string">&#x27;UserService&#x27;</span>);
 logger.<span class="hljs-title function_">verbose</span>(<span class="hljs-string">&#x27;Detailed information about request processing&#x27;</span>);
 </code></pre>
+             </div>
 <p><strong>Output</strong></p>
 <pre>
 <code class="hljs language-shell" lang="shell"><span style="color:green;">[Server]</span> - 12/04/2024, 10:14:32 AM <span style="color:green;">LOG</span> <span style="color:yellow;">[MyApp]</span> <span style="color:green;">Application has started</span> <br>
@@ -80,7 +85,11 @@ logger.<span class="hljs-title function_">verbose</span>(<span class="hljs-strin
 <h2>Logger in Classes</h2><a id="logger-in-classes" title="Logger in Classes"></a>
 <p>The <code>Logger</code> class in the <code>@cmmv/core</code> module provides a simple logging utility that can be used in various classes, such as transpilers and services, to log messages, errors, warnings, and debugging information. Below is an example of how to use the <code>Logger</code> class in your code and what each logging method does.</p>
 <p>In the example of the <code>RepositoryTranspile</code> class, the <code>Logger</code> is used to log important information during the transpile process. Here is how you can integrate the <code>Logger</code> into your class:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ITranspile</span>, <span class="hljs-title class_">Logger</span>, <span class="hljs-title class_">Scope</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ITranspile</span>, <span class="hljs-title class_">Logger</span>, <span class="hljs-title class_">Scope</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RepositoryTranspile</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ITranspile</span> {
     <span class="hljs-comment">// Initialize the Logger instance with a custom context</span>
@@ -128,4 +137,5 @@ logger.<span class="hljs-title function_">verbose</span>(<span class="hljs-strin
     }
 }
 </code></pre>
+             </div>
 <p>By using these logging methods, you can ensure that your application provides informative, structured, and context-specific logs, which are essential for debugging and monitoring production environments.</p>

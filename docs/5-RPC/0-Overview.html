@@ -52,13 +52,27 @@
 <p>By using Protobuf, CMMV ensures optimal performance in data serialization, making communication efficient, scalable, and reliable across a range of applications.</p>
 <h2>Instalation</h2><a id="instalation" title="Instalation"></a>
 <p>To implement WebSocket communication using Protobuf in CMMV, follow these steps:</p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/protobuf @cmmv/ws protobufjs 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install @cmmv/protobuf @cmmv/ws protobufjs 
 </code></pre>
+             </div>
 <p>or</p>
-<pre><code class="hljs language-bash" lang="bash">$ yarn add @cmmv/protobuf @cmmv/ws protobufjs 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ yarn add @cmmv/protobuf @cmmv/ws protobufjs 
 </code></pre>
+             </div>
 <p>Application setup:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/protobuf&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
@@ -76,6 +90,7 @@
     <span class="hljs-attr">contracts</span>: [...],
 });
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>WSAdapter:</strong> Handles WebSocket connections.</li>
@@ -83,7 +98,11 @@
 <li><strong>WSModule:</strong> Manages WebSocket connections, utilizing Protobuf messages for efficient data transmission.</li>
 </ul>
 <p>Settings <code>.cmmv.config.js</code></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
     <span class="hljs-attr">server</span>: {
         <span class="hljs-attr">host</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">HOST</span> || <span class="hljs-string">&quot;0.0.0.0&quot;</span>,
         <span class="hljs-attr">port</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">3000</span>,
@@ -98,12 +117,17 @@
     ...
 };
 </code></pre>
+             </div>
 <p>In CMMV, contracts are processed in .proto format and stored in the /src/proto directory along with TypeScript types. These contracts are loaded into the frontend using protobufjs in two ways:</p>
 <p><strong>Preloading Contracts:</strong> Setting preLoadContracts = true converts all contracts to JSON, which are then bundled with the application. This allows for efficient caching, especially through CDNs.</p>
 <p><strong>On-Demand Loading:</strong> Setting preLoadContracts = false loads .proto files as needed upon receiving the first message that requires the contract, caching them locally for future use. This approach is useful for applications with numerous contracts.</p>
 <h2>Integration</h2><a id="integration" title="Integration"></a>
 <p>The CMMV framework simplifies communication in the frontend by binding Protobuf methods directly to the view context. This allows developers to invoke RPC methods like AddTaskRequest and DeleteTaskRequest within their views seamlessly, as demonstrated in the example to-do list.</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-box&quot;</span> <span class="hljs-attr">scope</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-box&quot;</span> <span class="hljs-attr">scope</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;todo&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
@@ -203,5 +227,6 @@
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <p>The integration of Protobuf with CMMV’s transpiler offers significant advantages over traditional methods like protoc. While protoc generates a large volume of boilerplate code, much of it may be unnecessary depending on the project’s scope. CMMV automatically integrates contracts with services like repositories, caches, and other modules, simplifying the development process. Instead of manually invoking generated code, CMMV injects Protobuf functions directly into the view layer, reducing overhead and avoiding redundant code generation, making it more efficient for modern web applications.</p>
 <p>This streamlined approach not only reduces complexity but also enhances performance by avoiding unnecessary intermediate files and services, focusing solely on the functional requirements.</p>

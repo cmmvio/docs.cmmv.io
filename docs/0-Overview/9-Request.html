@@ -1,8 +1,13 @@
 <h1>Request</h1><a id="request" title="Request"></a>
 <p>The <code>HttpService</code> class in the <code>@cmmv/http</code> package provides a convenient way to make HTTP requests to external APIs using the <code>Axios</code> <a href="https://www.npmjs.com/package/axios" target="_blank" rel="nofollow">NPM</a> library. It extends the <code>AbstractService</code> and is registered as a service with the name <code>'http'</code>. The service wraps common HTTP request methods such as <code>GET</code>, <code>POST</code>, <code>DELETE</code>, <code>PUT</code>, <code>PATCH</code>, and <code>HEAD</code> while using Axios for handling requests and responses.</p>
 <p>To use the <code>HttpService</code> in your project, make sure to import it from the <code>@cmmv/http</code> package:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">HttpService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">HttpService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
 </code></pre>
+             </div>
 <p>The <code>HttpService</code> provides several HTTP methods for interacting with external APIs. These methods support custom configurations through <code>AxiosRequestConfig</code> and return a <code>Promise</code> that resolves with an <code>AxiosResponse</code>.</p>
 <h2>Methods</h2><a id="methods" title="Methods"></a>
 <p><code>request&lt;T&gt;(config: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
@@ -18,11 +23,16 @@
 <p><strong>Returns:</strong> A Promise that resolves with an AxiosResponse.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">httpService</span>.<span class="hljs-title function_">request</span>({
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">httpService</span>.<span class="hljs-title function_">request</span>({
     <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,
     <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>,
 });
 </code></pre>
+             </div>
 <h2>Get</h2><a id="get" title="Get"></a>
 <p><code>get&lt;T&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -40,8 +50,13 @@
 <p><strong>Returns:</strong> A Promise that resolves with an AxiosResponse.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">httpService</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">httpService</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>);
 </code></pre>
+             </div>
 <h2>Delete</h2><a id="delete" title="Delete"></a><a id="delete" title="Delete"></a>
 <p><code>delete&lt;T&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -59,8 +74,13 @@
 <p><strong>Returns:</strong> A Promise that resolves with an AxiosResponse.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>);
 </code></pre>
+             </div>
 <h2>Delete</h2>
 <p><code>delete&lt;T&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -78,8 +98,13 @@
 <p><strong>Returns:</strong> A Promise that resolves with an AxiosResponse.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>);
 </code></pre>
+             </div>
 <h2>Head</h2><a id="head" title="Head"></a>
 <p><code>head&lt;T&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -97,8 +122,13 @@
 <p><strong>Returns:</strong> A <code>Promise</code> that resolves with an <code>AxiosResponse</code>.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">httpService</span>.<span class="hljs-title function_">head</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>);
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">httpService</span>.<span class="hljs-title function_">head</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>);
 </code></pre>
+             </div>
 <h2>Post</h2><a id="post" title="Post"></a>
 <p><code>post&lt;T&gt;(url: string, data?: any, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -119,10 +149,15 @@
 <p><strong>Returns:</strong> A <code>Promise</code> that resolves with an <code>AxiosResponse</code>.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>, { 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>, { 
     <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;value&#x27;</span> 
 });
 </code></pre>
+             </div>
 <h2>Put</h2><a id="put" title="Put"></a>
 <p><code>put&lt;T&gt;(url: string, data?: any, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -143,10 +178,15 @@
 <p><strong>Returns:</strong> A <code>Promise</code> that resolves with an <code>AxiosResponse</code>.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">put</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>, { 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">put</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>, { 
     <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;newValue&#x27;</span> 
 });
 </code></pre>
+             </div>
 <h2>Patch</h2><a id="patch" title="Patch"></a>
 <p><code>patch&lt;T&gt;(url: string, data?: any, config?: AxiosRequestConfig): Promise&lt;AxiosResponse&lt;T&gt;&gt;</code></p>
 <ul>
@@ -167,12 +207,21 @@
 <p><strong>Returns:</strong> A <code>Promise</code> that resolves with an <code>AxiosResponse</code>.</p>
 </li>
 </ul>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">patch</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>, { 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> httpService.<span class="hljs-title function_">patch</span>(<span class="hljs-string">&#x27;https://api.example.com/data/1&#x27;</span>, { 
     <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;patchedValue&#x27;</span> 
 });
 </code></pre>
+             </div>
 <h1>Usage</h1><a id="usage" title="Usage"></a>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Service</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Service</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">HttpService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cron</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/scheduling&quot;</span>;
 
@@ -212,4 +261,5 @@
     }
 }
 </code></pre>
+             </div>
 <p>The <code>HttpService</code> is a powerful and flexible tool for making HTTP requests within the <code>@cmmv/http</code> framework. It leverages the popular <code>Axios</code> library to handle HTTP operations, providing an easy way to interact with external APIs from your CMMV-based application. Each method corresponds to a standard HTTP request type, and additional configurations can be applied using <code>AxiosRequestConfig</code> to customize behavior like headers, timeouts, and more.</p>

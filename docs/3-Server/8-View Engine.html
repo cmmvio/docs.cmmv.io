@@ -2,7 +2,11 @@
 <p>In web applications, the view engine is responsible for rendering templates and generating HTML pages. In a typical setup, the view engine takes dynamic data and renders it into a static HTML page that is sent to the client. The <code>res.render</code> method in the server allows you to render a template using the view engine you configure.</p>
 <p>In this documentation, we’ll demonstrate how to set up and use a view engine, specifically with the popular Pug template engine. However, it’s possible to configure different view engines depending on your needs.</p>
 <p>In the following example, we configure the Pug template engine to render <code>.pug</code> files from the <code>/views</code> directory. Here’s how you can set it up:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Import the necessary modules</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Import the necessary modules</span>
 <span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> { json, urlencoded } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
@@ -36,20 +40,30 @@ app.<span class="hljs-title function_">listen</span>({ host, port }).<span class
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err);
 });
 </code></pre>
+             </div>
 <p>The default views directory is <code>/views</code>, but this can be customized as shown in the example. The Pug template engine expects files with the <code>.pug</code> extension inside this directory.</p>
 <p>For example, the <code>index.pug</code> file in the <code>/views</code> directory could look like this:</p>
-<pre><code class="hljs">doctype html
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs"">doctype html
 html
   head
     title= title
   body
     h1= message
 </code></pre>
+             </div>
 <p>By setting up a view engine, you can dynamically generate HTML pages based on templates and data. The example provided shows how to configure the Pug template engine and use it to render HTML from Pug templates stored in a specific directory. This allows you to easily manage dynamic content and display it to the client in your web application.</p>
 <p>In CMMV, you can configure various view engines supported by Express, such as <a href="https://ejs.co/" target="_blank" rel="nofollow">EJS</a>, <a href="https://mustache.github.io/" target="_blank" rel="nofollow">Mustache</a>, and others. Furthermore, you can also create custom implementations to suit your needs. For instance, in CMMV, there is native support for SSR (Server-Side Rendering) using the custom view engine @cmmv/view. Below is an example implementation that demonstrates how to configure and use the CMMV custom view engine.</p>
 <h2>Custom View Engine</h2><a id="custom-view-engine" title="Custom View Engine"></a>
 <p>This implementation configures a custom view engine that processes <code>.html</code> files for SSR (Server-Side Rendering). It uses CMMV’s own view engine, which provides flexibility in handling dynamic content with custom headers and nonce generation for security policies.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> cmmv <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/server&#x27;</span>;
 <span class="hljs-keyword">import</span> { v4 <span class="hljs-keyword">as</span> uuidv4 } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;uuid&#x27;</span>;
 <span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span>;
 <span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
@@ -140,4 +154,5 @@ app.<span class="hljs-title function_">listen</span>({ host, port }).<span class
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Server running at http://<span class="hljs-subst">${host}</span>:<span class="hljs-subst">${port}</span>`</span>);
 });
 </code></pre>
+             </div>
 <p>The CMMV framework provides flexibility by supporting any view engine compatible with Express, such as EJS, Mustache, and more. Additionally, you can implement custom view engines, like the <code>@cmmv/view</code> engine used in the example above, to enhance server-side rendering capabilities and optimize performance with customized behavior.</p>

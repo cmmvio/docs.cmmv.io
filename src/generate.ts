@@ -22,6 +22,7 @@ class GenerateDocs {
                 if (lang && hljs.getLanguage(lang)) {
                     try {
                         return (
+                            //'<div class="code-block-container">' +
                             '<pre><code class="hljs language-' +
                             lang +
                             '" lang="' +
@@ -29,6 +30,8 @@ class GenerateDocs {
                             '">' +
                             hljs.highlight(str, { language: lang }).value +
                             '</code></pre>'
+                            //'<button class="copy-code-btn" onclick="copyToClipboard(this)">Copy</button>' +
+                            //'</div>'
                         );
                     } catch (__) {}
                 }
@@ -50,6 +53,7 @@ class GenerateDocs {
                     'utf8',
                 );
                 let rendered = await markdown.render(content);
+                rendered = this.injectCopyButton(rendered);
                 rendered = this.fixLinks(rendered);
                 rendered = this.addAnchorLinks(rendered);
                 await fs.writeFileSync(
@@ -59,6 +63,18 @@ class GenerateDocs {
                 );
             }
         }
+    }
+
+    injectCopyButton(renderedHtml) {
+        return renderedHtml.replace(
+            /<pre><code class="hljs(.*?)>([\s\S]*?)<\/code><\/pre>/g,
+            `<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs$1">$2</code></pre>
+             </div>`,
+        );
     }
 
     async generateIndex() {

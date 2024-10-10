@@ -9,56 +9,110 @@
 <p>How it Works<br>
 You declare a variable in the server-side controller and pass it to the view. The <code>s-data</code> directive is responsible for injecting this variable directly into the corresponding HTML element during server-side rendering (SSR). This ensures that the content is pre-rendered, optimizing the page for performance and SEO.</p>
 <p>View (HTML Template)</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-data</span>=<span class="hljs-string">&quot;datetime&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-data</span>=<span class="hljs-string">&quot;datetime&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <p>In this example, the <code>s-data</code> directive is used on a <code>&lt;div&gt;</code> element to render the <code>datetime</code> variable, which will be provided by the server.</p>
 <p>Controller</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;template&quot;</span>, { <span class="hljs-attr">datetime</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>() });
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;template&quot;</span>, { <span class="hljs-attr">datetime</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>() });
 </code></pre>
+             </div>
 <p>In the controller, you pass the datetime variable (the current timestamp) as part of the data rendered into the template.</p>
 <p>Result (Rendered HTML)</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>1725568913552<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>1725568913552<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <h2>s-attr</h2><a id="s-attr" title="s-attr"></a>
 <p>The <code>s-attr</code> directive in CMMV allows you to dynamically assign attributes to HTML elements from server-rendered data, similar to how the <code>s-data</code> directive works. However, instead of filling in the content of a tag, it adds or updates an attribute of the element. This is particularly useful for adding security attributes like <code>nonce</code> in <code>&lt;script&gt;</code> or <code>&lt;link&gt;</code> tags, often required by strict Content Security Policies (CSP).</p>
 <p>View (HTML Template)</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-attr</span>=<span class="hljs-string">&quot;ref&quot;</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-attr</span>=<span class="hljs-string">&quot;ref&quot;</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <p>Controller</p>
-<pre><code class="hljs language-typescript" lang="typescript">res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;template&quot;</span>, { <span class="hljs-attr">ref</span>: <span class="hljs-string">&quot;ABC&quot;</span> });
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript"">res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&quot;template&quot;</span>, { <span class="hljs-attr">ref</span>: <span class="hljs-string">&quot;ABC&quot;</span> });
 </code></pre>
+             </div>
 <p>Result (Rendered HTML)</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;ABC&quot;</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;ABC&quot;</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <p>In this case, the <code>s-attr=&quot;ref&quot;</code> directive tells the server to create a ref attribute on the <code>&lt;div&gt;</code> element with the value “ABC”, which is passed from the server-side controller.</p>
 <h2>s-i18n</h2><a id="s-i18n" title="s-i18n"></a>
 <p>The <code>s-i18n</code> directive is the native internationalization module of the CMMV system. It allows developers to manage and display multilingual content by utilizing locale files. These locale files are stored in the <code>/src/locale</code> directory and should be in JSON format.</p>
 <p>CMMV provides the ability to define a default language, and it allows for dynamic language switching based on the user session. This is ideal for websites and applications that need to cater to multiple languages.</p>
 <p>The locale files contain key-value pairs, where the key represents the string identifier and the value is the localized string. For example:</p>
 <p><code>/src/locale/en.json</code></p>
-<pre><code class="hljs language-json" lang="json"><span class="hljs-punctuation">{</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-json" lang="json""><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">&quot;welcome&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Welcome to CMMV&quot;</span><span class="hljs-punctuation">,</span>
     <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;CMMV makes development faster and easier.&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+             </div>
 <p><code>/src/locale/pt-br.json</code></p>
-<pre><code class="hljs language-json" lang="json"><span class="hljs-punctuation">{</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-json" lang="json""><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">&quot;welcome&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Bem-vindo ao CMMV&quot;</span><span class="hljs-punctuation">,</span>
     <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;O CMMV torna o desenvolvimento mais rápido e fácil.&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+             </div>
 <p>You can use the <code>s-i18n</code> directive in your view templates to render localized strings based on the current language.</p>
 <p>View (HTML Template)</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;welcome&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;welcome&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">s-i18n</span>=<span class="hljs-string">&quot;description&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
+             </div>
 <p>Result (For English Locale)</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome to CMMV<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome to CMMV<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>CMMV makes development faster and easier.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
+             </div>
 <p><strong>Configuration</strong></p>
 <p>In the <code>.cmmv.config.js</code> file, you can configure the i18n settings to define the locale file path and the default language for your application:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
     <span class="hljs-attr">i18n</span>: {
         <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&quot;./src/locale&quot;</span>,  <span class="hljs-comment">// Path to the locale files</span>
         <span class="hljs-attr">default</span>: <span class="hljs-string">&quot;en&quot;</span>  <span class="hljs-comment">// Default language</span>
@@ -66,15 +120,21 @@ You declare a variable in the server-side controller and pass it to the view. Th
     <span class="hljs-comment">// Other configurations...</span>
 }
 </code></pre>
+             </div>
 <h2>s-if</h2><a id="s-if" title="s-if"></a>
 <p>The <code>s-if</code> directive is used to conditionally render a block of content based on the evaluation of an expression. If the provided expression evaluates to true, the content within the <code>s-if</code> directive will be rendered. Otherwise, the content will not be displayed.</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">s-if</span> <span class="hljs-attr">exp</span>=<span class="hljs-string">&quot;todolist.length &gt; 0&quot;</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">s-if</span> <span class="hljs-attr">exp</span>=<span class="hljs-string">&quot;todolist.length &gt; 0&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Total Record Loaded SSR: {{ todolist.length }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">s-else</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>No records were loaded via SSR<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">s-else</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">s-if</span>&gt;</span> 
 </code></pre>
+             </div>
 <ul>
 <li><code>exp:</code> The boolean expression to evaluate. The expression can use variables and logical operators to determine if the block should be displayed.</li>
 </ul>
@@ -91,7 +151,11 @@ You declare a variable in the server-side controller and pass it to the view. Th
 <p>By adhering to these recommendations, you can ensure that your use of the <code>s-if</code> directive enhances both the performance and maintainability of your application without unintended side effects.</p>
 <h2>s-for</h2><a id="s-for" title="s-for"></a>
 <p>The <code>s-for</code> directive is designed to handle server-side rendering (SSR) of lists and ensure that dynamic data is pre-rendered for improved SEO. This directive, used in conjunction with the <code>c-for</code> directive, allows you to define how data should be rendered on the server and how it should be updated on the client side. It supports pre-rendering content that will be displayed immediately to users and search engines, while also allowing for client-side updates.</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">s-for</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">s-for</span>
     <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;condition&quot;</span>
     <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in collection&quot;</span>
     <span class="hljs-attr">render-tag</span>=<span class="hljs-string">&quot;tag-name&quot;</span>
@@ -99,6 +163,7 @@ You declare a variable in the server-side controller and pass it to the view. Th
     <span class="hljs-comment">&lt;!-- Content to render --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">s-for</span>&gt;</span>
 </code></pre>
+             </div>
 <p><strong>How It Works</strong></p>
 <ul>
 <li>The <code>s-for</code> directive pre-renders the list items on the server based on the data provided. This includes evaluating expressions and injecting static content directly into the HTML.</li>
@@ -106,7 +171,11 @@ You declare a variable in the server-side controller and pass it to the view. Th
 <li>On the client side, the <code>c-for</code> directive will take over and handle dynamic updates. This allows the list to be reactive and updated as needed.</li>
 </ul>
 <p><strong>Input Template:</strong></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">s-for</span> 
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">s-for</span> 
     <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;todolist&quot;</span>
     <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in todolist&quot;</span>
     <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item&quot;</span>
@@ -131,8 +200,13 @@ You declare a variable in the server-side controller and pass it to the view. Th
     &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">s-for</span>&gt;</span> 
 </code></pre>
+             </div>
 <p><strong>Final Rendered Output:</strong></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;!loaded &amp;&amp; !todolist&quot;</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-if</span>=<span class="hljs-string">&quot;!loaded &amp;&amp; !todolist&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;todolist&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-item-content&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
@@ -171,6 +245,7 @@ You declare a variable in the server-side controller and pass it to the view. Th
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <br/>
 <ul>
 <li><strong>Pre-Rendering:</strong> The <code>s-for</code> directive is crucial for SEO as it pre-renders list items with actual data, making the content immediately available for indexing by search engines.</li>
@@ -182,7 +257,11 @@ By combining <code>s-for</code> with <code>c-for</code>, you can leverage server
 <p>The <code>include</code> directive allows the insertion of components or templates from other files into the main layout. This feature is useful for building modular pages, enabling the division of the layout into small, reusable blocks, which optimizes both loading performance and code maintenance.</p>
 <h3>How It Works</h3>
 <p>The <code>include</code> directive is responsible for preloading components on the server side before sending the page to the client. These components are treated as templates, and their inclusion can occur in a cascading manner, meaning that a template can include other templates. However, this behavior is influenced by the caching strategy, ensuring optimal performance by preventing repeated loading of already processed components.</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Include the navbar --&gt;</span>
     <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
     
@@ -190,10 +269,15 @@ By combining <code>s-for</code> with <code>c-for</code>, you can leverage server
     <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/footer&#x27;) --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <p>When using the <code>include</code> directive, it’s important to consider how data or behavior for each template will be managed. The directive is designed to pre-process components on the server side, so any setup logic needs to be carefully planned. The recommended approach is to execute the setup logic in the main template and avoid cascading setups in included templates. This prevents unnecessary multiple setup executions that could negatively impact performance.</p>
 <p>To optimize template injection and improve performance, the include directive uses a caching strategy. This means that after the initial loading of a template, its content is cached, and subsequent inclusions will use the already-loaded template. However, if the content needs to be dynamically updated, it’s recommended that the setup be managed in the main template rather than relying on individual setups in each included template. This ensures that changes are centralized and easily managed.</p>
 <p><strong>Complete Example</strong></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span>
@@ -228,23 +312,38 @@ By combining <code>s-for</code> with <code>c-for</code>, you can leverage server
 };
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <h2>Call Services</h2><a id="call-services" title="Call Services"></a>
 <p>In this implementation, you have a combination of server-side directives for data preloading and the use of the <code>include</code> directive to incorporate reusable components, such as the navbar and other layout elements, into the page. While this pattern works efficiently, it currently lacks support for component-specific setups as seen in frameworks like Nuxt.js. Let’s break down how this approach works and the potential for future enhancements.</p>
 <p><strong>Server-Side Directive (s:docs)</strong></p>
 <p>In the main HTML file (index.hhtml), you are using a directive (s:docs=“docs”) to bind server-preloaded data (in this case, docs) to the client-side rendering. This allows the initial data, such as the navigation structure (docs.navbar), to be fetched server-side and passed to the client before the page is rendered.</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
 </code></pre>
+             </div>
 <p>The <code>docs</code> object is populated on the server, likely from a backend data source or file, and it is injected into the template. This enables the use of this data immediately upon loading without additional client-side API calls, improving the initial loading performance.</p>
 <p><strong>Using the include Directive for Templates</strong><br>
 You are including reusable components, such as the navbar, breadcrumbs, and footer, with the <code>include</code> directive. These templates are preloaded on the server, enhancing modularity and maintainability:</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
 <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/breadcrumb&#x27;); --&gt;</span>
 <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/footer&#x27;); --&gt;</span>
 </code></pre>
+             </div>
 <p>By loading these components server-side, you avoid multiple HTTP requests to fetch the template separately and enable the server to handle the logic related to content inclusion. However, as you noted, this approach currently processes only the main setup logic, and any additional setup logic within included templates (like navbar.html) is not supported.</p>
 <h3>Client-Side State Updates</h3>
 <p>Once the data and templates are preloaded on the server, the client-side JavaScript is responsible for handling state updates. For example, in your main component, you load the saved state of the navbar from localStorage and provide methods to toggle the state:</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
     <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
         <span class="hljs-keyword">return</span> { <span class="hljs-attr">navbar</span>: [] }
     },
@@ -276,11 +375,16 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
     }
 };
 </code></pre>
+             </div>
 <p>This ensures that interactions on the page, such as expanding or collapsing navbar sections, persist between sessions, as the state is stored in localStorage and reloaded when the page is mounted.</p>
 <h3>The Limitation</h3>
 <p>As noted in the provided comment, there is no current support for individual setup logic within included templates (like <code>navbar.html</code>). This differs from frameworks like Nuxt.js, where each component can have its own setup function. In your current implementation, adding a <code>script setup</code> block inside an included template would cause issues, as only the setup logic from the main template (<code>index.html</code>) is processed.</p>
 <p>For example, adding a <code>setup</code> block in the <code>navbar.html</code> would not work as expected:</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- navbar.html --&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-comment">&lt;!-- navbar.html --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
     <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
@@ -294,6 +398,7 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
 };
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <p>This would break the application because only the first setup is processed, and additional setups are ignored.</p>
 <h3>Future Enhancements</h3>
 <p>The idea of allowing component-specific setups, similar to Nuxt.js, is a potential enhancement that could improve the flexibility of the system. However, this needs to be handled carefully to avoid performance issues like infinite loading loops. When each component has its own setup logic, the application might end up in a continuous loop of re-rendering if not properly managed.</p>
@@ -304,15 +409,24 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
 <li><strong>Optimized State Sharing:</strong> Provide mechanisms to share state across components without requiring full re-execution of setup logic when components are dynamically included.</li>
 </ul>
 <p>Here’s how individual setups could work in the future, following a model like Nuxt.js:</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- index.html --&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-comment">&lt;!-- index.html --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
         <span class="hljs-comment">&lt;!-- include(&#x27;public/views/docs/navbar&#x27;) --&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+             </div>
 <br/>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-comment">&lt;!-- navbar.html --&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-comment">&lt;!-- navbar.html --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
     <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
@@ -330,11 +444,16 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;toggleNavbar&quot;</span>&gt;</span>Menu Item<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
+             </div>
 <p>In this future scenario, each component or template could handle its own state and methods without conflicting with the main template setup.</p>
 <h2>Full implementation</h2><a id="full-implementation" title="Full implementation"></a>
 <p>Below is an example of implementation of practically all the directives that were used to create the system in this documentation.</p>
 <p><code>/public/templates/default.html</code></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">headers</span>/&gt;</span>
@@ -345,8 +464,13 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
+             </div>
 <p><code>/public/views/docs/index.html</code></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">s:docs</span>=<span class="hljs-string">&quot;docs&quot;</span> <span class="hljs-attr">c-cloak</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;max-w-8xl mx-auto flex container&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;w-60&quot;</span>&gt;</span>
@@ -500,8 +624,13 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <p><code>/public/views/docs/navbar.html</code></p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 select-none top-16&quot;</span> <span class="hljs-attr">c-cloak</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;docs&quot;</span>&gt;</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;p-4 select-none top-16&quot;</span> <span class="hljs-attr">c-cloak</span> <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;docs&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">c-for</span>=<span class="hljs-string">&quot;(item, key) in docs.navbar&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
             <span class="hljs-attr">c-show</span>=<span class="hljs-string">&quot;item&quot;</span>
@@ -536,8 +665,13 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
     <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
+             </div>
 <p><code>/src/docs.controller.ts</code></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
 
 <span class="hljs-keyword">import</span> { 
@@ -597,4 +731,5 @@ You are including reusable components, such as the navbar, breadcrumbs, and foot
 	}
 }
 </code></pre>
+             </div>
 <p>To have full access to the code, access <a href="https://github.com/andrehrferreira/docs.cmmv.io" target="_blank" rel="nofollow">Github</a></p>

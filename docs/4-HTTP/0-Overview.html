@@ -14,7 +14,11 @@
 <li><strong>Error Handling:</strong> Captures and logs errors during request processing, providing detailed error messages.</li>
 </ul>
 <h2>Default Server</h2><a id="default-server" title="Default Server"></a>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">DefaultAdapter</span>, <span class="hljs-title class_">DefaultHTTPModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
@@ -24,9 +28,14 @@
     <span class="hljs-attr">contracts</span>: [...],
 });
 </code></pre>
+             </div>
 <h2>Express</h2><a id="express" title="Express"></a>
 <p>In addition to the default server, CMMV also supports Express and Fastify as alternative HTTP adapters, providing flexibility for developers who prefer or need to use these popular frameworks. Both Express and Fastify adapters are fully integrated into the CMMV ecosystem and can be used by simply switching the adapter in the application configuration.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
@@ -36,11 +45,16 @@
     <span class="hljs-attr">contracts</span>: [...],
 });
 </code></pre>
+             </div>
 <p>The adapter registers all controllers automatically from the ControllerRegistry. It matches the controller’s routes to the corresponding HTTP methods (GET, POST, etc.), and processes middleware defined at the controller level.</p>
 <h2>Fastify</h2><a id="fastify" title="Fastify"></a>
 <p>The Fastify Adapter in CMMV provides an alternative to the Express Adapter, allowing for lightweight, high-performance HTTP handling using Fastify’s framework. This adapter integrates key middleware like compression, CORS, helmet for security, and static file serving. It automatically registers controllers and manages the lifecycle of incoming requests. The Fastify Adapter follows the same structure as the Express Adapter, supporting session management and content rendering, while offering a faster, more optimized environment.</p>
 <p>Both Express and Fastify adapters are natively supported, and custom HTTP adapters can be created by extending the AbstractHttpAdapter.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">FastifyAdapter</span>, <span class="hljs-title class_">FastifyModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
@@ -50,11 +64,16 @@
     <span class="hljs-attr">contracts</span>: [...],
 });
 </code></pre>
+             </div>
 <h2>Middlewares</h2><a id="middlewares" title="Middlewares"></a>
 <p>The httpMiddlewares configuration allows you to inject custom middleware into the HTTP adapter (such as Express or Fastify) during the application’s initialization. This provides additional flexibility by letting you apply any middleware functions to handle tasks like logging, request validation, or security checks.</p>
 <p>To use this feature, define an array of middleware functions in the httpMiddlewares property when creating the application.</p>
 <p>Here’s an example where we add the morgan logging middleware to an Express-based CMMV application:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/view&quot;</span>;
 <span class="hljs-keyword">import</span> morgan <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;morgan&quot;</span>;
@@ -70,6 +89,7 @@
     ]
 });
 </code></pre>
+             </div>
 <p>In this example, the morgan middleware is used to log incoming HTTP requests in the ‘dev’ format. This middleware is passed into the httpMiddlewares configuration, which applies it automatically during the application’s initialization.</p>
 <ul>
 <li>The httpMiddlewares array can include any number of middlewares, and each will be applied in the order they are provided.</li>

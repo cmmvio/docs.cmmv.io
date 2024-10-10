@@ -17,7 +17,11 @@
 </ul>
 <h2>Example</h2><a id="example" title="Example"></a>
 <p>Below is an implementation of the ProtobufTranspile class, which generates <code>.proto</code> files from contracts to facilitate communication using Protobuf.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> protobufjs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;protobufjs&#x27;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">UglifyJS</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;uglify-js&#x27;</span>;
@@ -321,20 +325,30 @@
     }
 }
 </code></pre>
+             </div>
 <p>In the example above, the Protobuf transpiler takes contract definitions and generates .proto files to be used for RPC communication with the protobufjs library. These .proto files define message structures for binary data exchanges. Additionally, TypeScript types are generated based on these contracts to ensure type safety. Finally, the contracts are converted into JSON format and attached to the frontend framework, which will handle the sending and receiving of binary data in the Protobuf format, enabling efficient data communication between frontend and backend.</p>
 <h2>Call a Transpiler</h2><a id="call-a-transpiler" title="Call a Transpiler"></a>
 <p>In CMMV, transpilers are modular, which allows them to be dynamically added to modules and invoked during the application processing. A transpiler’s role is to automatically generate necessary files (such as entities, services, and Protobuf definitions) based on the contracts defined in your application.</p>
 <p><code>/packages/protobuf/src/protobuf.module.ts</code></p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Module</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Module</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufTranspile</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./protobuf.transpiler&quot;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> <span class="hljs-title class_">ProtobufModule</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Module</span>({
     <span class="hljs-attr">transpilers</span>: [<span class="hljs-title class_">ProtobufTranspile</span>] <span class="hljs-comment">// Register the transpiler here</span>
 });
 </code></pre>
+             </div>
 <p>In this case, ProtobufModule registers the ProtobufTranspile transpiler. The transpilers property in the Module configuration allows you to list all the transpilers that should be executed when the module is processed.</p>
 <p>When the application is started, the transpiler will be invoked automatically as part of the module processing. Each module’s transpilers will run based on the contracts defined in the system, and they will generate the required files accordingly.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/protobuf&quot;</span>;
 
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Application</span>({
@@ -342,5 +356,6 @@
     <span class="hljs-attr">modules</span>: [<span class="hljs-title class_">ProtobufModule</span>], 
 });
 </code></pre>
+             </div>
 <p>When the application starts, it will look for all modules, identify the transpilers within those modules, and run them in sequence. In this case, the ProtobufTranspile will process any contracts registered in the system and generate the corresponding Protobuf files.</p>
 <p>This modular design makes it easy to extend the system by adding new transpilers for various tasks, such as generating database entities, Protobuf definitions, or other required files based on the contracts defined in your application.</p>

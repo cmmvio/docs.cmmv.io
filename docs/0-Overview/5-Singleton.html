@@ -7,7 +7,11 @@
 <li>Optimizes performance by ensuring only one instance of each service exists, minimizing overhead.</li>
 </ul>
 <h2>Example</h2><a id="example" title="Example"></a>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Singleton</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Singleton</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Scope</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Singleton</span> {
     <span class="hljs-keyword">private</span> <span class="hljs-attr">data</span>: <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
@@ -89,6 +93,7 @@
     }
 }
 </code></pre>
+             </div>
 <h2>Advantages</h2><a id="advantages" title="Advantages"></a>
 <p>Using singletons provides several advantages over traditional dependency injection systems, especially for larger applications with complex services and multiple modules:</p>
 <ul>

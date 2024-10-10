@@ -14,7 +14,7 @@ module.exports = {
         },
         cors: true,
         helmet: {
-            enabled: true,
+            enabled: false,
             options: {
                 contentSecurityPolicy: false
             }
@@ -79,17 +79,6 @@ module.exports = {
             { rel: "preconnect", href: "https://docs.cmmv.io" },             
             { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
             { rel: "stylesheet", href: "/assets/docs.css" }            
-        ]
-    },
-
-    headers: {
-        "Content-Security-Policy": [
-            "default-src 'self'",
-            "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://googletagmanager.com",
-            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
-            "font-src 'self'",
-            "connect-src 'self' ws://localhost:3001 http://localhost:3001 https://*.algolianet.com https://*.algolia.net https://googletagmanager.com https://www.google-analytics.com",
-            "img-src 'self' data: https://googletagmanager.com https://img.shields.io https://dl.circleci.com"
         ]
     },
 

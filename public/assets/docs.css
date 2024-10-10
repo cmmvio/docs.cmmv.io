@@ -325,6 +325,7 @@ p {
     list-style: disc;
     margin-bottom: 20px;
     margin-left: 20px;
+    text-align: left;
 }
 
 .context-html a {
@@ -498,4 +499,26 @@ h2 code {
 
 .dark .footer a:hover {
     background-color: #262628 !important;
+}
+
+.code-block-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px 10px;
+    font-size: 12px;
+    background-color: #262628;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.copy-code-btn:hover {
+    background-color: #373739;
 }

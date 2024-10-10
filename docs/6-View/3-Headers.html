@@ -2,7 +2,11 @@
 <p>In CMMV, you can configure response headers to enhance security, define metadata, or customize the behavior of your web application. This can be achieved in two ways: using the <code>.cmmv.config.js</code> file located in the root of your project or by adding specific configurations directly into the template files for more granular control.</p>
 <p>The <code>.cmmv.config.js</code> file serves as the global configuration file for your CMMV project. You can set default headers that will apply to all responses from your application by defining the headers object in this file.</p>
 <p>For example, to configure a Content-Security-Policy and other security-related headers, your <code>.cmmv.config.js</code> might look like this:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
     <span class="hljs-attr">headers</span>: {
         <span class="hljs-string">&quot;Content-Security-Policy&quot;</span>: [
             <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>,
@@ -19,9 +23,14 @@
     }
 }
 </code></pre>
+             </div>
 <p>For more specific configurations, such as adding metadata or setting headers that only apply to a particular route, you can define these directly in your Vue-style template files.</p>
 <p>In the template’s <code>&lt;script&gt;</code> block, under head, you can configure meta tags, link tags, and other headers:</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
     <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>,
 
@@ -43,6 +52,7 @@
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <ul>
 <li><strong>meta:</strong> Adds or overrides meta tags in the page’s head, including those for description, keywords, and Content-Security-Policy.</li>
 <li><strong>link:</strong> Used to include external resources like stylesheets or canonical URLs for SEO.</li>
@@ -51,7 +61,11 @@
 <p>By configuring headers both globally and at the template level, you have full control over the behavior, security, and SEO optimization of your CMMV application.</p>
 <h1>HTTP Module</h1><a id="http-module" title="HTTP Module"></a>
 <p>The <code>@cmmv/http</code> module provides an automatic way to manage and optimize the headers that are sent with HTTP responses, reducing the size of unnecessary headers based on the request type (e.g., <code>GET</code>, <code>POST</code>, <code>PUT</code>, or <code>DELETE</code> requests). This built-in functionality ensures that only relevant headers are included, minimizing overhead and improving performance.</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> === <span class="hljs-string">&#x27;GET&#x27;</span>) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> === <span class="hljs-string">&#x27;GET&#x27;</span>) {
     res.<span class="hljs-title function_">setHeader</span>(
         <span class="hljs-string">&#x27;Strict-Transport-Security&#x27;</span>,
         <span class="hljs-string">&#x27;max-age=15552000; includeSubDomains&#x27;</span>,
@@ -61,6 +75,7 @@
     res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">&#x27;X-XSS-Protection&#x27;</span>, <span class="hljs-string">&#x27;0&#x27;</span>);
 }
 </code></pre>
+             </div>
 <ul>
 <li>
 <p><strong>Strict-Transport-Security:</strong> Ensures that the browser only communicates with the server over HTTPS for the next 180 days (15552000 seconds) and applies this policy to all subdomains.</p>
@@ -76,7 +91,11 @@
 </li>
 </ul>
 <p>POST, PUT, DELETE Requests: For these types of requests, the module removes specific headers that are not necessary for write operations, ensuring smaller and more efficient responses.</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-keyword">if</span> ([<span class="hljs-string">&#x27;POST&#x27;</span>, <span class="hljs-string">&#x27;PUT&#x27;</span>, <span class="hljs-string">&#x27;DELETE&#x27;</span>].<span class="hljs-title function_">includes</span>(req.<span class="hljs-property">method</span>)) {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-keyword">if</span> ([<span class="hljs-string">&#x27;POST&#x27;</span>, <span class="hljs-string">&#x27;PUT&#x27;</span>, <span class="hljs-string">&#x27;DELETE&#x27;</span>].<span class="hljs-title function_">includes</span>(req.<span class="hljs-property">method</span>)) {
     res.<span class="hljs-title function_">removeHeader</span>(<span class="hljs-string">&#x27;X-DNS-Prefetch-Control&#x27;</span>);
     res.<span class="hljs-title function_">removeHeader</span>(<span class="hljs-string">&#x27;X-Download-Options&#x27;</span>);
     res.<span class="hljs-title function_">removeHeader</span>(<span class="hljs-string">&#x27;X-Permitted-Cross-Domain-Policies&#x27;</span>);
@@ -88,6 +107,7 @@
     res.<span class="hljs-title function_">removeHeader</span>(<span class="hljs-string">&#x27;Referrer-Policy&#x27;</span>);
 }
 </code></pre>
+             </div>
 <ul>
 <li><strong>X-DNS-Prefetch-Control:</strong> Reduces DNS prefetching, which is not needed in POST requests.</li>
 <li><strong>X-Download-Options:</strong> Typically used for file downloads; unnecessary for most write operations.</li>
@@ -137,7 +157,11 @@
 </ul>
 <p>The <code>.cmmv.config.js</code> file in the root of the project allows developers to define and customize security policies, session management, CORS settings, and compression options. These configurations will automatically modify the response headers to meet security and performance requirements.</p>
 <p>Example <code>.cmmv.config.js</code> Configuration:</p>
-<pre><code class="hljs language-javascript" lang="javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
     <span class="hljs-attr">headers</span>: {
         <span class="hljs-string">&quot;Content-Security-Policy&quot;</span>: [
             <span class="hljs-string">&quot;default-src &#x27;self&#x27;&quot;</span>,
@@ -178,9 +202,14 @@
     }
 };
 </code></pre>
+             </div>
 <h3>Header Customization</h3>
 <p>The headers can also be set or modified directly within the template setup using the <code>head</code> property. This provides flexibility to add meta tags, canonical links, and other SEO-related settings dynamically per page.</p>
-<pre><code class="hljs language-html" lang="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
     <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>,
 
@@ -197,4 +226,5 @@
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+             </div>
 <p>The <code>@cmmv/http</code> module automates essential optimizations to HTTP headers, ensuring security and performance through compression, session management, and protection against common web attacks via middleware like <code>cors</code>, <code>helmet</code>, and <code>compression</code>. This is supplemented by custom configurations defined in the <code>.cmmv.config.js</code> file and template-specific header controls, making the CMMV platform a secure and efficient foundation for web applications.</p>

@@ -7,11 +7,21 @@
 <p>To run CMMV it will be necessary to have <code>Node.js (version &gt;= 18.0)</code> installed in your operating system.</p>
 <h2>Setup</h2><a id="setup" title="Setup"></a>
 <p>Currently CMMV does not have any CI system, so to install it in your project you just need to install the modules.</p>
-<pre><code class="hljs language-bash" lang="bash">$ npm install @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ npm install @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
 </code></pre>
+             </div>
 <p>or</p>
-<pre><code class="hljs language-bash" lang="bash">$ yarn add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ yarn add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
 </code></pre>
+             </div>
 <h2>Structure</h2><a id="structure" title="Structure"></a>
 <p>CMMV is a project that draws inspiration from some of the best practices and technologies in modern development, bringing solid references to create a powerful and flexible framework. At the heart of CMMV are contracts, which follow a model similar to TypeORM and Protobuf, but go further, offering a full range of configurations that allow the automatic generation of the entire base structure of the application. These contracts are the fundamental piece of the project, as from them it is possible to create everything from database entities to APIs and controllers.</p>
 <p>Written in TypeScript, CMMV adopts a backend structure that resembles NestJS, but with adjustments that make dependency injection and module control more intuitive and adapted to modern development needs. The idea is to offer a modular system, where developers have full control over the application layers, allowing the architecture to adapt to the specific demands of each project.</p>
@@ -19,7 +29,11 @@
 <p>The project is strongly influenced by SOLID principles, applying well-defined concepts of responsibility, but without rigidly following all the rules. The goal is to keep the architecture clean and organized, but with the flexibility necessary to meet the practical realities of development. In addition, TDD (Test-Driven Development) concepts are applied to facilitate maintenance and ensure code quality, but the system is completely modular and optional, allowing each developer to choose what best suits their workflow.</p>
 <p>In short, CMMV is more than a collection of tools and frameworks; it is an integrated approach to development, where contracts are at the core of everything. With a solid foundation, CMMV gives developers the freedom to build modern and scalable applications, without compromising the simplicity and flexibility that are essential for continuous innovation.</p>
 <p>Every application flow starts in the <code>src/index.ts</code> file which is responsible for starting the HTTP server and its adapters.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/core&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">DefaultAdapter</span>, <span class="hljs-title class_">DefaultHTTPModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/http&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/protobuf&quot;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/ws&quot;</span>;
@@ -41,9 +55,14 @@
     <span class="hljs-attr">contracts</span>: [...]
 });
 </code></pre>
+             </div>
 <p>It is possible to perform configurations through the <code>.cmmv.config.js</code> file without having to change the application source code, even in the future we will provide other HTTP server modules.</p>
 <p>The default directories that come with the project are the following:</p>
-<pre><code class="hljs">.
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs"">.
 └── public/
     ├── assets/
     ├── templates/
@@ -57,6 +76,7 @@
     ├── app.module.ts
     └── index.ts
 </code></pre>
+             </div>
 <h2>Structure Explanation</h2><a id="structure-explanation" title="Structure Explanation"></a>
 <ul>
 <li>
@@ -114,14 +134,24 @@
 <p>The recommendation regarding static files is to always use the CDN integration features available in the editor, as whenever the application is built all static files will be automatically uploaded and updated on the CDN, however if you want to maintain the availability of the files being served by the application, the system is configured to map a directory /public, if this directory exists in the export and deployment of the application, its files will be copied automatically, becoming available for public access without access control.</p>
 <h2>Dev mode</h2><a id="dev-mode" title="Dev mode"></a>
 <p>To start the application in development mode you can use the following command.</p>
-<pre><code class="hljs language-bash" lang="bash">$ yarn dev || npm run dev
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ yarn dev || npm run dev
 </code></pre>
+             </div>
 <p>In this way, the initial application watches in parallel with the nodemon that checks for changes in the files and automatically reloads in case of changes, the server that provides the API will be loaded following the pure Typescript settings, the editor will be compiled for Javascript.</p>
 <h2>Linting and formatting</h2><a id="linting-and-formatting" title="Linting and formatting"></a>
 <p>Like most public web applications that use Typescript, I use eslint and prettier to format and organize the code, making it possible to perform checks and corrections using the commands below</p>
-<pre><code class="hljs language-bash" lang="bash"><span class="hljs-comment"># Lint with eslint</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash""><span class="hljs-comment"># Lint with eslint</span>
 $ yarn lint || npm run lint
 
 <span class="hljs-comment"># Format with prettier</span>
 $ yarn format || npm run format
 </code></pre>
+             </div>

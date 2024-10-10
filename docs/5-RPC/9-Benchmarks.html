@@ -2,7 +2,11 @@
 <p>This report demonstrates a simple benchmark test for making 1000 HTTP requests to a server, including the size of the request and response headers, and estimates for the average time it takes to process each request. The data payload being tested is a simple JSON object { “Hello”: “World” }, and the following headers are used for the request and response.</p>
 <p>Request and Response Headers:</p>
 <p>Response Headers:</p>
-<pre><code class="hljs language-yaml" lang="yaml"><span class="hljs-string">HTTP/1.1</span> <span class="hljs-number">200</span> <span class="hljs-string">OK</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-yaml" lang="yaml""><span class="hljs-string">HTTP/1.1</span> <span class="hljs-number">200</span> <span class="hljs-string">OK</span>
 <span class="hljs-attr">Access-Control-Allow-Origin:</span> <span class="hljs-string">*</span>
 <span class="hljs-attr">Cross-Origin-Opener-Policy:</span> <span class="hljs-string">same-origin</span>
 <span class="hljs-attr">Cross-Origin-Resource-Policy:</span> <span class="hljs-string">same-origin</span>
@@ -25,8 +29,13 @@
 <span class="hljs-attr">Keep-Alive:</span> <span class="hljs-string">timeout=5</span>
 <span class="hljs-attr">Transfer-Encoding:</span> <span class="hljs-string">chunked</span>
 </code></pre>
+             </div>
 <p>Request Headers:</p>
-<pre><code class="hljs language-yaml" lang="yaml"><span class="hljs-string">GET</span> <span class="hljs-string">/docs/3-RPC%2F0-Overview</span> <span class="hljs-string">HTTP/1.1</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-yaml" lang="yaml""><span class="hljs-string">GET</span> <span class="hljs-string">/docs/3-RPC%2F0-Overview</span> <span class="hljs-string">HTTP/1.1</span>
 <span class="hljs-attr">Accept:</span> <span class="hljs-string">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
 <span class="hljs-attr">Accept-Encoding:</span> <span class="hljs-string">gzip,</span> <span class="hljs-string">deflate,</span> <span class="hljs-string">br,</span> <span class="hljs-string">zstd</span>
 <span class="hljs-attr">Accept-Language:</span> <span class="hljs-string">pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6</span>
@@ -41,6 +50,7 @@
 <span class="hljs-attr">Upgrade-Insecure-Requests:</span> <span class="hljs-number">1</span>
 <span class="hljs-attr">User-Agent:</span> <span class="hljs-string">Mozilla/5.0</span> <span class="hljs-string">(Windows</span> <span class="hljs-string">NT</span> <span class="hljs-number">10.0</span><span class="hljs-string">;</span> <span class="hljs-string">Win64;</span> <span class="hljs-string">x64)</span> <span class="hljs-string">AppleWebKit/537.36</span> <span class="hljs-string">(KHTML,</span> <span class="hljs-string">like</span> <span class="hljs-string">Gecko)</span> <span class="hljs-string">Chrome/128.0.0.0</span> <span class="hljs-string">Safari</span>
 </code></pre>
+             </div>
 <p>For the benchmark test, we analyzed the total size and time for processing 1000 HTTP requests. Here is the detailed breakdown:</p>
 <p>Header Sizes:</p>
 <ul>

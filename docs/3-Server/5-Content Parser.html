@@ -15,7 +15,11 @@
 <p><strong>2. Defining the Asynchronous Handler Function</strong></p>
 <p>The handler function is where the actual parsing takes place. This function receives the request (<code>req</code>), response (<code>res</code>), and the raw body payload, which it processes and attaches to the req.body object.</p>
 <p>Here’s an example of how to create and register a custom parser for application/json content type using <code>addContentTypeParser</code>.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">cmmv</span>();
 
 <span class="hljs-comment">// Register a custom content type parser for &#x27;application/json&#x27;</span>
 app.<span class="hljs-title function_">addContentTypeParser</span>(<span class="hljs-string">&#x27;application/json&#x27;</span>, <span class="hljs-title function_">async</span> (req, res, payload) =&gt; {
@@ -30,9 +34,14 @@ app.<span class="hljs-title function_">addContentTypeParser</span>(<span class="
     }
 });
 </code></pre>
+             </div>
 <h2>Registering Multiple Parsers</h2><a id="registering-multiple-parsers" title="Registering Multiple Parsers"></a>
 <p>You can register multiple parsers for different content types in your application. Here’s an example that registers parsers for both <code>application/json</code> and <code>text/xml</code> content types.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> xml2js <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;xml2js&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> xml2js <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;xml2js&#x27;</span>;
 
 <span class="hljs-comment">// Register a JSON parser</span>
 app.<span class="hljs-title function_">addContentTypeParser</span>(<span class="hljs-string">&#x27;application/json&#x27;</span>, <span class="hljs-title function_">async</span> (req, res, payload) =&gt; {
@@ -54,5 +63,6 @@ app.<span class="hljs-title function_">addContentTypeParser</span>(<span class="
     }
 });
 </code></pre>
+             </div>
 <p>The <code>addContentTypeParser</code> method in <code>@cmmv/server</code> provides a powerful way to create middleware that handles specific content types, allowing for flexible and efficient request body parsing. By registering custom parsers that only trigger for their respective content types, you can improve the performance and security of your application.</p>
 <p>With asynchronous handler functions, your middleware can handle complex data parsing, such as JSON, XML, or CSV, while maintaining non-blocking operations, making the framework ideal for high-performance server applications.</p>

@@ -2,7 +2,11 @@
 <p>CMMV supports automatic contract validation using the <code>class-validator</code> (<a href="https://www.npmjs.com/package/class-validator" target="_blank" rel="nofollow">NPM</a>) module. During data insertion and update operations, CMMV can apply validation rules to contract fields, ensuring that data meets the defined criteria before being processed. You can specify validation rules for each field by adding the validations parameter.</p>
 <p>These validations are executed automatically during <code>insert</code> and <code>update</code> operations, and the system will return errors if any validation fails.</p>
 <p>Below is an example of a <code>TasksContract</code>, where each field is validated using different rules:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-meta">@Contract</span>({
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
@@ -44,6 +48,7 @@
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+             </div>
 <h2>Structure</h2><a id="structure" title="Structure"></a>
 <p>Each validation rule is configured using the <code>validations</code> parameter, which contains an array of validation objects. Each object can include the following properties:</p>
 <ul>
@@ -268,7 +273,11 @@
 <h2>Validation in Models</h2><a id="validation-in-models" title="Validation in Models"></a>
 <p>When validations are defined in the contract fields, the CMMV framework automatically adds the corresponding class-validator decorators to the generated model. These decorators perform runtime validation to ensure the data adheres to the defined rules. The model generation process inserts the correct validation decorators above each field, along with any specified validation options, such as custom error messages.</p>
 <p>Here’s an example of how to define a contract with validations:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
 
 <span class="hljs-meta">@Contract</span>({
     <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Task&#x27;</span>,
@@ -310,8 +319,13 @@
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+             </div>
 <p>When the contract is processed by the framework, the following model is automatically generated. The decorators from <code>class-validator</code> are added to each field to perform validation according to the specified rules:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-comment">// Generated automatically by CMMV</span>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-comment">// Generated automatically by CMMV</span>
 
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">IsString</span>, <span class="hljs-title class_">IsNotEmpty</span>, <span class="hljs-title class_">IsBoolean</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;class-validator&#x27;</span>;
         
@@ -336,12 +350,17 @@
     <span class="hljs-attr">removed</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;
 }
 </code></pre>
+             </div>
 <p>This approach ensures that data is validated correctly and that the model is generated dynamically based on the contract definitions, making the framework highly adaptable and efficient for managing validations across various models.</p>
 <h2>Validation in Services</h2><a id="validation-in-services" title="Validation in Services"></a>
 <p>In addition to the generated model, services also undergo changes to ensure that the data being input is properly validated before it’s processed or stored. Both the service generated by <code>@cmmv/http</code> and the repository implementation from <code>@cmmv/repository</code> include built-in validation mechanisms using the <code>class-validator</code> module.</p>
 <p>This validation ensures that all incoming data adheres to the rules specified in the contract fields before any database operations or further business logic are executed.</p>
 <p>Here’s an example of the add function in the service that is generated by the repository:</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-attr">item</span>: <span class="hljs-title class_">ITask</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">async</span> <span class="hljs-title function_">add</span>(<span class="hljs-attr">item</span>: <span class="hljs-title class_">ITask</span>, req?: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">TaskEntity</span>&gt; {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-title function_">async</span> (resolve, reject) =&gt; {
         <span class="hljs-keyword">try</span>{
             <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskService::Add&#x27;</span>, req?.<span class="hljs-property">requestId</span>);
@@ -379,6 +398,7 @@
     });
 }
 </code></pre>
+             </div>
 <ul>
 <li>
 <p><strong>Validation Step:</strong> Before performing any database operations, the input data is converted into a class instance using <code>plainToClass</code> and then validated using <code>validate</code> from <code>class-validator</code>.</p>

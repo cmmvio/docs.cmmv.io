@@ -1,12 +1,17 @@
 <h1>Services</h1><a id="services" title="Services"></a>
 <p>In <code>@cmmv/core</code>, services play a crucial role in managing business logic, serving as a bridge between the data repositories, cache, and external communication layers like HTTP or RPC. Services are responsible for handling data transformations and ensuring that external communication is model-agnostic, meaning the service works with models and automatically converts them as necessary.</p>
 <p>To create a service, use the <code>@Service</code> decorator. This decorator allows the service to be recognized by the framework and utilized throughout the application.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-meta">@Service</span>(<span class="hljs-string">&#x27;task&#x27;</span>)
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-meta">@Service</span>(<span class="hljs-string">&#x27;task&#x27;</span>)
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractService</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> name = <span class="hljs-string">&#x27;task&#x27;</span>;
     <span class="hljs-comment">// Service methods and logic</span>
 }
 </code></pre>
+             </div>
 <h2>How Services Work</h2><a id="how-services-work" title="How Services Work"></a>
 <ul>
 <li><strong>Input and Output Models:</strong> Services use models (e.g., Task, ITask) to define their input and output. These models are automatically transformed when interacting with repositories or external communication layers.</li>
@@ -15,7 +20,11 @@
 </ul>
 <h2>Using Services</h2><a id="using-services" title="Using Services"></a>
 <p>In <code>@cmmv</code>, since the system doesn’t implement traditional dependency injection, you can easily register services as providers in any module and access them via the constructor of a class. This simplifies the service usage across controllers, gateways, or other components.</p>
-<pre><code class="hljs language-typescript" lang="typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/task.service&#x27;</span>;
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TaskService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/task.service&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../models/task.model&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">CacheService</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@cmmv/cache&quot;</span>;
 
@@ -31,6 +40,7 @@
     }
 }
 </code></pre>
+             </div>
 <h2>Agnostic</h2><a id="agnostic" title="Agnostic"></a>
 <p>In the <code>@cmmv</code> framework, services are agnostic to the type of controller that invokes them, ensuring they can be used across HTTP controllers, RPC gateways, or other components. Services are automatically generated based on contract configurations and can be extended with the <code>@cmmv/repository</code> module to support database entities or <code>@cmmv/cache</code> for managing and retrieving cached data. While services handle business logic, authentication directives (<code>@cmmv/auth</code>) are applied at the controller or gateway level to ensure secure access. This modular approach allows for flexible and scalable service management.</p>
 <h2>Singleton</h2><a id="singleton" title="Singleton"></a>
