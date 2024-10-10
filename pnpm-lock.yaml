@@ -20,6 +20,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       glob:
         specifier: ^11.0.0
         version: 11.0.0
