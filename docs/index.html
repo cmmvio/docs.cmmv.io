@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo_CMMV_negativa.svg" width="300" alt="CMMV Logo" />
+  <img src="assets/logo_CMMV2_icon.png" width="300" alt="CMMV Logo" />
 </p>
 <p align="center">Contract-Model-Model-View (CMMV) <br/> A minimalistic framework for building scalable and modular applications using TypeScript contracts.</p>
 <div class="flex flex-container">
