@@ -20,25 +20,25 @@ Supported Key-Value Stores and Drivers
 $ pnpm add @keyv/redis
 ```
 
-**Memcached:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/redis)
+**Memcached:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/memcache)
 
 ```bash
 $ pnpm add @keyv/memcache
 ```
 
-**MongoDB:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/redis)
+**MongoDB:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/mongo)
 
 ```bash
 $ pnpm add @keyv/mongo
 ```
 
-**PostgreSQL:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/redis)
+**PostgreSQL:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/postgres)
 
 ```bash
 $ pnpm add @keyv/postgres
 ```
 
-**SQLite:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/redis)
+**SQLite:** [Github](https://github.com/jaredwray/keyv/tree/main/packages/sqlite)
 
 ```bash
 $ pnpm add @keyv/sqlite
