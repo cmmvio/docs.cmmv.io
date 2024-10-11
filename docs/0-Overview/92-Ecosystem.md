@@ -25,3 +25,4 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/helmet](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/helmet)           | Security middleware to help protect applications by setting various HTTP headers.                 |
 | [@cmmv/swagger](https://github.com/andrehrferreira/cmmv-swagger)          | Provides API documentation with Swagger integration, automatically generating OpenAPI specifications. |
 | [@cmmv/plugin-vite](https://github.com/andrehrferreira/cmmv-swagger)          | Enables Vite to interpret ``.cmmv`` files, similar to how Vue files are processed, with full support for CMMV syntax. |
+| [@cmmv/keyv](https://github.com/andrehrferreira/cmmv/tree/main/packages/keyv)          | Key-value store integration using Keyv, supporting Redis, Memcached, MongoDB, with namespace and compression support. |
