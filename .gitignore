@@ -50,4 +50,7 @@ newrelic.js
 docs/algolia.json
 docs/index.json
 docs/indexLinks.json
+docs/index*.json
 public/sitemap.xml
+docs/*.json
+docs/**/*.json
