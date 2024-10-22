@@ -111,7 +111,7 @@ This middleware integrates seamlessly with the request lifecycle, applying compr
 To install the ``@cmmv/compression`` middleware, run the following command:
 
 ```bash
-npm install @cmmv/compression
+$ pnpm add @cmmv/compression
 ```
 
 **Usage**
@@ -151,7 +151,7 @@ The ``@cmmv/cookie-parser`` middleware is designed to parse cookies in HTTP requ
 **Installation**
 
 ```bash
-npm install @cmmv/cookie-parser
+$ pnpm add @cmmv/cookie-parser
 ```
 
 **Usage**
@@ -205,7 +205,7 @@ The CORS (Cross-Origin Resource Sharing) middleware allows you to enable cross-o
 **Installation**
 
 ```bash
-npm install @cmmv/cors
+$ pnpm add @cmmv/cors
 ```
 
 **Usage**
@@ -240,7 +240,7 @@ This middleware is designed to support both CMMV and Express environments. For C
 **Installation**
 
 ```bash
-npm install @cmmv/etag
+$ pnpm add @cmmv/etag
 ```
 
 **Usage**
@@ -270,7 +270,7 @@ This middleware automatically configures HTTP security headers for better protec
 **Installation**
 
 ```bash
-npm install @cmmv/helmet
+$ pnpm add @cmmv/helmet
 ```
 
 **Usage**

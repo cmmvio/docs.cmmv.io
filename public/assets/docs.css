@@ -345,6 +345,7 @@ code {
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; 
     font-size: 0.9em; 
     word-break: break-word; 
+    text-align: left !important;
 }
 
 pre code {

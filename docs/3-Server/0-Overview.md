@@ -74,7 +74,7 @@ Currently, the project is in a testing phase and therefore not recommended for p
 Install the ``@cmmv/server`` package via npm:
 
 ```bash
-$ npm install @cmmv/server
+$ pnpm add @cmmv/server
 ```
 
 ## Quick Start

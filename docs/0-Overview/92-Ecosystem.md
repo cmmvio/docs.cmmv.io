@@ -14,6 +14,7 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/repository](https://github.com/andrehrferreira/cmmv/tree/main/packages/repository)       | Database management with repositories for handling entities and persistent data access.           |
 | [@cmmv/scheduling](https://github.com/andrehrferreira/cmmv/tree/main/packages/scheduling)       | Module for scheduling tasks and automating routines with task management support.                 |
 | [@cmmv/view](https://github.com/andrehrferreira/cmmv/tree/main/packages/view)             | Server-Side Rendering (SSR) engine for rendering views, including its own template engine.         |
+| [@cmmv/keyv](https://github.com/andrehrferreira/cmmv/tree/main/packages/keyv)          | Key-value store integration using Keyv, supporting Redis, Memcached, MongoDB, with namespace and compression support. |
 | [@cmmv/reactivity](https://github.com/andrehrferreira/cmmv-reactivity)       | Enables reactive data binding and management to create more dynamic applications.                 |
 | [@cmmv/server](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/server)           | Default HTTP server for high-performance applications, providing more control over server features. |
 | [@cmmv/server-static](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/server-static)    | Serves static files from the file system, enabling faster delivery of assets like HTML, CSS, and JS. |
@@ -23,6 +24,7 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/cors](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/cors)             | Middleware for enabling Cross-Origin Resource Sharing (CORS), allowing secure cross-origin requests. |
 | [@cmmv/etag](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/etag)             | ETag generation for response caching, improving efficiency by validating cached responses.        |
 | [@cmmv/helmet](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/helmet)           | Security middleware to help protect applications by setting various HTTP headers.                 |
+| [@cmmv/middleware](https://github.com/andrehrferreira/cmmv-middleware)    | Integrates Express-compatible middlewares into CMMV applications, supporting modular middleware usage. |
+| [@cmmv/encryptor](https://github.com/andrehrferreira/cmmv-encryptor)      | Provides cryptographic utilities including ECC-based encryption, AES-256-GCM, and BIP32 wallet management. |
 | [@cmmv/swagger](https://github.com/andrehrferreira/cmmv-swagger)          | Provides API documentation with Swagger integration, automatically generating OpenAPI specifications. |
 | [@cmmv/plugin-vite](https://github.com/andrehrferreira/cmmv-swagger)          | Enables Vite to interpret ``.cmmv`` files, similar to how Vue files are processed, with full support for CMMV syntax. |
-| [@cmmv/keyv](https://github.com/andrehrferreira/cmmv/tree/main/packages/keyv)          | Key-value store integration using Keyv, supporting Redis, Memcached, MongoDB, with namespace and compression support. |
