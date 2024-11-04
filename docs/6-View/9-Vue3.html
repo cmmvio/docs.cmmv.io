@@ -1,0 +1,58 @@
+<h2>Vue 3</h2><a id="vue-3" title="Vue 3"></a>
+<p>CMMV provides support for <a href="https://vuejs.org/" target="_blank" rel="nofollow">Vue 3</a> as the frontend framework, enabling you to build rich, reactive interfaces for your views. By using Vue 3, you can leverage its reactive system, composables, and templating syntax. Here’s how to configure and use Vue 3 in your CMMV project.</p>
+<h2>Settings</h2><a id="settings" title="Settings"></a>
+<p>To enable Vue 3 support in your CMMV project, you need to configure the <code>.cmmv.config.js</code> file. Add or modify the <code>view</code> configuration to include the <code>vue3</code> option:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    ...
+
+    <span class="hljs-attr">i18n</span>: {
+        <span class="hljs-attr">localeFiles</span>: <span class="hljs-string">&quot;./src/locale&quot;</span>,
+        <span class="hljs-attr">default</span>: <span class="hljs-string">&quot;en&quot;</span>
+    },
+
+    <span class="hljs-attr">view</span>: {
+        <span class="hljs-attr">extractInlineScript</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">minifyHTML</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">vue3</span>: <span class="hljs-literal">true</span>
+    },
+
+    ...
+}
+</code></pre>
+             </div>
+<p>Once Vue 3 is configured, you can use Vue’s syntax and features directly in your views. The views will be rendered using Vue 3, and your setup scripts will behave similarly to how they work in Vue Single File Components (SFCs).</p>
+<h2>Sample</h2><a id="sample" title="Sample"></a>
+<p>By configuring your project for Vue 3, you can leverage the full power of Vue’s ecosystem while still benefiting from CMMV’s server-side rendering and RPC integration.</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{{ test }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">s-setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-attr">layout</span>: <span class="hljs-string">&quot;default&quot;</span>,
+
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">test</span>: <span class="hljs-number">123</span>
+        };
+    },
+
+    <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">test</span>);
+    }
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+             </div>
+<p>With the correct setup, Vue 3 will handle reactive data binding. This means the test variable will automatically render in the HTML and update whenever the state changes. The mounted method will be called when the component is mounted, and you should see 123 logged in the console.</p>
+<h2>Current Limitation</h2><a id="current-limitation" title="Current Limitation"></a>
+<p>At present, the project does not support dynamic loading of Vue 3 components. In the future, CMMV will have built-in support for dynamically loading components using Vite. This will allow efficient serving of templates and .vue files, enhancing the overall performance and flexibility of the application.</p>
+<p>Currently, when importing components, they are loaded into the bundle, which may work for most cases but can lead to conflicts, especially with recursive component loading. Developers should be cautious of these potential issues and test their component hierarchy to ensure it functions correctly. The upcoming Vite integration will address these limitations and provide a more streamlined experience for handling dynamic components in Vue 3.</p>
