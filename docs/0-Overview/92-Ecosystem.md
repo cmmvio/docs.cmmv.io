@@ -14,6 +14,7 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/repository](https://github.com/andrehrferreira/cmmv/tree/main/packages/repository)       | Database management with repositories for handling entities and persistent data access.           |
 | [@cmmv/scheduling](https://github.com/andrehrferreira/cmmv/tree/main/packages/scheduling)       | Module for scheduling tasks and automating routines with task management support.                 |
 | [@cmmv/view](https://github.com/andrehrferreira/cmmv/tree/main/packages/view)             | Server-Side Rendering (SSR) engine for rendering views, including its own template engine.         |
+| [@cmmv/vite](https://github.com/andrehrferreira/cmmv/tree/main/packages/vite)             | Middleware for integrating Vite with CMMV applications, allowing modern build tools and fast development workflows. |
 | [@cmmv/keyv](https://github.com/andrehrferreira/cmmv/tree/main/packages/keyv)          | Key-value store integration using Keyv, supporting Redis, Memcached, MongoDB, with namespace and compression support. |
 | [@cmmv/reactivity](https://github.com/andrehrferreira/cmmv-reactivity)       | Enables reactive data binding and management to create more dynamic applications.                 |
 | [@cmmv/server](https://github.com/andrehrferreira/cmmv-server/tree/main/packages/server)           | Default HTTP server for high-performance applications, providing more control over server features. |
