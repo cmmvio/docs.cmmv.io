@@ -53,6 +53,199 @@
 </code></pre>
              </div>
 <p>With the correct setup, Vue 3 will handle reactive data binding. This means the test variable will automatically render in the HTML and update whenever the state changes. The mounted method will be called when the component is mounted, and you should see 123 logged in the console.</p>
-<h2>Current Limitation</h2><a id="current-limitation" title="Current Limitation"></a>
-<p>At present, the project does not support dynamic loading of Vue 3 components. In the future, CMMV will have built-in support for dynamically loading components using Vite. This will allow efficient serving of templates and .vue files, enhancing the overall performance and flexibility of the application.</p>
-<p>Currently, when importing components, they are loaded into the bundle, which may work for most cases but can lead to conflicts, especially with recursive component loading. Developers should be cautious of these potential issues and test their component hierarchy to ensure it functions correctly. The upcoming Vite integration will address these limitations and provide a more streamlined experience for handling dynamic components in Vue 3.</p>
+<h2>Generating Mixins</h2><a id="generating-mixins" title="Generating Mixins"></a>
+<p>To enable the generation of Vue-compatible mixins for RPC, you need to include the <code>VueTranspile</code> transpile in your application configuration. This ensures that the <code>rpc-mixins.js</code> file is generated automatically during the build process, providing seamless integration with Vue 3 or Nuxt applications.</p>
+<p>Below is an example configuration to include the VueTranspile:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DefaultAdapter</span>, <span class="hljs-title class_">DefaultHTTPModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtobufModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/protobuf&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WSModule</span>, <span class="hljs-title class_">WSAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/ws&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViewModule</span>, <span class="hljs-title class_">VueTranspile</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/view&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViteModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/vite&#x27;</span>;
+
+<span class="hljs-comment">// Contracts</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TasksContract</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./contracts/tasks.contract&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">IndexModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./modules/index.module&#x27;</span>;
+
+<span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
+    <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">DefaultAdapter</span>,
+    <span class="hljs-attr">wsAdapter</span>: <span class="hljs-title class_">WSAdapter</span>,
+    <span class="hljs-attr">modules</span>: [...],
+    <span class="hljs-attr">services</span>: [...],
+    <span class="hljs-attr">transpilers</span>: [<span class="hljs-title class_">VueTranspile</span>], <span class="hljs-comment">// Add VueTranspile here</span>
+    <span class="hljs-attr">contracts</span>: [<span class="hljs-title class_">TasksContract</span>],
+});
+</code></pre>
+             </div>
+<h2>Template Setup</h2><a id="template-setup" title="Template Setup"></a>
+<p>If Vue is required for your project, ensure it is loaded in your HTML template. For instance, you can modify the <code>default.html</code> template as follows:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">:data-theme</span>=<span class="hljs-string">&quot;$style.theme&quot;</span> <span class="hljs-attr">scope</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">headers</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">scope</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">scripts</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+             </div>
+<p>This example includes Vue 3 as a global script. Adjust the <code>&lt;script&gt;</code> tag if using a local or CDN version of Vue.</p>
+<h2>Using Mixins for RPC</h2><a id="using-mixins-for-rpc" title="Using Mixins for RPC"></a>
+<p>CMMV now supports generating RPC mixins to streamline communication between the frontend and the backend. The mixins are auto-generated and accessible via <code>/assets/rpc-mixins.js</code>.</p>
+<p>To integrate the mixin into your Vue 3 application, import it dynamically:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-keyword">const</span> { <span class="hljs-attr">default</span>: <span class="hljs-title class_">CMMVMixin</span> } = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;/assets/rpc-mixins.js&#x27;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">createApp</span>({
+    <span class="hljs-attr">mixins</span>: [<span class="hljs-title class_">CMMVMixin</span>],
+    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">example</span>: <span class="hljs-string">&quot;Hello, CMMV!&quot;</span>
+        };
+    },
+    <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">example</span>);
+    }
+});
+
+app.<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>);
+</code></pre>
+             </div>
+<h2>Vue 3 Application</h2><a id="vue-3-application" title="Vue 3 Application"></a>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npm install vue@next
+</code></pre>
+             </div>
+<p><strong>main.js</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-keyword">import</span> { createApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">initApp</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; {
+    <span class="hljs-keyword">const</span> { <span class="hljs-attr">default</span>: <span class="hljs-title class_">CMMVMixin</span> } = 
+        <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;http://localhost:3000/assets/rpc-mixins.js&#x27;</span>);
+    
+    <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">createApp</span>({
+        <span class="hljs-attr">mixins</span>: [<span class="hljs-title class_">CMMVMixin</span>],
+        <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">return</span> {
+                <span class="hljs-attr">example</span>: <span class="hljs-string">&quot;Hello, Vue with RPC!&quot;</span>
+            };
+        },
+        <span class="hljs-attr">methods</span>: {
+            <span class="hljs-title function_">fetchData</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-title class_">GetAllTaskRequest</span>();
+            }
+        },
+        <span class="hljs-title function_">mounted</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;App is mounted with example:&quot;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">example</span>);
+        }
+    });
+
+    app.<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>);
+};
+
+<span class="hljs-title function_">initApp</span>();
+</code></pre>
+             </div>
+<p>Create a basic Vue application:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Vue RPC Integration<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{ example }}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;fetchData&quot;</span>&gt;</span>Fetch Data<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/main.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+             </div>
+<h2>Nuxt Application</h2><a id="nuxt-application" title="Nuxt Application"></a>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">npx nuxi init nuxt-rpc
+<span class="hljs-built_in">cd</span> nuxt-rpc
+npm install
+</code></pre>
+             </div>
+<p><strong>plugins/cmmv-mixins.client.ts</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-comment">// plugins/cmmv-mixins.client.ts</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineNuxtPlugin</span>(<span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> { <span class="hljs-attr">default</span>: <span class="hljs-title class_">CMMVMixin</span> } = 
+        <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;http://localhost:3000/assets/rpc-mixins.js&#x27;</span>);
+
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">provide</span>: {
+            <span class="hljs-attr">cmmvMixin</span>: <span class="hljs-title class_">CMMVMixin</span>,
+        },
+    };
+});
+</code></pre>
+             </div>
+<p>Use the mixin in a page:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-comment">&lt;!-- pages/index.vue --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{ example }}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;fetchData&quot;</span>&gt;</span>Fetch Data<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">setup</span>&gt;</span><span class="language-javascript">
+<span class="hljs-keyword">import</span> { useNuxtApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;#app&#x27;</span>;
+
+<span class="hljs-keyword">const</span> { $cmmvMixin } = <span class="hljs-title function_">useNuxtApp</span>();
+<span class="hljs-keyword">const</span> mixins = [$cmmvMixin];
+
+<span class="hljs-keyword">const</span> data = <span class="hljs-title function_">reactive</span>({
+    <span class="hljs-attr">example</span>: <span class="hljs-string">&quot;Hello, Nuxt with RPC!&quot;</span>
+});
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">fetchData</span> = (<span class="hljs-params"></span>) =&gt; {
+    mixins[<span class="hljs-number">0</span>].<span class="hljs-property">methods</span>.<span class="hljs-property">GetAllTaskRequest</span>.<span class="hljs-title function_">call</span>({
+        <span class="hljs-attr">pack</span>: mixins[<span class="hljs-number">0</span>].<span class="hljs-property">methods</span>.<span class="hljs-property">pack</span>,
+        <span class="hljs-attr">send</span>: mixins[<span class="hljs-number">0</span>].<span class="hljs-property">methods</span>.<span class="hljs-property">send</span>,
+        <span class="hljs-attr">example</span>: <span class="hljs-string">&quot;Task Data!&quot;</span>
+    });
+};
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+             </div>
