@@ -1,0 +1,106 @@
+<h1>Tailwind</h1><a id="tailwind" title="Tailwind"></a>
+<p>Follow these steps to integrate <a href="https://tailwindcss.com/" target="_blank" rel="nofollow">TailwindCSS</a> into your CMMV project for enhanced styling capabilities:</p>
+<h3>Install TailwindCSS</h3>
+<p>Run the following command to add TailwindCSS as a development dependency:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">pnpm add -D tailwindcss
+</code></pre>
+             </div>
+<h3>Enable Tailwind</h3>
+<p>Modify your CMMV configuration file to enable TailwindCSS. Add <code>tailwind: true</code> under the <code>view</code> section:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    ...
+    <span class="hljs-attr">view</span>: {
+        <span class="hljs-attr">extractInlineScript</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">minifyHTML</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">vue3</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">tailwind</span>: <span class="hljs-literal">true</span>,
+    },
+    ...
+};
+</code></pre>
+             </div>
+<h3>Create a TailwindCSS Entry File</h3>
+<p>Create a new file <code>src/tailwind.css</code> in your project and add the Tailwind directives:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript"">@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</code></pre>
+             </div>
+<h3>Create the Tailwind Configuration</h3>
+<p>Generate a <code>tailwind.config.js</code> file at the root of your project with the following content:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">import(&#x27;tailwindcss&#x27;).Config</span>} */</span>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-attr">content</span>: [],
+    <span class="hljs-attr">darkMode</span>: <span class="hljs-string">&#x27;class&#x27;</span>,
+    <span class="hljs-attr">purge</span>: [<span class="hljs-string">&#x27;./index.html&#x27;</span>, <span class="hljs-string">&#x27;./public/**/*.{vue,js,ts,jsx,tsx}&#x27;</span>],
+    <span class="hljs-attr">theme</span>: {
+        <span class="hljs-attr">extend</span>: {},
+    },
+    <span class="hljs-attr">plugins</span>: [],
+};
+</code></pre>
+             </div>
+<h3>Finalizing TailwindCSS Integration</h3>
+<p>To ensure TailwindCSS is correctly applied to your project, you need to include the generated CSS file in your application. There are two methods to achieve this: adding the <code>&lt;link&gt;</code> tag directly to your template or configuring it via the settings.</p>
+<h4>Method 1: Add the <link> Tag in the Template</h4>
+<p>Edit your template file (e.g., <code>public/templates/default.html</code>) and include the following <code>&lt;link&gt;</code> tag in the <code>&lt;head&gt;</code> section:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-html" lang="html""><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">headers</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/assets/bundle.min.css&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">scripts</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+             </div>
+<h4>Method 2: Add CSS via Settings in .cmmv.config.js</h4>
+<p>Alternatively, you can configure the inclusion of the CSS file in the head property within the view settings in <code>.cmmv.config.js</code>:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript""><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    ...
+    <span class="hljs-attr">head</span>: {
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;CMMV&#x27;</span>,
+        <span class="hljs-attr">htmlAttrs</span>: {
+            <span class="hljs-attr">lang</span>: <span class="hljs-string">&#x27;en&#x27;</span>,
+        },
+        <span class="hljs-attr">meta</span>: [
+            { <span class="hljs-attr">charset</span>: <span class="hljs-string">&#x27;utf-8&#x27;</span> },
+            { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;viewport&#x27;</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;width=device-width, initial-scale=1&#x27;</span> },
+        ],
+        <span class="hljs-attr">link</span>: [
+            { <span class="hljs-attr">rel</span>: <span class="hljs-string">&#x27;icon&#x27;</span>, <span class="hljs-attr">href</span>: <span class="hljs-string">&#x27;assets/favicon/favicon.ico&#x27;</span> },
+            { <span class="hljs-attr">rel</span>: <span class="hljs-string">&#x27;stylesheet&#x27;</span>, <span class="hljs-attr">href</span>: <span class="hljs-string">&#x27;/assets/bundle.min.css&#x27;</span> }, <span class="hljs-comment">// Include TailwindCSS bundle</span>
+        ],
+    },
+    ...
+};
+</code></pre>
+             </div>
+<p>This approach allows dynamic configuration of your HTML <code>&lt;head&gt;</code> and keeps your template files cleaner.</p>

@@ -1,4 +1,4 @@
-## View Engine
+# View Engine
 
 In web applications, the view engine is responsible for rendering templates and generating HTML pages. In a typical setup, the view engine takes dynamic data and renders it into a static HTML page that is sent to the client. The ``res.render`` method in the server allows you to render a template using the view engine you configure.
 

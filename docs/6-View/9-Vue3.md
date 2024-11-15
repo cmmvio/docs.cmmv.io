@@ -1,4 +1,4 @@
-## Vue 3
+# Vue 3
 
 CMMV provides support for [Vue 3](https://vuejs.org/) as the frontend framework, enabling you to build rich, reactive interfaces for your views. By using Vue 3, you can leverage its reactive system, composables, and templating syntax. Here’s how to configure and use Vue 3 in your CMMV project.
 
