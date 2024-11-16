@@ -7,7 +7,7 @@ The CMMV CLI simplifies project initialization by providing an interactive way t
 Install the CLI Globally: To use the CLI globally on your system, install it using ``pnpm``:
 
 ```bash 
-$ pnpm add -g cmmv-cli
+$ pnpm add -g @cmmv/cli
 ```
 
 Create a New Project: Run the ``cmmv init`` command to create a new project:
