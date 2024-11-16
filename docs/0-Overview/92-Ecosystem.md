@@ -29,3 +29,4 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/encryptor](https://github.com/andrehrferreira/cmmv-encryptor)      | Provides cryptographic utilities including ECC-based encryption, AES-256-GCM, and BIP32 wallet management. |
 | [@cmmv/swagger](https://github.com/andrehrferreira/cmmv-swagger)          | Provides API documentation with Swagger integration, automatically generating OpenAPI specifications. |
 | [@cmmv/plugin-vite](https://github.com/andrehrferreira/cmmv-swagger)          | Enables Vite to interpret ``.cmmv`` files, similar to how Vue files are processed, with full support for CMMV syntax. |
+| [@cmmv/cli](https://github.com/andrehrferreira/cmmv-cli)                               | CLI tool to create and manage CMMV projects, enabling quick scaffolding and configuration of new applications. |
