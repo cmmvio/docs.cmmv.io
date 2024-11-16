@@ -1,8 +1,8 @@
 # First steps
 
-CMMV (Contract Model Model View) is a revolution in web application development, breaking paradigms and redefining how we create, maintain and scale digital projects. Inspired by best practices and innovative concepts, CMMV integrates the power of contracts to automatically generate robust and secure structures, eliminating the complexity of manual code and providing an unprecedented development experience.
+CMMV (Contract Model Model View) is a revolution in web application development, breaking paradigms and redefining how we create, maintain, and scale digital projects. Inspired by best practices and innovative concepts, CMMV integrates the power of contracts to automatically generate robust and secure structures, eliminating the complexity of manual code and providing an unprecedented development experience.
 
-Imagine a platform where the definition of contracts in TypeScript becomes the heart of your application, automatically generating APIs, controllers, ORM entities and even communication via binary RPC, all with optimized performance and seamless integration with the most modern technologies. With CMMV, you not only accelerate development, but also ensure the quality and consistency of your code, drastically reducing errors and rework.
+Imagine a platform where the definition of contracts in TypeScript becomes the heart of your application, automatically generating APIs, controllers, ORM entities, and even communication via binary RPC, all with optimized performance and seamless integration with the most modern technologies. With CMMV, you not only accelerate development, but also ensure the quality and consistency of your code, drastically reducing errors and rework.
 
 In addition, CMMV offers a reactive and lightweight interface, based on Vue 3, but with the ability to support other frameworks such as React and Angular, always focusing on performance and SEO. With CMMV, the frontend is not just a presentation layer, but an integral and dynamic part of your application, synchronized in real time with the backend.
 
@@ -12,12 +12,24 @@ Whether you are an experienced developer or a programming newbie, CMMV empowers 
 
 To run CMMV it will be necessary to have ``Node.js (version >= 18.0)`` installed in your operating system.
 
-## Setup
+## Setup with CLI
 
-Currently CMMV does not have any CI system, so to install it in your project you just need to install the modules.
+CMMV now provides a CLI (Command Line Interface) to streamline the installation process and quickly set up your project with the desired configurations.
+
+To initialize a new project, you can use the following command:
 
 ```bash
-$ pnpm add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
+pnpm dlx @cmmv/cli@latest init <project-name>
+```
+
+This command will walk you through a guided setup process, asking about your preferred configurations, such as enabling Vite, RPC, caching, repository type, and view setup (e.g., Vue 3 or Reactivity). It will automatically create the necessary files and folders, set up dependencies, and configure the project.
+
+## Legacy Setup (Manual)
+
+If you prefer to set up the project manually, you can still install the necessary modules individually:
+
+```bash
+$ pnpm add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata class-validator class-transformer fast-json-stringify
 ```
 
 ## Structure

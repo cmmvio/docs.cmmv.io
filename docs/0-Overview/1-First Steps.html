@@ -1,17 +1,28 @@
 <h1>First steps</h1><a id="first-steps" title="First steps"></a>
-<p>CMMV (Contract Model Model View) is a revolution in web application development, breaking paradigms and redefining how we create, maintain and scale digital projects. Inspired by best practices and innovative concepts, CMMV integrates the power of contracts to automatically generate robust and secure structures, eliminating the complexity of manual code and providing an unprecedented development experience.</p>
-<p>Imagine a platform where the definition of contracts in TypeScript becomes the heart of your application, automatically generating APIs, controllers, ORM entities and even communication via binary RPC, all with optimized performance and seamless integration with the most modern technologies. With CMMV, you not only accelerate development, but also ensure the quality and consistency of your code, drastically reducing errors and rework.</p>
+<p>CMMV (Contract Model Model View) is a revolution in web application development, breaking paradigms and redefining how we create, maintain, and scale digital projects. Inspired by best practices and innovative concepts, CMMV integrates the power of contracts to automatically generate robust and secure structures, eliminating the complexity of manual code and providing an unprecedented development experience.</p>
+<p>Imagine a platform where the definition of contracts in TypeScript becomes the heart of your application, automatically generating APIs, controllers, ORM entities, and even communication via binary RPC, all with optimized performance and seamless integration with the most modern technologies. With CMMV, you not only accelerate development, but also ensure the quality and consistency of your code, drastically reducing errors and rework.</p>
 <p>In addition, CMMV offers a reactive and lightweight interface, based on Vue 3, but with the ability to support other frameworks such as React and Angular, always focusing on performance and SEO. With CMMV, the frontend is not just a presentation layer, but an integral and dynamic part of your application, synchronized in real time with the backend.</p>
 <p>Whether you are an experienced developer or a programming newbie, CMMV empowers everyone to build powerful, scalable, modern systems by eliminating technical barriers and allowing creativity and innovation to be at the center of your development journey. It is more than a framework; it is a new way of thinking and building the future of web applications.</p>
 <h2>Prerequisites</h2><a id="prerequisites" title="Prerequisites"></a>
 <p>To run CMMV it will be necessary to have <code>Node.js (version &gt;= 18.0)</code> installed in your operating system.</p>
-<h2>Setup</h2><a id="setup" title="Setup"></a>
-<p>Currently CMMV does not have any CI system, so to install it in your project you just need to install the modules.</p>
+<h2>Setup with CLI</h2><a id="setup-with-cli" title="Setup with CLI"></a>
+<p>CMMV now provides a CLI (Command Line Interface) to streamline the installation process and quickly set up your project with the desired configurations.</p>
+<p>To initialize a new project, you can use the following command:</p>
 <div class="code-block-container">
                 <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
                     <i class="fa-regular fa-clone"></i>
                 </button>
-                <pre><code class="hljs language-bash" lang="bash"">$ pnpm add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata
+                <pre><code class="hljs language-bash" lang="bash"">pnpm dlx @cmmv/cli@latest init &lt;project-name&gt;
+</code></pre>
+             </div>
+<p>This command will walk you through a guided setup process, asking about your preferred configurations, such as enabling Vite, RPC, caching, repository type, and view setup (e.g., Vue 3 or Reactivity). It will automatically create the necessary files and folders, set up dependencies, and configure the project.</p>
+<h2>Legacy Setup (Manual)</h2><a id="legacy-setup-manual" title="Legacy Setup (Manual)"></a>
+<p>If you prefer to set up the project manually, you can still install the necessary modules individually:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ pnpm add @cmmv/core @cmmv/http @cmmv/view rxjs reflect-metadata class-validator class-transformer fast-json-stringify
 </code></pre>
              </div>
 <h2>Structure</h2><a id="structure" title="Structure"></a>
