@@ -7,13 +7,13 @@ The CMMV CLI simplifies project initialization by providing an interactive way t
 Install the CLI Globally: To use the CLI globally on your system, install it using ``pnpm``:
 
 ```bash 
-pnpm add -g cmmv-cli
+$ pnpm add -g cmmv-cli
 ```
 
 Create a New Project: Run the ``cmmv init`` command to create a new project:
 
 ```bash
-cmmv init <project-name>
+$ cmmv init <project-name>
 ```
 
 This will start an interactive prompt asking for your project preferences, such as:
@@ -30,7 +30,7 @@ This will start an interactive prompt asking for your project preferences, such 
 If you don't want to install the CLI globally, use ``pnpm dlx`` to execute it directly:
 
 ```bash
-pnpm dlx cmmv@latest init <project-name>
+$ pnpm dlx @cmmv/cli@latest init <project-name>
 ```
 
 This ensures you always use the latest version of the CLI without requiring a global installation.
@@ -86,23 +86,23 @@ The CLI generates a structured project folder with necessary files and directori
 Development Mode:
 
 ```bash
-pnpm dev
+$ pnpm dev
 ```
 
 Build for Production:
 
 ```bash
-pnpm build
+$ pnpm build
 ```
 
 Start Production Server:
 
 ```bash
-pnpm start
+$ pnpm start
 ```
 
 Run Tests (if Vitest is enabled):
 
 ```bash
-pnpm test
+$ pnpm test
 ```

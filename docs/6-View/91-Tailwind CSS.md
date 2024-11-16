@@ -1,8 +1,8 @@
-# Tailwind
+# Tailwind CSS
 
 Follow these steps to integrate [TailwindCSS](https://tailwindcss.com/) into your CMMV project for enhanced styling capabilities:
 
-### Install TailwindCSS
+## Install TailwindCSS
 
 Run the following command to add TailwindCSS as a development dependency:
 
@@ -10,7 +10,7 @@ Run the following command to add TailwindCSS as a development dependency:
 pnpm add -D tailwindcss
 ```
 
-### Enable Tailwind
+## Enable Tailwind
 
 Modify your CMMV configuration file to enable TailwindCSS. Add ``tailwind: true`` under the ``view`` section:
 
@@ -27,7 +27,7 @@ module.exports = {
 };
 ```
 
-### Create a TailwindCSS Entry File
+## Create entry file
 
 Create a new file ``src/tailwind.css`` in your project and add the Tailwind directives:
 
@@ -37,7 +37,7 @@ Create a new file ``src/tailwind.css`` in your project and add the Tailwind dire
 @tailwind utilities;
 ```
 
-### Create the Tailwind Configuration
+## Create configuration
 
 Generate a ``tailwind.config.js`` file at the root of your project with the following content:
 
@@ -54,12 +54,12 @@ module.exports = {
 };
 ```
 
-### Finalizing TailwindCSS Integration
+## Finalizing integration
 
 To ensure TailwindCSS is correctly applied to your project, you need to include the generated CSS file in your application. There are two methods to achieve this: adding the ``<link>`` tag directly to your template or configuring it via the settings.
 
 
-#### Method 1: Add the <link> Tag in the Template
+### Method 1: Add the <link> Tag in the Template
 
 Edit your template file (e.g., ``public/templates/default.html``) and include the following ``<link>`` tag in the ``<head>`` section:
 
@@ -77,7 +77,9 @@ Edit your template file (e.g., ``public/templates/default.html``) and include th
 </html>
 ```
 
-#### Method 2: Add CSS via Settings in .cmmv.config.js
+<br/>
+
+### Method 2: Add CSS via Settings in .cmmv.config.js
 
 Alternatively, you can configure the inclusion of the CSS file in the head property within the view settings in ``.cmmv.config.js``:
 
