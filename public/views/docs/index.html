@@ -1,58 +1,71 @@
-<div id="app" s:docs="docs" :class="$style.docs.app" c-cloak>
+<div 
+    s:docs="docs" 
+    class="bg-gray-200 dark:bg-gray-900"
+    id="app"
+    v-cloak
+>
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
-        <div class="w-full mx-auto flex items-center" style="background-color: transparent !important;">
+        <div 
+            class="w-full mx-auto flex items-center" 
+            style="background-color: transparent !important;"
+        >
             <button 
                 id="menu-toggle" 
                 name="Navbar Button"
                 aria-label="Navbar Button" 
-                :class="[($style.theme === 'default') ? 'text-black' : 'text-slate-50', 'text-white text-2xl p-2 lg:hidden ml-2']"
+                class="text-slate-700 dark:text-slate-200 text-2xl p-2 lg:hidden ml-2"
             >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
             <div class="w-60">
-                <a href="/" title="CMMV - Contract Model Model View Framework" class="text-white ml-4 flex items-center">
+                <a 
+                    href="/" 
+                    title="CMMV - Contract Model Model View Framework" 
+                    class="text-white ml-4 flex items-center"
+                >
                     <img src="/assets/favicon/android-chrome-192x192.png" alt="CMMV Logo" height="32" width="32">
-                    <span :class="styles.docs.title">CMMV</span>
+                    <span class="ml-2 text-lg text-slate-700 dark:text-slate-200 font-semibold">CMMV</span>
                 </a>
             </div>           
 
             <div class="justify-between w-full text mr-2 flex">
                 <div 
-                    :class="[($style.theme === 'default') ? 'text-black' : 'text-slate-50', 'relative text-left items-center gap-x-8 lg:flex hidden']">
+                    class="text-black dark:text-slate-50 relative text-left items-center gap-x-8 lg:flex hidden"
+                >
                     <ul class="flex gap-x-8 items-center lg:flex">                        
                         <li class="relative">
                             <a 
                                 href="/docs/overview/first-steps" 
-                                class="text-sm/6 font-semibold flex items-center gap-1"
+                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="Server"
                             >Getting Started</a>
                         </li>
                         <li class="relative">
                             <a 
                                 href="/docs/server/overview" 
-                                class="text-sm/6 font-semibold flex items-center gap-1"
+                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="Server"
                             >Server</a>
                         </li>
                         <li class="relative"> 
                             <a 
                                 href="/docs/contracts/overview" 
-                                class="text-sm/6 font-semibold flex items-center gap-1"
+                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="Contracts"
                             >Contracts</a>
                         </li>
                         <li class="relative"> 
                             <a 
                                 href="/docs/rpc/overview" 
-                                class="text-sm/6 font-semibold flex items-center gap-1"
+                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="RPC"
                             >RPC</a>
                         </li>
                         <li class="relative"> 
                             <a 
                                 href="/docs/view/overview" 
-                                class="text-sm/6 font-semibold flex items-center gap-1"
+                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="View"
                             >View</a>
                         </li>
@@ -66,44 +79,88 @@
             </div>
 
             <div class="justify-between align-middle text-center mr-2 text-white flex">
-                <a href="#" title="Switch Theme" class="text-2xl p-2 hover:text-neutral-300" @click.stop="toggleTheme()">
-                    <div c-show="$style.theme === 'default'" class="text-black">
+                <!-- Theme Switch Button -->
+                <a 
+                    href="#" 
+                    title="Switch Theme" 
+                    class="text-2xl py-3 px-2 hover:text-neutral-300"
+                    onclick="toggleTheme()"
+                >
+                    <div class="text-black">
                         <i class="fa-solid fa-moon"></i>
                     </div>
-                    <div c-show="$style.theme === 'dark'" class="text-slate-50">
+                    <div class="text-slate-50">
                         <i class="fa-solid fa-sun"></i>
                     </div>
                 </a>
-
+            
+                <!-- GitHub Link -->
                 <a 
                     href="https://github.com/andrehrferreira/cmmv" 
                     title="Github" 
                     target="_blank" 
-                    :class="[($style.theme === 'default') ? 'text-black' : 'text-slate-50', 'text-2xl p-2 hover:text-neutral-300']"
+                    class="text-black dark:text-slate-50 text-2xl p-2 hover:text-neutral-300"
                 >
                     <i class="fa-brands fa-github"></i>
                 </a>
             </div>
+
+            <script>
+                function setTheme(theme) {
+                    const htmlTag = document.documentElement; // The <html> tag
+                    const moonIcon = document.querySelector('.fa-moon'); // Moon icon
+                    const sunIcon = document.querySelector('.fa-sun'); // Sun icon
+
+                    if (theme === 'dark') {
+                        htmlTag.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                        moonIcon.style.display = 'none';
+                        sunIcon.style.display = 'block';
+                    } else {
+                        htmlTag.classList.remove('dark');
+                        localStorage.setItem('theme', 'default');
+                        moonIcon.style.display = 'block';
+                        sunIcon.style.display = 'none';
+                    }
+                }
+
+                function toggleTheme() {
+                    const currentTheme = localStorage.getItem('theme');
+                    if (currentTheme === 'dark') {
+                        setTheme('default');
+                    } else {
+                        setTheme('dark');
+                    }
+                }
+            
+                document.addEventListener('DOMContentLoaded', () => {
+                    const storedTheme = localStorage.getItem('theme') || 'default';
+                    setTheme(storedTheme);
+                });
+            </script>
         </div>
     </nav>
 
     <div class="flex flex-wrap mx-auto">
-        <div id="sidebar-menu" :class="$style.docs.sideMenu" c-cloak>
+        <div 
+            id="sidebar-menu" 
+            class="w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 dark:bg-gray-800 h-screen lg:block">
             <!-- include('public/views/docs/navbar') -->
         </div>
+
         <div class="mt-16 ml-64 text-justify relative">
-             <!-- include('public/views/docs/anchors'); -->
+            <!-- include('public/views/docs/anchors'); -->
 
             <div 
                 class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
-                :class="{'w-full': docs.anchors.length < 3}"
+                :class="{'w-full': docs?.anchors.length < 3}"
             >
-                <div :class="$style.docs.mainText">
-                    <div c-html="docs.index" s-data="docs.index"></div>
+                <div class="text-slate-800 dark:text-white relative text-white mb-20 context-html">
+                    <div s-data="docs.index" v-html="docs.index"></div>
 
                     <div class="absolute top-0 right-0">
                         <a 
-                            :href="`https://github.com/andrehrferreira/docs.cmmv.io/tree/main/${docs.link?.replace('.html', '.md')}?plain=1`" 
+                            :href="`https://github.com/andrehrferreira/docs.cmmv.io/tree/main/${docs?.link.replace('.html', '.md')}?plain=1`" 
                             target="_blank" 
                             title="Suggest change"
                         >
@@ -113,25 +170,25 @@
 
                     <hr />
 
-                    <div class="grid gap-8 sm:grid-cols-2 footer" c-if="docs.links.prev.link || docs.links.next.link">
+                    <div class="grid gap-8 sm:grid-cols-2 footer" v-if="docs?.links.prev.link || docs?.links.next.link">
                         <a 
-                            :href="`/${docs.links.prev.link}`" 
+                            :href="`/${docs?.links.prev.link}`" 
                             class="block px-6 py-8 border not-prose rounded-lg border-gray-600 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
-                            c-show="docs.links.prev.title"
+                            v-show="docs?.links.prev.title"
                         >
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
                                 <span class="fa-solid fa-arrow-left i-ph:arrow-left w-5 h-5 text-gray-900 dark:text-white group-hover:text-primary" aria-hidden="true"></span>
                             </div>
-                            <p class="font-medium text-gray-900 dark:text-white text-[15px] mb-1">{{ docs.links.prev.title }}</p>
-                            <p class="text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2">{{ docs.links.prev.desc }}</p>
+                            <p class="font-medium text-gray-900 dark:text-white text-[15px] mb-1">{{ docs?.links.prev.title }}</p>
+                            <p class="text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2">{{ docs?.links.prev.desc }}</p>
                         </a>
                 
-                        <a :href="`/${docs.links.next.link}`" class="block px-6 py-8 border not-prose rounded-lg border-gray-200 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group text-right">
+                        <a :href="`/${docs?.links.next.link}`" class="block px-6 py-8 border not-prose rounded-lg border-gray-200 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group text-right">
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
                                 <span class="fa-solid fa-arrow-right i-ph:arrow-left w-5 h-5 text-gray-900 dark:text-white group-hover:text-primary" aria-hidden="true"></span>
                             </div>
-                            <p class="font-medium text-gray-900 dark:text-white text-[15px] mb-1">{{ docs.links.next.title }}</p>
-                            <p class="text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2">{{ docs.links.next.desc }}</p>
+                            <p class="font-medium text-gray-900 dark:text-white text-[15px] mb-1">{{ docs?.links.next.title }}</p>
+                            <p class="text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2">{{ docs?.links.next.desc }}</p>
                         </a>
                     </div>
                 </div>
@@ -140,12 +197,31 @@
     </div>
 </div>
 
+<style scoped>
+.toggle-enter-active,
+.toggle-leave-active {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.toggle-enter-from,
+.toggle-leave-to {
+    max-height: 0;
+    opacity: 0;
+}
+
+.toggle-enter-to,
+.toggle-leave-from {
+    max-height: 500px; /* Valor máximo para a altura expandida */
+    opacity: 1;
+}
+
+</style>
+
 <script 
     type="application/ld+json" 
     s-data="docs.links.ldjson"
 ></script>
 
-<!-- JavaScript -->
 <script s-attr="nonce" defer>
     function updateCurrent(){
         const scrollPosition = window.scrollY;
@@ -212,16 +288,11 @@ export default {
         return { navbar: [] }
     },
 
-    async mounted() {
-        this.loadState();
-        this.$style.load();        
+    mounted() {
+        this.loadState();  
     },
 
     methods: {
-        toggleTheme(){
-            this.styles.switch((this.styles.theme === "default") ? "dark" : "default");
-        },
-
         loadState(){
             this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
             return this.navbar;
@@ -231,14 +302,11 @@ export default {
             localStorage.setItem('navbarState', JSON.stringify(state));
         },
 
-        toggle(isOpened, itemName) {
-            isOpened = !isOpened;
-
+        toggle(itemName) {
             const currentState = this.loadState();
-            currentState[itemName] = isOpened;
+            currentState[itemName] = !currentState[itemName];
             this.saveState(currentState);
-
-            return isOpened;
+            this.navbar[itemName] = currentState[itemName];
         }
     }
 }

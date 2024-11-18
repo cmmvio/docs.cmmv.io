@@ -19,6 +19,7 @@ module.exports = {
                 contentSecurityPolicy: false
             }
         },
+        vite: true,
         session: {
             enabled: true,
             options: {
@@ -45,13 +46,14 @@ module.exports = {
 
     view: {
         extractInlineScript: false,
-        minifyHTML: true
+        minifyHTML: true,
+        vue3: true
     },
 
     head: {
         title: "Documentation | CMMV - A minimalistic Node.js framework",
         htmlAttrs: {
-            lang: "pt-br"
+            lang: "en-US"
         },
         meta: [
             { charset: 'utf-8' },
@@ -68,15 +70,14 @@ module.exports = {
             { property: "og:type", content: "website" },
             { property: "og:image", content: "" },
             { property: "og:image:alt", content: "altText of the image" },
-            { property: "og:site_name", content: "CMMV" },
-            { name: "ahrefs-site-verification", content: "" },
+            { property: "og:site_name", content: "CMMV" }
         ],
         link: [
             { rel: 'icon', href: '/assets/favicon/favicon.ico' },
             { rel: 'shortcut', href: '/assets/favicon/favicon-32x32.png' },
             { rel: 'apple-touch-icon', href: '/assets/favicon/favicon-32x32.png' },
-            { rel: "dns-prefetch", href: "https://docs.cmmv.io" },
-            { rel: "preconnect", href: "https://docs.cmmv.io" },             
+            { rel: "dns-prefetch", href: "https://cmmv.io" },
+            { rel: "preconnect", href: "https://cmmv.io" },             
             { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
             { rel: "stylesheet", href: "/assets/docs.css" }            
         ]

@@ -1,33 +1,38 @@
-<div class="p-4 select-none top-16" c-cloak c-show="docs">
-    <s-for c-for="(item, key) in docs.navbar" render-tag="li">
-        <div 
-            c-show="item"
-            class="flex hover:text-blue-700 itemRoot" 
-            :id="item?.name.replace(/\s/,'_')" 
-            :data-opened="false" 
-            @click.stop="navbar[item?.name.replace(/\s/, `_`)] = toggle(navbar[item?.name.replace(/\s/, `_`)], item.name?.replace(/\s/, `_`))"
+<div class="p-4 select-none top-16 text-slate-700 dark:text-slate-200">
+    <div v-for="(item, key) in docs.navbar" :key="key">
+        <div
+            class="flex hover:text-blue-700 itemRoot"
+            :id="item?.name.replace(/\s/, '_')"
+            @click.stop="toggle(item.name?.replace(/\s/, '_'))"
         >
             <div class="flex flex-1 font-bold text-md cursor-pointer navbar-item">
-                <h3 c-if="item && item?.isDir">{{ item?.name }}</h3>
-                <span c-else>{{ item?.name }}</span>
+                <h3 v-if="item && item?.isDir">{{ item?.name }}</h3>
+                <span v-else>{{ item?.name }}</span>
             </div>
 
-            <div class="justify-between cursor-pointer" c-if="item?.isDir">
-                <i :class="navbar[item?.name.replace(/\s/, `_`)] ? 'fa-solid fa-angle-down' : 'fa-solid fa-angle-up'"></i>
-            </div>
-        </div>
-
-        <div 
-            c-if="item && item.children && item.children.length > 0"
-            :id="`${item?.name.replace(/\s/, `_`)}_contents`" 
-            class="p-4 py-1 text-md mb-4"
-            :style="(navbar[item?.name.replace(/\s/, `_`)]) ? '' : 'display: none;'"
-        >
-            <div c-for="(child) in item.children">
-                <div class="hover:text-gray-800 text-base p-1" style="font-size: 10px">
-                    <a :href="child.uri" class="text-base">{{ child.name }}</a>
+            <div class="justify-between cursor-pointer" v-if="item?.isDir">
+                <div v-if="navbar && navbar[item?.name.replace(/\s/, '_')] === true">
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div v-else>
+                    <i class="fa-solid fa-angle-up"></i>
                 </div>
             </div>
         </div>
-    </s-for>
+
+        <!-- Content with transition -->
+        <transition name="toggle">
+            <div
+                v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
+                :id="`${item?.name.replace(/\s/, '_')}_contents`"
+                class="p-4 py-1 text-md mb-4"
+            >
+                <div v-for="(child) in item.children" :key="child.name">
+                    <div class="hover:text-gray-800 text-base p-1" style="font-size: 10px">
+                        <a :href="child.uri" class="text-base hover:text-blue-500">{{ child.name }}</a>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
 </div>
