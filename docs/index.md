@@ -1,7 +1,7 @@
 <p align="center">
   <img src="assets/logo_CMMV2_icon.png" width="300" alt="CMMV Logo" />
 </p>
-<p align="center">Contract-Model-Model-View (CMMV) <br/> A minimalistic framework for building scalable and modular applications using TypeScript contracts.</p>
+<p align="center">Contract-Model-Model-View (CMMV) <br/> Building scalable and modular applications using contracts.</p>
 <div class="flex flex-container">
     <a href="https://www.npmjs.com/package/@cmmv/core">
         <img src="https://img.shields.io/npm/v/@cmmv/core.svg" alt="NPM Version" />
