@@ -1,4 +1,28 @@
 <h1>Changelog</h1><a id="changelog" title="Changelog"></a>
+<h2>Version 0.6.0 (November 26, 2024)</h2><a id="version-060-november-26-2024" title="Version 0.6.0 (November 26, 2024)"></a>
+<h3>New Features</h3>
+<ul>
+<li><strong>Inspector Module</strong>:<br>
+Added the <code>@cmmv/inspector</code> module for debugging and monitoring CMMV applications. The module provides runtime insights, performance profiling, and analysis of critical bottlenecks.</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li><strong>Performance Optimization</strong>:<br>
+Using insights from the Inspector module’s profiling, critical server-side functions were optimized. This resulted in a performance increase from an average of 71.1k to 79k requests per second in benchmark tests, an improvement of approximately 8-10% in response times.</li>
+<li><strong>Documentation Update</strong>:<br>
+Updated documentation to include the new Inspector module and its usage in the ecosystem.</li>
+<li><strong>Benchmark Revamp</strong>:<br>
+Re-performed and documented benchmarks with the optimized server, reflecting the improved performance metrics.</li>
+</ul>
+<h3>Changes</h3>
+<ul>
+<li><strong>Removed Fast-JSON-Stringify from Samples</strong>:<br>
+Removed <code>fast-json-stringify</code> from samples as the schema needs to be processed during application startup. This feature will be revisited and potentially optimized in future releases.</li>
+</ul>
+<h3>Notes for Upcoming Versions</h3>
+<ul>
+<li>Plan to integrate schema processing during the application’s startup to improve the usability of <code>fast-json-stringify</code> without performance degradation.</li>
+</ul>
 <h2>Version 0.5.5 (November 16, 2024)</h2><a id="version-055-november-16-2024" title="Version 0.5.5 (November 16, 2024)"></a>
 <h3>New Features</h3>
 <ul>

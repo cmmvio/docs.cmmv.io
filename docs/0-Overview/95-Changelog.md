@@ -1,5 +1,30 @@
 # Changelog
 
+## Version 0.6.0 (November 26, 2024)
+
+### New Features
+
+- **Inspector Module**:  
+  Added the `@cmmv/inspector` module for debugging and monitoring CMMV applications. The module provides runtime insights, performance profiling, and analysis of critical bottlenecks.
+  
+### Improvements
+
+- **Performance Optimization**:  
+  Using insights from the Inspector module's profiling, critical server-side functions were optimized. This resulted in a performance increase from an average of 71.1k to 79k requests per second in benchmark tests, an improvement of approximately 8-10% in response times.
+- **Documentation Update**:  
+  Updated documentation to include the new Inspector module and its usage in the ecosystem.
+- **Benchmark Revamp**:  
+  Re-performed and documented benchmarks with the optimized server, reflecting the improved performance metrics.
+
+### Changes
+
+- **Removed Fast-JSON-Stringify from Samples**:  
+  Removed `fast-json-stringify` from samples as the schema needs to be processed during application startup. This feature will be revisited and potentially optimized in future releases.
+
+### Notes for Upcoming Versions
+
+- Plan to integrate schema processing during the application's startup to improve the usability of `fast-json-stringify` without performance degradation.
+
 ## Version 0.5.5 (November 16, 2024)
 
 ### New Features
