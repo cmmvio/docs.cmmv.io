@@ -1,0 +1,171 @@
+<h1>Queries</h1><a id="queries" title="Queries"></a>
+<p>The <code>findAll</code> function in the repository layer has been enhanced to support dynamic query filtering and is compatible with both SQL and MongoDB databases. The caching system provided by <code>@cmmv/cache</code> has also been updated to support multiple filters, improving flexibility and performance.</p>
+<p>Fetches all records of a specified entity, applying filters, pagination, and sorting dynamically based on the provided <code>queries</code>. This method is compatible with both SQL and MongoDB, adapting its behavior based on the database type.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit</code></td>
+<td><em>(number)</em></td>
+<td>Specifies the maximum number of results to return.</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td><em>(number)</em></td>
+<td>Specifies the number of results to skip.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td><em>(string)</em></td>
+<td>Specifies the field by which to sort the results.</td>
+<td><code>'id'</code></td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td><em>(string)</em></td>
+<td>Specifies the sort order. Possible values are <code>'asc'</code> and <code>'desc'</code>.</td>
+<td><code>'asc'</code></td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td><em>(string)</em></td>
+<td>Performs a case-insensitive search on the specified field.</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>searchField</code></td>
+<td><em>(string)</em></td>
+<td>Specifies the field to perform the search operation on.</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Additional Filters</strong></td>
+<td><em>(varied)</em></td>
+<td>Any additional query parameters are dynamically applied as filters based on the entity’s field names.</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>SQL Query Handling:</p>
+<ul>
+<li>Converts <code>search</code> and <code>searchField</code> into <code>LIKE</code> conditions.</li>
+<li>Dynamically builds the <code>WHERE</code> clause based on <code>filters</code>.</li>
+<li>Uses <code>LIMIT</code>, <code>OFFSET</code>, and <code>ORDER BY</code> for pagination and sorting.</li>
+</ul>
+</li>
+<li>
+<p>MongoDB Query Handling:</p>
+<ul>
+<li>Uses <code>$regex</code> for case-insensitive searches.</li>
+<li>Dynamically applies filters as part of the MongoDB <code>find</code> query.</li>
+<li>Supports <code>skip</code>, <code>limit</code>, and sorting using MongoDB-compatible syntax.</li>
+</ul>
+</li>
+</ol>
+<h3>Example</h3>
+<br/>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">const</span> tasks = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Repository</span>.<span class="hljs-title function_">findAll</span>(<span class="hljs-title class_">TaskEntity</span>, {
+    <span class="hljs-attr">limit</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-attr">offset</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">sortBy</span>: <span class="hljs-string">&#x27;createdAt&#x27;</span>,
+    <span class="hljs-attr">sort</span>: <span class="hljs-string">&#x27;desc&#x27;</span>,
+    <span class="hljs-attr">search</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-attr">searchField</span>: <span class="hljs-string">&#x27;name&#x27;</span>,
+    <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;active&#x27;</span>,
+}); 
+</code></pre>
+             </div>
+<h2>Caching</h2><a id="caching" title="Caching"></a>
+<p>If the @cmmv/cache module is configured in the system, the caching mechanism dynamically adjusts the cache key to include query parameters such as search, ensuring that filtered results are cached under unique keys. This allows the system to cache and retrieve results efficiently, even when queries involve dynamic filters like limit, offset, or searchField.</p>
+<p>When a controller method is decorated with @Cache, the following steps occur:</p>
+<ol>
+<li>
+<p>Base Cache Key:<br>
+The base key provided in the decorator (e.g., <code>&quot;task:getAll&quot;</code>) is used.</p>
+</li>
+<li>
+<p>Query Parameters:<br>
+If the request includes query parameters such as <code>search</code> or <code>searchField</code>, these are appended to the cache key. For example:</p>
+</li>
+</ol>
+<ul>
+<li>Request:<br>
+<code>GET /api/tasks?search=John&amp;searchField=name&amp;limit=10</code></li>
+<li>Cache Key:<br>
+<code>task:getAll:search=John&amp;searchField=name&amp;limit=10</code></li>
+</ul>
+<h3>Example</h3>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-meta">@Get</span>()
+<span class="hljs-meta">@Cache</span>(<span class="hljs-string">&quot;task:getAll&quot;</span>, { <span class="hljs-attr">ttl</span>: <span class="hljs-number">300</span>, <span class="hljs-attr">compress</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">schema</span>: <span class="hljs-title class_">TaskFastSchema</span> })
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-params"><span class="hljs-meta">@Queries</span>() <span class="hljs-attr">queries</span>: <span class="hljs-built_in">any</span>, <span class="hljs-meta">@Request</span>() req</span>) {
+    <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">start</span>(<span class="hljs-string">&#x27;TaskController::GetAll&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">getAll</span>(queries, req);
+    <span class="hljs-title class_">Telemetry</span>.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;TaskController::GetAll&#x27;</span>, req.<span class="hljs-property">requestId</span>);
+    <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+             </div>
+<h2>Example Workflow</h2><a id="example-workflow" title="Example Workflow"></a>
+<p>Client sends a GET request with query parameters:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs"">GET /api/tasks?search=John&amp;searchField=name&amp;limit=5
+</code></pre>
+             </div>
+<p><strong>Controller</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-meta">@Get</span>()
+<span class="hljs-meta">@Cache</span>(<span class="hljs-string">&quot;task:getAll&quot;</span>, { <span class="hljs-attr">ttl</span>: <span class="hljs-number">300</span>, <span class="hljs-attr">compress</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">schema</span>: <span class="hljs-title class_">TaskFastSchema</span> })
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">getAll</span>(<span class="hljs-params"><span class="hljs-meta">@Queries</span>() <span class="hljs-attr">queries</span>: <span class="hljs-built_in">any</span>, <span class="hljs-meta">@Request</span>() req</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">taskservice</span>.<span class="hljs-title function_">getAll</span>(queries, req);
+}
+</code></pre>
+             </div>
+<p><strong>SQL</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-sql" lang="sql""><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> tasks <span class="hljs-keyword">WHERE</span> <span class="hljs-built_in">LOWER</span>(name) <span class="hljs-keyword">LIKE</span> <span class="hljs-built_in">LOWER</span>(<span class="hljs-string">&#x27;%John%&#x27;</span>) LIMIT <span class="hljs-number">5</span> <span class="hljs-keyword">OFFSET</span> <span class="hljs-number">0</span>;
+</code></pre>
+             </div>
+<p><strong>MongoDB</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-javascript" lang="javascript"">{ <span class="hljs-attr">name</span>: { <span class="hljs-attr">$regex</span>: <span class="hljs-regexp">/John/i</span> } }
+</code></pre>
+             </div>
+<p><strong>Cache Key</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs"">task:getAll:search=John&amp;searchField=name&amp;limit=5
+</code></pre>
+             </div>

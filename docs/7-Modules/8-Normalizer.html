@@ -1,0 +1,419 @@
+<h1>Normalizer</h1><a id="normalizer" title="Normalizer"></a>
+<p>The <code>@cmmv/normalizer</code> module provides a robust and efficient way to normalize data from various formats (JSON, XML, YML) using schemas, transformations, and validations. Designed for scalability, it uses streams to process large files with minimal memory consumption. The module seamlessly integrates with other <code>@cmmv</code> modules, maintaining data consistency through models and contracts. Additionally, it supports tokenization for sensitive data using the <code>@cmmv/encryptor</code>, allowing secure storage of encrypted objects and strings.</p>
+<h2>Features</h2><a id="features" title="Features"></a>
+<ul>
+<li><strong>Data Normalization:</strong> Normalize and validate data using customizable schemas with transform and validation rules.</li>
+<li><strong>Stream-Based Processing:</strong> Efficiently handle large files (JSON, XML, YML) with low memory usage.</li>
+<li><strong>Tokenization:</strong> Encrypt sensitive fields using <code>@cmmv/encryptor</code> with AES-256 and elliptic curve key generation.</li>
+<li><strong>Seamless Integration:</strong> Works with @cmmv models and contracts to ensure consistent data handling.</li>
+<li><strong>Extensibility:</strong> Easily extend with custom transformations and validators.</li>
+</ul>
+<h2>Installation</h2><a id="installation" title="Installation"></a>
+<p>To install the @cmmv/normalizer module:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ pnpm add @cmmv/normalizer @cmmv/encryptor
+</code></pre>
+             </div>
+<h2>Example</h2><a id="example" title="Example"></a>
+<p>The following example demonstrates how to normalize a large JSON file using <code>JSONParser</code> and a schema with custom transformations and validations.</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> {
+    <span class="hljs-title class_">JSON</span>Parser,
+    <span class="hljs-title class_">AbstractParserSchema</span>,
+    <span class="hljs-title class_">ToLowerCase</span>,
+    <span class="hljs-title class_">Tokenizer</span>,
+    <span class="hljs-title class_">ToDate</span>,
+    <span class="hljs-title class_">ToObjectId</span>,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/normalizer&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CustomersContract</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src/contracts/customers.contract&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Customers</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../src/models/customers.model&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ECKeys</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/encryptor&#x27;</span>;
+
+<span class="hljs-comment">// Generate encryption keys</span>
+<span class="hljs-keyword">const</span> keys = <span class="hljs-title class_">ECKeys</span>.<span class="hljs-title function_">generateKeys</span>();
+<span class="hljs-keyword">const</span> tokenizer = <span class="hljs-title class_">Tokenizer</span>({
+    <span class="hljs-attr">publicKey</span>: <span class="hljs-title class_">ECKeys</span>.<span class="hljs-title function_">getPublicKey</span>(keys),
+});
+
+<span class="hljs-comment">// Define schema</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomerParserSchema</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractParserSchema</span> {
+    <span class="hljs-keyword">public</span> field = {
+        <span class="hljs-attr">id</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;id&#x27;</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToObjectId</span>],
+        },
+        <span class="hljs-attr">name</span>: { <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;name&#x27;</span> },
+        <span class="hljs-attr">email</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;email&#x27;</span>,
+            <span class="hljs-attr">validation</span>: <span class="hljs-regexp">/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToLowerCase</span>],
+        },
+        <span class="hljs-attr">phoneNumber</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;phone&#x27;</span>,
+            <span class="hljs-attr">transform</span>: [tokenizer],
+        },
+        <span class="hljs-attr">registrationDate</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;createdAt&#x27;</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToDate</span>],
+        },
+    };
+}
+
+<span class="hljs-comment">// Parse JSON file</span>
+<span class="hljs-keyword">new</span> <span class="hljs-title class_">JSON</span>Parser({
+    <span class="hljs-attr">contract</span>: <span class="hljs-title class_">CustomersContract</span>,
+    <span class="hljs-attr">schema</span>: <span class="hljs-title class_">CustomerParserSchema</span>,
+    <span class="hljs-attr">model</span>: <span class="hljs-title class_">Customers</span>,
+    <span class="hljs-attr">input</span>: <span class="hljs-string">&#x27;./sample/large-customers.json&#x27;</span>,
+})
+.<span class="hljs-title function_">pipe</span>(<span class="hljs-keyword">async</span> data =&gt; {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);
+})
+.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;end&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;End process!&#x27;</span>))
+.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(error))
+.<span class="hljs-title function_">start</span>();
+</code></pre>
+             </div>
+<h2>Custom Parser</h2><a id="custom-parser" title="Custom Parser"></a>
+<p>Below is an implementation of a custom CSV parser that follows the same structure and methodology as your JSONParser. It processes large CSV files line by line using streams, ensuring low memory usage and efficient processing:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> readline <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:readline&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractParser</span>, <span class="hljs-title class_">ParserOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/normalizer&#x27;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CSVParser</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractParser</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">options?: <span class="hljs-title class_">ParserOptions</span></span>) {
+        <span class="hljs-variable language_">super</span>();
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span> = options;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-title function_">start</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">const</span> inputPath = path.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">input</span>);
+
+        <span class="hljs-keyword">if</span> (fs.<span class="hljs-title function_">existsSync</span>(inputPath)) {
+            <span class="hljs-keyword">const</span> readStream = fs.<span class="hljs-title function_">createReadStream</span>(inputPath);
+
+            <span class="hljs-keyword">const</span> rl = readline.<span class="hljs-title function_">createInterface</span>({
+                <span class="hljs-attr">input</span>: readStream,
+                <span class="hljs-attr">crlfDelay</span>: <span class="hljs-title class_">Infinity</span>, <span class="hljs-comment">// Handle all newlines (Windows, Unix)</span>
+            });
+
+            <span class="hljs-keyword">let</span> <span class="hljs-attr">headers</span>: <span class="hljs-built_in">string</span>[] | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
+
+            rl.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;line&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">line</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (!headers) {
+                    <span class="hljs-comment">// First line contains headers</span>
+                    headers = line.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);
+                    <span class="hljs-keyword">return</span>;
+                }
+
+                <span class="hljs-comment">// Map CSV columns to header fields</span>
+                <span class="hljs-keyword">const</span> values = line.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);
+                <span class="hljs-keyword">const</span> record = headers.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, header, index</span>) =&gt;</span> {
+                    acc[header.<span class="hljs-title function_">trim</span>()] = values[index]?.<span class="hljs-title function_">trim</span>();
+                    <span class="hljs-keyword">return</span> acc;
+                }, {});
+
+                <span class="hljs-comment">// Process each record</span>
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">processData</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, record);
+            });
+
+            rl.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">finalize</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">this</span>));
+            rl.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">this</span>, error));
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`File not found: <span class="hljs-subst">${inputPath}</span>`</span>);
+        }
+    }
+}
+</code></pre>
+             </div>
+<h3>Parsing a CSV File</h3>
+<p>Here’s how you can use the CSVParser to parse a CSV file and normalize its data:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs"">id,name,email,phoneNumber,registrationDate
+1,John Doe,john.doe@example.com,1234567890,2023-11-01
+2,Jane Smith,jane.smith@example.com,0987654321,2023-11-15
+</code></pre>
+             </div>
+<p><strong>Schema and Parser Usage</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">CSVParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./parsers/csv.parser&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractParserSchema</span>, <span class="hljs-title class_">ToDate</span>, <span class="hljs-title class_">ToLowerCase</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/normalizer&#x27;</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomerParserSchema</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractParserSchema</span> {
+    <span class="hljs-keyword">public</span> field = {
+        <span class="hljs-attr">id</span>: { <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;id&#x27;</span> },
+        <span class="hljs-attr">name</span>: { <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;name&#x27;</span> },
+        <span class="hljs-attr">email</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;email&#x27;</span>,
+            <span class="hljs-attr">validation</span>: <span class="hljs-regexp">/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToLowerCase</span>],
+        },
+        <span class="hljs-attr">phoneNumber</span>: { <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;phone&#x27;</span> },
+        <span class="hljs-attr">registrationDate</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;createdAt&#x27;</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToDate</span>],
+        },
+    };
+}
+
+<span class="hljs-keyword">new</span> <span class="hljs-title class_">CSVParser</span>({
+    <span class="hljs-attr">schema</span>: <span class="hljs-title class_">CustomerParserSchema</span>,
+    <span class="hljs-attr">model</span>: <span class="hljs-literal">null</span>, <span class="hljs-comment">// Optional: Use a model for further validation/mapping</span>
+    <span class="hljs-attr">input</span>: <span class="hljs-string">&#x27;./sample/customers.csv&#x27;</span>,
+})
+.<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">async</span> (data) =&gt; {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data); <span class="hljs-comment">// Normalized data</span>
+})
+.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;end&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Parsing completed!&#x27;</span>))
+.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Error during parsing:&#x27;</span>, error))
+.<span class="hljs-title function_">start</span>();
+</code></pre>
+             </div>
+<p><strong>Output</strong></p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-json" lang="json""><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;John Doe&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;john.doe@example.com&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;phone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1234567890&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-11-01T00:00:00.000Z&quot;</span>
+<span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jane Smith&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;jane.smith@example.com&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;phone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0987654321&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-11-15T00:00:00.000Z&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+             </div>
+<br/>
+<ul>
+<li><strong>id:</strong> The id field is directly mapped from the CSV column without any transformation.</li>
+<li><strong>name:</strong> The name field is also directly mapped.</li>
+<li><strong>email:</strong> The email field is validated using the regex and converted to lowercase by the ToLowerCase transformation.</li>
+<li><strong>phone:</strong> The phoneNumber field from the CSV is mapped to phone.</li>
+<li><strong>createdAt:</strong> The registrationDate field is converted to a JavaScript Date object using the ToDate transformation.</li>
+</ul>
+<h2>Schemas</h2><a id="schemas" title="Schemas"></a>
+<p>Schemas in the <code>@cmmv/normalizer</code> module define how data should be parsed, transformed, and validated. They act as the blueprint for mapping raw data into structured and normalized objects, ensuring consistency, accuracy, and security across the application.</p>
+<ol>
+<li><strong>Field Mapping</strong>: Maps raw data fields to desired object properties using the <code>to</code> key.</li>
+<li><strong>Transformations</strong>: Applies a series of transformations to convert data into the desired format.</li>
+<li><strong>Validation</strong>: Validates raw data fields against regular expressions or other criteria to ensure data integrity.</li>
+<li><strong>Security</strong>: Supports sensitive data handling via tokenization or encryption.</li>
+</ol>
+<p>Schemas are defined by extending the <code>AbstractParserSchema</code> class. Each field in the schema corresponds to a property in the normalized object.</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomerParserSchema</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractParserSchema</span> {
+    <span class="hljs-keyword">public</span> field = {
+        <span class="hljs-attr">id</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;id&#x27;</span>,                           <span class="hljs-comment">// Maps the raw field to &#x27;id&#x27;</span>
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToInt</span>, <span class="hljs-title class_">ToObjectId</span>],     <span class="hljs-comment">// Converts to integer, then to ObjectId</span>
+        },
+        <span class="hljs-attr">name</span>: { 
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;name&#x27;</span>                          <span class="hljs-comment">// Maps the raw field to &#x27;name&#x27;</span>
+        },
+        <span class="hljs-attr">email</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;email&#x27;</span>,                        <span class="hljs-comment">// Maps the raw field to &#x27;email&#x27;</span>
+            <span class="hljs-attr">validation</span>: <span class="hljs-regexp">/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/</span>, <span class="hljs-comment">// Validates email format</span>
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToLowerCase</span>],           <span class="hljs-comment">// Converts email to lowercase</span>
+        },
+        <span class="hljs-attr">phoneNumber</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;phone&#x27;</span>,                        <span class="hljs-comment">// Maps the raw field to &#x27;phone&#x27;</span>
+            <span class="hljs-attr">transform</span>: [tokenizer],             <span class="hljs-comment">// Applies tokenization for sensitive data</span>
+        },
+        <span class="hljs-attr">registrationDate</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;createdAt&#x27;</span>,                    <span class="hljs-comment">// Maps the raw field to &#x27;createdAt&#x27;</span>
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToDate</span>],                <span class="hljs-comment">// Converts to a JavaScript Date object</span>
+        },
+    };
+}
+</code></pre>
+             </div>
+<h2>Normalizers</h2><a id="normalizers" title="Normalizers"></a>
+<p>Normalizers in the <code>@cmmv/normalizer</code> module are responsible for converting and transforming data types during the parsing process. They are defined in the schema under the <code>transform</code> property and are executed sequentially. This sequential processing allows for multiple transformations to be chained together, ensuring flexibility and precision.</p>
+<p>For example, if an ID is provided as a string and needs to be converted to a number before being transformed into an ObjectId, you can chain the necessary normalizers in the desired order.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Normalizer</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ToBoolean</strong></td>
+<td>Converts a value to a boolean.</td>
+<td><code>&quot;true&quot; → true</code>, <code>&quot;false&quot; → false</code>, <code>1 → true</code>, <code>0 → false</code></td>
+</tr>
+<tr>
+<td><strong>ToDate</strong></td>
+<td>Converts a value to a JavaScript <code>Date</code> object.</td>
+<td><code>&quot;2023-11-15&quot; → </code>Date(“2023-11-15T00:00:00.000Z”)`</td>
+</tr>
+<tr>
+<td><strong>ToFixed</strong></td>
+<td>Converts a number to a string with a fixed number of decimal places.</td>
+<td><code>123.456 → &quot;123.46&quot;</code> (if fixed to 2 decimal places)</td>
+</tr>
+<tr>
+<td><strong>ToFloat</strong></td>
+<td>Converts a value to a floating-point number.</td>
+<td><code>&quot;123.45&quot; → 123.45</code></td>
+</tr>
+<tr>
+<td><strong>ToInt</strong></td>
+<td>Converts a value to an integer.</td>
+<td><code>&quot;123.45&quot; → 123</code></td>
+</tr>
+<tr>
+<td><strong>Tokenizer</strong></td>
+<td>Encrypts sensitive data using a tokenizer.</td>
+<td><code>&quot;123-45-6789&quot; → Encrypted token</code></td>
+</tr>
+<tr>
+<td><strong>ToLowerCase</strong></td>
+<td>Converts a string to lowercase.</td>
+<td><code>&quot;John Doe&quot; → &quot;john doe&quot;</code></td>
+</tr>
+<tr>
+<td><strong>ToObjectId</strong></td>
+<td>Converts a value to a MongoDB <code>ObjectId</code>.</td>
+<td><code>&quot;507f1f77bcf86cd799439011&quot; → ObjectId(&quot;507f1f77...&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>ToString</strong></td>
+<td>Converts a value to a string.</td>
+<td><code>123 → &quot;123&quot;</code></td>
+</tr>
+<tr>
+<td><strong>ToUpperCase</strong></td>
+<td>Converts a string to uppercase.</td>
+<td><code>&quot;John Doe&quot; → &quot;JOHN DOE&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Example Usage</h3>
+<p>In a schema, you can define a chain of normalizers like this:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">class</span> <span class="hljs-title class_">ExampleSchema</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractParserSchema</span> {
+    <span class="hljs-keyword">public</span> field = {
+        <span class="hljs-attr">id</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;id&#x27;</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToInt</span>, <span class="hljs-title class_">ToObjectId</span>], <span class="hljs-comment">// Converts string to int, then to ObjectId</span>
+        },
+        <span class="hljs-attr">name</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;name&#x27;</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToLowerCase</span>], <span class="hljs-comment">// Converts name to lowercase</span>
+        },
+        <span class="hljs-attr">email</span>: {
+            <span class="hljs-attr">to</span>: <span class="hljs-string">&#x27;email&#x27;</span>,
+            <span class="hljs-attr">validation</span>: <span class="hljs-regexp">/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/</span>,
+            <span class="hljs-attr">transform</span>: [<span class="hljs-title class_">ToLowerCase</span>], <span class="hljs-comment">// Converts email to lowercase</span>
+        },
+    };
+}
+</code></pre>
+             </div>
+<h3>Recommendations</h3>
+<p>It is highly recommended to implement additional data validations and transformations directly within the <strong>contract</strong>. This approach allows for a robust and centralized mechanism to handle complex data requirements, taking full advantage of the capabilities provided by the CMMV framework.</p>
+<h3>Benefits of Using Contracts for Validation and Transformation</h3>
+<br/>
+<ol>
+<li><strong>Centralized Logic</strong>: By placing the logic in the contract, it ensures consistency and reusability across the system.</li>
+<li><strong>Comprehensive Options</strong>: Contracts offer a wide range of built-in and customizable validation and transformation methods.</li>
+<li><strong>Serialization Support</strong>: The contract’s serialization layer leverages <code>class-transformer</code> and <code>class-validator</code>, enabling automatic handling of type conversions and validation errors.</li>
+</ol>
+<h3>Key Tools for Implementation</h3>
+<br/>
+<ul>
+<li><strong><code>class-transformer</code></strong>: A library for transforming plain objects into class instances and vice versa. It enables the definition of serialization rules directly within the contract fields.</li>
+<li><strong><code>class-validator</code></strong>: A library for validating JavaScript objects using decorators. It allows the enforcement of validation rules at the contract level.</li>
+</ul>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbstractContract</span>, <span class="hljs-title class_">Contract</span>, <span class="hljs-title class_">ContractField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+
+<span class="hljs-meta">@Contract</span>({
+    <span class="hljs-attr">controllerName</span>: <span class="hljs-string">&#x27;Customer&#x27;</span>,
+    <span class="hljs-attr">protoPath</span>: <span class="hljs-string">&#x27;src/protos/customer.proto&#x27;</span>,
+    <span class="hljs-attr">protoPackage</span>: <span class="hljs-string">&#x27;customer&#x27;</span>,
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomerContract</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AbstractContract</span> {
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+        <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">validations</span>: [
+            { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;IsString&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;ID must be a string.&#x27;</span> },
+            { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;IsNotEmpty&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;ID cannot be empty.&#x27;</span> },
+        ],
+        <span class="hljs-attr">transform</span>: [{ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;ToString&#x27;</span> }],
+    })
+    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+        <span class="hljs-attr">validations</span>: [
+            { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;IsString&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Name must be a string.&#x27;</span> },
+            { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;IsNotEmpty&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Name cannot be empty.&#x27;</span> },
+        ],
+        <span class="hljs-attr">transform</span>: [{ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;ToLowerCase&#x27;</span> }],
+    })
+    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+        <span class="hljs-attr">validations</span>: [
+            { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;IsEmail&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Invalid email address.&#x27;</span> },
+        ],
+        <span class="hljs-attr">transform</span>: [{ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;ToLowerCase&#x27;</span> }],
+    })
+    <span class="hljs-attr">email</span>: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-meta">@ContractField</span>({
+        <span class="hljs-attr">protoType</span>: <span class="hljs-string">&#x27;date&#x27;</span>,
+        <span class="hljs-attr">validations</span>: [
+            { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;IsDate&#x27;</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Registration date must be a valid date.&#x27;</span> },
+        ],
+        <span class="hljs-attr">transform</span>: [{ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;ToDate&#x27;</span> }],
+    })
+    <span class="hljs-attr">registrationDate</span>: <span class="hljs-title class_">Date</span>;
+}
+</code></pre>
+             </div>
+<p>For detailed documentation on available transformations and validations, visit:</p>
+<ul>
+<li><strong>Transformations:</strong> <a href="https://cmmv.io/docs/contracts/transform" target="_blank" rel="nofollow">https://cmmv.io/docs/contracts/transform</a></li>
+<li><strong>Validations:</strong> <a href="https://cmmv.io/docs/contracts/validation" target="_blank" rel="nofollow">https://cmmv.io/docs/contracts/validation</a></li>
+</ul>
