@@ -118,13 +118,13 @@ $ cmmv module <module-name>
 ## Generated Module Structure
 
 ```bash
-users/
+module/
 ├── src/
 │   ├── index.ts                # Main entry point for the module
 ├── scripts/
-│   └── release.js (if --release is enabled)
+│   └── release.js (if release is enabled)
 ├── tests/
-│   └── index.test.ts (if --vitest is enabled)
+│   └── index.test.ts (if vitest is enabled)
 ├── .gitignore
 ├── .npmignore
 ├── .swcrc
@@ -132,17 +132,18 @@ users/
 ├── tsconfig.cjs.json
 ├── tsconfig.esm.json
 ├── package.json
+└── ...
 ```
 
 The generated package.json includes essential metadata and scripts for the module:
 
 ```json
 {
-    "name": "users",
+    "name": "module",
     "version": "0.0.1",
     "description": "",
     "keywords": [],
-    "author": "John Doe",
+    "author": "",
     "publishConfig": {
         "access": "public"
     },
@@ -161,12 +162,7 @@ The generated package.json includes essential metadata and scripts for the modul
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
     },
     "devDependencies": {
-        "@commitlint/cli": "^17.0.0",
-        "@commitlint/config-angular": "^17.0.0",
-        "@swc/core": "^1.3.0",
-        "@typescript-eslint/eslint-plugin": "^5.0.0",
-        "vitest": "^0.30.0",
-        "prettier": "^3.0.0"
+        ...
     },
     "dependencies": {
         "@cmmv/core": "^1.0.0"
