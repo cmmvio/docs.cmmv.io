@@ -10,10 +10,10 @@ Install the CLI Globally: To use the CLI globally on your system, install it usi
 $ pnpm add -g @cmmv/cli
 ```
 
-Create a New Project: Run the ``cmmv init`` command to create a new project:
+Create a New Project: Run the ``cmmv create`` command to create a new project:
 
 ```bash
-$ cmmv init <project-name>
+$ cmmv create <project-name>
 ```
 
 This will start an interactive prompt asking for your project preferences, such as:
@@ -30,7 +30,7 @@ This will start an interactive prompt asking for your project preferences, such 
 If you don't want to install the CLI globally, use ``pnpm dlx`` to execute it directly:
 
 ```bash
-$ pnpm dlx @cmmv/cli@latest init <project-name>
+$ pnpm dlx @cmmv/cli@latest create <project-name>
 ```
 
 This ensures you always use the latest version of the CLI without requiring a global installation.
@@ -105,4 +105,71 @@ Run Tests (if Vitest is enabled):
 
 ```bash
 $ pnpm test
+```
+
+## Module 
+
+The CMMV CLI now includes a ``module`` command to simplify the creation of new modules within an existing CMMV project. Modules help organize your application into reusable and feature-specific units. Below is the documentation for the ``module`` command.
+
+```bash
+$ cmmv module <module-name>
+```
+
+## Generated Module Structure
+
+```bash
+users/
+├── src/
+│   ├── index.ts                # Main entry point for the module
+├── scripts/
+│   └── release.js (if --release is enabled)
+├── tests/
+│   └── index.test.ts (if --vitest is enabled)
+├── .gitignore
+├── .npmignore
+├── .swcrc
+├── tsconfig.json
+├── tsconfig.cjs.json
+├── tsconfig.esm.json
+├── package.json
+```
+
+The generated package.json includes essential metadata and scripts for the module:
+
+```json
+{
+    "name": "users",
+    "version": "0.0.1",
+    "description": "",
+    "keywords": [],
+    "author": "John Doe",
+    "publishConfig": {
+        "access": "public"
+    },
+    "engines": {
+        "node": ">=18.18.0 || >=20.0.0"
+    },
+    "scripts": {
+        "build:cjs": "tsc --project tsconfig.cjs.json",
+        "build:esm": "tsc --project tsconfig.esm.json",
+        "build": "npm run build:cjs && npm run build:esm",
+        "test": "vitest",
+        "prepare": "husky install",
+        "lint": "pnpm run lint:spec",
+        "lint:fix": "pnpm run lint:spec -- --fix",
+        "release": "node scripts/release.js",
+        "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.0.0",
+        "@commitlint/config-angular": "^17.0.0",
+        "@swc/core": "^1.3.0",
+        "@typescript-eslint/eslint-plugin": "^5.0.0",
+        "vitest": "^0.30.0",
+        "prettier": "^3.0.0"
+    },
+    "dependencies": {
+        "@cmmv/core": "^1.0.0"
+    }
+}
 ```
