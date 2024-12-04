@@ -29,14 +29,93 @@
 });
 </code></pre>
              </div>
+<h2>Benchmarks</h2><a id="benchmarks" title="Benchmarks"></a>
+<ul>
+<li><a href="https://github.com/fastify/benchmarks" target="_blank" rel="nofollow">https://github.com/fastify/benchmarks</a></li>
+<li>Machine: linux x64 | 32 vCPUs | 128.0GB Mem</li>
+<li>Node: v20.17.0</li>
+<li>Run: Thu Nov 26 2024 15:23:41 GMT+0000 (Coordinated Universal Time)</li>
+<li>Method: <code>autocannon -c 100 -d 40 -p 10 localhost:3000</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Version</th>
+<th>Router</th>
+<th>Requests/s</th>
+<th>Latency (ms)</th>
+<th>Throughput/Mb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bare</td>
+<td>v20.17.0</td>
+<td>✗</td>
+<td>88267.6</td>
+<td>10.87</td>
+<td>15.74</td>
+</tr>
+<tr>
+<td>fastify</td>
+<td>5.1.0</td>
+<td>✓</td>
+<td>87846.6</td>
+<td>10.91</td>
+<td>15.75</td>
+</tr>
+<tr>
+<td>cmmv</td>
+<td>0.6.2</td>
+<td>✓</td>
+<td>79041.6</td>
+<td>12.16</td>
+<td>14.17</td>
+</tr>
+<tr>
+<td>koa</td>
+<td>2.15.3</td>
+<td>✗</td>
+<td>76639.6</td>
+<td>12.54</td>
+<td>13.67</td>
+</tr>
+<tr>
+<td>express</td>
+<td>5.0.1</td>
+<td>✓</td>
+<td>21549.2</td>
+<td>45.89</td>
+<td>3.84</td>
+</tr>
+<tr>
+<td>express-with-middlewares</td>
+<td>5.0.1</td>
+<td>✓</td>
+<td>18930.4</td>
+<td>52.30</td>
+<td>7.04</td>
+</tr>
+</tbody>
+</table>
 <h2>Express</h2><a id="express" title="Express"></a>
 <p>In addition to the default server, CMMV also supports Express and Fastify as alternative HTTP adapters, providing flexibility for developers who prefer or need to use these popular frameworks. Both Express and Fastify adapters are fully integrated into the CMMV ecosystem and can be used by simply switching the adapter in the application configuration.</p>
 <div class="code-block-container">
                 <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
                     <i class="fa-regular fa-clone"></i>
                 </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ pnpm add @cmmv/express express body-parser cors express-session helmet uuid
+</code></pre>
+             </div>
+<h3>Integration</h3>
+<p>The <code>@cmmv/express</code> module provides an alternative HTTP adapter based on Express, allowing you to use Express middleware and features seamlessly with your CMMV application.</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
                 <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpressAdapter</span>, <span class="hljs-title class_">ExpressModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/express&#x27;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
     <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">ExpressAdapter</span>,

@@ -64,7 +64,6 @@ The CLI generates a structured project folder with necessary files and directori
 ├── tsconfig.json
 ├── tsconfig.client.json (if Vite is enabled)
 ├── tsconfig.vue.json (if Vue3 or Vue3 + TailwindCSS is enabled)
-├── tsconfig.server.json
 ├── vite.config.js (if Vite is enabled)
 ├── vitest.config.ts (if Vitest is enabled)
 ├── .cmmv.config.js
