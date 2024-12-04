@@ -7,7 +7,8 @@ The ``@cmmv/keyv`` module integrates with the [Keyv](https://keyv.org/) package 
 To install the ``@cmmv/keyv`` module, use the following command:
 
 ```bash 
-$ pnpm add @cmmv/keyv
+$ pnpm add @cmmv/keyv keyv @keyv/compress-gzip
+$ pnpm add -D @types/keyv
 ```
 
 If you plan to use Redis, Memcached, or MongoDB as your store, you'll need to install the appropriate driver package for your store:

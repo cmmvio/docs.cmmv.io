@@ -9,7 +9,7 @@ The CMMV Vite Plugin allows Vite to seamlessly handle ``.cmmv`` files in the sam
 To use the CMMV Vite Plugin, you can install it via npm:
 
 ```bash
-$ pnpm add -D @cmmv/plugin-vite
+$ pnpm add -D @cmmv/plugin-vite vite @vitejs/plugin-vue vue
 ```
 
 ## Configuration

@@ -111,6 +111,90 @@
 </code></pre>
              </div>
 <p>Each module in the CMMV system has its own set of configurations that can be added to the central configuration file (.cmmv.config.js). This allows developers to customize the behavior and features of the modules they are using. Because different modules may require specific settings, it’s essential to review each module’s documentation carefully to understand the available configuration options and how they integrate with the core system. This ensures optimal setup and use of advanced functionalities such as RPC, authentication, caching, and more.</p>
+<h2>Schema Validation</h2><a id="schema-validation" title="Schema Validation"></a>
+<p>CMMV introduces a schema-based validation system to ensure that all configurations defined in <code>.cmmv.config.js</code> adhere to the expected structure and types. This validation provides robust error handling and guarantees that your application operates with correctly defined settings.</p>
+<p>Each module can define its own schema using the ConfigSchema interface. This schema specifies the required fields, their types, default values, and nested properties when applicable.</p>
+<p>Here’s an example schema for an <code>auth</code> module configuration, demonstrating both flat and nested properties:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigSchema</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">AuthConfig</span>: <span class="hljs-title class_">ConfigSchema</span> = {
+    <span class="hljs-attr">auth</span>: {
+        <span class="hljs-attr">localRegister</span>: {
+            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>,
+            <span class="hljs-attr">default</span>: <span class="hljs-literal">true</span>,
+        },
+        <span class="hljs-attr">localLogin</span>: {
+            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>,
+            <span class="hljs-attr">default</span>: <span class="hljs-literal">true</span>,
+        },
+        <span class="hljs-attr">jwtSecret</span>: {
+            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+            <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;secret&#x27;</span>,
+        },
+        <span class="hljs-attr">expiresIn</span>: {
+            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;number&#x27;</span>,
+            <span class="hljs-attr">default</span>: <span class="hljs-number">3600</span>,
+        },
+        <span class="hljs-attr">google</span>: {
+            <span class="hljs-attr">required</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;object&#x27;</span>,
+            <span class="hljs-attr">default</span>: {},
+            <span class="hljs-attr">properties</span>: {
+                <span class="hljs-attr">clientID</span>: {
+                    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+                    <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+                },
+                <span class="hljs-attr">clientSecret</span>: {
+                    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+                    <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+                },
+                <span class="hljs-attr">callbackURL</span>: {
+                    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+                    <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;http://localhost:3000/auth/google/callback&#x27;</span>,
+                },
+            },
+        },
+    },
+};
+</code></pre>
+             </div>
+<p>CMMV automatically validates the loaded configuration against the defined schemas at runtime using the <code>Config.validateConfigs()</code> method. This ensures that all required fields are present, types match, and nested properties follow their specifications.</p>
+<h3>Supported Types</h3>
+<p>The schema supports the following types:</p>
+<ul>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>object (including nested properties)</li>
+<li>array</li>
+<li>any (skips type validation)</li>
+</ul>
+<h3>How Validation Works</h3>
+<br/>
+<ul>
+<li><strong>Load Configurations:</strong> The <code>Config.loadConfig()</code> method loads the <code>.cmmv.config.js</code> file.</li>
+<li><strong>Validate Against Schemas:</strong> Each module registers its schema, and the <code>Config.validateConfigs()</code> method ensures all configurations match their respective schemas.</li>
+<li><strong>Throw Errors for Invalid Configurations:</strong> If any configuration value does not match the schema, an error is thrown with details about the invalid key and the expected type.</li>
+</ul>
+<p>If a configuration does not meet the schema requirements, CMMV will throw an error like:</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-title class_">Error</span>: <span class="hljs-title class_">Configuration</span> <span class="hljs-string">&quot;auth.google.clientID&quot;</span> expects <span class="hljs-keyword">type</span> <span class="hljs-string">&quot;string&quot;</span> but received <span class="hljs-string">&quot;undefined&quot;</span>.
+</code></pre>
+             </div>
 <h2>Environment</h2><a id="environment" title="Environment"></a>
 <p>The <code>env</code> setting allows you to control the environment of the application (e.g., <code>development</code>, <code>production</code>). This setting typically comes from environment variables using <code>dotenv</code> <a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="nofollow">NPM</a> to manage sensitive values securely.</p>
 <div class="code-block-container">

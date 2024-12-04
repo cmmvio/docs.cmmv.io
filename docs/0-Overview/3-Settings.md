@@ -111,6 +111,91 @@ Config.assign({
 
 Each module in the CMMV system has its own set of configurations that can be added to the central configuration file (.cmmv.config.js). This allows developers to customize the behavior and features of the modules they are using. Because different modules may require specific settings, it's essential to review each module's documentation carefully to understand the available configuration options and how they integrate with the core system. This ensures optimal setup and use of advanced functionalities such as RPC, authentication, caching, and more.
 
+## Schema Validation
+
+CMMV introduces a schema-based validation system to ensure that all configurations defined in ``.cmmv.config.js`` adhere to the expected structure and types. This validation provides robust error handling and guarantees that your application operates with correctly defined settings.
+
+Each module can define its own schema using the ConfigSchema interface. This schema specifies the required fields, their types, default values, and nested properties when applicable.
+
+Here’s an example schema for an ``auth`` module configuration, demonstrating both flat and nested properties:
+
+```typescript
+import { ConfigSchema } from '@cmmv/core';
+
+export const AuthConfig: ConfigSchema = {
+    auth: {
+        localRegister: {
+            required: true,
+            type: 'boolean',
+            default: true,
+        },
+        localLogin: {
+            required: true,
+            type: 'boolean',
+            default: true,
+        },
+        jwtSecret: {
+            required: true,
+            type: 'string',
+            default: 'secret',
+        },
+        expiresIn: {
+            required: true,
+            type: 'number',
+            default: 3600,
+        },
+        google: {
+            required: false,
+            type: 'object',
+            default: {},
+            properties: {
+                clientID: {
+                    required: true,
+                    type: 'string',
+                    default: '',
+                },
+                clientSecret: {
+                    required: true,
+                    type: 'string',
+                    default: '',
+                },
+                callbackURL: {
+                    required: true,
+                    type: 'string',
+                    default: 'http://localhost:3000/auth/google/callback',
+                },
+            },
+        },
+    },
+};
+```
+
+CMMV automatically validates the loaded configuration against the defined schemas at runtime using the ``Config.validateConfigs()`` method. This ensures that all required fields are present, types match, and nested properties follow their specifications.
+
+### Supported Types
+
+The schema supports the following types:
+
+* string
+* number
+* boolean
+* object (including nested properties)
+* array
+* any (skips type validation)
+
+### How Validation Works
+<br/>
+
+* **Load Configurations:** The ``Config.loadConfig()`` method loads the ``.cmmv.config.js`` file.
+* **Validate Against Schemas:** Each module registers its schema, and the ``Config.validateConfigs()`` method ensures all configurations match their respective schemas.
+* **Throw Errors for Invalid Configurations:** If any configuration value does not match the schema, an error is thrown with details about the invalid key and the expected type.
+
+If a configuration does not meet the schema requirements, CMMV will throw an error like:
+
+```typescript
+Error: Configuration "auth.google.clientID" expects type "string" but received "undefined".
+```
+
 ## Environment
 
 The ``env`` setting allows you to control the environment of the application (e.g., ``development``, ``production``). This setting typically comes from environment variables using ``dotenv`` [NPM](https://www.npmjs.com/package/dotenv) to manage sensitive values securely.
