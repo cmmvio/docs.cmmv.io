@@ -128,13 +128,20 @@
 <p>The adapter registers all controllers automatically from the ControllerRegistry. It matches the controller’s routes to the corresponding HTTP methods (GET, POST, etc.), and processes middleware defined at the controller level.</p>
 <h2>Fastify</h2><a id="fastify" title="Fastify"></a>
 <p>The Fastify Adapter in CMMV provides an alternative to the Express Adapter, allowing for lightweight, high-performance HTTP handling using Fastify’s framework. This adapter integrates key middleware like compression, CORS, helmet for security, and static file serving. It automatically registers controllers and manages the lifecycle of incoming requests. The Fastify Adapter follows the same structure as the Express Adapter, supporting session management and content rendering, while offering a faster, more optimized environment.</p>
-<p>Both Express and Fastify adapters are natively supported, and custom HTTP adapters can be created by extending the AbstractHttpAdapter.</p>
+<div class="code-block-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
+                    <i class="fa-regular fa-clone"></i>
+                </button>
+                <pre><code class="hljs language-bash" lang="bash"">$ pnpm add @cmmv/fastify @fastify/compress @fastify/cors @fastify/helmet @fastify/secure-session @fastify/static @fastify/view
+</code></pre>
+             </div>
+<h3>Integration</h3>
 <div class="code-block-container">
                 <button class="copy-code-btn" onclick="copyToClipboard(this)" title="Copy">
                     <i class="fa-regular fa-clone"></i>
                 </button>
                 <pre><code class="hljs language-typescript" lang="typescript""><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Application</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/core&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FastifyAdapter</span>, <span class="hljs-title class_">FastifyModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FastifyAdapter</span>, <span class="hljs-title class_">FastifyModule</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@cmmv/fastify&#x27;</span>;
 
 <span class="hljs-title class_">Application</span>.<span class="hljs-title function_">create</span>({
     <span class="hljs-attr">httpAdapter</span>: <span class="hljs-title class_">FastifyAdapter</span>,
