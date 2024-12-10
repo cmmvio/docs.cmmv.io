@@ -1,5 +1,53 @@
 # Changelog
 
+## Version 0.7.5 (December 10, 2024)
+
+### Additions
+
+- **`@cmmv/testing` Module**:  
+  Introduced a new module to simplify testing CMMV applications, providing utilities for mocking modules, services, and contracts.
+
+- **Configuration Validator**:  
+  Added a validation system for application configurations, ensuring correctness and consistency across environments.
+
+- **Schema for Configurations**:  
+  Introduced schema definitions for validating and structuring configurations in a standardized format.
+
+### Improvements
+
+- **Refactored Core Modules**:  
+  Simplified core modules for improved maintainability, reducing complexity while retaining all essential functionality.
+
+- **Pagination, Sorting, and Ordering**:  
+  Added built-in support for pagination, ordering, and sorting to GET routes and gateways, streamlining data retrieval and API design.
+
+- **Dependency Cleanup**:  
+  Removed unused dependencies and legacy functions, reducing the framework's footprint and improving overall efficiency.
+
+- **Modular HTTP Adapters**:  
+  The Express and Fastify modules, previously integrated into `@cmmv/http`, have been decoupled into standalone modules:  
+  - `@cmmv/express`  
+  - `@cmmv/fastify`  
+  This change reduces the dependency footprint of the core, allowing developers to choose and install only the HTTP adapter they need.
+
+### Removals
+
+- **Vue and TailwindCSS Integration**:  
+  Vue and TailwindCSS were removed from the core module. Use Vite for frontend asset management and the `@cmmv/vue` module for Vue-specific integrations.
+
+### Recommendations
+
+- **Vite Integration**:  
+  Leverage Vite for modern frontend development workflows, including Vue and TailwindCSS.
+
+- **`@cmmv/vue` Module**:  
+  Utilize the `@cmmv/vue` module to generate RPC mixins and composables for seamless Vue integration.
+
+### Updates
+
+- **Documentation**:  
+  Revised and expanded documentation to reflect the new features, removals, and recommended practices.
+
 ## Version 0.6.0 (November 26, 2024)
 
 ### New Features

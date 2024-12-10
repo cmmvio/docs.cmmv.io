@@ -1,4 +1,65 @@
 <h1>Changelog</h1><a id="changelog" title="Changelog"></a>
+<h2>Version 0.7.5 (December 10, 2024)</h2><a id="version-075-december-10-2024" title="Version 0.7.5 (December 10, 2024)"></a>
+<h3>Additions</h3>
+<ul>
+<li>
+<p><strong><code>@cmmv/testing</code> Module</strong>:<br>
+Introduced a new module to simplify testing CMMV applications, providing utilities for mocking modules, services, and contracts.</p>
+</li>
+<li>
+<p><strong>Configuration Validator</strong>:<br>
+Added a validation system for application configurations, ensuring correctness and consistency across environments.</p>
+</li>
+<li>
+<p><strong>Schema for Configurations</strong>:<br>
+Introduced schema definitions for validating and structuring configurations in a standardized format.</p>
+</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li>
+<p><strong>Refactored Core Modules</strong>:<br>
+Simplified core modules for improved maintainability, reducing complexity while retaining all essential functionality.</p>
+</li>
+<li>
+<p><strong>Pagination, Sorting, and Ordering</strong>:<br>
+Added built-in support for pagination, ordering, and sorting to GET routes and gateways, streamlining data retrieval and API design.</p>
+</li>
+<li>
+<p><strong>Dependency Cleanup</strong>:<br>
+Removed unused dependencies and legacy functions, reducing the framework’s footprint and improving overall efficiency.</p>
+</li>
+<li>
+<p><strong>Modular HTTP Adapters</strong>:<br>
+The Express and Fastify modules, previously integrated into <code>@cmmv/http</code>, have been decoupled into standalone modules:</p>
+<ul>
+<li><code>@cmmv/express</code></li>
+<li><code>@cmmv/fastify</code><br>
+This change reduces the dependency footprint of the core, allowing developers to choose and install only the HTTP adapter they need.</li>
+</ul>
+</li>
+</ul>
+<h3>Removals</h3>
+<ul>
+<li><strong>Vue and TailwindCSS Integration</strong>:<br>
+Vue and TailwindCSS were removed from the core module. Use Vite for frontend asset management and the <code>@cmmv/vue</code> module for Vue-specific integrations.</li>
+</ul>
+<h3>Recommendations</h3>
+<ul>
+<li>
+<p><strong>Vite Integration</strong>:<br>
+Leverage Vite for modern frontend development workflows, including Vue and TailwindCSS.</p>
+</li>
+<li>
+<p><strong><code>@cmmv/vue</code> Module</strong>:<br>
+Utilize the <code>@cmmv/vue</code> module to generate RPC mixins and composables for seamless Vue integration.</p>
+</li>
+</ul>
+<h3>Updates</h3>
+<ul>
+<li><strong>Documentation</strong>:<br>
+Revised and expanded documentation to reflect the new features, removals, and recommended practices.</li>
+</ul>
 <h2>Version 0.6.0 (November 26, 2024)</h2><a id="version-060-november-26-2024" title="Version 0.6.0 (November 26, 2024)"></a>
 <h3>New Features</h3>
 <ul>

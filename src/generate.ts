@@ -7,6 +7,9 @@ import * as fg from 'fast-glob';
 import { cwd } from 'process';
 
 class GenerateDocs {
+    public languages: Array<string> = ['en', 'ptbr'];
+    public defaultLanguage: string = 'en';
+
     async convertMarkdownToHTML() {
         hljs.registerLanguage(
             'ts',
