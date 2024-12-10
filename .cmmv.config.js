@@ -1,4 +1,6 @@
-require('dotenv').config()
+require('dotenv').config();
+
+const port = (process.env.PORT) ? parseInt(process.env.PORT) : 3000;
 
 module.exports = {
     env: process.env.NODE_ENV,
@@ -9,7 +11,7 @@ module.exports = {
     
     server: {
         host: "0.0.0.0",
-        port: process.env.PORT || 3000,        
+        port: port,        
         poweredBy: false,
         removePolicyHeaders: false,
         compress: {
