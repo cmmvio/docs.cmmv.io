@@ -76,7 +76,7 @@ img {
     background-color: #1F1F22;
 }
 
-.dark .navbar * {
+.dark #docsearch * {
     background-color: transparent !important;
 }
 
@@ -521,4 +521,70 @@ h2 code {
 
 .copy-code-btn:hover {
     background-color: #373739;
+}
+
+.translation-widget {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.translation-icon {
+    background-color: #1F1F22;
+    color: #FFFFFF;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.translation-icon:hover {
+    background-color: #2e3035;
+    transform: scale(1.1);
+}
+
+.translation-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 10;
+}
+
+.language-option {
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.language-option a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-right: 8px;
+    transition: color 0.3s;
+}
+
+.language-option a:hover {
+    color: cornflowerblue;
+}
+
+.github-icon{
+    float: right;
+}
+
+.github-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.translation-widget:hover .translation-menu {
+    display: block;
 }

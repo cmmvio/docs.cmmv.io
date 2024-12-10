@@ -89,7 +89,14 @@
                 <div id="docsearch" class="dark"></div>
             </div>
 
+            <div
+                class="relative text-right hover:cursor-pointer group float-right" 
+            >
+                <!-- include('public/views/docs/languages') -->
+            </div>
+
             <div class="justify-between align-middle text-center mr-2 text-white flex">
+
                 <!-- Theme Switch Button -->
                 <a 
                     href="#" 
@@ -147,6 +154,18 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const storedTheme = localStorage.getItem('theme') || 'default';
                     setTheme(storedTheme);
+
+                    const translationWidget = document.querySelector('.translation-widget');
+                    const translationIcon = document.querySelector('.translation-icon');
+                    const translationMenu = document.querySelector('.translation-menu');
+                
+                    translationIcon.addEventListener('mouseover', () => {
+                        translationMenu.style.display = 'block';
+                    });
+                
+                    translationWidget.addEventListener('mouseleave', () => {
+                        translationMenu.style.display = 'none';
+                    });
                 });
             </script>
         </div>
@@ -321,7 +340,7 @@ export default {
             if (!item || !item.uri) return false;
             return window.location.href.includes(item.uri);
         },
-        
+
         loadState(){
             this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
             this.navbarLoaded = true;

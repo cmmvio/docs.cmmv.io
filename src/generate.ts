@@ -6,11 +6,15 @@ import { glob } from 'glob';
 import * as fg from 'fast-glob';
 import { cwd } from 'process';
 
+import { Config } from '@cmmv/core';
+
 class GenerateDocs {
     public languages: Array<string> = ['en', 'ptbr'];
     public defaultLanguage: string = 'en';
 
     async convertMarkdownToHTML() {
+        const lang = Config.get<string>('docs.lang', 'en');
+
         hljs.registerLanguage(
             'ts',
             require('highlight.js/lib/languages/typescript'),
@@ -44,9 +48,8 @@ class GenerateDocs {
         });
 
         const docsFiles = await glob([
-            './docs/**/*.md',
-            './docs/*.md',
-            './packages/**/*.md',
+            `./docs/${lang}/**/*.md`,
+            `./docs/${lang}/*.md`,
         ]);
 
         for (let file of docsFiles) {
@@ -81,11 +84,13 @@ class GenerateDocs {
     }
 
     async generateIndex() {
+        const lang = Config.get<string>('docs.lang', 'en');
+
         const docsFiles = await glob([
-            './docs/**/*.html',
-            './docs/*.html',
-            './packages/**/*.html',
+            `./docs/${lang}/**/*.html`,
+            `./docs/${lang}/*.html`,
         ]);
+
         let index = {};
         let indexLink = {};
 
@@ -110,6 +115,7 @@ class GenerateDocs {
                 const pathFile = encodeURIComponent(
                     file
                         .replace(process.cwd(), '')
+                        .replace(lang + '/', '')
                         .replace('docs/', '')
                         .replace(/\\/g, '/'),
                 );
@@ -258,9 +264,12 @@ class GenerateDocs {
     }
 
     convertLinkToCleanURL(link: string): string {
+        const lang = Config.get<string>('docs.lang', 'en');
+
         const decodedLink = decodeURIComponent(
             link
                 .replace(process.cwd(), '')
+                .replace(lang + '/', '')
                 .replace('/docs/', '')
                 .replace(/\\/g, '/')
                 .replace('.html', ''),
@@ -270,6 +279,7 @@ class GenerateDocs {
 
         const cleanPathParts = pathParts.map(part => {
             const cleanPart = part
+                .replace(lang + '/', '')
                 .replace(/\d+\s*-\s*/g, '')
                 .replace(/\s+/g, '-')
                 .replace(/[^\w\-]+/g, '')
@@ -315,7 +325,11 @@ class GenerateDocs {
     }
 
     async generateAlgoliaJSON() {
-        const docsFiles = await glob(['./docs/**/*.html', './docs/*.html']);
+        const lang = Config.get<string>('docs.lang', 'en');
+        const docsFiles = await glob([
+            `./docs/${lang}/**/*.html`,
+            `./docs/${lang}/*.html`,
+        ]);
         let algoliaData = [];
 
         for (let file of docsFiles) {
@@ -378,7 +392,12 @@ class GenerateDocs {
     }
 
     async generateSitemap() {
-        const docsFiles = await glob(['./docs/**/*.html', './docs/*.html']);
+        const lang = Config.get<string>('docs.lang', 'en');
+        const docsFiles = await glob([
+            `./docs/${lang}/**/*.html`,
+            `./docs/${lang}/*.html`,
+        ]);
+
         const baseUrl = 'https://cmmv.io';
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
@@ -407,6 +426,8 @@ class GenerateDocs {
     }
 
     async getDocsStrutucture(file = null) {
+        const lang = Config.get<string>('docs.lang', 'en');
+
         let strutucture = {
             index: '',
             navbar: [],
@@ -417,7 +438,7 @@ class GenerateDocs {
         };
 
         const filesAndDirsIndex = await fg(
-            path.resolve(process.cwd(), './docs/*'),
+            path.resolve(process.cwd(), `./docs/${lang}/*`),
             {
                 dot: false,
                 onlyFiles: false,
@@ -428,7 +449,10 @@ class GenerateDocs {
         if (file) {
             const pathDivider = process.platform === 'win32' ? '\\' : '/';
             const [root, content] = file
-                .replace(path.join(process.cwd(), '/docs/'), '')
+                .replace(
+                    path.join(process.cwd(), '/docs/').replace(lang + '/', ''),
+                    '',
+                )
                 .split(pathDivider);
             strutucture.breadcrumb[0] = root.split('-')[1]?.trim();
 
@@ -552,6 +576,7 @@ class GenerateDocs {
 }
 
 (async () => {
+    await Config.loadConfig();
     let generator = new GenerateDocs();
     await generator.convertMarkdownToHTML();
     await generator.generateIndex();

@@ -1,5 +1,11 @@
+require('dotenv').config()
+
 module.exports = {
     env: process.env.NODE_ENV,
+
+    docs: {
+        lang: process.env.DOCS_LANG || "en"
+    },
     
     server: {
         host: "0.0.0.0",
@@ -37,7 +43,7 @@ module.exports = {
 
     i18n: {
         localeFiles: "./src/locale",
-        default: "en"
+        default: process.env.DOCS_LANG || "en"
     },
 
     rpc: {
