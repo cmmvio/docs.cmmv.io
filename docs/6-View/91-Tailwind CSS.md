@@ -1,52 +1,53 @@
 # Tailwind CSS
 
-Follow these steps to integrate [TailwindCSS](https://tailwindcss.com/) into your CMMV project for enhanced styling capabilities:
+<div style="
+    background-color: #FEF3C7; 
+    border-left: 4px solid #F59E0B; 
+    color: #92400E; 
+    padding: 1rem; 
+    border-radius: 0.375rem; 
+    margin: 1.5rem 0;
+">
+    <p style="font-weight: bold; margin-bottom: 0.5rem;">Notice</p>
+    <p>
+        Support for <code>TailwindCSS</code> integration was removed from the core module in version <strong>0.7.5</strong>. 
+        It is now recommended to use <code>Vite</code> for managing frontend assets and bundling. Follow the steps below 
+        to configure TailwindCSS with Vite in your CMMV project.
+    </p>
+</div>
+
+Follow these steps to integrate [TailwindCSS](https://tailwindcss.com/) into your CMMV project using Vite for modern and optimized development workflows:
 
 ## Install TailwindCSS
 
 Run the following command to add TailwindCSS as a development dependency:
 
-```bash 
-pnpm add -D tailwindcss
+```bash
+pnpm add -D tailwindcss postcss autoprefixer
 ```
 
-## Enable Tailwind
+## Initialize TailwindCSS
 
-Modify your CMMV configuration file to enable TailwindCSS. Add ``tailwind: true`` under the ``view`` section:
+Generate the TailwindCSS configuration files by running:
 
-```javascript
-module.exports = {
-    ...
-    view: {
-        extractInlineScript: false,
-        minifyHTML: true,
-        vue3: true,
-        tailwind: true,
-    },
-    ...
-};
+```bash
+npx tailwindcss init
 ```
 
-## Create entry file
+This will create a `tailwind.config.js` file at the root of your project.
 
-Create a new file ``src/tailwind.css`` in your project and add the Tailwind directives:
+## Configure TailwindCSS
 
-```javascript
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-## Create configuration
-
-Generate a ``tailwind.config.js`` file at the root of your project with the following content:
+Update your `tailwind.config.js` file to include the paths for your Vue or other frontend components:
 
 ```javascript
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [],
-    darkMode: 'class',
-    purge: ['./index.html', './public/**/*.{vue,js,ts,jsx,tsx}'],
+    content: [
+        './index.html',
+        './src/**/*.{vue,js,ts,jsx,tsx}',
+    ],
+    darkMode: 'class', // Enable class-based dark mode
     theme: {
         extend: {},
     },
@@ -54,54 +55,79 @@ module.exports = {
 };
 ```
 
-## Finalizing integration
+## Create Entry CSS File
 
-To ensure TailwindCSS is correctly applied to your project, you need to include the generated CSS file in your application. There are two methods to achieve this: adding the ``<link>`` tag directly to your template or configuring it via the settings.
+Create a `src/tailwind.css` file in your project and include the TailwindCSS directives:
 
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
 
-### Method 1: Add the <link> Tag in the Template
+## Configure Vite
 
-Edit your template file (e.g., ``public/templates/default.html``) and include the following ``<link>`` tag in the ``<head>`` section:
+Modify your `vite.config.js` to ensure that TailwindCSS is processed correctly:
+
+```javascript
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+    plugins: [vue()],
+    css: {
+        postcss: {
+            plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+            ],
+        },
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        },
+    },
+});
+```
+
+## Use TailwindCSS in Your Project
+
+Ensure the entry CSS file (`tailwind.css`) is imported into your application. You can do this by importing it in your `main.js`:
+
+```javascript
+import { createApp } from 'vue';
+import App from './App.vue';
+import './tailwind.css'; // Import TailwindCSS
+
+createApp(App).mount('#app');
+```
+
+## HTML Template
+
+Ensure your `index.html` is configured to include the `#app` element where Vue will mount:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <headers />
-        <link rel="stylesheet" href="/assets/bundle.min.css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CMMV + TailwindCSS</title>
     </head>
-    <body>
-        <slot />
-        <scripts />
+    <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+        <div id="app"></div>
+        <script type="module" src="/src/main.js"></script>
     </body>
 </html>
 ```
 
-<br/>
+## Recommendations
 
-### Method 2: Add CSS via Settings in .cmmv.config.js
+- Use the `@cmmv/vue` module for generating RPC mixins and composables for Vue integration.
+- Configure Vite as your primary build tool to handle modern frontend workflows.
+- Follow TailwindCSS best practices for creating reusable and scalable styles.
 
-Alternatively, you can configure the inclusion of the CSS file in the head property within the view settings in ``.cmmv.config.js``:
-
-```javascript
-module.exports = {
-    ...
-    head: {
-        title: 'CMMV',
-        htmlAttrs: {
-            lang: 'en',
-        },
-        meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        ],
-        link: [
-            { rel: 'icon', href: 'assets/favicon/favicon.ico' },
-            { rel: 'stylesheet', href: '/assets/bundle.min.css' }, // Include TailwindCSS bundle
-        ],
-    },
-    ...
-};
-```
-
-This approach allows dynamic configuration of your HTML ``<head>`` and keeps your template files cleaner.
+This setup ensures a clean separation of concerns, allowing CMMV to focus on backend operations while Vite handles the frontend assets. 
