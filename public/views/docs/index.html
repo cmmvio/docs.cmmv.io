@@ -145,7 +145,9 @@
     <div class="flex flex-wrap mx-auto">
         <div 
             id="sidebar-menu" 
-            class="w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 dark:bg-gray-800 h-screen lg:block">
+            class="w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 dark:bg-gray-800 h-screen lg:block"
+            :style="{ display: !navbarLoaded ? 'none' : 'block' }"
+        >
             <!-- include('public/views/docs/navbar') -->
         </div>
 
@@ -294,7 +296,10 @@ export default {
     layout: "default",
 
     data(){
-        return { navbar: [] }
+        return { 
+            navbarLoaded: false,
+            navbar: [] 
+        }
     },
 
     mounted() {
@@ -304,6 +309,7 @@ export default {
     methods: {
         loadState(){
             this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
+            this.navbarLoaded = true;
             return this.navbar;
         },
 

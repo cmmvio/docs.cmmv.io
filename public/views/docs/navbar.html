@@ -1,4 +1,6 @@
-<div class="p-4 select-none top-16 text-slate-700 dark:text-slate-200">
+<div 
+    class="p-4 select-none top-16 text-slate-700 dark:text-slate-200"
+>
     <div v-for="(item, key) in docs.navbar" :key="key">
         <div
             class="flex hover:text-blue-700 itemRoot"
@@ -20,19 +22,16 @@
             </div>
         </div>
 
-        <!-- Content with transition -->
-        <transition name="toggle">
-            <div
-                v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
-                :id="`${item?.name.replace(/\s/, '_')}_contents`"
-                class="p-4 py-1 text-md mb-4"
-            >
-                <div v-for="(child) in item.children" :key="child.name">
-                    <div class="hover:text-gray-800 text-base p-1" style="font-size: 10px">
-                        <a :href="child.uri" class="text-base hover:text-blue-500">{{ child.name }}</a>
-                    </div>
+        <div
+            v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
+            :id="`${item?.name.replace(/\s/, '_')}_contents`"
+            class="p-4 py-1 text-md mb-4"
+        >
+            <div v-for="(child) in item.children" :key="child.name">
+                <div class="hover:text-gray-800 text-base p-1" style="font-size: 10px">
+                    <a :href="child.uri" class="text-base hover:text-blue-500">{{ child.name }}</a>
                 </div>
             </div>
-        </transition>
+        </div>
     </div>
 </div>
