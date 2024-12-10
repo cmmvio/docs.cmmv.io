@@ -429,22 +429,31 @@ class GenerateDocs {
                 .split(pathDivider);
             strutucture.breadcrumb[0] = root.split('-')[1]?.trim();
 
-            if (typeof content == 'string')
-                strutucture.breadcrumb[1] = content.split('-')[1]?.trim();
+            if (strutucture.breadcrumb[1]) {
+                if (typeof content == 'string')
+                    strutucture.breadcrumb[1] = content.split('-')[1]?.trim();
 
-            if (
-                strutucture.breadcrumb[0] &&
-                strutucture.breadcrumb[0].includes('.')
-            )
-                strutucture.breadcrumb[0] =
-                    strutucture.breadcrumb[0].split('.')[0];
+                if (
+                    strutucture.breadcrumb[0] &&
+                    strutucture.breadcrumb[0].includes('.')
+                )
+                    strutucture.breadcrumb[0] =
+                        strutucture.breadcrumb[0].split('.')[0];
 
-            if (
-                strutucture.breadcrumb[1] &&
-                strutucture.breadcrumb[1].includes('.')
-            )
-                strutucture.breadcrumb[1] =
-                    strutucture.breadcrumb[1].split('.')[0];
+                if (
+                    strutucture.breadcrumb[1] &&
+                    strutucture.breadcrumb[1].includes('.')
+                )
+                    strutucture.breadcrumb[1] =
+                        strutucture.breadcrumb[1].split('.')[0];
+            } else {
+                if (
+                    strutucture.breadcrumb[0] &&
+                    strutucture.breadcrumb[0].includes('.')
+                )
+                    strutucture.breadcrumb[0] =
+                        strutucture.breadcrumb[0].split('.')[0];
+            }
         }
 
         strutucture.index = file
@@ -456,9 +465,11 @@ class GenerateDocs {
                 let basename = path.basename(fileOrDir);
                 let [indexRaw, nameRaw] = basename.split('-');
                 let index = parseInt(indexRaw.trim());
-                let name = nameRaw?.includes('.')
-                    ? nameRaw.split('.')[0]?.trim()
-                    : nameRaw?.trim();
+                let name = nameRaw
+                    ? nameRaw?.includes('.')
+                        ? nameRaw.split('.')[0]?.trim()
+                        : nameRaw?.trim()
+                    : indexRaw.split('.')[0]?.trim();
                 const isDir = fs.lstatSync(fileOrDir).isDirectory();
 
                 if (index <= 0) index = 1;
@@ -486,9 +497,11 @@ class GenerateDocs {
                             let indexChildren = parseInt(
                                 indexRawChildren.trim(),
                             );
-                            let nameChildren = nameRawChildren.includes('.')
-                                ? nameRawChildren.split('.')[0]?.trim()
-                                : nameRawChildren?.trim();
+                            let nameChildren = nameRawChildren
+                                ? nameRawChildren.includes('.')
+                                    ? nameRawChildren.split('.')[0]?.trim()
+                                    : nameRawChildren?.trim()
+                                : indexRawChildren.split('.')[0]?.trim();
 
                             strutucture.navbar[index - 1].children.push({
                                 filename: children,
@@ -539,6 +552,6 @@ class GenerateDocs {
     let generator = new GenerateDocs();
     await generator.convertMarkdownToHTML();
     await generator.generateIndex();
-    await generator.generateAlgoliaJSON();
+    //await generator.generateAlgoliaJSON();
     await generator.generateSitemap();
 })();

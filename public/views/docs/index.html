@@ -317,6 +317,11 @@ export default {
     },
 
     methods: {
+        isSelected(item) {
+            if (!item || !item.uri) return false;
+            return window.location.href.includes(item.uri);
+        },
+        
         loadState(){
             this.navbar = JSON.parse(localStorage.getItem('navbarState')) || {};
             this.navbarLoaded = true;

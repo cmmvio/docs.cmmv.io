@@ -28,8 +28,13 @@
             class="p-4 py-1 text-md mb-4"
         >
             <div v-for="(child) in item.children" :key="child.name">
-                <div class="hover:text-gray-800 text-base p-1" style="font-size: 10px">
-                    <a :href="child.uri" class="text-base hover:text-blue-500">{{ child.name }}</a>
+                <div 
+                    class="hover:text-blue-500 p-1" 
+                    :class="{ 'text-blue-500 font-bold': isSelected(child) }"
+                    style="font-size: 10px"
+                >
+                    <a :href="child.uri" 
+                        class="text-base">{{ child.name }}</a>
                 </div>
             </div>
         </div>
