@@ -4,6 +4,7 @@
     id="app"
     v-cloak
     v-if="docs"
+    :style="{ display: !navbarLoaded ? 'none' : 'block' }"
 >
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
         <div 
@@ -70,12 +71,21 @@
                                 title="View"
                             >View</a>
                         </li>
+                        <li class="relative"> 
+                            <a 
+                                href="https://ui.cmmv.io/" 
+                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
+                                title="UI"
+                            >UI</a>
+                        </li>
                     </ul>
                 </div>
                 
             </div>
 
-            <div class="relative text-right hover:cursor-pointer group float-right">
+            <div 
+                class="relative text-right hover:cursor-pointer group float-right" 
+            >
                 <div id="docsearch" class="dark"></div>
             </div>
 
