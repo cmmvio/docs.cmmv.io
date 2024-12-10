@@ -38,6 +38,6 @@ CMMV offers a range of plugins to complement applications, providing additional 
 | [@cmmv/elastic](https://github.com/andrehrferreira/cmmv-elastic)         | **(Beta)** Elasticsearch integration for managing indices, documents, and advanced queries with seamless CMMV framework support. | <a href="https://www.npmjs.com/package/@cmmv/elastic"><img src="https://img.shields.io/npm/v/@cmmv/elastic.svg" alt="NPM Version" /></a> |
 | [@cmmv/ui](https://github.com/andrehrferreira/cmmv-ui)                  | **(Beta)** Provides a collection of UI components for building dynamic applications with seamless CMMV integration. | <a href="https://www.npmjs.com/package/@cmmv/ui"><img src="https://img.shields.io/npm/v/@cmmv/ui.svg" alt="NPM Version" /></a> |
 | [@cmmv/vue](https://github.com/andrehrferreira/cmmv-vue)               | Enables integration with Vue.js for creating reactive and component-based user interfaces in CMMV applications.         | <a href="https://www.npmjs.com/package/@cmmv/vue"><img src="https://img.shields.io/npm/v/@cmmv/vue.svg" alt="NPM Version" /></a> |
-
+| [@cmmv/testing](https://github.com/andrehrferreira/cmmv-testing)        | Provides a suite of tools and utilities for testing CMMV applications, including mock modules and services. | <a href="https://www.npmjs.com/package/@cmmv/testing"><img src="https://img.shields.io/npm/v/@cmmv/testing.svg" alt="NPM Version" /></a> |
 
 
