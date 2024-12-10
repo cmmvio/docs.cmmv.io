@@ -41,6 +41,20 @@ The translations are stored in submodules. To initialize and update them, use th
 git submodule update --init --recursive
 ```
 
+To push updates for submodules after making commits within the main project, use the following command to ensure the submodules are updated to their remote repositories:
+
+```bash
+git submodule foreach git push origin main
+```
+
+This command will execute git push origin main for each configured submodule in the project. Make sure you have committed the necessary changes inside the submodules before running this command.
+
+If you want to pull the latest updates for submodules and synchronize them with the main repository, use:
+
+```bash
+git submodule foreach git pull origin main
+```
+
 ## Start Processes
 
 After initializing the submodules, start the PM2 processes using the appropriate ecosystem file for each language. Below is an example configuration for PM2:
