@@ -1,8 +1,32 @@
+version: "3.8"
+
 services:
   api1:
     build: .
+    container_name: api1
     environment:
-      - PORT=3001      
+      - DOCS_LANG=en
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.6"
+          memory: "225M"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  api2:
+    build: .
+    container_name: api2
+    environment:
+      - DOCS_LANG=ptbr
+      - PORT=3001
     ports:
       - "3001:3001"
     deploy:
@@ -10,15 +34,13 @@ services:
         limits:
           cpus: "0.6"
           memory: "225M"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  api2:
-    build: .
-    environment:
-      - PORT=3002
-    ports:
-      - "3002:3002"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.6"
-          memory: "225M"
+networks:
+  default:
+    driver: bridge
