@@ -1,0 +1,6 @@
+[submodule "en"]
+    path = docs/en
+    url = https://github.com/andrehrferreira/cmmv-docs-en.git
+[submodule "ptbr"]
+    path = docs/ptbr
+    url = https://github.com/andrehrferreira/cmmv-docs-ptbr.git
