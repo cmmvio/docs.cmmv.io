@@ -530,8 +530,6 @@ h2 code {
 }
 
 .translation-icon {
-    background-color: #1F1F22;
-    color: #FFFFFF;
     padding: 8px;
     border-radius: 50%;
     display: flex;
@@ -539,10 +537,10 @@ h2 code {
     align-items: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    margin-left: 3px;
 }
 
 .translation-icon:hover {
-    background-color: #2e3035;
     transform: scale(1.1);
 }
 
@@ -551,7 +549,6 @@ h2 code {
     position: absolute;
     top: 40px;
     left: 0;
-    color: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     padding: 10px;
@@ -566,7 +563,6 @@ h2 code {
 }
 
 .language-option a {
-    color: #FFFFFF;
     text-decoration: none;
     margin-right: 8px;
     transition: color 0.3s;
