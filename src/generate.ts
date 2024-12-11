@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import { glob } from 'glob';
@@ -292,6 +292,14 @@ class GenerateDocs {
         return cleanURL;
     }
 
+    convertToGitLink(link: string): string {
+        const lang = Config.get<string>('docs.lang', 'en');
+        return link
+            .replace('.html', '.md')
+            ?.replace('docs/', '')
+            .replace(lang + '/', lang + '/tree/main/');
+    }
+
     fixLinks(html: string): string {
         const regex = /<a([^>]*)>/gi;
         const replacement = '<a$1 target="_blank" rel="nofollow">';
@@ -434,6 +442,7 @@ class GenerateDocs {
             breadcrumb: [],
             anchors: [],
             link: file?.replace(cwd(), ''),
+            git: this.convertToGitLink(file?.replace(cwd(), '')),
             links: {},
         };
 
