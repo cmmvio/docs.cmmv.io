@@ -13,7 +13,7 @@ module.exports = {
         host: "0.0.0.0",
         port: port,        
         poweredBy: false,
-        removePolicyHeaders: false,
+        removePolicyHeaders: true,
         compress: {
             enabled: true,
             options: {
@@ -72,13 +72,13 @@ module.exports = {
             { name: "robots", content: "index,follow" },
             { name: "twitter:card", content: "summary_large_image" },
             { name: "twitter:site", content: "@cmmvjs" },
-            { name: "twitter:image", content: "https://cmmv.io/assets/social/cmmv_twittercard.png" },
+            { name: "twitter:image", content: "https://raw.githubusercontent.com/andrehrferreira/docs.cmmv.io/main/public/assets/social/cmmv_twittercard.png" },
             { name: "twitter:description", content: "CMMV (Contract Model Model View) is a revolution in web application development" },
             { property: "og:title", content: "CMMV - Minimalistic Node.js Server Framework" },
             { property: "og:description", content: "CMMV (Contract Model Model View) is a revolution in web application development" },
             { property: "og:url", content: "https://cmmv.io/" },
             { property: "og:type", content: "website" },
-            { property: "og:image", content: "https://cmmv.io/assets/social/cmmv_opengraph_card.png" },
+            { property: "og:image", content: "https://raw.githubusercontent.com/andrehrferreira/docs.cmmv.io/main/public/assets/social/cmmv_opengraph_card.png" },
             { property: "og:image:alt", content: "altText of the image" },
             { property: "og:site_name", content: "CMMV" }
         ],
@@ -91,6 +91,10 @@ module.exports = {
             { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
             { rel: "stylesheet", href: "/assets/docs.css" }            
         ]
+    },
+
+    headers: {
+        "cross-origin-resource-policy": "cross-orign"
     },
 
     scripts: [
