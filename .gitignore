@@ -55,3 +55,4 @@ docs/index*.json
 public/sitemap.xml
 docs/*.json
 docs/**/*.json
+.env
