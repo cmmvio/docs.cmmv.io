@@ -27,20 +27,7 @@ module.exports = {
                 contentSecurityPolicy: false
             }
         },
-        vite: true,
-        session: {
-            enabled: true,
-            options: {
-                sessionCookieName: process.env.SESSION_COOKIENAME || "cmmv-session",
-                secret: process.env.SESSION_SECRET || "secret",
-                resave: false,
-                saveUninitialized: false ,
-                cookie: { 
-                    secure: true,
-                    maxAge: 60000 
-                }
-            }
-        }
+        vite: true
     },
 
     i18n: {
@@ -78,7 +65,7 @@ module.exports = {
             { property: "og:description", content: "CMMV (Contract Model Model View) is a revolution in web application development" },
             { property: "og:url", content: "https://cmmv.io/" },
             { property: "og:type", content: "website" },
-            { property: "og:image", content: "https://raw.githubusercontent.com/andrehrferreira/docs.cmmv.io/main/public/assets/social/cmmv_opengraph_card.png" },
+            { property: "og:image", itemprop: "image", content: "https://raw.githubusercontent.com/andrehrferreira/docs.cmmv.io/main/public/assets/social/cmmv_opengraph_card.png" },
             { property: "og:image:alt", content: "altText of the image" },
             { property: "og:site_name", content: "CMMV" }
         ],
