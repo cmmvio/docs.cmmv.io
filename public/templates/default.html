@@ -9,6 +9,8 @@
         <slot/>
         
         <script s-attr="nonce">
+            document.body.style.display = 'none';
+
             document.addEventListener("DOMContentLoaded", function() {
                 var stylesheets = [
                     'https://cdn.jsdelivr.net/npm/@docsearch/css@3',
@@ -27,7 +29,17 @@
             
                     document.head.appendChild(link);
                 });
+
+                checkForVue();
             });
+
+            function checkForVue() {
+                if (window.Vue) {
+                    document.body.style.display = 'block';
+                } else {
+                    requestAnimationFrame(checkForVue);
+                }
+            }
         </script>
         
         <!-- Google tag (gtag.js) -->
