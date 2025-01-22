@@ -6,7 +6,7 @@ module.exports = {
     env: process.env.NODE_ENV,
 
     docs: {
-        lang: process.env.DOCS_LANG || "ptbr"
+        lang: process.env.DOCS_LANG || "en"
     },
     
     server: {
@@ -14,6 +14,8 @@ module.exports = {
         port: port,        
         poweredBy: false,
         removePolicyHeaders: true,
+        publicDirs: ["public", "public/views"],
+        render: "@cmmv/view",
         compress: {
             enabled: true,
             options: {

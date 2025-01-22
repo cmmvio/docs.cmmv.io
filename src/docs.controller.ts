@@ -18,6 +18,8 @@ export class DocsController {
 
     @Get(':item')
     async getDocHandler(@Param('item') item: string, @Response() res) {
+        console.log('aki');
+        console.log(item);
         if (index[item]) this.getDoc(index[item], res, item);
         else res.code(404).end();
     }
