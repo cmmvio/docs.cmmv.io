@@ -269,10 +269,11 @@ class GenerateDocs {
         const decodedLink = decodeURIComponent(
             link
                 .replace(process.cwd(), '')
+                .replace('.html', '')
+                .replace(/\./g, '')
                 .replace(lang + '/', '')
                 .replace('/docs/', '')
-                .replace(/\\/g, '/')
-                .replace('.html', ''),
+                .replace(/\\/g, '/'),
         );
 
         const pathParts = decodedLink.split('/');
