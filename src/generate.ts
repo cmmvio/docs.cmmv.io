@@ -119,114 +119,127 @@ class GenerateDocs {
                         .replace('docs/', '')
                         .replace(/\\/g, '/'),
                 );
-                index[this.convertLinkToCleanURL(pathFile)] =
-                    './' + file.replace(process.cwd() + '/', '');
+
+                const urlFixed = this.convertLinkToCleanURL(pathFile);
+                index[urlFixed] = './' + file.replace(process.cwd() + '/', '');
 
                 const title = this.getTitle(
                     './' + file.replace(process.cwd() + '/', ''),
                 );
 
-                indexLink[this.convertLinkToCleanURL(pathFile)] = {
-                    prev: {
-                        link: docsFiles[pointer - 1]
-                            ? this.convertLinkToCleanURL(docsFiles[pointer - 1])
-                            : '',
-                        title: docsFiles[pointer - 1]
-                            ? this.getTitle(
-                                  './' +
-                                      docsFiles[pointer - 1].replace(
-                                          process.cwd() + '/',
-                                          '',
-                                      ),
-                              )
-                            : '',
-                        desc: docsFiles[pointer - 1]
-                            ? this.getDesc(
-                                  './' +
-                                      docsFiles[pointer - 1].replace(
-                                          process.cwd() + '/',
-                                          '',
-                                      ),
-                              )
-                            : '',
-                    },
-                    next: {
-                        link: docsFiles[pointer + 1]
-                            ? this.convertLinkToCleanURL(docsFiles[pointer + 1])
-                            : '',
-                        title: docsFiles[pointer + 1]
-                            ? this.getTitle(
-                                  './' +
-                                      docsFiles[pointer + 1].replace(
-                                          process.cwd() + '/',
-                                          '',
-                                      ),
-                              )
-                            : '',
-                        desc: docsFiles[pointer + 1]
-                            ? this.getDesc(
-                                  './' +
-                                      docsFiles[pointer + 1].replace(
-                                          process.cwd() + '/',
-                                          '',
-                                      ),
-                              )
-                            : '',
-                    },
-                    meta: `
-                    <link rel="prev" href="/${docsFiles[pointer - 1] ? this.convertLinkToCleanURL(docsFiles[pointer - 1]) : ''}" />
-                    <link rel="next" href="/${docsFiles[pointer + 1] ? this.convertLinkToCleanURL(docsFiles[pointer + 1]) : ''}" />
-                    `,
-                    ldjson: JSON.stringify(
-                        {
-                            '@context': 'https://schema.org',
-                            '@type': 'WebPage',
-                            name: title,
-                            breadcrumb: {
-                                '@type': 'BreadcrumbList',
-                                itemListElement: [
-                                    {
-                                        '@type': 'ListItem',
-                                        position: 1,
-                                        name: 'Previous Page',
-                                        item:
-                                            '/' +
-                                            (docsFiles[pointer - 1]
-                                                ? this.convertLinkToCleanURL(
-                                                      docsFiles[pointer - 1],
-                                                  )
-                                                : ''),
-                                    },
-                                    {
-                                        '@type': 'ListItem',
-                                        position: 2,
-                                        name: 'Current Page',
-                                        item:
-                                            '/docs/' +
-                                            this.convertLinkToCleanURL(
-                                                pathFile,
-                                            ),
-                                    },
-                                    {
-                                        '@type': 'ListItem',
-                                        position: 3,
-                                        name: 'Next Page',
-                                        item:
-                                            '/' +
-                                            (docsFiles[pointer + 1]
-                                                ? this.convertLinkToCleanURL(
-                                                      docsFiles[pointer + 1],
-                                                  )
-                                                : ''),
-                                    },
-                                ],
-                            },
+                try {
+                    indexLink[urlFixed] = {
+                        prev: {
+                            link: docsFiles[pointer - 1]
+                                ? this.convertLinkToCleanURL(
+                                      docsFiles[pointer - 1],
+                                  )
+                                : '',
+                            title: docsFiles[pointer - 1]
+                                ? this.getTitle(
+                                      './' +
+                                          docsFiles[pointer - 1].replace(
+                                              process.cwd() + '/',
+                                              '',
+                                          ),
+                                  )
+                                : '',
+                            desc: docsFiles[pointer - 1]
+                                ? this.getDesc(
+                                      './' +
+                                          docsFiles[pointer - 1].replace(
+                                              process.cwd() + '/',
+                                              '',
+                                          ),
+                                  )
+                                : '',
                         },
-                        null,
-                        4,
-                    ),
-                    data: await this.getDocsStrutucture(file),
-                };
+                        next: {
+                            link: docsFiles[pointer + 1]
+                                ? this.convertLinkToCleanURL(
+                                      docsFiles[pointer + 1],
+                                  )
+                                : '',
+                            title: docsFiles[pointer + 1]
+                                ? this.getTitle(
+                                      './' +
+                                          docsFiles[pointer + 1].replace(
+                                              process.cwd() + '/',
+                                              '',
+                                          ),
+                                  )
+                                : '',
+                            desc: docsFiles[pointer + 1]
+                                ? this.getDesc(
+                                      './' +
+                                          docsFiles[pointer + 1].replace(
+                                              process.cwd() + '/',
+                                              '',
+                                          ),
+                                  )
+                                : '',
+                        },
+                        meta: `
+                        <link rel="prev" href="/${docsFiles[pointer - 1] ? this.convertLinkToCleanURL(docsFiles[pointer - 1]) : ''}" />
+                        <link rel="next" href="/${docsFiles[pointer + 1] ? this.convertLinkToCleanURL(docsFiles[pointer + 1]) : ''}" />
+                        `,
+                        ldjson: JSON.stringify(
+                            {
+                                '@context': 'https://schema.org',
+                                '@type': 'WebPage',
+                                name: title,
+                                breadcrumb: {
+                                    '@type': 'BreadcrumbList',
+                                    itemListElement: [
+                                        {
+                                            '@type': 'ListItem',
+                                            position: 1,
+                                            name: 'Previous Page',
+                                            item:
+                                                '/' +
+                                                (docsFiles[pointer - 1]
+                                                    ? this.convertLinkToCleanURL(
+                                                          docsFiles[
+                                                              pointer - 1
+                                                          ],
+                                                      )
+                                                    : ''),
+                                        },
+                                        {
+                                            '@type': 'ListItem',
+                                            position: 2,
+                                            name: 'Current Page',
+                                            item:
+                                                '/docs/' +
+                                                this.convertLinkToCleanURL(
+                                                    pathFile,
+                                                ),
+                                        },
+                                        {
+                                            '@type': 'ListItem',
+                                            position: 3,
+                                            name: 'Next Page',
+                                            item:
+                                                '/' +
+                                                (docsFiles[pointer + 1]
+                                                    ? this.convertLinkToCleanURL(
+                                                          docsFiles[
+                                                              pointer + 1
+                                                          ],
+                                                      )
+                                                    : ''),
+                                        },
+                                    ],
+                                },
+                            },
+                            null,
+                            4,
+                        ),
+                        data: await this.getDocsStrutucture(file),
+                    };
+                } catch (e) {
+                    console.error(e);
+                }
 
                 pointer++;
             }
@@ -290,6 +303,7 @@ class GenerateDocs {
         });
 
         const cleanURL = cleanPathParts.filter(Boolean).join('/');
+
         return cleanURL;
     }
 
@@ -509,10 +523,10 @@ class GenerateDocs {
                     : indexRaw.split('.')[0]?.trim();
                 const isDir = fs.lstatSync(fileOrDir).isDirectory();
 
-                if (index <= 0) index = 1;
+                if (index < 0) index = 0;
 
-                if (name && !strutucture.navbar[index - 1]) {
-                    strutucture.navbar[index - 1] = {
+                if (name && !strutucture.navbar[index]) {
+                    strutucture.navbar[index] = {
                         filename: fileOrDir,
                         uri: '/docs/' + this.convertLinkToCleanURL(fileOrDir),
                         isDir,
@@ -540,7 +554,7 @@ class GenerateDocs {
                                     : nameRawChildren?.trim()
                                 : indexRawChildren.split('.')[0]?.trim();
 
-                            strutucture.navbar[index - 1].children.push({
+                            strutucture.navbar[index].children.push({
                                 filename: children,
                                 uri:
                                     '/docs/' +
