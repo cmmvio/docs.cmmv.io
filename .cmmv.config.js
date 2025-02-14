@@ -43,8 +43,7 @@ module.exports = {
 
     view: {
         extractInlineScript: false,
-        minifyHTML: true,
-        vue3: true
+        minifyHTML: true
     },
 
     head: {

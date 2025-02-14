@@ -99,7 +99,29 @@
             <div
                 class="relative text-right hover:cursor-pointer group float-right" 
             >
-                <!-- include('public/views/docs/languages') -->
+                <div class="translation-widget">
+                    <div class="translation-icon text-2xl py-3 px-2 hover:text-neutral-300" title="Select Language">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div 
+                        class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-800" 
+                        style="min-width: 200px; left: -100px; z-index: 99999;"
+                    >
+                        <div class="language-option" style="padding-top: 10px;">
+                            <a href="https://pt.cmmv.io" target="_blank" style="float:left">Português (PT-BR)</a>
+                            <a href="https://github.com/cmmvio/cmmv-docs-ptbr" target="_blank" class="github-icon">
+                                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub PT-BR">
+                            </a>
+                        </div>
+                        <div class="language-option">
+                            <a href="https://cmmv.io" target="_blank" style="float:left">English (EN)</a>
+                            <a href="https://github.com/cmmvio/cmmv-docs-en" target="_blank" class="github-icon">
+                                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub EN">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
             </div>
 
             <div class="justify-between align-middle text-center mr-2 text-white flex">
@@ -184,11 +206,66 @@
             class="w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 dark:bg-gray-800 h-screen lg:block"
             :style="{ display: !navbarLoaded ? 'none' : 'block' }"
         >
-            <!-- include('public/views/docs/navbar') -->
+            <div 
+                class="p-4 select-none top-16 text-slate-700 dark:text-slate-200"
+            >
+                <div v-for="(item, key) in docs.navbar" :key="key">
+                    <div
+                        class="flex hover:text-blue-700 itemRoot"
+                        :id="item?.name.replace(/\s/, '_')"
+                        @click.stop="toggle(item.name?.replace(/\s/, '_'))"
+                    >
+                        <div class="flex flex-1 font-bold text-md cursor-pointer navbar-item">
+                            <h3 v-if="item && item?.isDir">{{ item?.name }}</h3>
+                            <span v-else>{{ item?.name }}</span>
+                        </div>
+            
+                        <div class="justify-between cursor-pointer" v-if="item?.isDir">
+                            <div v-if="navbar && navbar[item?.name.replace(/\s/, '_')] === true">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div v-else>
+                                <i class="fa-solid fa-angle-up"></i>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div
+                        v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
+                        :id="`${item?.name.replace(/\s/, '_')}_contents`"
+                        class="p-4 py-1 text-md mb-4"
+                    >
+                        <div v-for="(child) in item.children" :key="child.name">
+                            <div 
+                                class="hover:text-blue-500 p-1" 
+                                :class="{ 'text-blue-500 font-bold': isSelected(child) }"
+                                style="font-size: 10px"
+                            >
+                                <a :href="child.uri" 
+                                    class="text-base">{{ child.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="mt-16 ml-64 text-justify relative">
-            <!-- include('public/views/docs/anchors'); -->
+            <div 
+                aria-label="Anchors" 
+                class="anchor"
+                v-show="docs.anchors.length >= 3"  
+                id="anchors"
+                class="hidden lg:block"
+            >
+                <div style="margin-top: 40px;">
+                    <ul role="list" v-for="(item) in docs.anchors">
+                        <li>
+                            <a :href="`#${item.id}`" class="text-sm font-medium text-gray-500 hover:text-gray-700">{{ item.label }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
             <div 
                 class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
