@@ -27,20 +27,18 @@ class GenerateDocs {
             typographer: true,
             highlight: (str, lang) => {
                 if (lang && hljs.getLanguage(lang)) {
-                    try {
-                        return (
-                            //'<div class="code-block-container">' +
-                            '<pre><code class="hljs language-' +
-                            lang +
-                            '" lang="' +
-                            lang +
-                            '">' +
-                            hljs.highlight(str, { language: lang }).value +
-                            '</code></pre>'
-                            //'<button class="copy-code-btn" onclick="copyToClipboard(this)">Copy</button>' +
-                            //'</div>'
-                        );
-                    } catch (__) {}
+                    return (
+                        //'<div class="code-block-container">' +
+                        '<pre><code class="hljs language-' +
+                        lang +
+                        '" lang="' +
+                        lang +
+                        '">' +
+                        hljs.highlight(str, { language: lang }).value +
+                        '</code></pre>'
+                        //'<button class="copy-code-btn" onclick="copyToClipboard(this)">Copy</button>' +
+                        //'</div>'
+                    );
                 }
 
                 return `<pre><code class="hljs">${markdown.utils.escapeHtml(str)}</code></pre>`;
@@ -296,7 +294,7 @@ class GenerateDocs {
                 .replace(lang + '/', '')
                 .replace(/\d+\s*-\s*/g, '')
                 .replace(/\s+/g, '-')
-                .replace(/[^\w\-]+/g, '')
+                .replace(/[^\w-]+/g, '')
                 .toLowerCase();
 
             return cleanPart;
@@ -325,7 +323,7 @@ class GenerateDocs {
     addAnchorLinks(html: string): string {
         const headerTags = ['h1', 'h2'];
         const modifiedHtml = headerTags.reduce((html, tag) => {
-            const regex = new RegExp(`(<${tag}[^>]*>)(.*?)(<\/${tag}>)`, 'gi');
+            const regex = new RegExp(`(<${tag}[^>]*>)(.*?)(</${tag}>)`, 'gi');
             const matches = html.match(regex);
 
             if (matches) {
@@ -545,9 +543,9 @@ class GenerateDocs {
                             let basenameChildren = path.basename(children);
                             let [indexRawChildren, nameRawChildren] =
                                 basenameChildren.split('-');
-                            let indexChildren = parseInt(
+                            /*let indexChildren = parseInt(
                                 indexRawChildren.trim(),
-                            );
+                            );*/
                             let nameChildren = nameRawChildren
                                 ? nameRawChildren.includes('.')
                                     ? nameRawChildren.split('.')[0]?.trim()

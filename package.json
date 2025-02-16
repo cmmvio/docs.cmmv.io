@@ -7,7 +7,7 @@
 		"dev": "cmmv dev",
 		"start": "cmmv start",
 		"generate": "cmmv run ./src/generate.ts",
-		"lint": "eslint \"src/**/*.ts\" --fix --debug",
+		"lint": "cmmv lint",
 		"prepare": "husky"
 	},
 	"repository": {
@@ -57,27 +57,16 @@
 		"vue": "^3.5.13"
 	},
 	"devDependencies": {
-		"@cmmv/cli": "^0.5.4",
+		"@cmmv/cli": "^0.5.8",
 		"@commitlint/cli": "^19.7.1",
 		"@commitlint/config-angular": "^19.7.1",
 		"@commitlint/config-conventional": "^19.7.1",
-		"@eslint/eslintrc": "^3.2.0",
-		"@eslint/js": "^9.20.0",
-		"@swc-node/core": "^1.13.3",
-		"@swc-node/register": "^1.10.9",
-		"@swc/core": "^1.10.16",
 		"@types/chai": "^4.3.20",
 		"@types/jest": "^29.5.14",
 		"@types/mocha": "^10.0.10",
 		"@types/node": "^22.13.4",
-		"@typescript-eslint/eslint-plugin": "^8.24.0",
-		"chai": "^5.2.0",
-		"eslint-plugin-prettier": "^5.2.3",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.4.3",
-		"mocha": "^10.8.2",
-		"nodemon": "^3.1.9",
-		"prettier": "^3.5.1",
 		"typescript": "^5.7.3"
 	}
 }

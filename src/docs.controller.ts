@@ -1,5 +1,3 @@
-import * as path from 'path';
-
 import { ServiceRegistry } from '@cmmv/core';
 import { Controller, Get, Param, Response } from '@cmmv/http';
 

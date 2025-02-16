@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 import { Application } from '@cmmv/core';
 import { DefaultAdapter, DefaultHTTPModule } from '@cmmv/http';
 import { ViewModule } from '@cmmv/view';
