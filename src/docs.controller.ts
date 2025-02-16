@@ -1,5 +1,3 @@
-import * as path from 'path';
-
 import { ServiceRegistry } from '@cmmv/core';
 import { Controller, Get, Param, Response } from '@cmmv/http';
 
@@ -18,8 +16,6 @@ export class DocsController {
 
     @Get(':item')
     async getDocHandler(@Param('item') item: string, @Response() res) {
-        console.log('aki');
-        console.log(item);
         if (index[item]) this.getDoc(index[item], res, item);
         else res.code(404).end();
     }

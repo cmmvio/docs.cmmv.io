@@ -2,10 +2,10 @@ module.exports = {
     apps: [
         {
             name: "docs",
-            script: "pnpm run start",
+            script: "pnpm start",
             env: {
                 DOCS_LANG: "en",
-                PORT: 3000 
+                PORT: 3000
             }
         }
     ]
