@@ -1,5 +1,5 @@
-<div 
-    s:docs="docs" 
+<div
+    s:docs="docs"
     class="bg-gray-200 dark:bg-gray-900"
     id="app"
     v-cloak
@@ -7,79 +7,79 @@
     :style="{ display: !navbarLoaded ? 'none' : 'block' }"
 >
     <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
-        <div 
-            class="w-full mx-auto flex items-center" 
+        <div
+            class="w-full mx-auto flex items-center"
             style="background-color: transparent !important;"
         >
-            <button 
-                id="menu-toggle" 
+            <button
+                id="menu-toggle"
                 name="Navbar Button"
-                aria-label="Navbar Button" 
+                aria-label="Navbar Button"
                 class="text-slate-700 dark:text-slate-200 text-2xl p-2 lg:hidden ml-2"
             >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
             <div class="w-60">
-                <a 
-                    href="/" 
-                    title="CMMV - Contract Model Model View Framework" 
+                <a
+                    href="/"
+                    title="CMMV - Contract Model Model View Framework"
                     class="text-white ml-4 flex items-center"
                 >
                     <img src="/assets/favicon/android-chrome-192x192.png" alt="CMMV Logo" height="32" width="32">
                     <span class="ml-2 text-lg text-slate-700 dark:text-slate-200 font-semibold">CMMV</span>
                 </a>
-            </div>           
+            </div>
 
             <div class="justify-between w-full text mr-2 flex" style="background-color: transparent;">
-                <div 
+                <div
                     class="text-black dark:text-slate-50 relative text-left items-center gap-x-8 lg:flex hidden"
                     style="background-color: transparent !important;"
                 >
-                    <ul class="flex gap-x-8 items-center lg:flex">                        
+                    <ul class="flex gap-x-8 items-center lg:flex">
                         <li class="relative">
-                            <a 
-                                href="/docs/overview/first-steps" 
+                            <a
+                                href="/docs/overview/first-steps"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="Server"
                                 s-i18n="Getting Started"
                             ></a>
                         </li>
                         <li class="relative">
-                            <a 
-                                href="/docs/server/overview" 
+                            <a
+                                href="/docs/server/overview"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="Server"
                                 s-i18n="Server"
                             ></a>
                         </li>
-                        <li class="relative"> 
-                            <a 
-                                href="/docs/contracts/overview" 
+                        <li class="relative">
+                            <a
+                                href="/docs/contracts/overview"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="Contracts"
                                 s-i18n="Contracts"
                             ></a>
                         </li>
-                        <li class="relative"> 
-                            <a 
-                                href="/docs/rpc/overview" 
+                        <li class="relative">
+                            <a
+                                href="/docs/rpc/overview"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="RPC"
                                 s-i18n="RPC"
                             ></a>
                         </li>
-                        <li class="relative"> 
-                            <a 
-                                href="/docs/view/overview" 
+                        <li class="relative">
+                            <a
+                                href="/docs/view/overview"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="View"
                                 s-i18n="View"
                             ></a>
                         </li>
-                        <li class="relative"> 
-                            <a 
-                                href="https://ui.cmmv.io/" 
+                        <li class="relative">
+                            <a
+                                href="https://ui.cmmv.io/"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="UI"
                                 s-i18n="UI"
@@ -87,24 +87,24 @@
                         </li>
                     </ul>
                 </div>
-                
+
             </div>
 
-            <div 
-                class="relative text-right hover:cursor-pointer group float-right" 
+            <div
+                class="relative text-right hover:cursor-pointer group float-right"
             >
                 <div id="docsearch" class="dark"></div>
             </div>
 
             <div
-                class="relative text-right hover:cursor-pointer group float-right" 
+                class="relative text-right hover:cursor-pointer group float-right"
             >
                 <div class="translation-widget">
                     <div class="translation-icon text-2xl py-3 px-2 hover:text-neutral-300" title="Select Language">
                         <i class="fa-solid fa-globe"></i>
                     </div>
-                    <div 
-                        class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-800" 
+                    <div
+                        class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-800"
                         style="min-width: 200px; left: -100px; z-index: 99999;"
                     >
                         <div class="language-option" style="padding-top: 10px;">
@@ -121,15 +121,15 @@
                         </div>
                     </div>
                 </div>
-            
+
             </div>
 
             <div class="justify-between align-middle text-center mr-2 text-white flex">
 
                 <!-- Theme Switch Button -->
-                <a 
-                    href="#" 
-                    title="Switch Theme" 
+                <a
+                    href="#"
+                    title="Switch Theme"
                     class="text-2xl py-3 px-2 hover:text-neutral-300 translation-icon"
                     onclick="toggleTheme()"
                 >
@@ -140,12 +140,12 @@
                         <i class="fa-solid fa-sun"></i>
                     </div>
                 </a>
-            
+
                 <!-- GitHub Link -->
-                <a 
-                    href="https://github.com/cmmvio/cmmv" 
-                    title="Github" 
-                    target="_blank" 
+                <a
+                    href="https://github.com/cmmvio/cmmv"
+                    title="Github"
+                    target="_blank"
                     class="text-black dark:text-slate-50 text-2xl p-2 hover:text-neutral-300 translation-icon"
                 >
                     <i class="fa-brands fa-github"></i>
@@ -179,7 +179,7 @@
                         setTheme('dark');
                     }
                 }
-            
+
                 document.addEventListener('DOMContentLoaded', () => {
                     const storedTheme = localStorage.getItem('theme') || 'default';
                     setTheme(storedTheme);
@@ -187,11 +187,11 @@
                     const translationWidget = document.querySelector('.translation-widget');
                     const translationIcon = document.querySelector('.translation-icon');
                     const translationMenu = document.querySelector('.translation-menu');
-                
+
                     translationIcon.addEventListener('mouseover', () => {
                         translationMenu.style.display = 'block';
                     });
-                
+
                     translationWidget.addEventListener('mouseleave', () => {
                         translationMenu.style.display = 'none';
                     });
@@ -201,12 +201,12 @@
     </nav>
 
     <div class="flex flex-wrap mx-auto">
-        <div 
-            id="sidebar-menu" 
+        <div
+            id="sidebar-menu"
             class="w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 dark:bg-gray-800 h-screen lg:block"
             :style="{ display: !navbarLoaded ? 'none' : 'block' }"
         >
-            <div 
+            <div
                 class="p-4 select-none top-16 text-slate-700 dark:text-slate-200"
             >
                 <div v-for="(item, key) in docs.navbar" :key="key">
@@ -219,7 +219,7 @@
                             <h3 v-if="item && item?.isDir">{{ item?.name }}</h3>
                             <span v-else>{{ item?.name }}</span>
                         </div>
-            
+
                         <div class="justify-between cursor-pointer" v-if="item?.isDir">
                             <div v-if="navbar && navbar[item?.name.replace(/\s/, '_')] === true">
                                 <i class="fa-solid fa-angle-down"></i>
@@ -229,19 +229,19 @@
                             </div>
                         </div>
                     </div>
-            
+
                     <div
                         v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
                         :id="`${item?.name.replace(/\s/, '_')}_contents`"
                         class="p-4 py-1 text-md mb-4"
                     >
                         <div v-for="(child) in item.children" :key="child.name">
-                            <div 
-                                class="hover:text-blue-500 p-1" 
+                            <div
+                                class="hover:text-blue-500 p-1"
                                 :class="{ 'text-blue-500 font-bold': isSelected(child) }"
                                 style="font-size: 10px"
                             >
-                                <a :href="child.uri" 
+                                <a :href="child.uri"
                                     class="text-base">{{ child.name }}</a>
                             </div>
                         </div>
@@ -251,10 +251,10 @@
         </div>
 
         <div class="mt-16 ml-64 text-justify relative">
-            <div 
-                aria-label="Anchors" 
+            <div
+                aria-label="Anchors"
                 class="anchor"
-                v-show="docs.anchors.length >= 3"  
+                v-show="docs.anchors.length >= 3"
                 id="anchors"
                 class="hidden lg:block"
             >
@@ -267,7 +267,7 @@
                 </div>
             </div>
 
-            <div 
+            <div
                 class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
                 :class="{'w-full': docs?.anchors.length < 3}"
             >
@@ -275,9 +275,9 @@
                     <div s-data="docs.index" v-html="docs.index"></div>
 
                     <div class="absolute top-0 right-0">
-                        <a 
-                            :href="`https://github.com/cmmvio/cmmv-docs-${docs?.git}?plain=1`" 
-                            target="_blank" 
+                        <a
+                            :href="`https://github.com/cmmvio/cmmv-docs-${docs?.git}?plain=1`"
+                            target="_blank"
                             title="Suggest change"
                         >
                             <i class="fa-solid fa-pen-to-square fa-lg"></i>
@@ -286,13 +286,13 @@
 
                     <hr v-if="docs?.links?.prev?.link || docs?.links?.next?.link" />
 
-                    <div 
-                        class="grid gap-8 sm:grid-cols-2 footer" 
+                    <div
+                        class="grid gap-8 sm:grid-cols-2 footer"
                         v-if="docs?.links?.prev?.link || docs?.links?.next?.link"
                     >
-                        <a 
-                            v-if="docs?.links?.prev?.link" 
-                            :href="`/${docs.links.prev.link}`" 
+                        <a
+                            v-if="docs?.links?.prev?.link"
+                            :href="`/${docs.links.prev.link}`"
                             class="block px-6 py-8 border not-prose rounded-lg border-gray-600 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
                         >
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
@@ -302,9 +302,9 @@
                             <p v-if="docs?.links?.prev?.desc" class="text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2">{{ docs.links.prev.desc }}</p>
                         </a>
 
-                        <a 
-                            v-if="docs?.links?.next?.link" 
-                            :href="`/${docs.links.next.link}`" 
+                        <a
+                            v-if="docs?.links?.next?.link"
+                            :href="`/${docs.links.next.link}`"
                             class="block px-6 py-8 border not-prose rounded-lg border-gray-200 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group text-right"
                         >
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
@@ -341,8 +341,8 @@
 
 </style>
 
-<script 
-    type="application/ld+json" 
+<script
+    type="application/ld+json"
     s-data="docs.links.ldjson"
 ></script>
 
@@ -355,7 +355,7 @@
         let repoint = false;
         document.querySelectorAll('#anchors li').forEach((item, index) => {
             const target = document.querySelector(item.querySelector('a').getAttribute('href'));
-            
+
             if (target?.offsetTop >= scrollPosition && !repoint) {
                 repoint = true;
                 item.classList.add('current');
@@ -369,7 +369,10 @@
 
     function copyToClipboard(button) {
         const codeBlock = button.nextElementSibling.querySelector('code');
-        const codeText = codeBlock.textContent;
+        let codeText = codeBlock.textContent;
+
+        if(codeText.startsWith("$"))
+            codeText = codeText.replace("$ ", "");
 
         navigator.clipboard.writeText(codeText).then(() => {
             button.textContent = 'Copied!';
@@ -386,7 +389,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         const toggleButton = document.getElementById('menu-toggle');
         const sidebarMenu = document.getElementById('sidebar-menu');
-        
+
         toggleButton.addEventListener('click', () => {
             sidebarMenu.classList.toggle('show');
         });
@@ -409,14 +412,14 @@ export default {
     layout: "default",
 
     data(){
-        return { 
+        return {
             navbarLoaded: false,
-            navbar: [] 
+            navbar: []
         }
     },
 
     mounted() {
-        this.loadState();  
+        this.loadState();
     },
 
     methods: {

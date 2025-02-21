@@ -8,10 +8,10 @@ module.exports = {
     docs: {
         lang: process.env.DOCS_LANG || "en"
     },
-    
+
     server: {
         host: "0.0.0.0",
-        port: port,        
+        port: port,
         poweredBy: false,
         removePolicyHeaders: true,
         publicDirs: ["public", "public/views"],
@@ -19,7 +19,7 @@ module.exports = {
         compress: {
             enabled: true,
             options: {
-                level: 6 
+                level: 6
             }
         },
         cors: true,
@@ -75,9 +75,9 @@ module.exports = {
             { rel: 'shortcut', href: '/assets/favicon/favicon-32x32.png' },
             { rel: 'apple-touch-icon', href: '/assets/favicon/favicon-32x32.png' },
             { rel: "dns-prefetch", href: "https://cmmv.io" },
-            { rel: "preconnect", href: "https://cmmv.io" },             
-            { rel: "stylesheet", href: "/assets/tailwind.min.css" },   
-            { rel: "stylesheet", href: "/assets/docs.css" }            
+            { rel: "preconnect", href: "https://cmmv.io" },
+            { rel: "stylesheet", href: "/assets/tailwind.min.css" },
+            { rel: "stylesheet", href: "/assets/docs.css" }
         ]
     },
 
