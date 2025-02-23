@@ -6,13 +6,16 @@ import { glob } from 'glob';
 import * as fg from 'fast-glob';
 import { cwd } from 'process';
 
-import { Config } from '@cmmv/core';
+import { Config, Logger } from '@cmmv/core';
 
 class GenerateDocs {
+    private logger = new Logger('GenerateDocs');
     public languages: Array<string> = ['en', 'ptbr'];
     public defaultLanguage: string = 'en';
 
     async convertMarkdownToHTML() {
+        this.logger.verbose('Convert Markdown to HTML...');
+
         const lang = Config.get<string>('docs.lang', 'en');
 
         hljs.registerLanguage(
@@ -82,6 +85,8 @@ class GenerateDocs {
     }
 
     async generateIndex() {
+        this.logger.verbose('Generate Index...');
+
         const lang = Config.get<string>('docs.lang', 'en');
 
         const docsFiles = await glob([
@@ -413,6 +418,8 @@ class GenerateDocs {
     }
 
     async generateSitemap() {
+        this.logger.verbose('Generate Sitemap...');
+
         const lang = Config.get<string>('docs.lang', 'en');
         const docsFiles = await glob([
             `./docs/${lang}/**/*.html`,

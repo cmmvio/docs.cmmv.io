@@ -4,7 +4,7 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "cmmv build",
-		"dev": "cmmv dev",
+		"dev": "cmmv dev --debug --watch",
 		"start": "cmmv start",
 		"generate": "cmmv run ./src/generate.ts",
 		"lint": "cmmv lint",
@@ -34,21 +34,24 @@
 	"dev": {
 		"watch": [
 			"src",
-			"docs"
+			"docs",
+            ".cmmv.config.js"
 		],
 		"ignore": [
 			"**/*.spec.ts",
 			"src/app.module.ts",
 			"docs/en/**/*.html",
-            "docs/ptbr/**/*.html",
-			"docs/*/*.html"
+			"docs/ptbr/**/*.html",
+			"docs/*/*.html",
+            "docs/index.json",
+            "docs/indexLinks.json"
 		],
-        "beforeStart": "cmmv run ./src/generate.ts"
+		"beforeStart": "cmmv run ./src/generate.ts"
 	},
 	"dependencies": {
-		"@cmmv/core": "^0.8.18",
-		"@cmmv/http": "^0.8.18",
-		"@cmmv/view": "^0.8.18",
+		"@cmmv/core": "^0.8.23",
+		"@cmmv/http": "^0.8.23",
+		"@cmmv/view": "^0.8.23",
 		"dotenv": "^16.4.7",
 		"fast-glob": "^3.3.3",
 		"glob": "^11.0.1",
@@ -59,16 +62,24 @@
 		"vue": "^3.5.13"
 	},
 	"devDependencies": {
-		"@cmmv/cli": "^0.6.2",
+		"@cmmv/cli": "^0.7.4",
 		"@commitlint/cli": "^19.7.1",
 		"@commitlint/config-angular": "^19.7.1",
 		"@commitlint/config-conventional": "^19.7.1",
+		"@swc-node/register": "^1.10.9",
 		"@types/chai": "^4.3.20",
 		"@types/jest": "^29.5.14",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.13.4",
+		"@types/node": "^22.13.5",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.4.3",
 		"typescript": "^5.7.3"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@swc/core",
+			"esbuild",
+			"protobufjs"
+		]
 	}
 }
