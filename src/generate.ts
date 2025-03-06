@@ -63,6 +63,12 @@ class GenerateDocs {
                 rendered = this.injectCopyButton(rendered);
                 rendered = this.fixLinks(rendered);
                 rendered = this.addAnchorLinks(rendered);
+                rendered = rendered.replace(
+                    /<table>/g,
+                    '<div class="overflow-x-auto w-full border dark:border-neutral-800 mb-8 rounded-md my-5 mb-2"><table class="doc-table">',
+                );
+                rendered = rendered.replace(/<\/table>/g, '</table></div>');
+
                 await fs.writeFileSync(
                     file.replace('.md', '.html'),
                     rendered,

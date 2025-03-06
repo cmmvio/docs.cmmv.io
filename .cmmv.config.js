@@ -76,7 +76,6 @@ module.exports = {
             { rel: 'apple-touch-icon', href: '/assets/favicon/favicon-32x32.png' },
             { rel: "dns-prefetch", href: "https://cmmv.io" },
             { rel: "preconnect", href: "https://cmmv.io" },
-            { rel: "stylesheet", href: "/assets/tailwind.min.css" },
             { rel: "stylesheet", href: "/assets/docs.css" }
         ]
     },

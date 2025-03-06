@@ -3,11 +3,17 @@
     <head>
         <headers/>
         <script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js"></script>
+        <script src="/assets/tailwind.min.js"></script>
+        <script>
+            tailwind.config = {
+                darkMode: 'class',
+            }
+        </script>
         <scripts/>
     </head>
-    <body> 
+    <body class="bg-neutral-100 dark:bg-neutral-900">
         <slot/>
-        
+
         <script s-attr="nonce">
             document.body.style.display = 'none';
 
@@ -16,17 +22,17 @@
                     'https://cdn.jsdelivr.net/npm/@docsearch/css@3',
                     'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css'
                 ];
-            
+
                 stylesheets.forEach(function(href) {
                     var link = document.createElement('link');
                     link.rel = 'preload';
                     link.as = 'style';
                     link.href = href;
-                    
+
                     link.onload = function() {
                         this.rel = 'stylesheet';
                     };
-            
+
                     document.head.appendChild(link);
                 });
 
@@ -41,7 +47,7 @@
                 }
             }
         </script>
-        
+
         <!-- Google tag (gtag.js) -->
         <script s-attr="nonce">
             document.addEventListener("DOMContentLoaded", function() {

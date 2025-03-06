@@ -1,12 +1,12 @@
 <div
     s:docs="docs"
-    class="bg-gray-200 dark:bg-gray-900"
     id="app"
     v-cloak
     v-if="docs"
+    class="min-h-screen bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-zinc-900 dark:to-zinc-950"
     :style="{ display: !navbarLoaded ? 'none' : 'block' }"
 >
-    <nav class="navbar bg-neutral-800 h-16 top-0 w-full fixed flex z-50 shadow-lg">
+    <nav class="navbar bg-white dark:bg-zinc-800 h-16 top-0 w-full fixed flex z-40 shadow-md border-b border-neutral-200 dark:border-zinc-700 transition-all duration-300">
         <div
             class="w-full mx-auto flex items-center"
             style="background-color: transparent !important;"
@@ -100,33 +100,30 @@
                 class="relative text-right hover:cursor-pointer group float-right"
             >
                 <div class="translation-widget">
-                    <div class="translation-icon text-2xl py-3 px-2 hover:text-neutral-300" title="Select Language">
+                    <div class="translation-icon text-2xl py-3 px-2 hover:text-neutral-300 z-50 text-black dark:text-white" title="Select Language">
                         <i class="fa-solid fa-globe"></i>
                     </div>
                     <div
-                        class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-800"
+                        class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-900"
                         style="min-width: 200px; left: -100px; z-index: 99999;"
                     >
                         <div class="language-option" style="padding-top: 10px;">
                             <a href="https://pt.cmmv.io" target="_blank" style="float:left">Português (PT-BR)</a>
                             <a href="https://github.com/cmmvio/cmmv-docs-ptbr" target="_blank" class="github-icon">
-                                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub PT-BR">
+                                <i class="fa-brands fa-github"></i>
                             </a>
                         </div>
                         <div class="language-option">
                             <a href="https://cmmv.io" target="_blank" style="float:left">English (EN)</a>
                             <a href="https://github.com/cmmvio/cmmv-docs-en" target="_blank" class="github-icon">
-                                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub EN">
+                                <i class="fa-brands fa-github"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="justify-between align-middle text-center mr-2 text-white flex">
-
-                <!-- Theme Switch Button -->
                 <a
                     href="#"
                     title="Switch Theme"
@@ -160,12 +157,14 @@
 
                     if (theme === 'dark') {
                         htmlTag.classList.add('dark');
+                        htmlTag.classList.remove('light');
                         localStorage.setItem('theme', 'dark');
                         moonIcon.style.display = 'none';
                         sunIcon.style.display = 'block';
                     } else {
+                        htmlTag.classList.add('light');
                         htmlTag.classList.remove('dark');
-                        localStorage.setItem('theme', 'default');
+                        localStorage.setItem('theme', 'light');
                         moonIcon.style.display = 'block';
                         sunIcon.style.display = 'none';
                     }
@@ -174,7 +173,7 @@
                 function toggleTheme() {
                     const currentTheme = localStorage.getItem('theme');
                     if (currentTheme === 'dark') {
-                        setTheme('default');
+                        setTheme('light');
                     } else {
                         setTheme('dark');
                     }
@@ -200,18 +199,18 @@
         </div>
     </nav>
 
-    <div class="flex flex-wrap mx-auto">
+    <div class="flex flex-wrap mx-auto pt-16 relative">
         <div
             id="sidebar-menu"
-            class="w-60 fixed z-40 overflow-auto text-slate-800 leftbar bg-gray-300 dark:bg-gray-800 h-screen lg:block"
+            class="-translate-x-full lg:translate-x-0 bg-white dark:bg-zinc-800 w-72 fixed top-16 bottom-0 z-40 overflow-auto text-slate-800 pb-10 border-r border-neutral-200 dark:border-zinc-700 transition-all duration-300 ease-in-out"
             :style="{ display: !navbarLoaded ? 'none' : 'block' }"
         >
             <div
                 class="p-4 select-none top-16 text-slate-700 dark:text-slate-200"
             >
-                <div v-for="(item, key) in docs.navbar" :key="key">
+                <div v-for="(item, key) in docs.navbar" :key="key" class="mb-1">
                     <div
-                        class="flex hover:text-blue-700 itemRoot"
+                        class="flex items-center px-3 py-2.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-zinc-700/70 transition-colors duration-200 cursor-pointer group"
                         :id="item?.name.replace(/\s/, '_')"
                         @click.stop="toggle(item.name?.replace(/\s/, '_'))"
                     >
@@ -233,16 +232,16 @@
                     <div
                         v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
                         :id="`${item?.name.replace(/\s/, '_')}_contents`"
-                        class="p-4 py-1 text-md mb-4"
+                        class="py-1 pl-10 pr-3 mb-1 transition duration-200"
                     >
                         <div v-for="(child) in item.children" :key="child.name">
                             <div
-                                class="hover:text-blue-500 p-1"
+                                class="mb-1"
                                 :class="{ 'text-blue-500 font-bold': isSelected(child) }"
                                 style="font-size: 10px"
                             >
                                 <a :href="child.uri"
-                                    class="text-base">{{ child.name }}</a>
+                                    class="block py-2 px-3 rounded-md text-sm hover:bg-neutral-100 dark:hover:bg-zinc-700/50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ child.name }}</a>
                             </div>
                         </div>
                     </div>
@@ -250,15 +249,14 @@
             </div>
         </div>
 
-        <div class="mt-16 ml-64 text-justify relative">
+        <div class="w-full lg:pl-72 flex flex-col flex-1 xl:mr-0">
             <div
                 aria-label="Anchors"
-                class="anchor"
                 v-show="docs.anchors.length >= 3"
                 id="anchors"
-                class="hidden lg:block"
+                class="anchor hidden xl:block"
             >
-                <div style="margin-top: 40px;">
+                <div class="max-h-[600px] overflow-y-auto overflow-x-hidden p-2">
                     <ul role="list" v-for="(item) in docs.anchors">
                         <li>
                             <a :href="`#${item.id}`" class="text-sm font-medium text-gray-500 hover:text-gray-700">{{ item.label }}</a>
@@ -268,11 +266,11 @@
             </div>
 
             <div
-                class="lg:pl-[19.5rem] m-4 p-4 px-20 max-w-3x1 mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16"
+                class="w-full max-w-full px-4 sm:px-6 lg:px-8 py-8 mx-auto xl:pr-[16.5rem]"
                 :class="{'w-full': docs?.anchors.length < 3}"
             >
-                <div class="text-slate-800 dark:text-white relative text-white mb-20 context-html">
-                    <div s-data="docs.index" v-html="docs.index"></div>
+                <div class="text-slate-800 relative dark:text-white mb-12 context-html overflow-x-hidden text-justify">
+                    <div s-data="docs.index" v-html="docs.index" class="mb-8"></div>
 
                     <div class="absolute top-0 right-0">
                         <a
@@ -284,8 +282,6 @@
                         </a>
                     </div>
 
-                    <hr v-if="docs?.links?.prev?.link || docs?.links?.next?.link" />
-
                     <div
                         class="grid gap-8 sm:grid-cols-2 footer"
                         v-if="docs?.links?.prev?.link || docs?.links?.next?.link"
@@ -293,7 +289,7 @@
                         <a
                             v-if="docs?.links?.prev?.link"
                             :href="`/${docs.links.prev.link}`"
-                            class="block px-6 py-8 border not-prose rounded-lg border-gray-600 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
+                            class="block px-6 py-8 border not-prose rounded-lg bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100/50 dark:hover:bg-neutral-800/50 group"
                         >
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
                                 <span class="fa-solid fa-arrow-left i-ph:arrow-left w-5 h-5 text-gray-900 dark:text-white group-hover:text-primary" aria-hidden="true"></span>
@@ -305,7 +301,7 @@
                         <a
                             v-if="docs?.links?.next?.link"
                             :href="`/${docs.links.next.link}`"
-                            class="block px-6 py-8 border not-prose rounded-lg border-gray-200 dark:border-gray-800 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group text-right"
+                            class="block px-6 py-8 border not-prose rounded-lg bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100/50 dark:hover:bg-neutral-800/50 group text-right"
                         >
                             <div class="inline-flex items-center rounded-full p-1.5 bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 mb-4 group-hover:ring-primary/50">
                                 <span class="fa-solid fa-arrow-right i-ph:arrow-left w-5 h-5 text-gray-900 dark:text-white group-hover:text-primary" aria-hidden="true"></span>
@@ -335,7 +331,7 @@
 
 .toggle-enter-to,
 .toggle-leave-from {
-    max-height: 500px; /* Valor máximo para a altura expandida */
+    max-height: 500px;
     opacity: 1;
 }
 
