@@ -202,7 +202,7 @@
     <div class="flex flex-wrap mx-auto pt-16 relative">
         <div
             id="sidebar-menu"
-            class="-translate-x-full lg:translate-x-0 bg-white dark:bg-zinc-800 w-72 fixed top-16 bottom-0 z-40 overflow-auto text-slate-800 pb-10 border-r border-neutral-200 dark:border-zinc-700 transition-all duration-300 ease-in-out"
+            class="-translate-x-full lg:translate-x-0 bg-white dark:bg-zinc-800 w-72 fixed top-16 bottom-0 z-40 text-slate-800 pb-10 border-r border-neutral-200 dark:border-zinc-700 transition-all duration-300 ease-in-out"
             :style="{ display: !navbarLoaded ? 'none' : 'block' }"
         >
             <div
@@ -232,7 +232,7 @@
                     <div
                         v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
                         :id="`${item?.name.replace(/\s/, '_')}_contents`"
-                        class="py-1 pl-10 pr-3 mb-1 transition duration-200"
+                        class="py-1 pl-5 pr-3 mb-1 transition duration-200"
                     >
                         <div v-for="(child) in item.children" :key="child.name">
                             <div
@@ -318,6 +318,18 @@
 </div>
 
 <style scoped>
+#sidebar-menu {
+    overflow: hidden;
+    padding-right: 4px;
+    margin-right: -4px;
+}
+
+#sidebar-menu:hover {
+    overflow: auto;
+    padding-right: 0;
+    margin-right: 0;
+}
+
 .toggle-enter-active,
 .toggle-leave-active {
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
