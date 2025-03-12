@@ -71,14 +71,6 @@
                         </li>
                         <li class="relative">
                             <a
-                                href="/docs/view/overview"
-                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
-                                title="View"
-                                s-i18n="View"
-                            ></a>
-                        </li>
-                        <li class="relative">
-                            <a
                                 href="https://ui.cmmv.io/"
                                 class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
                                 title="UI"
@@ -138,7 +130,6 @@
                     </div>
                 </a>
 
-                <!-- GitHub Link -->
                 <a
                     href="https://github.com/cmmvio/cmmv"
                     title="Github"
@@ -210,6 +201,7 @@
             >
                 <div v-for="(item, key) in docs.navbar" :key="key" class="mb-1">
                     <div
+                        v-if="item?.name"
                         class="flex items-center px-3 py-2.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-zinc-700/70 transition-colors duration-200 cursor-pointer group"
                         :id="item?.name.replace(/\s/, '_')"
                         @click.stop="toggle(item.name?.replace(/\s/, '_'))"

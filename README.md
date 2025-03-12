@@ -67,7 +67,7 @@ module.exports = {
             script: "pnpm run start",
             env: {
                 DOCS_LANG: "ptbr",
-                PORT: 3001 
+                PORT: 3001
             }
         }
     ]
@@ -80,7 +80,7 @@ Start the PM2 process with the following command:
 pm2 start ecosystem-ptbr.config.js
 ```
 
-## NGINX 
+## NGINX
 
 The system is configured to handle languages using the `DOCS_LANG` environment variable. Each documentation process runs on an individual port and can be routed via subdomains using a load balancer like NGINX. Below is an example configuration:
 
@@ -210,49 +210,6 @@ spec:
       port: 80
       targetPort: 3001
   type: ClusterIP
-```
-
-### Kubernetes Ingress Configuration
-
-Use an ingress controller to route requests to the correct services based on subdomains:
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: docs-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-    - host: cmmv.io
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: docs-en
-                port:
-                  number: 80
-    - host: pt.cmmv.io
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: docs-ptbr
-                port:
-                  number: 80
-```
-
-Deploy the YAML files to your Kubernetes cluster:
-
-```bash
-kubectl apply -f deployment-en.yaml
-kubectl apply -f deployment-ptbr.yaml
-kubectl apply -f ingress.yaml
 ```
 
 With this setup, the English documentation will be available at `http://cmmv.io` and the Portuguese documentation at `http://pt.cmmv.io`.
