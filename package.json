@@ -49,8 +49,8 @@
 		"beforeStart": "cmmv run ./src/generate.ts"
 	},
 	"dependencies": {
-		"@cmmv/core": "^0.8.36",
-		"@cmmv/http": "^0.8.36",
+		"@cmmv/core": "latest",
+		"@cmmv/http": "latest",
 		"dotenv": "^16.4.7",
 		"fast-glob": "^3.3.3",
 		"glob": "^11.0.1",
@@ -61,7 +61,7 @@
 		"vue": "^3.5.13"
 	},
 	"devDependencies": {
-		"@cmmv/cli": "^0.7.4",
+		"@cmmv/cli": "latest",
 		"@commitlint/cli": "^19.8.0",
 		"@commitlint/config-angular": "^19.8.0",
 		"@commitlint/config-conventional": "^19.8.0",

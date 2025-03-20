@@ -69,6 +69,10 @@ class GenerateDocs {
                 );
                 rendered = rendered.replace(/<\/table>/g, '</table></div>');
 
+                const generationDate = new Date().toLocaleString('en');
+                const footer = `<footer class="generation-footer"><p>Generated on: ${generationDate}</p></footer>`;
+                rendered += footer;
+
                 await fs.writeFileSync(
                     file.replace('.md', '.html'),
                     rendered,
