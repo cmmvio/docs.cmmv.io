@@ -6,138 +6,158 @@
     class="min-h-screen bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-950"
     :style="{ display: !navbarLoaded ? 'none' : 'block' }"
 >
-    <nav class="navbar bg-white dark:bg-neutral-800 h-16 top-0 w-full fixed flex z-40 shadow-md border-b border-neutral-200 dark:border-neutral-700 transition-all duration-300">
-        <div
-            class="w-full mx-auto flex items-center"
-            style="background-color: transparent !important;"
+    <!-- Mobile header bar - fixed at top -->
+    <div
+        id="mobile-header"
+        class="fixed top-0 left-0 right-0 h-12 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 flex items-center justify-between px-4 z-50 lg:hidden"
+    >
+        <div class="flex items-center">
+            <a href="/" title="CMMV - Contract Model Model View Framework" class="flex items-center">
+                <img src="/assets/favicon/android-chrome-192x192.png" alt="CMMV Logo" height="24" width="24" class="mr-2">
+                <span class="text-lg font-semibold text-slate-700 dark:text-slate-200">CMMV</span>
+            </a>
+        </div>
+
+        <div class="flex-1 mx-4">
+
+        </div>
+
+        <button
+            aria-label="Open Menu"
+            class="text-slate-700 dark:text-slate-200 text-xl p-2"
+            @click="openMobileMenu"
         >
-            <button
-                id="menu-toggle"
-                name="Navbar Button"
-                aria-label="Navbar Button"
-                class="text-slate-700 dark:text-slate-200 text-2xl p-2 lg:hidden ml-2"
-            >
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
 
-            <div class="w-60">
-                <a
-                    href="/"
-                    title="CMMV - Contract Model Model View Framework"
-                    class="text-white ml-4 flex items-center"
-                >
-                    <img src="/assets/favicon/android-chrome-192x192.png" alt="CMMV Logo" height="32" width="32">
-                    <span class="ml-2 text-lg text-slate-700 dark:text-slate-200 font-semibold">CMMV</span>
-                </a>
-            </div>
+    <!-- Add padding to account for fixed header on mobile -->
+    <div class="pt-12 lg:pt-0"></div>
 
-            <div class="justify-between w-full text mr-2 flex" style="background-color: transparent;">
-                <div
-                    class="text-black dark:text-slate-50 relative text-left items-center gap-x-8 lg:flex hidden"
-                    style="background-color: transparent !important;"
-                >
-                    <ul class="flex gap-x-8 items-center lg:flex">
-                        <li class="relative">
-                            <a
-                                href="/docs/overview/first-steps"
-                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
-                                title="Server"
-                                s-i18n="Getting Started"
-                            ></a>
-                        </li>
-                        <li class="relative">
-                            <a
-                                href="/docs/server/overview"
-                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
-                                title="Server"
-                                s-i18n="Server"
-                            ></a>
-                        </li>
-                        <li class="relative">
-                            <a
-                                href="/docs/contracts/overview"
-                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
-                                title="Contracts"
-                                s-i18n="Contracts"
-                            ></a>
-                        </li>
-                        <li class="relative">
-                            <a
-                                href="/docs/rpc/overview"
-                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
-                                title="RPC"
-                                s-i18n="RPC"
-                            ></a>
-                        </li>
-                        <li class="relative">
-                            <a
-                                href="https://ui.cmmv.io/"
-                                class="text-sm/6 font-semibold flex items-center gap-1 hover:text-blue-700"
-                                title="UI"
-                                s-i18n="UI"
-                            ></a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- Mobile overlay -->
+    <div
+        id="mobile-overlay"
+        class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"
+        @click="closeMobileMenu"
+    ></div>
 
-            </div>
-
-            <div
-                class="relative text-right hover:cursor-pointer group float-right"
-            >
-                <div id="docsearch" class="dark"></div>
-            </div>
-
-            <div
-                class="relative text-right hover:cursor-pointer group float-right"
-            >
-                <div class="translation-widget">
-                    <div class="translation-icon text-2xl py-3 px-2 hover:text-neutral-300 z-50 text-black dark:text-white" title="Select Language">
-                        <i class="fa-solid fa-globe"></i>
-                    </div>
-                    <div
-                        class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-900"
-                        style="min-width: 200px; left: -100px; z-index: 99999;"
+    <div>
+        <div
+            id="sidebar-menu"
+            class="bg-white dark:bg-neutral-900 w-64 fixed top-0 bottom-0 z-40 text-slate-800 pb-10 border-r border-neutral-200 dark:border-neutral-700 transition-all duration-300 ease-in-out"
+            :style="{ display: !navbarLoaded ? 'none' : 'block', top: isMobile ? '' : '0' }"
+        >
+            <!-- Only show in desktop mode -->
+            <div class="border-b border-neutral-200 dark:border-neutral-700 w-full hidden lg:block">
+                <div class="flex justify-between items-center">
+                    <a
+                        href="/"
+                        title="CMMV - Contract Model Model View Framework"
+                        class="text-white ml-4 flex items-center"
                     >
-                        <div class="language-option" style="padding-top: 10px;">
-                            <a href="https://pt.cmmv.io" target="_blank" style="float:left">Português (PT-BR)</a>
-                            <a href="https://github.com/cmmvio/cmmv-docs-ptbr" target="_blank" class="github-icon">
-                                <i class="fa-brands fa-github"></i>
-                            </a>
+                        <img src="/assets/favicon/android-chrome-192x192.png" alt="CMMV Logo" height="32" width="32">
+                        <span class="p-4 text-lg text-slate-700 dark:text-slate-200 font-semibold">CMMV</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main sidebar content -->
+            <div
+                class="p-4 select-none text-slate-700 dark:text-slate-200 overflow-y-auto"
+            >
+                <div v-for="(item, key) in docs.navbar" :key="key" class="mb-1">
+                    <div
+                        v-if="item?.name"
+                        class="flex items-center px-3 py-2.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700/70 transition-colors duration-200 cursor-pointer group"
+                        :id="item?.name.replace(/\s/, '_')"
+                        @click.stop="toggle(item.name?.replace(/\s/, '_'))"
+                    >
+                        <div class="flex flex-1 font-bold text-md cursor-pointer navbar-item">
+                            <h3 v-if="item && item?.isDir">{{ item?.name }}</h3>
+                            <span v-else>{{ item?.name }}</span>
                         </div>
-                        <div class="language-option">
-                            <a href="https://cmmv.io" target="_blank" style="float:left">English (EN)</a>
-                            <a href="https://github.com/cmmvio/cmmv-docs-en" target="_blank" class="github-icon">
-                                <i class="fa-brands fa-github"></i>
-                            </a>
+
+                        <div class="justify-between cursor-pointer" v-if="item?.isDir">
+                            <div v-if="navbar && navbar[item?.name.replace(/\s/, '_')] === true">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div v-else>
+                                <i class="fa-solid fa-angle-up"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
+                        :id="`${item?.name.replace(/\s/, '_')}_contents`"
+                        class="py-1 pl-5 pr-3 mb-1 transition duration-200"
+                    >
+                        <div v-for="(child) in item.children" :key="child.name">
+                            <div
+                                class="mb-1"
+                                :class="{ 'text-blue-500 font-bold': isSelected(child) }"
+                                style="font-size: 10px"
+                            >
+                                <a :href="child.uri"
+                                    class="block py-2 px-3 rounded-md text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700/50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ child.name }}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="justify-between align-middle text-center mr-2 text-white flex">
-                <a
-                    href="#"
-                    title="Switch Theme"
-                    class="text-2xl py-3 px-2 hover:text-neutral-300 translation-icon"
-                    onclick="toggleTheme()"
+            <div class="flex justify-center">
+                <div
+                    class="relative text-right hover:cursor-pointer group float-right"
                 >
-                    <div class="text-black">
-                        <i class="fa-solid fa-moon"></i>
+                    <div class="translation-widget">
+                        <div class="translation-icon text-2xl py-3 px-2 hover:text-neutral-300 z-50 text-black dark:text-white" title="Select Language">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <div
+                            class="translation-menu text-black dark:text-white bg-white dark:bg-neutral-800"
+                            style="min-width: 200px; left: -50px; z-index: 99999;"
+                        >
+                            <div class="language-option" style="padding-top: 10px;">
+                                <a href="https://pt.cmmv.io" target="_blank" style="float:left">Português (PT-BR)</a>
+                                <a href="https://github.com/cmmvio/cmmv-docs-ptbr" target="_blank" class="github-icon">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                            <div class="language-option">
+                                <a href="https://cmmv.io" target="_blank" style="float:left">English (EN)</a>
+                                <a href="https://github.com/cmmvio/cmmv-docs-en" target="_blank" class="github-icon">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-slate-50">
-                        <i class="fa-solid fa-sun"></i>
-                    </div>
-                </a>
+                </div>
 
-                <a
-                    href="https://github.com/cmmvio/cmmv"
-                    title="Github"
-                    target="_blank"
-                    class="text-black dark:text-slate-50 text-2xl p-2 hover:text-neutral-300 translation-icon"
-                >
-                    <i class="fa-brands fa-github"></i>
-                </a>
+                <div class="justify-between align-middle text-center mr-2 text-white flex">
+                    <a
+                        href="#"
+                        title="Switch Theme"
+                        class="text-2xl py-3 px-2 hover:text-neutral-300 translation-icon"
+                        onclick="toggleTheme()"
+                    >
+                        <div class="text-black">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                        <div class="text-slate-50">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                    </a>
+
+                    <a
+                        href="https://github.com/cmmvio/cmmv"
+                        title="Github"
+                        target="_blank"
+                        class="text-black dark:text-slate-50 text-2xl p-2 hover:text-neutral-300 translation-icon"
+                    >
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
             </div>
 
             <script>
@@ -188,58 +208,6 @@
                 });
             </script>
         </div>
-    </nav>
-
-    <div class="flex flex-wrap mx-auto pt-16 relative">
-        <div
-            id="sidebar-menu"
-            class="-translate-x-full lg:translate-x-0 bg-white dark:bg-neutral-900 w-64 fixed top-16 bottom-0 z-40 text-slate-800 pb-10 border-r border-neutral-200 dark:border-neutral-700 transition-all duration-300 ease-in-out"
-            :style="{ display: !navbarLoaded ? 'none' : 'block' }"
-        >
-            <div
-                class="p-4 select-none top-16 text-slate-700 dark:text-slate-200"
-            >
-                <div v-for="(item, key) in docs.navbar" :key="key" class="mb-1">
-                    <div
-                        v-if="item?.name"
-                        class="flex items-center px-3 py-2.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700/70 transition-colors duration-200 cursor-pointer group"
-                        :id="item?.name.replace(/\s/, '_')"
-                        @click.stop="toggle(item.name?.replace(/\s/, '_'))"
-                    >
-                        <div class="flex flex-1 font-bold text-md cursor-pointer navbar-item">
-                            <h3 v-if="item && item?.isDir">{{ item?.name }}</h3>
-                            <span v-else>{{ item?.name }}</span>
-                        </div>
-
-                        <div class="justify-between cursor-pointer" v-if="item?.isDir">
-                            <div v-if="navbar && navbar[item?.name.replace(/\s/, '_')] === true">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div v-else>
-                                <i class="fa-solid fa-angle-up"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        v-if="item && item.children && item.children.length > 0 && navbar[item?.name.replace(/\s/, '_')]"
-                        :id="`${item?.name.replace(/\s/, '_')}_contents`"
-                        class="py-1 pl-5 pr-3 mb-1 transition duration-200"
-                    >
-                        <div v-for="(child) in item.children" :key="child.name">
-                            <div
-                                class="mb-1"
-                                :class="{ 'text-blue-500 font-bold': isSelected(child) }"
-                                style="font-size: 10px"
-                            >
-                                <a :href="child.uri"
-                                    class="block py-2 px-3 rounded-md text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700/50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ child.name }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="w-full lg:pl-64 flex flex-col flex-1 xl:mr-0">
             <div
@@ -258,13 +226,19 @@
             </div>
 
             <div
-                class="w-full max-w-full px-4 sm:px-6 lg:px-8 py-8 mx-auto xl:pr-[16.5rem]"
+                class="w-full max-w-full px-4 sm:px-6 lg:px-8 py-4 mx-auto xl:pr-[16.5rem]"
                 :class="{'w-full': docs?.anchors.length < 3}"
             >
                 <div class="text-slate-800 relative dark:text-white mb-12 context-html overflow-x-hidden text-justify">
+                    <div
+                        class="relative text-right hover:cursor-pointer group float-right mr-10"
+                    >
+                        <div id="docsearch" class="dark" style="display: none;"></div>
+                    </div>
+
                     <div s-data="docs.index" v-html="docs.index" class="mb-8"></div>
 
-                    <div class="absolute top-0 right-0">
+                    <div class="absolute top-2 right-2">
                         <a
                             :href="`https://github.com/cmmvio/cmmv-docs-${docs?.git}?plain=1`"
                             target="_blank"
@@ -339,6 +313,18 @@
     opacity: 1;
 }
 
+#sidebar-menu.show {
+    transform: translateX(0);
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Mobile Header Styles */
+#mobile-header {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 </style>
 
 <script
@@ -387,15 +373,6 @@
     window.addEventListener('scroll', updateCurrent);
 
     window.addEventListener('DOMContentLoaded', () => {
-        const toggleButton = document.getElementById('menu-toggle');
-        const sidebarMenu = document.getElementById('sidebar-menu');
-
-        toggleButton.addEventListener('click', () => {
-            sidebarMenu.classList.toggle('show');
-        });
-
-        updateCurrent();
-
         docsearch({
             container: '#docsearch',
             appId: '14HMKEKZ2B',
@@ -414,15 +391,29 @@ export default {
     data(){
         return {
             navbarLoaded: false,
-            navbar: []
+            navbar: [],
+            isMobile: false
         }
     },
 
     mounted() {
         this.loadState();
+        this.checkIfMobile();
+
+        // Add event listener for window resize
+        window.addEventListener('resize', this.checkIfMobile);
+    },
+
+    beforeUnmount() {
+        // Clean up event listener
+        window.removeEventListener('resize', this.checkIfMobile);
     },
 
     methods: {
+        checkIfMobile() {
+            this.isMobile = window.innerWidth < 1024; // 1024px is the lg breakpoint
+        },
+
         isSelected(item) {
             if (!item || !item.uri) return false;
             return window.location.href.includes(item.uri);
@@ -443,6 +434,33 @@ export default {
             currentState[itemName] = !currentState[itemName];
             this.saveState(currentState);
             this.navbar[itemName] = currentState[itemName];
+        },
+
+        // Mobile menu methods
+        openMobileMenu() {
+            const sidebarMenu = document.getElementById('sidebar-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+
+            sidebarMenu.classList.add('show');
+            mobileOverlay.classList.remove('hidden');
+            document.body.classList.add('menu-open');
+        },
+
+        closeMobileMenu() {
+            const sidebarMenu = document.getElementById('sidebar-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+
+            sidebarMenu.classList.remove('show');
+            mobileOverlay.classList.add('hidden');
+            document.body.classList.remove('menu-open');
+        },
+
+        // Mobile search activation
+        activateMobileSearch() {
+            // Connect to the docsearch functionality
+            if (window.docsearch) {
+                window.docsearch.autocomplete.open();
+            }
         }
     }
 }

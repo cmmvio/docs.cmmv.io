@@ -2,12 +2,17 @@
 <html lang="en" class="dark">
     <head>
         <headers/>
-        <script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js"></script>
-        <script src="/assets/tailwind.min.js"></script>
+        <script src="/assets/tailwind.min.js" async></script>
         <script>
-            tailwind.config = {
-                darkMode: 'class',
-            }
+            const persistentDarkmode = setInterval(() => {
+                if(tailwind){
+                    clearInterval(persistentDarkmode);
+
+                    tailwind.config = {
+                        darkMode: 'class',
+                    }
+                }
+            }, 100);
         </script>
         <scripts/>
     </head>
@@ -15,54 +20,51 @@
         <slot/>
 
         <script s-attr="nonce">
-            document.body.style.display = 'none';
-
             document.addEventListener("DOMContentLoaded", function() {
-                var stylesheets = [
-                    'https://cdn.jsdelivr.net/npm/@docsearch/css@3',
-                    'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css'
-                ];
+                setTimeout(() => {
+                    var stylesheets = [
+                        'https://cdn.jsdelivr.net/npm/@docsearch/css@3',
+                        'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css'
+                    ];
 
-                stylesheets.forEach(function(href) {
-                    var link = document.createElement('link');
-                    link.rel = 'preload';
-                    link.as = 'style';
-                    link.href = href;
+                    stylesheets.forEach(function(href) {
+                        var link = document.createElement('link');
+                        link.rel = 'preload';
+                        link.as = 'style';
+                        link.href = href;
 
-                    link.onload = function() {
-                        this.rel = 'stylesheet';
-                    };
+                        link.onload = function() {
+                            this.rel = 'stylesheet';
+                        };
 
-                    document.head.appendChild(link);
-                });
+                        document.head.appendChild(link);
+                    });
 
-                checkForVue();
+                    document.getElementById("docsearch").style.display = "block"
+
+                    checkForVue();
+                }, 5000)
             });
-
-            function checkForVue() {
-                if (window.Vue) {
-                    document.body.style.display = 'block';
-                } else {
-                    requestAnimationFrame(checkForVue);
-                }
-            }
         </script>
 
         <!-- Google tag (gtag.js) -->
         <script s-attr="nonce">
             document.addEventListener("DOMContentLoaded", function() {
-                var script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://googletagmanager.com/gtag/js?id=G-FQLSJYH3LD';
-                document.head.appendChild(script);
+                setTimeout(() => {
+                    var script = document.createElement('script');
+                    script.async = true;
+                    script.src = 'https://googletagmanager.com/gtag/js?id=G-FQLSJYH3LD';
+                    document.head.appendChild(script);
 
-                script.onload = function() {
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-FQLSJYH3LD');
-                };
+                    script.onload = function() {
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-FQLSJYH3LD');
+                    };
+                }, 5000)
             });
         </script>
+        <script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js" defer></script>
     </body>
 </html>
