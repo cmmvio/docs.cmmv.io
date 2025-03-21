@@ -6,7 +6,7 @@ module.exports = {
     env: process.env.NODE_ENV,
 
     docs: {
-        lang: process.env.DOCS_LANG || "ptbr"
+        lang: process.env.DOCS_LANG || "en"
     },
 
     server: {
