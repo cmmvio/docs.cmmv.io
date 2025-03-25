@@ -14,6 +14,7 @@
                 }
             }, 100);
         </script>
+        <script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js" defer></script>
         <scripts/>
     </head>
     <body class="bg-neutral-100 dark:bg-neutral-900">
@@ -21,29 +22,25 @@
 
         <script s-attr="nonce">
             document.addEventListener("DOMContentLoaded", function() {
-                setTimeout(() => {
-                    var stylesheets = [
-                        'https://cdn.jsdelivr.net/npm/@docsearch/css@3',
-                        'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css'
-                    ];
+                var stylesheets = [
+                    'https://cdn.jsdelivr.net/npm/@docsearch/css@3',
+                    'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css'
+                ];
 
-                    stylesheets.forEach(function(href) {
-                        var link = document.createElement('link');
-                        link.rel = 'preload';
-                        link.as = 'style';
-                        link.href = href;
+                stylesheets.forEach(function(href) {
+                    var link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'style';
+                    link.href = href;
 
-                        link.onload = function() {
-                            this.rel = 'stylesheet';
-                        };
+                    link.onload = function() {
+                        this.rel = 'stylesheet';
+                    };
 
-                        document.head.appendChild(link);
-                    });
+                    document.head.appendChild(link);
+                });
 
-                    document.getElementById("docsearch").style.display = "block"
-
-                    checkForVue();
-                }, 5000)
+                document.getElementById("docsearch").style.display = "block"
             });
         </script>
 
@@ -62,9 +59,8 @@
                         gtag('js', new Date());
                         gtag('config', 'G-FQLSJYH3LD');
                     };
-                }, 5000)
+                }, 1000)
             });
         </script>
-        <script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js" defer></script>
     </body>
 </html>

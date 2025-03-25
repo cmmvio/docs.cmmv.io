@@ -46,6 +46,12 @@ module.exports = {
         minifyHTML: true
     },
 
+    throttler: {
+        limit: 100,
+        ttl: 60,
+        gcInterval: 60
+    },
+
     head: {
         title: "Documentation | CMMV - A minimalistic Node.js framework",
         htmlAttrs: {
