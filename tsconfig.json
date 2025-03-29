@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-		"moduleResolution": "node",
+        "moduleResolution": "node",
         "declaration": true,
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "target": "ES6",
+        "target": "ESNext",
         "sourceMap": true,
         "outDir": "dist",
         "baseUrl": ".",
@@ -26,9 +26,10 @@
         "noImplicitThis": true,
         "useDefineForClassFields": true,
         "allowJs": false,
+        "strict": true,
         "lib": ["esnext", "dom"],
-        "types": ["node", "mocha"],
+        "types": ["node"]
     },
-    "include": ["packages/**/*", "src/**/*.ts",],
-    "exclude": ["node_modules", "dist", "**/*.spec.ts"]
+    "include": ["packages/**/*", "src/**/*.ts", ".generated/**/*.ts"],
+    "exclude": ["node_modules", "dist", "src/protos", "**/*.spec.ts"]
 }

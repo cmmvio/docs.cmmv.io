@@ -4,7 +4,7 @@ import * as MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import { glob } from 'glob';
 import * as fg from 'fast-glob';
-import { cwd } from 'process';
+import { cwd } from 'node:process';
 
 import { Config, Logger } from '@cmmv/core';
 
