@@ -30,6 +30,6 @@
         "lib": ["esnext", "dom"],
         "types": ["node"]
     },
-    "include": ["packages/**/*", "src/**/*.ts", ".generated/**/*.ts"],
+    "include": ["src/**/*.ts"],
     "exclude": ["node_modules", "dist", "src/protos", "**/*.spec.ts"]
 }
