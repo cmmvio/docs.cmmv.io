@@ -29,7 +29,7 @@
     >
         <div class="flex flex-col items-center justify-center h-full">
             <div class="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-            <div class="mt-4 text-lg text-neutral-800 dark:text-neutral-200 font-medium">Loading CMMV Documentation...</div>
+            <div class="mt-4 text-lg text-neutral-800 dark:text-neutral-200 font-medium">Loading...</div>
             <div class="text-xs text-neutral-500 mt-2">Initializing application...</div>
         </div>
     </div>
@@ -200,7 +200,6 @@
             </div>
         </div>
 
-        <!-- Nova seção de Contract-First -->
         <div class="py-16 container m-auto">
             <div class="container mx-auto px-4 max-w-6xl">
                 <div class="text-center max-w-3xl mx-auto mb-16">
@@ -332,7 +331,6 @@
             </div>
         </div>
 
-        <!-- Quick Start Section (substituindo o Simple and Intuitive) -->
         <div class="py-16 bg-white dark:bg-neutral-900 border-y border-neutral-200 dark:border-neutral-800">
             <div class="container mx-auto px-4 max-w-6xl text-center">
                 <h2 class="text-3xl font-bold mb-8 text-neutral-800 dark:text-white">Get Started in Seconds</h2>
@@ -393,7 +391,6 @@
                 localStorage.setItem('theme', currentTheme);
             }
 
-            // Check for saved theme preference
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
             } else {
@@ -404,22 +401,20 @@
                 const tabButtons = document.querySelectorAll('.tab-button');
                 const tabPanes = document.querySelectorAll('.tab-pane');
                 const tabContainer = document.querySelector('.tab-container');
-                document.getElementById('initialLoading').style.display = 'none';
-                document.getElementById('content').style.display = '';
+
+                setTimeout(() => {
+                    document.getElementById('initialLoading').style.display = 'none';
+                    document.getElementById('content').style.display = '';
+                }, 300);
 
                 tabButtons.forEach(button => {
                     button.addEventListener('click', () => {
                         const tabNumber = button.getAttribute('data-tab-number');
                         const tabId = button.getAttribute('data-tab');
-
-                        // Update active tab
                         tabContainer.style.setProperty('--active-tab', tabNumber);
-
-                        // Update button states
                         tabButtons.forEach(btn => btn.classList.remove('active'));
                         button.classList.add('active');
 
-                        // Update content
                         tabPanes.forEach(pane => {
                             if (pane.getAttribute('data-tab') === tabId) {
                                 pane.classList.remove('hidden');
